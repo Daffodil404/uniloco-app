@@ -1,197 +1,157 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
-  const [activeTab, setActiveTab] = useState('home');
+export default function SplashPage() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const router = useRouter();
+
+  useEffect(() => {
+    // 记录访问状态
+    localStorage.setItem('uniloco-splash-visited', 'true');
+    
+    // 模拟加载过程
+    const timer1 = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300);
+
+    const timer2 = setTimeout(() => {
+      setShowContent(true);
+    }, 600);
+
+    // 进度条动画
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 50);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearInterval(progressInterval);
+    };
+  }, []);
+
+  const handleEnterApp = () => {
+    router.push('/home');
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      {/* 顶部导航栏 */}
-      <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200/50">
-        <div className="px-4 py-3">
-          <h1 className="text-xl font-bold text-gray-900">UniLoco</h1>
-          <p className="text-sm text-gray-500">Web3旅行故事平台</p>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center relative overflow-hidden">
+      {/* 动态背景 */}
+      <div className="absolute inset-0">
+        {/* 星空效果 */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:20px_20px] animate-pulse"></div>
+        
+        {/* 浮动光球 */}
+        <div className="absolute top-1/4 left-1/4 w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-float opacity-60 blur-sm"></div>
+        <div className="absolute top-3/4 right-1/4 w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-float opacity-60 blur-sm" style={{ animationDelay: '1.5s' }}></div>
+        <div className="absolute top-1/2 left-3/4 w-4 h-4 bg-gradient-to-r from-pink-400 to-red-400 rounded-full animate-float opacity-60 blur-sm" style={{ animationDelay: '3s' }}></div>
+        
+        {/* 渐变光效 */}
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-white/5 to-transparent animate-pulse"></div>
+        
+        {/* 动态波浪 */}
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white/10 to-transparent"></div>
+      </div>
 
-      {/* 主要内容区域 */}
-      <main className="px-4 py-6">
-        {/* 欢迎卡片 */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm p-6 mb-6 border border-gray-200/50">
-          <div className="text-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-2xl mb-3">
-              🧭
-            </div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
-              欢迎来到 UniLoco
-            </h2>
-            <p className="text-gray-600 text-sm">
-              开始你的游戏化旅行冒险
-            </p>
+      {/* 主要内容 */}
+      <div className="relative z-10 text-center px-8 max-w-sm mx-auto">
+        {/* Logo 容器 */}
+        <div className={`mb-12 transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}>
+          <div className="w-32 h-32 bg-gradient-to-br from-white/25 to-white/10 backdrop-blur-xl rounded-3xl flex items-center justify-center mx-auto mb-8 border border-white/30 shadow-2xl relative overflow-hidden">
+            {/* Logo 背景光效 */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-pink-400/20 animate-pulse"></div>
+            <span className="text-6xl relative z-10 animate-bounce" style={{ animationDuration: '2s' }}>🧭</span>
           </div>
         </div>
 
-        {/* 功能导航 */}
-        <div className="space-y-4">
-          {/* AI旅途生成 */}
-          <Link href="/ai-chat">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
-                  🤖
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">AI旅途生成</h3>
-                  <p className="text-sm opacity-90">AI助手为你创建专属藏宝图</p>
-                </div>
-                <div className="text-2xl">→</div>
-              </div>
-            </div>
-          </Link>
-
-          {/* 旅途脚本书架 */}
-          <Link href="/bookshelf">
-            <div className="bg-gradient-to-r from-green-500 to-teal-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
-                  📚
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">旅途脚本书架</h3>
-                  <p className="text-sm opacity-90">探索精选旅行故事和路线</p>
-                </div>
-                <div className="text-2xl">→</div>
-              </div>
-            </div>
-          </Link>
-
-          {/* 我的旅程 */}
-          <Link href="/my-journeys">
-            <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
-                  🗺️
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">我的旅程</h3>
-                  <p className="text-sm opacity-90">查看和管理你的旅行记录</p>
-                </div>
-                <div className="text-2xl">→</div>
-              </div>
-            </div>
-          </Link>
-
-          {/* 社区探索 */}
-          <Link href="/community">
-            <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
-                  👥
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">社区探索</h3>
-                  <p className="text-sm opacity-90">发现其他旅行者的精彩故事</p>
-                </div>
-                <div className="text-2xl">→</div>
-              </div>
-            </div>
-          </Link>
+        {/* 品牌名称 - 艺术字体效果 */}
+        <div className={`mb-8 transition-all duration-1000 delay-200 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h1 className="text-6xl font-black mb-4 tracking-tight relative">
+            <span className="artistic-text-glow">
+              UniLoco
+            </span>
+          </h1>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-full mx-auto shadow-lg"></div>
         </div>
 
-        {/* 特性介绍 */}
-        <div className="mt-8 space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">平台特色</h3>
-          
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-blue-600 text-sm font-semibold">AI</span>
-              </div>
-              <h4 className="font-medium text-gray-900 mb-1">智能规划</h4>
-              <p className="text-xs text-gray-600">AI助手为你定制专属路线</p>
-            </div>
+        {/* 主 Slogan */}
+        <div className={`mb-8 transition-all duration-1000 delay-400 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className="text-3xl font-bold text-white mb-4 leading-tight">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300 drop-shadow-lg">
+              Every Journey
+            </span>
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300 drop-shadow-lg">
+              Tells a Story
+            </span>
+          </p>
+          <p className="text-base text-white/90 font-medium leading-relaxed">
+            AI-powered travel adventures that transform your experiences into unforgettable stories
+          </p>
+        </div>
 
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50">
-              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-green-600 text-sm font-semibold">🎮</span>
-              </div>
-              <h4 className="font-medium text-gray-900 mb-1">游戏化</h4>
-              <p className="text-xs text-gray-600">打卡任务和奖励系统</p>
-            </div>
+        {/* 进度条 */}
+        <div className={`mb-8 transition-all duration-1000 delay-600 ease-out ${showContent ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="w-full bg-white/20 rounded-full h-3 mb-4 overflow-hidden shadow-inner">
+            <div 
+              className="h-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-full transition-all duration-300 ease-out shadow-lg"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+          <p className="text-sm text-white/70 font-medium">
+            Preparing your adventure... {progress}%
+          </p>
+        </div>
 
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50">
-              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-purple-600 text-sm font-semibold">🌐</span>
-              </div>
-              <h4 className="font-medium text-gray-900 mb-1">Web3</h4>
-              <p className="text-xs text-gray-600">NFT头像和代币奖励</p>
-            </div>
-
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50">
-              <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-orange-600 text-sm font-semibold">📱</span>
-              </div>
-              <h4 className="font-medium text-gray-900 mb-1">移动优先</h4>
-              <p className="text-xs text-gray-600">专为移动端优化设计</p>
-            </div>
+        {/* 特色标签 */}
+        <div className={`transition-all duration-1000 delay-800 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex justify-center gap-4 flex-wrap">
+            <span className="px-5 py-3 bg-gradient-to-r from-blue-500/40 to-purple-500/40 backdrop-blur-sm rounded-full text-sm font-bold text-white border border-white/30 shadow-lg">
+              🤖 AI-Powered
+            </span>
+            <span className="px-5 py-3 bg-gradient-to-r from-purple-500/40 to-pink-500/40 backdrop-blur-sm rounded-full text-sm font-bold text-white border border-white/30 shadow-lg">
+              🎮 Gamified
+            </span>
+            <span className="px-5 py-3 bg-gradient-to-r from-pink-500/40 to-red-500/40 backdrop-blur-sm rounded-full text-sm font-bold text-white border border-white/30 shadow-lg">
+              🌐 Web3 Ready
+            </span>
           </div>
         </div>
-      </main>
 
-      {/* 底部导航 */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-gray-200/50 px-4 py-2">
-        <div className="flex justify-around">
-          <button 
-            className={`flex flex-col items-center py-2 px-4 rounded-lg transition-all duration-200 ${
-              activeTab === 'home' 
-                ? 'text-blue-600 bg-blue-50' 
-                : 'text-gray-400 hover:text-gray-600'
-            }`}
-            onClick={() => setActiveTab('home')}
+        {/* 手动进入按钮 */}
+        <div className={`mt-8 transition-all duration-1000 delay-1000 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <button
+            onClick={handleEnterApp}
+            className="px-8 py-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white/30 backdrop-blur-sm"
           >
-            <span className="text-lg">🏠</span>
-            <span className="text-xs">首页</span>
-          </button>
-          
-          <button 
-            className={`flex flex-col items-center py-2 px-4 rounded-lg transition-all duration-200 ${
-              activeTab === 'ai' 
-                ? 'text-purple-600 bg-purple-50' 
-                : 'text-gray-400 hover:text-gray-600'
-            }`}
-            onClick={() => setActiveTab('ai')}
-          >
-            <span className="text-lg">🤖</span>
-            <span className="text-xs">AI助手</span>
-          </button>
-          
-          <button 
-            className={`flex flex-col items-center py-2 px-4 rounded-lg transition-all duration-200 ${
-              activeTab === 'bookshelf' 
-                ? 'text-green-600 bg-green-50' 
-                : 'text-gray-400 hover:text-gray-600'
-            }`}
-            onClick={() => setActiveTab('bookshelf')}
-          >
-            <span className="text-lg">📚</span>
-            <span className="text-xs">书架</span>
-          </button>
-          
-          <button 
-            className={`flex flex-col items-center py-2 px-4 rounded-lg transition-all duration-200 ${
-              activeTab === 'profile' 
-                ? 'text-orange-600 bg-orange-50' 
-                : 'text-gray-400 hover:text-gray-600'
-            }`}
-            onClick={() => setActiveTab('profile')}
-          >
-            <span className="text-lg">👤</span>
-            <span className="text-xs">我的</span>
+            🚀 Enter Adventure
           </button>
         </div>
-      </footer>
+      </div>
+
+      {/* 底部版权信息 */}
+      <div className="absolute bottom-8 left-0 right-0 text-center">
+        <div className={`transition-all duration-1000 delay-1200 ease-out ${showContent ? 'opacity-100' : 'opacity-0'}`}>
+          <p className="text-xs text-white/50 font-light">
+            © 2024 UniLoco. Crafting digital adventures.
+          </p>
+        </div>
+      </div>
+
+      {/* 版本信息 */}
+      <div className="absolute top-8 left-6">
+        <span className="text-xs text-white/40 font-light">v1.0.0</span>
+      </div>
     </div>
   );
 }
