@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import CitySearch from '@/components/ui/CitySearch';
+import DurationSlider from '@/components/ui/DurationSlider';
 
 interface Question {
   id: string;
@@ -8,42 +10,45 @@ interface Question {
   subtitle: string;
   options: string[];
   key: string;
+  type?: 'city-search' | 'duration-slider' | 'default';
 }
 
 const questions: Question[] = [
   {
     id: 'destination',
-    title: '你想去哪里？',
-    subtitle: '选择一个让你心动的地方',
-    options: ['东京', '巴黎', '京都', '威尼斯', '巴厘岛', '圣托里尼', '纽约', '伦敦'],
-    key: 'destination'
+    title: 'Where do you want to go?',
+    subtitle: 'Choose a destination that excites you',
+    options: ['Tokyo', 'Paris', 'Kyoto', 'Venice', 'Bali', 'Santorini', 'New York', 'London'],
+    key: 'destination',
+    type: 'city-search'
   },
   {
     id: 'duration',
-    title: '你计划几天？',
-    subtitle: '根据时间安排行程',
-    options: ['1-3天', '4-7天', '8-14天', '15天以上'],
-    key: 'duration'
+    title: 'How many days do you plan?',
+    subtitle: 'Plan your itinerary based on time',
+    options: ['1-3 days', '4-7 days', '8-14 days', '15+ days'],
+    key: 'duration',
+    type: 'duration-slider'
   },
   {
     id: 'food',
-    title: '你喜欢什么美食？',
-    subtitle: '美食是旅行的重要部分',
-    options: ['当地特色', '米其林餐厅', '街边小吃', '素食', '海鲜', '甜点'],
+    title: 'What cuisine do you prefer?',
+    subtitle: 'Food is an essential part of travel',
+    options: ['Local specialties', 'Michelin restaurants', 'Street food', 'Vegetarian', 'Seafood', 'Desserts'],
     key: 'food'
   },
   {
     id: 'companion',
-    title: '你和谁一起旅行？',
-    subtitle: '不同的旅伴需要不同的安排',
-    options: ['独自旅行', '情侣', '朋友', '家庭', '团队'],
+    title: 'Who are you traveling with?',
+    subtitle: 'Different companions need different arrangements',
+    options: ['Solo travel', 'Couple', 'Friends', 'Family', 'Group'],
     key: 'companion'
   },
   {
     id: 'atmosphere',
-    title: '你在寻找什么氛围？',
-    subtitle: '选择你想要的旅行体验',
-    options: ['浪漫', '历史', '放松', '冒险', '文化', '小众'],
+    title: 'What atmosphere are you seeking?',
+    subtitle: 'Choose your desired travel experience',
+    options: ['Romantic', 'Historical', 'Relaxing', 'Adventure', 'Cultural', 'Offbeat'],
     key: 'atmosphere'
   }
 ];
@@ -51,21 +56,29 @@ const questions: Question[] = [
 export default function AIChatPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [selectedCity, setSelectedCity] = useState<any>(null);
+  const [selectedDuration, setSelectedDuration] = useState<any>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+  const [autoAdvanceTimer, setAutoAdvanceTimer] = useState<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentQuestion = questions[currentIndex];
   const progress = ((currentIndex + 1) / questions.length) * 100;
 
-  const handleOptionSelect = (option: string) => {
-    setAnswers(prev => ({
-      ...prev,
-      [currentQuestion.key]: option
-    }));
+  // 清除自动跳转定时器
+  const clearAutoAdvanceTimer = () => {
+    if (autoAdvanceTimer) {
+      clearTimeout(autoAdvanceTimer);
+      setAutoAdvanceTimer(null);
+    }
+  };
 
-    // 添加选择动画
-    setTimeout(() => {
+  // 通用自动跳转函数
+  const autoAdvance = (delay: number = 1500) => {
+    clearAutoAdvanceTimer();
+    
+    const timer = setTimeout(() => {
       if (currentIndex < questions.length - 1) {
         setSlideDirection('left');
         setTimeout(() => {
@@ -76,10 +89,53 @@ export default function AIChatPage() {
         // 所有问题已回答，开始生成
         generatePlan();
       }
-    }, 200);
+    }, delay);
+    
+    setAutoAdvanceTimer(timer);
+  };
+
+  // 组件卸载时清理定时器
+  useEffect(() => {
+    return () => {
+      clearAutoAdvanceTimer();
+    };
+  }, []);
+
+  const handleOptionSelect = (option: string) => {
+    setAnswers(prev => ({
+      ...prev,
+      [currentQuestion.key]: option
+    }));
+
+    // 添加选择动画和自动跳转
+    autoAdvance();
+  };
+
+  const handleCitySelect = (city: any) => {
+    setSelectedCity(city);
+    setAnswers(prev => ({
+      ...prev,
+      destination: city.name
+    }));
+
+    // 城市选择后延迟跳转
+    autoAdvance(2000); // 给用户更多时间查看选择结果
+  };
+
+  const handleDurationSelect = (duration: any) => {
+    setSelectedDuration(duration);
+    setAnswers(prev => ({
+      ...prev,
+      duration: duration.label
+    }));
+
+    // 滑块选择后延迟跳转，给用户时间调整
+    autoAdvance(2500); // 滑块交互需要更多时间
   };
 
   const handlePrevious = () => {
+    clearAutoAdvanceTimer(); // 清除自动跳转
+    
     if (currentIndex > 0) {
       setSlideDirection('right');
       setTimeout(() => {
@@ -102,89 +158,102 @@ export default function AIChatPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
       {/* 顶部导航 */}
       <header className="relative z-20 px-6 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
           <button 
             onClick={() => window.history.back()}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+            className="text-white hover:text-white/80 transition-colors text-lg font-medium"
           >
-            ←
+            ← Back
           </button>
-          <div className="text-center">
-            <h1 className="text-lg font-semibold text-white">AI行程规划</h1>
-            <p className="text-xs text-white/80">创建专属旅行计划</p>
+          <div className="flex-1 text-center">
+            <h1 className="text-lg font-semibold text-white">AI Travel Planner</h1>
+            <p className="text-xs text-white/80">Create your personalized journey</p>
           </div>
-          <div className="w-10 h-10"></div>
         </div>
       </header>
 
       {/* 进度条 */}
       <div className="px-6 mb-8">
-        <div className="flex items-center justify-between text-white/80 text-sm mb-2">
-          <span>进度</span>
+        <div className="flex items-center justify-between text-white/80 text-sm mb-3">
+          <span>Progress</span>
           <span>{currentIndex + 1} / {questions.length}</span>
         </div>
-        <div className="w-full bg-white/20 rounded-full h-1">
+        <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
           <div 
-            className="bg-white h-1 rounded-full transition-all duration-500 ease-out"
+            className="bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] h-2 rounded-full transition-all duration-700 ease-out shadow-lg"
             style={{ width: `${progress}%` }}
           />
         </div>
       </div>
 
-             {/* 问题卡片容器 */}
-       <div className="flex-1 px-6 relative overflow-hidden">
-         <div 
-           ref={containerRef}
-           className={`transition-all duration-300 ease-out ${
-             slideDirection === 'left' ? 'translate-x-[-100%]' : 
-             slideDirection === 'right' ? 'translate-x-[100%]' : 'translate-x-0'
-           }`}
-         >
-           {/* 问题卡片 */}
-           <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-8 border border-white/10 shadow-2xl">
-             {/* 问题序号 */}
-             <div className="flex items-center justify-center mb-6">
-               <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                 <span className="text-white font-bold text-lg">{currentIndex + 1}</span>
-               </div>
-             </div>
+      {/* 问题卡片容器 */}
+      <div className="flex-1 px-6 relative overflow-hidden">
+        <div 
+          ref={containerRef}
+          className={`transition-all duration-300 ease-out ${
+            slideDirection === 'left' ? 'translate-x-[-100%]' : 
+            slideDirection === 'right' ? 'translate-x-[100%]' : 'translate-x-0'
+          }`}
+        >
+          {/* 问题卡片 */}
+          <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/10 shadow-2xl min-h-[520px] flex flex-col">
+            {/* 问题序号 */}
+            <div className="flex items-center justify-center mb-6">
+              <div className="px-4 py-2 bg-white/20 rounded-full">
+                <span className="text-white font-bold text-lg">{currentIndex + 1} / {questions.length}</span>
+              </div>
+            </div>
 
-             <div className="text-center mb-8">
-               <h2 className="text-2xl font-bold text-white mb-2">
-                 {currentQuestion.title}
-               </h2>
-               <p className="text-white/80 text-sm">
-                 {currentQuestion.subtitle}
-               </p>
-             </div>
+            <div className="text-center mb-8 flex-1 flex flex-col justify-center">
+              <h2 className="text-2xl font-bold text-white mb-3">
+                {currentQuestion.title}
+              </h2>
+              <p className="text-white/80 text-sm">
+                {currentQuestion.subtitle}
+              </p>
+            </div>
 
-             {/* 选项网格 */}
-             <div className="grid grid-cols-2 gap-4">
-               {currentQuestion.options.map((option, index) => (
-                 <button
-                   key={option}
-                   onClick={() => handleOptionSelect(option)}
-                   className={`
-                     relative p-4 rounded-2xl text-left transition-all duration-200
-                     ${answers[currentQuestion.key] === option
-                       ? 'bg-white/30 border-2 border-white text-white'
-                       : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/20'
-                     }
-                   `}
-                   style={{ animationDelay: `${index * 0.1}s` }}
-                 >
-                   <span className="text-sm font-medium">{option}</span>
-                   {answers[currentQuestion.key] === option && (
-                     <div className="absolute top-2 right-2 w-4 h-4 bg-white rounded-full flex items-center justify-center">
-                       <div className="w-2 h-2 bg-[#64D8EF] rounded-full"></div>
-                     </div>
-                   )}
-                 </button>
-               ))}
-             </div>
-           </div>
-         </div>
-       </div>
+            {/* 选项内容 */}
+            <div className="mt-auto">
+              {currentQuestion.type === 'city-search' ? (
+                <CitySearch 
+                  onSelect={handleCitySelect}
+                  selectedCity={selectedCity}
+                />
+              ) : currentQuestion.type === 'duration-slider' ? (
+                <DurationSlider
+                  onSelect={handleDurationSelect}
+                  selectedRange={selectedDuration}
+                />
+              ) : (
+                <div className="grid grid-cols-2 gap-4">
+                  {currentQuestion.options.map((option, index) => (
+                    <button
+                      key={option}
+                      onClick={() => handleOptionSelect(option)}
+                      className={`
+                        relative p-6 rounded-2xl text-left transition-all duration-200
+                        ${answers[currentQuestion.key] === option
+                          ? 'bg-gradient-to-r from-[#FF9E4A]/20 to-[#FFB366]/20 border-2 border-[#FF9E4A] text-white shadow-lg'
+                          : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/20'
+                        }
+                      `}
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <span className="text-base font-medium">{option}</span>
+                      {answers[currentQuestion.key] === option && (
+                        <div className="absolute top-3 right-3 w-5 h-5 bg-[#FF9E4A] rounded-full flex items-center justify-center shadow-lg">
+                          <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+                        </div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* 底部导航 */}
       <div className="px-6 py-6">
@@ -200,7 +269,7 @@ export default function AIChatPage() {
               }
             `}
           >
-            上一题
+            Previous
           </button>
 
           <div className="flex gap-2">
@@ -223,8 +292,8 @@ export default function AIChatPage() {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 text-center">
             <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-            <h3 className="text-xl font-semibold text-white mb-2">正在生成行程</h3>
-            <p className="text-white/80">AI正在为你创建专属旅行计划...</p>
+            <h3 className="text-xl font-semibold text-white mb-2">Generating Travel Plan</h3>
+            <p className="text-white/80">AI is creating your personalized journey...</p>
           </div>
         </div>
       )}
