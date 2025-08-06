@@ -1,0 +1,267 @@
+# UniLoco App - 移动端原型开发规范
+
+## 项目概述
+这是一个移动端 H5 应用的原型开发项目，专注于前端 UI/UX 和交互逻辑，使用 Next.js + TypeScript + Tailwind CSS 技术栈。
+
+## 开发阶段定义
+- **原型阶段**：专注于前端界面和交互，使用 Mock 数据
+- **不考虑后端通信**：所有接口调用使用 Mock 数据
+- **模拟加载状态**：使用 loading 组件和延迟效果
+- **TypeScript 设计**：为关键数据结构定义类型，但不急于实现
+
+## 技术栈规范
+- **框架**：Next.js 15.4.5 (App Router)
+- **语言**：TypeScript 5.x
+- **样式**：Tailwind CSS 4.x
+- **状态管理**：React Hooks (useState, useEffect, useContext)
+- **路由**：Next.js App Router
+- **组件库**：自定义组件 + Tailwind CSS
+
+## 官方配色方案
+
+### 主色调：「探索蓝」（品牌核心色）
+- **色值**：#4A90E2（RGB: 74, 144, 226）
+- **特点**：低饱和的天空蓝，既保留年轻化的活力，又因灰度调和显得高级不刺眼，呼应"旅行中的自由与探索"
+- **应用场景**：
+  - 品牌 Logo、导航栏背景
+  - 主要按钮（如"生成路线""开始探索"）
+  - 核心功能模块标题（如 AI 旅途生成器标题）
+  - 重要交互元素（如选中状态的标签、进度条）
+
+### 辅助色 1：「活力橙」（互动强调色）
+- **色值**：#FF9E4A（RGB: 255, 158, 74）
+- **特点**：温暖明亮的珊瑚橙，传递热情与活力，契合青年用户的积极心态，与主色调形成互补但不冲突的视觉对比
+- **应用场景**：
+  - 次要按钮（如"收藏""分享""打卡"）
+  - 提醒元素（如成就解锁提示、新消息标记）
+  - 进度反馈（如打卡完成的状态图标）
+  - 社区互动按钮（如"点赞""评论"）
+
+### 辅助色 2：「自然绿」（氛围调和色）
+- **色值**：#66D2A0（RGB: 102, 210, 160）
+- **特点**：柔和的薄荷绿，传递自然、放松的氛围，呼应旅行中的"Relaxing"体验，为界面增加层次感
+- **应用场景**：
+  - 分类标签（如"自然""放松"主题的路线）
+  - 状态指示（如"已完成"的旅程标记）
+  - 次要信息强调（如书架中"精选"故事的标签）
+
+### 中性色：「质感灰阶」（基础骨架色）
+| 色值 | 名称 | 应用场景 |
+|------|------|----------|
+| #F9F7F5 | 米白底色 | 页面背景、卡片背景（替代纯白，更柔和） |
+| #E8E8E8 | 浅灰 | 分割线、未选中状态的边框 |
+| #9B9B9B | 中灰 | 次要文字（如提示语、时间戳） |
+| #333333 | 深灰 | 正文文字、重要标题（确保可读性） |
+
+## 代码风格规范
+
+### 文件命名
+- **页面组件**：`page.tsx` (Next.js App Router)
+- **布局组件**：`layout.tsx`
+- **组件文件**：PascalCase (如 `UserCard.tsx`)
+- **工具函数**：camelCase (如 `formatDate.ts`)
+- **类型定义**：PascalCase (如 `UserTypes.ts`)
+
+### 组件结构
+```typescript
+// 组件文件结构示例
+import { useState, useEffect } from 'react';
+import type { ComponentProps } from './types';
+
+interface Props {
+  // 组件属性定义
+}
+
+export default function ComponentName({ prop1, prop2 }: Props) {
+  // 状态定义
+  const [state, setState] = useState<StateType>(initialValue);
+  
+  // 副作用
+  useEffect(() => {
+    // 副作用逻辑
+  }, []);
+  
+  // 事件处理
+  const handleEvent = () => {
+    // 事件处理逻辑
+  };
+  
+  // 渲染
+  return (
+    <div className="移动端友好的样式">
+      {/* JSX 内容 */}
+    </div>
+  );
+}
+```
+
+### TypeScript 规范
+- **严格模式**：启用所有 TypeScript 严格检查
+- **类型定义**：为所有 props、state、API 响应定义类型
+- **接口命名**：使用 PascalCase，以 Props、State、Response 结尾
+- **泛型使用**：合理使用泛型提高代码复用性
+
+### 样式规范
+- **优先使用 Tailwind CSS**：内联样式类
+- **移动端优先**：所有样式以移动端为基准
+- **响应式设计**：使用 Tailwind 响应式前缀
+- **组件样式**：使用 className 组合，避免内联样式
+- **主题色**：严格按照官方配色方案使用
+
+### 状态管理规范
+- **本地状态**：使用 useState
+- **共享状态**：使用 useContext + useReducer
+- **异步状态**：使用 useState + useEffect
+- **加载状态**：统一使用 loading 状态管理
+
+## Mock 数据规范
+
+### Mock 数据结构
+```typescript
+// 示例：用户数据 Mock
+export const mockUsers = [
+  {
+    id: '1',
+    name: '张三',
+    avatar: '/avatars/user1.jpg',
+    status: 'online'
+  }
+] as const;
+
+// 示例：API 响应 Mock
+export const mockApiResponse = {
+  success: true,
+  data: mockUsers,
+  message: '获取成功'
+};
+```
+
+### 加载状态模拟
+```typescript
+// 模拟 API 调用延迟
+const mockApiCall = async (delay: number = 1000) => {
+  await new Promise(resolve => setTimeout(resolve, delay));
+  return mockData;
+};
+```
+
+## 移动端开发规范
+
+### 触摸交互
+- **按钮尺寸**：最小 44px 高度，适合手指触摸
+- **间距设计**：使用 4px 倍数 (4, 8, 12, 16, 20, 24...)
+- **触摸反馈**：使用 active: 状态提供视觉反馈
+- **滚动优化**：使用 -webkit-overflow-scrolling: touch
+
+### 页面结构
+```typescript
+// 标准移动端页面结构
+<div className="min-h-screen bg-gray-50">
+  {/* 顶部导航 */}
+  <header className="bg-white shadow-sm">
+    {/* 导航内容 */}
+  </header>
+  
+  {/* 主要内容 */}
+  <main className="px-4 py-6">
+    {/* 页面内容 */}
+  </main>
+  
+  {/* 底部导航 */}
+  <footer className="fixed bottom-0 left-0 right-0 bg-white">
+    {/* 底部导航 */}
+  </footer>
+</div>
+```
+
+### 安全区域适配
+- **顶部安全区域**：使用 safe-area-top 类
+- **底部安全区域**：使用 safe-area-bottom 类
+- **刘海屏适配**：考虑状态栏高度
+
+## 组件开发规范
+
+### 组件分类
+1. **页面组件**：完整的页面，位于 app/ 目录
+2. **布局组件**：页面布局结构，如 Header、Footer
+3. **功能组件**：可复用的功能组件，如 Button、Card
+4. **展示组件**：纯展示组件，如 Avatar、Badge
+
+### 组件 Props 设计
+```typescript
+interface ComponentProps {
+  // 必需属性
+  title: string;
+  data: DataType[];
+  
+  // 可选属性
+  className?: string;
+  loading?: boolean;
+  
+  // 事件回调
+  onPress?: () => void;
+  onChange?: (value: string) => void;
+}
+```
+
+## 错误处理规范
+- **用户友好**：显示友好的错误信息
+- **加载状态**：提供加载指示器
+- **重试机制**：提供重试按钮
+- **降级处理**：网络错误时显示离线内容
+
+## 性能优化规范
+- **图片优化**：使用 Next.js Image 组件
+- **代码分割**：使用动态导入
+- **缓存策略**：合理使用 React.memo
+- **懒加载**：长列表使用虚拟滚动
+
+## 调试规范
+- **开发环境**：使用内置调试面板
+- **真机调试**：使用 Chrome 远程调试
+- **错误边界**：使用 Error Boundary 捕获错误
+- **日志记录**：使用 console.log 进行调试
+
+## 代码提交规范
+- **提交信息**：使用 conventional commits
+- **分支命名**：feature/功能名、fix/修复名
+- **代码审查**：提交前进行自检
+- **测试验证**：确保功能正常工作
+
+## 文件组织规范
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (routes)/          # 路由分组
+│   ├── layout.tsx         # 根布局
+│   └── globals.css        # 全局样式
+├── components/             # 可复用组件
+│   ├── ui/               # 基础 UI 组件
+│   └── features/         # 功能组件
+├── lib/                   # 工具函数
+│   ├── utils.ts          # 通用工具
+│   └── constants.ts      # 常量定义
+├── types/                 # TypeScript 类型定义
+│   ├── api.ts           # API 相关类型
+│   └── common.ts        # 通用类型
+└── hooks/                 # 自定义 Hooks
+    ├── useApi.ts         # API 相关 Hooks
+    └── useLocalStorage.ts # 本地存储 Hooks
+```
+
+## 开发流程规范
+1. **需求分析**：明确功能需求和用户流程
+2. **UI 设计**：设计移动端友好的界面
+3. **组件开发**：按组件分类开发功能
+4. **Mock 数据**：创建相应的 Mock 数据
+5. **交互测试**：在真机上测试交互效果
+6. **代码优化**：优化性能和用户体验
+
+## 注意事项
+- 所有代码都要考虑移动端体验
+- 使用 TypeScript 严格模式
+- 保持代码简洁和可维护性
+- 优先使用 Tailwind CSS 类名
+- 严格按照官方配色方案使用色彩
+- 考虑无障碍访问性
+- 注意性能优化 

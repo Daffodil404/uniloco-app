@@ -1,92 +1,62 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect } from 'react';
+
+export default function SplashPage() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    // 记录访问状态
+    localStorage.setItem('uniloco-splash-visited', 'true');
+
+    // 模拟加载过程
+    const timer1 = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300);
+
+    const timer2 = setTimeout(() => {
+      setShowContent(true);
+    }, 600);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* 顶部导航栏 */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="px-4 py-3">
-          <h1 className="text-lg font-semibold text-gray-900">UniLoco</h1>
-        </div>
-      </header>
-
-      {/* 主要内容区域 */}
-      <main className="px-4 py-6">
-        {/* 欢迎卡片 */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">
-            欢迎使用 UniLoco
-          </h2>
-          <p className="text-gray-600 text-sm">
-            这是一个专为移动端设计的应用
-          </p>
-        </div>
-
-        {/* 功能按钮区域 */}
-        <div className="space-y-3">
-          <button className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-medium text-base active:bg-blue-700 transition-colors">
-            开始使用
-          </button>
-          
-          <button className="w-full bg-gray-100 text-gray-900 py-4 px-6 rounded-lg font-medium text-base active:bg-gray-200 transition-colors">
-            了解更多
-          </button>
-        </div>
-
-        {/* 特性列表 */}
-        <div className="mt-8 space-y-4">
-          <div className="bg-white rounded-lg p-4 shadow-sm">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                <span className="text-blue-600 text-sm font-semibold">1</span>
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900">响应式设计</h3>
-                <p className="text-sm text-gray-600">完美适配各种移动设备</p>
-              </div>
+    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% relative">
+      {/* 主要内容容器 - 使用绝对定位 */}
+      <div className="absolute left-1/2 -translate-x-1/2 w-full px-8 z-10" style={{ top: '20%' }}>
+        <div className="flex flex-col items-center">
+          {/* 组合图标 - 使用图片 */}
+          <div className={`mb-16 transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}>
+            <div className="flex justify-center">
+              <img
+                src="/static/locate.png"
+                alt="Location with speech bubble icon"
+                className="w-[80%] drop-shadow-2xl"
+              />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-4 shadow-sm">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                <span className="text-green-600 text-sm font-semibold">2</span>
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900">PWA 支持</h3>
-                <p className="text-sm text-gray-600">可安装到主屏幕，接近原生体验</p>
-              </div>
+          {/* 主标题 "Unilloco" */}
+          <div className={`mb-8 transition-all duration-1000 delay-200 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="text-[3rem] leading-tight font-[900] text-[#F9F7F5] tracking-wide drop-shadow-lg">
+              Unilloco+
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-4 shadow-sm">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                <span className="text-purple-600 text-sm font-semibold">3</span>
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900">快速开发</h3>
-                <p className="text-sm text-gray-600">基于 Next.js 和 Tailwind CSS</p>
-              </div>
-            </div>
+          {/* 副标题 "Travel with Stories" */}
+          <div className={`mb-24 transition-all duration-1000 delay-400 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <p className="text-[1.2rem] font-[500] text-[#F9F7F5] drop-shadow-md">
+              Travel with Stories
+            </p>
           </div>
         </div>
-      </main>
+      </div>
 
-      {/* 底部导航 */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
-        <div className="flex justify-around">
-          <button className="flex flex-col items-center py-2 px-4 text-blue-600">
-            <span className="text-xs">首页</span>
-          </button>
-          <button className="flex flex-col items-center py-2 px-4 text-gray-400">
-            <span className="text-xs">功能</span>
-          </button>
-          <button className="flex flex-col items-center py-2 px-4 text-gray-400">
-            <span className="text-xs">我的</span>
-          </button>
-        </div>
-      </footer>
     </div>
   );
 }

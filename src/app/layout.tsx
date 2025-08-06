@@ -13,18 +13,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "UniLoco App",
-  description: "移动端应用",
+  title: "UniLoco - Discover Your Adventure",
+  description: "Web3 Travel Story Platform - Where Every Journey Becomes a Story",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
-  themeColor: "#000000",
+  themeColor: "#3B82F6",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "UniLoco App",
+    title: "UniLoco",
   },
   formatDetection: {
     telephone: false,
+  },
+  keywords: ["travel", "web3", "ai", "adventure", "story", "mobile"],
+  authors: [{ name: "UniLoco Team" }],
+  openGraph: {
+    title: "UniLoco - Discover Your Adventure",
+    description: "Web3 Travel Story Platform - Where Every Journey Becomes a Story",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UniLoco - Discover Your Adventure",
+    description: "Web3 Travel Story Platform - Where Every Journey Becomes a Story",
   },
 };
 
@@ -34,17 +47,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="en">
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="UniLoco App" />
+        <meta name="apple-mobile-web-app-title" content="UniLoco" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-TileColor" content="#3B82F6" />
         <meta name="msapplication-tap-highlight" content="no" />
         
         {/* 开发环境调试工具 */}
-        {process.env.NODE_ENV === 'development' && (
+        {/* {process.env.NODE_ENV === 'development' && (
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -77,7 +90,7 @@ export default function RootLayout({
               `,
             }}
           />
-        )}
+        )} */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
