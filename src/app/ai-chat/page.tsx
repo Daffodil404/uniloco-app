@@ -150,7 +150,15 @@ export default function AIChatPage() {
     // 这里可以添加生成逻辑
     setTimeout(() => {
       setIsGenerating(false);
-      // 跳转到结果页面
+      // 跳转到结果页面，并传递用户选择
+      const params = new URLSearchParams();
+      params.set('destination', answers.destination || 'Tokyo');
+      params.set('duration', answers.duration || '4-7 days');
+      params.set('food', answers.food || 'Local specialties');
+      params.set('companion', answers.companion || 'Solo travel');
+      params.set('atmosphere', answers.atmosphere || 'Cultural');
+      
+      window.location.href = `/travel-plan?${params.toString()}`;
     }, 3000);
   };
 
