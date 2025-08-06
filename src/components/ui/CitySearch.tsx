@@ -32,6 +32,13 @@ export default function CitySearch({ onSelect, selectedCity }: CitySearchProps) 
   const searchRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
+  // 初始化搜索词
+  useEffect(() => {
+    if (selectedCity) {
+      setSearchTerm(selectedCity.name);
+    }
+  }, [selectedCity]);
+
   // 搜索城市
   const searchCities = async (query: string) => {
     if (!query.trim()) {

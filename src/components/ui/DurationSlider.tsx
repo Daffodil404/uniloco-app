@@ -32,6 +32,16 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     }
   }, [selectedRange]);
 
+  // 根据标签找到对应的范围
+  useEffect(() => {
+    if (selectedRange?.label) {
+      const foundRange = durationRanges.find(range => range.label === selectedRange.label);
+      if (foundRange) {
+        setCurrentRange(foundRange);
+      }
+    }
+  }, [selectedRange]);
+
   // 计算滑块位置
   const getSliderPosition = (range: DurationRange) => {
     const index = durationRanges.findIndex(r => r.min === range.min);

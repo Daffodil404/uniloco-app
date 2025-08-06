@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import InteractiveMap from '@/components/features/InteractiveMap';
+import Drawer from '@/components/ui/Drawer';
 import type { TravelPlan, MapPoint } from '@/types/travel';
 
 export default function TravelPlanPage() {
@@ -10,123 +11,113 @@ export default function TravelPlanPage() {
   const [travelPlan, setTravelPlan] = useState<TravelPlan | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<MapPoint | null>(null);
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [pointNotes, setPointNotes] = useState<Record<string, string>>({});
 
-  // 模拟AI生成旅行计划
+  // 生成旅行计划数据
   useEffect(() => {
-    const generatePlan = async () => {
-      setIsLoading(true);
-      
-      // 模拟API调用延迟
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // 从URL参数获取用户选择
-      const destination = searchParams.get('destination') || 'Tokyo';
-      const duration = searchParams.get('duration') || '4-7 days';
-      const food = searchParams.get('food') || 'Local specialties';
-      const companion = searchParams.get('companion') || 'Solo travel';
-      const atmosphere = searchParams.get('atmosphere') || 'Cultural';
+    // 从URL参数获取用户选择
+    const destination = searchParams.get('destination') || 'Tokyo';
+    const duration = searchParams.get('duration') || '4-7 days';
+    const food = searchParams.get('food') || 'Local specialties';
+    const companion = searchParams.get('companion') || 'Solo travel';
+    const atmosphere = searchParams.get('atmosphere') || 'Cultural';
 
-      // 生成模拟数据
-      const mockPlan: TravelPlan = {
-        id: 'plan-001',
-        destination,
-        duration,
-        food,
-        companion,
-        atmosphere,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        itinerary: [
-          {
-            day: 1,
-            title: 'Arrival & City Introduction',
-            activities: [
-              'Arrive at Tokyo Haneda Airport',
-              'Check into hotel in Shibuya',
-              'Explore Shibuya Crossing',
-              'Visit Meiji Shrine',
-              'Evening at Tokyo Skytree'
-            ],
-            locations: ['Shibuya', 'Meiji Shrine', 'Tokyo Skytree'],
-            estimatedCost: 150,
-            weather: 'Sunny, 22°C'
-          },
-          {
-            day: 2,
-            title: 'Traditional Tokyo',
-            activities: [
-              'Morning at Senso-ji Temple',
-              'Explore Asakusa district',
-              'Lunch at traditional ramen shop',
-              'Visit Tokyo National Museum',
-              'Evening at Akihabara'
-            ],
-            locations: ['Asakusa', 'Ueno', 'Akihabara'],
-            estimatedCost: 120,
-            weather: 'Partly cloudy, 20°C'
-          },
-          {
-            day: 3,
-            title: 'Modern Tokyo',
-            activities: [
-              'Visit TeamLab Planets',
-              'Explore Odaiba',
-              'Lunch at Tsukiji Outer Market',
-              'Shopping in Ginza',
-              'Dinner at Michelin-starred restaurant'
-            ],
-            locations: ['Odaiba', 'Tsukiji', 'Ginza'],
-            estimatedCost: 200,
-            weather: 'Sunny, 24°C'
-          }
-        ],
-        mapPoints: [
-          {
-            id: '1',
-            name: 'Shibuya Crossing',
-            lat: 35.6595,
-            lng: 139.7004,
-            type: 'attraction',
-            rating: 4.5,
-            openingHours: '24/7'
-          },
-          {
-            id: '2',
-            name: 'Meiji Shrine',
-            lat: 35.6762,
-            lng: 139.6993,
-            type: 'attraction',
-            rating: 4.8,
-            openingHours: '6:00 AM - 5:00 PM'
-          },
-          {
-            id: '3',
-            name: 'Senso-ji Temple',
-            lat: 35.7148,
-            lng: 139.7967,
-            type: 'attraction',
-            rating: 4.6,
-            openingHours: '6:00 AM - 5:00 PM'
-          },
-          {
-            id: '4',
-            name: 'Tsukiji Outer Market',
-            lat: 35.6654,
-            lng: 139.7702,
-            type: 'restaurant',
-            rating: 4.7,
-            openingHours: '5:00 AM - 2:00 PM'
-          }
-        ]
-      };
-
-      setTravelPlan(mockPlan);
-      setIsLoading(false);
+    // 生成模拟数据
+    const mockPlan: TravelPlan = {
+      id: 'plan-001',
+      destination,
+      duration,
+      food,
+      companion,
+      atmosphere,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      itinerary: [
+        {
+          day: 1,
+          title: 'Arrival & City Introduction',
+          activities: [
+            'Arrive at Tokyo Haneda Airport',
+            'Check into hotel in Shibuya',
+            'Explore Shibuya Crossing',
+            'Visit Meiji Shrine',
+            'Evening at Tokyo Skytree'
+          ],
+          locations: ['Shibuya', 'Meiji Shrine', 'Tokyo Skytree'],
+          estimatedCost: 150,
+          weather: 'Sunny, 22°C'
+        },
+        {
+          day: 2,
+          title: 'Traditional Tokyo',
+          activities: [
+            'Morning at Senso-ji Temple',
+            'Explore Asakusa district',
+            'Lunch at traditional ramen shop',
+            'Visit Tokyo National Museum',
+            'Evening at Akihabara'
+          ],
+          locations: ['Asakusa', 'Ueno', 'Akihabara'],
+          estimatedCost: 120,
+          weather: 'Partly cloudy, 20°C'
+        },
+        {
+          day: 3,
+          title: 'Modern Tokyo',
+          activities: [
+            'Visit TeamLab Planets',
+            'Explore Odaiba',
+            'Lunch at Tsukiji Outer Market',
+            'Shopping in Ginza',
+            'Dinner at Michelin-starred restaurant'
+          ],
+          locations: ['Odaiba', 'Tsukiji', 'Ginza'],
+          estimatedCost: 200,
+          weather: 'Sunny, 24°C'
+        }
+      ],
+      mapPoints: [
+        {
+          id: '1',
+          name: 'Shibuya Crossing',
+          lat: 35.6595,
+          lng: 139.7004,
+          type: 'attraction',
+          rating: 4.5,
+          openingHours: '24/7'
+        },
+        {
+          id: '2',
+          name: 'Meiji Shrine',
+          lat: 35.6762,
+          lng: 139.6993,
+          type: 'attraction',
+          rating: 4.8,
+          openingHours: '6:00 AM - 5:00 PM'
+        },
+        {
+          id: '3',
+          name: 'Senso-ji Temple',
+          lat: 35.7148,
+          lng: 139.7967,
+          type: 'attraction',
+          rating: 4.6,
+          openingHours: '6:00 AM - 5:00 PM'
+        },
+        {
+          id: '4',
+          name: 'Tsukiji Outer Market',
+          lat: 35.6654,
+          lng: 139.7702,
+          type: 'restaurant',
+          rating: 4.7,
+          openingHours: '5:00 AM - 2:00 PM'
+        }
+      ]
     };
 
-    generatePlan();
+    setTravelPlan(mockPlan);
   }, [searchParams]);
 
   const handleSaveMap = () => {
@@ -154,17 +145,18 @@ export default function TravelPlanPage() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-          <h3 className="text-xl font-semibold text-white mb-2">Generating Your Travel Plan</h3>
-          <p className="text-white/80">AI is creating your personalized journey...</p>
-        </div>
-      </div>
-    );
-  }
+  // 跳转到AI Chat页面并保留当前选择
+  const handleNavigateToChat = (questionIndex: number) => {
+    const params = new URLSearchParams();
+    params.set('destination', travelPlan?.destination || '');
+    params.set('duration', travelPlan?.duration || '');
+    params.set('food', travelPlan?.food || '');
+    params.set('companion', travelPlan?.companion || '');
+    params.set('atmosphere', travelPlan?.atmosphere || '');
+    params.set('startIndex', questionIndex.toString());
+    
+    window.location.href = `/ai-chat?${params.toString()}`;
+  };
 
   if (!travelPlan) {
     return (
@@ -178,9 +170,9 @@ export default function TravelPlanPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
+    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
       {/* 顶部导航 */}
-      <header className="relative z-20 px-6 py-4">
+      <header className="relative z-20 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <button 
             onClick={() => window.history.back()}
@@ -201,78 +193,94 @@ export default function TravelPlanPage() {
         </div>
       </header>
 
-      <div className="px-6 pb-6">
-        {/* 用户需求回顾 */}
-        <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 mb-6 border border-white/10">
-          <h2 className="text-xl font-bold text-white mb-4">Your Preferences</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white/10 rounded-2xl p-4">
+      {/* 用户需求回顾 - 紧凑版本 */}
+      <div className="px-6 py-4 flex-shrink-0">
+        <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+          <h2 className="text-lg font-bold text-white mb-3">Your Preferences</h2>
+          <div className="grid grid-cols-4 gap-2">
+            <button
+              onClick={() => handleNavigateToChat(0)}
+              className="bg-white/10 rounded-xl p-2 text-center hover:bg-white/20 transition-colors cursor-pointer"
+            >
               <div className="text-white/60 text-xs mb-1">Destination</div>
-              <div className="text-white font-medium">{travelPlan.destination}</div>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-4">
+              <div className="text-white font-medium text-xs truncate">{travelPlan.destination}</div>
+            </button>
+            <button
+              onClick={() => handleNavigateToChat(1)}
+              className="bg-white/10 rounded-xl p-2 text-center hover:bg-white/20 transition-colors cursor-pointer"
+            >
               <div className="text-white/60 text-xs mb-1">Duration</div>
-              <div className="text-white font-medium">{travelPlan.duration}</div>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-4">
-              <div className="text-white/60 text-xs mb-1">Food Preference</div>
-              <div className="text-white font-medium">{travelPlan.food}</div>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-4">
-              <div className="text-white/60 text-xs mb-1">Travel Style</div>
-              <div className="text-white font-medium">{travelPlan.atmosphere}</div>
-            </div>
+              <div className="text-white font-medium text-xs truncate">{travelPlan.duration}</div>
+            </button>
+            <button
+              onClick={() => handleNavigateToChat(2)}
+              className="bg-white/10 rounded-xl p-2 text-center hover:bg-white/20 transition-colors cursor-pointer"
+            >
+              <div className="text-white/60 text-xs mb-1">Food</div>
+              <div className="text-white font-medium text-xs truncate">{travelPlan.food}</div>
+            </button>
+            <button
+              onClick={() => handleNavigateToChat(3)}
+              className="bg-white/10 rounded-xl p-2 text-center hover:bg-white/20 transition-colors cursor-pointer"
+            >
+              <div className="text-white/60 text-xs mb-1">Style</div>
+              <div className="text-white font-medium text-xs truncate">{travelPlan.atmosphere}</div>
+            </button>
           </div>
         </div>
+      </div>
 
-        {/* 地图区域 */}
-        <div className="mb-6">
-          <InteractiveMap
-            mapPoints={travelPlan.mapPoints}
-            onPointClick={handlePointClick}
-            onSaveMap={handleSaveMap}
-          />
-        </div>
+      {/* 地图区域 - 放大占比 */}
+      <div className="flex-1 px-6 pb-6">
+        <InteractiveMap
+          mapPoints={travelPlan.mapPoints}
+          onPointClick={handlePointClick}
+          onSaveMap={handleSaveMap}
+        />
+      </div>
 
-        {/* 行程安排 */}
-        <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 mb-6 border border-white/10">
-          <h2 className="text-xl font-bold text-white mb-4">Your Itinerary</h2>
-          <div className="space-y-4">
-            {travelPlan.itinerary.map((day) => (
-              <div key={day.day} className="bg-white/10 rounded-2xl p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-white font-semibold">Day {day.day}</h3>
-                  <div className="flex items-center gap-4">
-                    <span className="text-white/60 text-sm">{day.title}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#FF9E4A] text-sm">${day.estimatedCost}</span>
-                      <span className="text-white/40 text-xs">{day.weather}</span>
-                    </div>
+      {/* 抽屉组件 */}
+      <Drawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        title="Your Itinerary"
+        tabLabel="View Plan"
+      >
+        <div className="p-6 space-y-4">
+          {travelPlan.itinerary.map((day) => (
+            <div key={day.day} className="bg-white/10 rounded-2xl p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-white font-semibold">Day {day.day}</h3>
+                <div className="flex items-center gap-4">
+                  <span className="text-white/60 text-sm">{day.title}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#FF9E4A] text-sm">${day.estimatedCost}</span>
+                    <span className="text-white/40 text-xs">{day.weather}</span>
                   </div>
                 </div>
-                <ul className="space-y-2">
-                  {day.activities.map((activity, index) => (
-                    <li key={index} className="text-white/80 text-sm flex items-start">
-                      <span className="w-2 h-2 bg-[#FF9E4A] rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                      {activity}
-                    </li>
-                  ))}
-                </ul>
               </div>
-            ))}
-          </div>
+              <ul className="space-y-2">
+                {day.activities.map((activity, index) => (
+                  <li key={index} className="text-white/80 text-sm flex items-start">
+                    <span className="w-2 h-2 bg-[#FF9E4A] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    {activity}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
+      </Drawer>
 
-        {/* AI助手按钮 */}
-        <button
-          onClick={() => setIsAIChatOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200"
-        >
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-        </button>
-      </div>
+      {/* AI助手按钮 */}
+      <button
+        onClick={() => setIsAIChatOpen(true)}
+        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 z-50"
+      >
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </button>
 
       {/* 地图标记点详情弹窗 */}
       {selectedPoint && (

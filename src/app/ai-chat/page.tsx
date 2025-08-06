@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import CitySearch from '@/components/ui/CitySearch';
 import DurationSlider from '@/components/ui/DurationSlider';
+import { useSearchParams } from 'next/navigation';
 
 interface Question {
   id: string;
@@ -54,6 +55,7 @@ const questions: Question[] = [
 ];
 
 export default function AIChatPage() {
+  const searchParams = useSearchParams();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selectedCity, setSelectedCity] = useState<any>(null);
@@ -65,6 +67,28 @@ export default function AIChatPage() {
 
   const currentQuestion = questions[currentIndex];
   const progress = ((currentIndex + 1) / questions.length) * 100;
+
+  // 初始化用户选择
+  useEffect(() => {
+    const startIndex = parseInt(searchParams.get('startIndex') || '0');
+    setCurrentIndex(startIndex);
+    
+    // 从URL参数恢复用户选择
+    const destination = searchParams.get('destination');
+    const duration = searchParams.get('duration');
+    const food = searchParams.get('food');
+    const companion = searchParams.get('companion');
+    const atmosphere = searchParams.get('atmosphere');
+    
+    const savedAnswers: Record<string, string> = {};
+    if (destination) savedAnswers.destination = destination;
+    if (duration) savedAnswers.duration = duration;
+    if (food) savedAnswers.food = food;
+    if (companion) savedAnswers.companion = companion;
+    if (atmosphere) savedAnswers.atmosphere = atmosphere;
+    
+    setAnswers(savedAnswers);
+  }, [searchParams]);
 
   // 清除自动跳转定时器
   const clearAutoAdvanceTimer = () => {
@@ -226,12 +250,12 @@ export default function AIChatPage() {
               {currentQuestion.type === 'city-search' ? (
                 <CitySearch 
                   onSelect={handleCitySelect}
-                  selectedCity={selectedCity}
+                  selectedCity={answers.destination ? { id: '1', name: answers.destination, country: '' } : selectedCity}
                 />
               ) : currentQuestion.type === 'duration-slider' ? (
                 <DurationSlider
                   onSelect={handleDurationSelect}
-                  selectedRange={selectedDuration}
+                  selectedRange={answers.duration ? { min: 0, max: 0, label: answers.duration } : undefined}
                 />
               ) : (
                 <div className="grid grid-cols-2 gap-4">
