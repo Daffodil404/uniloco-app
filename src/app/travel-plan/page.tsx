@@ -1,10 +1,21 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import InteractiveMap from '@/components/features/InteractiveMap';
+import CheckInModal from '@/components/features/CheckInModal';
+import SuccessModal from '@/components/features/SuccessModal';
 import Drawer from '@/components/ui/Drawer';
 import type { TravelPlan, MapPoint } from '@/types/travel';
+
+interface CheckInData {
+  pointId?: string;
+  timestamp?: string;
+  location?: string;
+  notes: string;
+  photos: string[];
+  unc?: string;
+}
 
 export default function TravelPlanPage() {
   const searchParams = useSearchParams();
@@ -12,7 +23,9 @@ export default function TravelPlanPage() {
   const [selectedPoint, setSelectedPoint] = useState<MapPoint | null>(null);
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [pointNotes, setPointNotes] = useState<Record<string, string>>({});
+  const [isCheckInModalOpen, setIsCheckInModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [checkInData, setCheckInData] = useState<CheckInData | null>(null);
 
   // 生成旅行计划数据
   useEffect(() => {
@@ -127,7 +140,9 @@ export default function TravelPlanPage() {
   };
 
   const handlePointClick = (point: MapPoint) => {
+    console.log('Point clicked:', point.name);
     setSelectedPoint(point);
+    setIsCheckInModalOpen(true);
   };
 
   const handleEditPlan = () => {
@@ -135,14 +150,26 @@ export default function TravelPlanPage() {
     window.history.back();
   };
 
-  const handleSavePointNotes = () => {
-    if (selectedPoint) {
-      setPointNotes(prev => ({
-        ...prev,
-        [selectedPoint.id]: (document.getElementById('point-notes') as HTMLTextAreaElement)?.value || ''
-      }));
-      setSelectedPoint(null);
-    }
+  const handleCheckInSubmit = (data: CheckInData) => {
+    setCheckInData(data);
+    setIsCheckInModalOpen(false);
+    setIsSuccessModalOpen(true);
+    
+    // 3秒后自动关闭成功提示
+    setTimeout(() => {
+      setIsSuccessModalOpen(false);
+      setCheckInData(null);
+    }, 3000);
+  };
+
+  const handleCheckInModalClose = () => {
+    setIsCheckInModalOpen(false);
+    setSelectedPoint(null);
+  };
+
+  const handleSuccessModalClose = () => {
+    setIsSuccessModalOpen(false);
+    setCheckInData(null);
   };
 
   // 跳转到AI Chat页面并保留当前选择
@@ -282,68 +309,20 @@ export default function TravelPlanPage() {
         </svg>
       </button>
 
-      {/* 地图标记点详情弹窗 */}
-      {selectedPoint && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-6">
-          <div className="bg-black/90 backdrop-blur-sm rounded-3xl p-6 border border-white/20 max-w-md w-full">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h3 className="text-xl font-bold text-white">{selectedPoint.name}</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-[#FF9E4A] text-sm">★ {selectedPoint.rating}</span>
-                  <span className="text-white/60 text-xs">{selectedPoint.openingHours}</span>
-                </div>
-              </div>
-              <button
-                onClick={() => setSelectedPoint(null)}
-                className="text-white/60 hover:text-white"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-white/80 text-sm mb-2">Add Notes</label>
-                <textarea
-                  id="point-notes"
-                  placeholder="Share your thoughts about this place..."
-                  className="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-white/40"
-                  rows={3}
-                  defaultValue={pointNotes[selectedPoint.id] || ''}
-                />
-              </div>
-              
-              <div>
-                <label className="block text-white/80 text-sm mb-2">Upload Photos</label>
-                <div className="border-2 border-dashed border-white/20 rounded-xl p-6 text-center">
-                  <svg className="w-8 h-8 text-white/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                  </svg>
-                  <p className="text-white/60 text-sm">Tap to upload photos</p>
-                </div>
-              </div>
-              
-              <div className="flex gap-3">
-                <button 
-                  onClick={handleSavePointNotes}
-                  className="flex-1 px-4 py-2 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-sm font-medium"
-                >
-                  Save
-                </button>
-                <button 
-                  onClick={() => setSelectedPoint(null)}
-                  className="flex-1 px-4 py-2 bg-white/10 text-white rounded-xl text-sm font-medium"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* 打卡Modal */}
+      <CheckInModal
+        isOpen={isCheckInModalOpen}
+        onClose={handleCheckInModalClose}
+        selectedPoint={selectedPoint}
+        onSubmit={handleCheckInSubmit}
+      />
+
+      {/* 成功提示Modal */}
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={handleSuccessModalClose}
+        checkInData={checkInData}
+      />
 
       {/* AI对话弹窗 */}
       {isAIChatOpen && (

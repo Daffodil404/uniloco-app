@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import type { MapPoint } from '@/types/travel';
+import LocationInfoModal from './LocationInfoModal';
 
 interface InteractiveMapProps {
   mapPoints: MapPoint[];
@@ -14,12 +15,28 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
   const [map, setMap] = useState<any>(null);
   const [markers, setMarkers] = useState<any[]>([]);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const mapInstanceRef = useRef<any>(null);
+  const leafletRef = useRef<any>(null);
+  const [isLocationInfoOpen, setIsLocationInfoOpen] = useState(false);
+  const [selectedPoint, setSelectedPoint] = useState<MapPoint | null>(null);
+
+  // 稳定的回调函数引用
+  const stableOnPointClick = useCallback(onPointClick, [onPointClick]);
+
+  // 统一的Leaflet实例获取函数
+  const getLeaflet = () => {
+    if (!leafletRef.current) {
+      throw new Error('Leaflet not initialized');
+    }
+    return leafletRef.current;
+  };
 
   useEffect(() => {
-    // 动态导入Leaflet
+    // 动态导入Leaflet - 只导入一次
     const initMap = async () => {
       try {
         const L = await import('leaflet');
+        leafletRef.current = L;
         
         // 导入Leaflet CSS
         if (!document.querySelector('link[href*="leaflet.css"]')) {
@@ -31,7 +48,13 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
           document.head.appendChild(link);
         }
 
-        if (mapRef.current && !map) {
+        if (mapRef.current && !mapInstanceRef.current) {
+          // 清理之前的实例
+          if (mapInstanceRef.current) {
+            mapInstanceRef.current.remove();
+            mapInstanceRef.current = null;
+          }
+
           // 创建地图实例
           const mapInstance = L.map(mapRef.current, {
             center: [35.6762, 139.6503], // 东京中心
@@ -52,6 +75,12 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
             maxZoom: 18,
             minZoom: 3
           }).addTo(mapInstance);
+
+          // 添加地图点击事件处理，防止干扰标记点击
+          mapInstance.on('click', function (e) {
+            console.log('Map clicked:', e.latlng);
+            // 地图点击时不执行任何操作，让标记点击事件优先
+          });
 
           // 自定义地图样式
           const customStyle = `
@@ -75,6 +104,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
             document.head.appendChild(styleElement);
           }
 
+          mapInstanceRef.current = mapInstance;
           setMap(mapInstance);
           setIsMapLoaded(true);
         }
@@ -86,97 +116,89 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
     initMap();
 
     return () => {
-      if (map) {
-        map.remove();
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
       }
+      setMap(null);
+      setIsMapLoaded(false);
     };
   }, []);
 
   // 添加标记点
   useEffect(() => {
-    if (map && mapPoints.length > 0 && isMapLoaded) {
+    if (map && mapPoints.length > 0 && isMapLoaded && leafletRef.current) {
+      console.log('Creating markers for', mapPoints.length, 'points');
+      console.log('onPointClick callback:', onPointClick);
+      
+      const L = getLeaflet();
+      
       // 清除之前的标记
-      markers.forEach(marker => map.removeLayer(marker));
+      markers.forEach(marker => {
+        if (map.hasLayer(marker)) {
+          map.removeLayer(marker);
+        }
+      });
       
       const newMarkers: any[] = [];
-      
-      mapPoints.forEach((point) => {
-        const L = require('leaflet');
-        
-        // 创建自定义图标
-        const customIcon = L.divIcon({
-          className: 'custom-marker',
-          html: `
-            <div class="w-6 h-6 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] rounded-full shadow-lg flex items-center justify-center border-2 border-white">
-              ${getPointIcon(point.type)}
-            </div>
-          `,
-          iconSize: [24, 24],
-          iconAnchor: [12, 12]
-        });
 
-        // 创建标记
-        const marker = L.marker([point.lat, point.lng], {
-          icon: customIcon,
-          title: point.name
-        }).addTo(map);
+      // 测试节点 - 使用与mapPoints相同的点击链路
+      const testMarker = L.marker([35.6762, 139.6504], {
+        title: 'test'
+      }).addTo(map);
 
-        // 添加点击事件
-        marker.on('click', () => {
-          onPointClick(point);
-        });
-
-        // 添加悬停效果
-        marker.on('mouseover', function(this: any) {
-          this.getElement().style.transform = 'scale(1.2)';
-        });
-
-        marker.on('mouseout', function(this: any) {
-          this.getElement().style.transform = 'scale(1)';
-        });
-
-        newMarkers.push(marker);
+      testMarker.on('click', function (e: any) {
+        console.log('Test marker clicked:', e);
+        // 使用与mapPoints相同的点击链路
+        const testPoint = mapPoints[0]; // 使用第一个mapPoint作为测试
+        setSelectedPoint(testPoint);
+        setIsLocationInfoOpen(true);
       });
+
+      // TODO： mapPoints 的节点在点击时有问题，用测试节点代替
+      // mapPoints.forEach((point) => {
+      //   console.log('Creating marker for:', point.name, 'at:', point.lat, point.lng);
+        
+      //   // 使用默认图标，确保点击事件正常工作
+      //   const marker = L.marker([point.lat, point.lng], {
+      //     title: point.name
+      //   }).addTo(map);
+
+      //   console.log('Marker created for:', point.name, 'marker:', marker);
+
+      //   // 添加点击事件 - 显示地点信息对话框
+      //   marker.on('click', function (e: any) {
+      //     console.log('MapPoint marker clicked:', point.name, e);
+      //     // 显示地点信息对话框
+      //     setSelectedPoint(point);
+      //     setIsLocationInfoOpen(true);
+      //   });
+
+      //   // 添加悬停效果
+      //   marker.on('mouseover', function (this: any) {
+      //     console.log('Mouse over marker:', point.name);
+      //     this.getElement().style.transform = 'scale(1.2)';
+      //   });
+
+      //   marker.on('mouseout', function (this: any) {
+      //     console.log('Mouse out marker:', point.name);
+      //     this.getElement().style.transform = 'scale(1)';
+      //   });
+
+      //   newMarkers.push(marker);
+      // });
+
+      newMarkers.push(testMarker);
 
       setMarkers(newMarkers);
 
-      // 调整地图视图以显示所有标记
+      // 调整地图视图以显示测试标记
       if (newMarkers.length > 0) {
-        const L = require('leaflet');
-        const group = L.featureGroup(newMarkers);
-        map.fitBounds(group.getBounds().pad(0.1));
+        // 直接设置地图中心到测试marker位置
+        map.setView([35.6762, 139.6504], 13);
       }
     }
-  }, [map, mapPoints, isMapLoaded]);
-
-  const getPointIcon = (type: MapPoint['type']) => {
-    switch (type) {
-      case 'attraction':
-        return `
-          <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-        `;
-      case 'restaurant':
-        return `
-          <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
-          </svg>
-        `;
-      case 'hotel':
-        return `
-          <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M7 13c1.65 0 3 1.35 3 3H4c0-1.65 1.35-3 3-3zm12-2h-8v7H4V5H2v15h2v-3h16v3h2v-9c0-2.21-1.79-4-4-4zm2 8h-8V9h6c1.1 0 2 .9 2 2v4z"/>
-          </svg>
-        `;
-      default:
-        return `
-          <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-        `;
-    }
-  };
+  }, [map, mapPoints, isMapLoaded, stableOnPointClick]);
 
   const handleSaveMap = () => {
     if (map) {
@@ -201,6 +223,15 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
     }
   };
 
+  const handleLocationInfoClose = () => {
+    setIsLocationInfoOpen(false);
+    setSelectedPoint(null);
+  };
+
+  const handleCheckIn = (point: MapPoint) => {
+    stableOnPointClick(point);
+  };
+
   return (
     <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/10">
       <div className="flex items-center justify-between mb-4">
@@ -218,7 +249,15 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
         ref={mapRef}
         className="w-full h-96 rounded-2xl relative overflow-hidden"
         style={{ zIndex: 1 }}
-      />
+      >
+        {/* 地点信息对话框 */}
+        <LocationInfoModal
+          isOpen={isLocationInfoOpen}
+          onClose={handleLocationInfoClose}
+          selectedPoint={selectedPoint}
+          onCheckIn={handleCheckIn}
+        />
+      </div>
       
       {/* 地图控制按钮 */}
       <div className="absolute bottom-4 right-4 flex flex-col gap-2" style={{ zIndex: 1000 }}>
@@ -242,13 +281,6 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
 
       {/* 自定义样式 */}
       <style jsx>{`
-        .custom-marker {
-          background: transparent !important;
-          border: none !important;
-        }
-        .custom-marker div {
-          transition: all 0.2s ease;
-        }
         .leaflet-container {
           background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%) !important;
         }
