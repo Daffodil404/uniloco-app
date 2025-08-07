@@ -1,197 +1,142 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import InteractiveMap from '@/components/features/InteractiveMap';
+import type { MapPoint } from '@/types/travel';
+
+// Mock数据
+const mockMapPoints: MapPoint[] = [
+  {
+    id: '1',
+    name: 'Shibuya Crossing',
+    lat: 35.6595,
+    lng: 139.7004,
+    type: 'attraction',
+    rating: 4.5,
+    openingHours: '24/7'
+  },
+  {
+    id: '2',
+    name: 'Meiji Shrine',
+    lat: 35.6762,
+    lng: 139.6993,
+    type: 'attraction',
+    rating: 4.7,
+    openingHours: '6:00-17:00'
+  },
+  {
+    id: '3',
+    name: 'Senso-ji Temple',
+    lat: 35.7148,
+    lng: 139.7967,
+    type: 'attraction',
+    rating: 4.6,
+    openingHours: '6:00-17:00'
+  },
+  {
+    id: '4',
+    name: 'Tsukiji Outer Market',
+    lat: 35.6654,
+    lng: 139.7702,
+    type: 'restaurant',
+    rating: 4.4,
+    openingHours: '5:00-14:00'
+  }
+];
 
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState('home');
+  const router = useRouter();
+
+  const handlePointClick = (point: MapPoint) => {
+    console.log('Point clicked:', point.name);
+    // 这里可以添加点击处理逻辑
+  };
+
+  const handleSaveMap = () => {
+    console.log('Save map');
+  };
+
+  const handleNavigateToProfile = () => {
+    router.push('/profile');
+  };
+
+  const handleNavigateToAIPlan = () => {
+    router.push('/travel-plan');
+  };
+
+  const handleNavigateToStoryLibrary = () => {
+    router.push('/bookshelf');
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      {/* 顶部导航栏 */}
-      <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200/50">
-        <div className="px-4 py-3">
-          <h1 className="text-xl font-bold text-gray-900">UniLoco</h1>
-          <p className="text-sm text-gray-500">Web3 Travel Story Platform</p>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
+      {/* 地图区域 - 占据更多空间 */}
+      <div className="flex-1 p-3 flex">
+        <InteractiveMap
+          mapPoints={mockMapPoints}
+          onPointClick={handlePointClick}
+          onSaveMap={handleSaveMap}
+        />
+      </div>
 
-      {/* 主要内容区域 */}
-      <main className="px-4 py-6">
-        {/* 欢迎卡片 */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm p-6 mb-6 border border-gray-200/50">
-          <div className="text-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-2xl mb-3">
-              🧭
+      {/* 底部导航卡片 - 减少高度 */}
+      <div className="p-2 pb-4">
+        <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-4 border border-white/20">
+          {/* 用户信息行 */}
+          <div className="flex items-center gap-3 mb-3">
+            {/* 头像 */}
+            <div className="w-10 h-10 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-full flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
             </div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
-              Welcome to UniLoco
-            </h2>
-            <p className="text-gray-600 text-sm">
-              Start your gamified travel adventure
-            </p>
+            
+            {/* 用户信息 */}
+            <div className="flex-1">
+              <div className="text-white font-semibold text-sm">用户名</div>
+              <div className="text-white/60 text-xs">余额: ¥1,234</div>
+            </div>
+            
+            {/* 个人中心按钮 */}
+            <button
+              onClick={handleNavigateToProfile}
+              className="px-3 py-1.5 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
+            >
+              个人中心
+            </button>
+          </div>
+
+          {/* 功能按钮行 */}
+          <div className="flex gap-3">
+            {/* AI行程规划 */}
+            <button
+              onClick={handleNavigateToAIPlan}
+              className="flex-1 px-3 py-2.5 bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
+            >
+              <div className="flex items-center justify-center gap-1.5">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                AI行程规划
+              </div>
+            </button>
+
+            {/* 旅途故事 */}
+            <button
+              onClick={handleNavigateToStoryLibrary}
+              className="flex-1 px-3 py-2.5 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
+            >
+              <div className="flex items-center justify-center gap-1.5">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                旅途故事
+              </div>
+            </button>
           </div>
         </div>
-
-        {/* 功能导航 */}
-        <div className="space-y-4">
-          {/* AI旅途生成 */}
-          <Link href="/ai-chat">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
-                  🤖
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">AI Journey Generator</h3>
-                  <p className="text-sm opacity-90">AI assistant creates your exclusive treasure map</p>
-                </div>
-                <div className="text-2xl">→</div>
-              </div>
-            </div>
-          </Link>
-
-          {/* 旅途脚本书架 */}
-          <Link href="/bookshelf">
-            <div className="bg-gradient-to-r from-green-500 to-teal-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
-                  📚
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">Travel Story Library</h3>
-                  <p className="text-sm opacity-90">Explore curated travel stories and routes</p>
-                </div>
-                <div className="text-2xl">→</div>
-              </div>
-            </div>
-          </Link>
-
-          {/* 我的旅程 */}
-          <Link href="/my-journeys">
-            <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
-                  🗺️
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">My Journeys</h3>
-                  <p className="text-sm opacity-90">View and manage your travel records</p>
-                </div>
-                <div className="text-2xl">→</div>
-              </div>
-            </div>
-          </Link>
-
-          {/* 社区探索 */}
-          <Link href="/community">
-            <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
-                  👥
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">Community Explore</h3>
-                  <p className="text-sm opacity-90">Discover amazing stories from other travelers</p>
-                </div>
-                <div className="text-2xl">→</div>
-              </div>
-            </div>
-          </Link>
-        </div>
-
-        {/* 特性介绍 */}
-        <div className="mt-8 space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Platform Features</h3>
-          
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-blue-600 text-sm font-semibold">AI</span>
-              </div>
-              <h4 className="font-medium text-gray-900 mb-1">Smart Planning</h4>
-              <p className="text-xs text-gray-600">AI assistant customizes exclusive routes</p>
-            </div>
-
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50">
-              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-green-600 text-sm font-semibold">🎮</span>
-              </div>
-              <h4 className="font-medium text-gray-900 mb-1">Gamified</h4>
-              <p className="text-xs text-gray-600">Check-in tasks and reward system</p>
-            </div>
-
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50">
-              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-purple-600 text-sm font-semibold">🌐</span>
-              </div>
-              <h4 className="font-medium text-gray-900 mb-1">Web3</h4>
-              <p className="text-xs text-gray-600">NFT avatars and token rewards</p>
-            </div>
-
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50">
-              <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-orange-600 text-sm font-semibold">📱</span>
-              </div>
-              <h4 className="font-medium text-gray-900 mb-1">Mobile First</h4>
-              <p className="text-xs text-gray-600">Optimized for mobile experience</p>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      {/* 底部导航 */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-gray-200/50 px-4 py-2">
-        <div className="flex justify-around">
-          <button 
-            className={`flex flex-col items-center py-2 px-4 rounded-lg transition-all duration-200 ${
-              activeTab === 'home' 
-                ? 'text-blue-600 bg-blue-50' 
-                : 'text-gray-400 hover:text-gray-600'
-            }`}
-            onClick={() => setActiveTab('home')}
-          >
-            <span className="text-lg">🏠</span>
-            <span className="text-xs">Home</span>
-          </button>
-          
-          <button 
-            className={`flex flex-col items-center py-2 px-4 rounded-lg transition-all duration-200 ${
-              activeTab === 'ai' 
-                ? 'text-purple-600 bg-purple-50' 
-                : 'text-gray-400 hover:text-gray-600'
-            }`}
-            onClick={() => setActiveTab('ai')}
-          >
-            <span className="text-lg">🤖</span>
-            <span className="text-xs">AI</span>
-          </button>
-          
-          <button 
-            className={`flex flex-col items-center py-2 px-4 rounded-lg transition-all duration-200 ${
-              activeTab === 'bookshelf' 
-                ? 'text-green-600 bg-green-50' 
-                : 'text-gray-400 hover:text-gray-600'
-            }`}
-            onClick={() => setActiveTab('bookshelf')}
-          >
-            <span className="text-lg">📚</span>
-            <span className="text-xs">Library</span>
-          </button>
-          
-          <button 
-            className={`flex flex-col items-center py-2 px-4 rounded-lg transition-all duration-200 ${
-              activeTab === 'profile' 
-                ? 'text-orange-600 bg-orange-50' 
-                : 'text-gray-400 hover:text-gray-600'
-            }`}
-            onClick={() => setActiveTab('profile')}
-          >
-            <span className="text-lg">👤</span>
-            <span className="text-xs">Profile</span>
-          </button>
-        </div>
-      </footer>
+      </div>
     </div>
   );
 } 

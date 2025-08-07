@@ -258,7 +258,7 @@ export default function TravelPlanPage() {
       </div>
 
       {/* 地图区域 - 放大占比 */}
-      <div className="flex-1 px-6 pb-6">
+      <div className="flex-1 px-6 pb-6 flex">
         <InteractiveMap
           mapPoints={travelPlan.mapPoints}
           onPointClick={handlePointClick}
