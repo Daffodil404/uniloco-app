@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
 
 interface UnlockedJourney {
   id: string;
@@ -24,6 +25,7 @@ interface Equipment {
 
 export default function ProfilePage() {
   const router = useRouter();
+  const { isLoggedIn, userData, logout } = useAuth();
   const [activeTab, setActiveTab] = useState<'profile' | 'journeys' | 'equipment'>('profile');
 
   const handleBackToHome = () => {
@@ -34,16 +36,20 @@ export default function ProfilePage() {
     router.push('/equipment');
   };
 
+  const handleLogout = () => {
+    logout();
+  };
+
   // Mock data
   const userProfile = {
-    name: 'Alex Chen',
-    userId: 'UNI123456',
-    joinDate: '2024-01-15',
+    name: isLoggedIn ? userData?.username || 'User' : 'Guest',
+    userId: isLoggedIn ? 'UNI123456' : 'GUEST',
+    joinDate: isLoggedIn ? '2024-01-15' : 'Not logged in',
     avatar: '/static/locate.png',
-    uncBalance: 2847,
-    totalCheckIns: 23,
-    completedJourneys: 8,
-    totalPoints: 1560
+    uncBalance: isLoggedIn ? 2847 : 0,
+    totalCheckIns: isLoggedIn ? 23 : 0,
+    completedJourneys: isLoggedIn ? 8 : 0,
+    totalPoints: isLoggedIn ? 1560 : 0
   };
 
   const unlockedJourneys: UnlockedJourney[] = [
@@ -134,7 +140,14 @@ export default function ProfilePage() {
             </svg>
           </button>
           <h1 className="text-xl font-bold text-white">Profile</h1>
-          <div className="w-6"></div>
+                      {isLoggedIn && (
+              <button
+                onClick={handleLogout}
+                className="text-white/60 hover:text-white text-sm"
+              >
+                Logout
+              </button>
+            )}
         </div>
       </div>
 

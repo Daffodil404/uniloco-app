@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import InteractiveMap from '@/components/features/InteractiveMap';
 import type { MapPoint } from '@/types/travel';
+import { useAuth } from '@/hooks/useAuth';
 
 // Mock数据
 const mockMapPoints: MapPoint[] = [
@@ -47,6 +48,7 @@ const mockMapPoints: MapPoint[] = [
 
 export default function HomePage() {
   const router = useRouter();
+  const { isLoggedIn, userData, isLoading } = useAuth();
 
   const handlePointClick = (point: MapPoint) => {
     console.log('Point clicked:', point.name);
@@ -62,10 +64,18 @@ export default function HomePage() {
   };
 
   const handleNavigateToAIPlan = () => {
+    if (!isLoggedIn) {
+      router.push('/login?redirect=/travel-plan');
+      return;
+    }
     router.push('/travel-plan');
   };
 
   const handleNavigateToStoryLibrary = () => {
+    if (!isLoggedIn) {
+      router.push('/login?redirect=/bookshelf');
+      return;
+    }
     router.push('/bookshelf');
   };
 
@@ -94,8 +104,12 @@ export default function HomePage() {
             
             {/* 用户信息 */}
             <div className="flex-1">
-              <div className="text-white font-semibold text-sm">用户名</div>
-              <div className="text-white/60 text-xs">余额: ¥1,234</div>
+              <div className="text-white font-semibold text-sm">
+                {isLoggedIn ? userData?.username || '用户' : '游客'}
+              </div>
+              <div className="text-white/60 text-xs">
+                {isLoggedIn ? 'Balance: ¥1,234' : 'Login to access more features'}
+              </div>
             </div>
             
             {/* 个人中心按钮 */}
@@ -103,7 +117,7 @@ export default function HomePage() {
               onClick={handleNavigateToProfile}
               className="px-3 py-1.5 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
             >
-              个人中心
+              Profile
             </button>
           </div>
 
@@ -112,26 +126,36 @@ export default function HomePage() {
             {/* AI行程规划 */}
             <button
               onClick={handleNavigateToAIPlan}
-              className="flex-1 px-3 py-2.5 bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
+              className={`flex-1 px-3 py-2.5 text-white rounded-xl text-xs font-medium transition-all ${
+                isLoggedIn 
+                  ? 'bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] hover:shadow-lg' 
+                  : 'bg-white/20 hover:bg-white/30'
+              }`}
             >
               <div className="flex items-center justify-center gap-1.5">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
-                AI行程规划
+                AI Travel Plan
+                {!isLoggedIn && <span className="text-xs opacity-60">(Login Required)</span>}
               </div>
             </button>
 
             {/* 旅途故事 */}
             <button
               onClick={handleNavigateToStoryLibrary}
-              className="flex-1 px-3 py-2.5 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
+              className={`flex-1 px-3 py-2.5 text-white rounded-xl text-xs font-medium transition-all ${
+                isLoggedIn 
+                  ? 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] hover:shadow-lg' 
+                  : 'bg-white/20 hover:bg-white/30'
+              }`}
             >
               <div className="flex items-center justify-center gap-1.5">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
-                旅途故事
+                Travel Stories
+                {!isLoggedIn && <span className="text-xs opacity-60">(Login Required)</span>}
               </div>
             </button>
           </div>
