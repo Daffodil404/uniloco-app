@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import InteractiveMap from '@/components/features/InteractiveMap';
 import CheckInModal from '@/components/features/CheckInModal';
@@ -18,7 +18,7 @@ interface CheckInData {
   unc?: string;
 }
 
-export default function TravelPlanPage() {
+function TravelPlanContent() {
   const searchParams = useSearchParams();
   const { isLoggedIn, requireLogin } = useAuth();
   const [travelPlan, setTravelPlan] = useState<TravelPlan | null>(null);
@@ -34,7 +34,7 @@ export default function TravelPlanPage() {
     if (!requireLogin()) {
       return;
     }
-  }, [requireLogin]);
+  }, [requireLogin, isLoggedIn]);
 
   // 生成旅行计划数据
   useEffect(() => {
@@ -142,7 +142,7 @@ export default function TravelPlanPage() {
     };
 
     setTravelPlan(mockPlan);
-  }, [searchParams]);
+  }, [searchParams, isLoggedIn]);
 
   const handleSaveMap = () => {
     // 保存地图为PNG的逻辑
@@ -376,7 +376,7 @@ export default function TravelPlanPage() {
             <div className="space-y-4">
               <div className="bg-white/10 rounded-2xl p-4">
                 <p className="text-white/80 text-sm">
-                  Hi! I'm your AI travel assistant. I can help you refine your itinerary, 
+                  Hi! I&apos;m your AI travel assistant. I can help you refine your itinerary, 
                   suggest alternatives, or answer any questions about your trip to {travelPlan.destination}.
                 </p>
               </div>
@@ -406,5 +406,21 @@ export default function TravelPlanPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function TravelPlanPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+          <h3 className="text-xl font-semibold text-white mb-2">Loading...</h3>
+          <p className="text-white/80">Preparing your travel plan</p>
+        </div>
+      </div>
+    }>
+      <TravelPlanContent />
+    </Suspense>
   );
 } 

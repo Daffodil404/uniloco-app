@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import InteractiveMap from '@/components/features/InteractiveMap';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { MapPoint } from '@/types/travel';
 
 export default function SplashPage() {

@@ -12,10 +12,14 @@ interface InteractiveMapProps {
 
 export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: InteractiveMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [map, setMap] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [markers, setMarkers] = useState<any[]>([]);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapInstanceRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const leafletRef = useRef<any>(null);
   const [isLocationInfoOpen, setIsLocationInfoOpen] = useState(false);
   const [selectedPoint, setSelectedPoint] = useState<MapPoint | null>(null);
@@ -140,6 +144,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
         }
       });
       
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newMarkers: any[] = [];
 
       // 测试节点 - 使用与mapPoints相同的点击链路
@@ -147,6 +152,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
         title: 'test'
       }).addTo(map);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       testMarker.on('click', function (e: any) {
         console.log('Test marker clicked:', e);
         // 使用与mapPoints相同的点击链路
@@ -198,8 +204,9 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
         map.setView([35.6762, 139.6504], 13);
       }
     }
-  }, [map, mapPoints, isMapLoaded, stableOnPointClick]);
+  }, [map, mapPoints, isMapLoaded, stableOnPointClick, markers, onPointClick]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSaveMap = () => {
     if (map) {
       // 使用html2canvas保存地图

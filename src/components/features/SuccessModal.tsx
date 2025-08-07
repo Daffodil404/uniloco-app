@@ -31,7 +31,7 @@ export default function SuccessModal({ isOpen, onClose, checkInData }: SuccessMo
           </div>
           <h3 className="text-xl font-bold text-white mb-2">New Location Unlocked!</h3>
           <p className="text-white/80 text-sm mb-4">
-            Congratulations! You've successfully checked in at {checkInData.location}. 
+            Congratulations! You&apos;ve successfully checked in at {checkInData.location}. 
             Your experience has been recorded and shared with the community!
           </p>
           <div className="bg-white/10 rounded-2xl p-4 mb-4">

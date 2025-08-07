@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import type { MapPoint } from '@/types/travel';
+import Image from 'next/image';
 
 interface CheckInData {
   pointId?: string;
@@ -207,7 +208,13 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
               <div className="mt-3 flex gap-2 overflow-x-auto">
                 {checkInData.photos.map((photo, index) => (
                   <div key={index} className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                    <img src={photo} alt={`Photo ${index + 1}`} className="w-full h-full object-cover" />
+                    <Image
+                      src={photo}
+                      alt={`Photo ${index + 1}`}
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 ))}
               </div>

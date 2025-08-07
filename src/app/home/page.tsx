@@ -1,6 +1,4 @@
 'use client';
-
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import InteractiveMap from '@/components/features/InteractiveMap';
 import type { MapPoint } from '@/types/travel';
@@ -48,7 +46,7 @@ const mockMapPoints: MapPoint[] = [
 
 export default function HomePage() {
   const router = useRouter();
-  const { isLoggedIn, userData, isLoading } = useAuth();
+  const { isLoggedIn, userData } = useAuth();
 
   const handlePointClick = (point: MapPoint) => {
     console.log('Point clicked:', point.name);

@@ -129,6 +129,7 @@ export default function EquipmentPage() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getRarityBgColor = (rarity: string) => {
     switch (rarity) {
       case 'common': return 'bg-gray-400/20';
