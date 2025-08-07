@@ -178,14 +178,14 @@ export default function BookshelfPage() {
       {/* Header */}
       <div className="p-4">
         <div className="flex items-center justify-between">
-          <button
+            <button 
             onClick={handleBackToHome}
             className="text-white/80 hover:text-white"
-          >
+            >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-          </button>
+            </button>
           <h1 className="text-xl font-bold text-white">Travel Stories</h1>
           <div className="w-6"></div>
         </div>
@@ -228,59 +228,64 @@ export default function BookshelfPage() {
           {filteredStories.map((story) => (
             <div key={story.id} className="bg-black/80 backdrop-blur-sm rounded-3xl p-4 border border-white/20 hover:border-white/40 transition-all">
               <div className="flex items-start gap-4">
-                {/* Story Cover */}
-                <div className="w-16 h-16 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
-                  {story.emoji}
+                {/* Story Cover with Price */}
+                <div className="flex flex-col items-center gap-2">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
+                    {story.emoji}
+                  </div>
+                  <div className="text-center">
+                    <span className={`text-sm font-bold ${
+                      story.price === 0 ? 'text-[#66D2A0]' : 'text-[#FF9E4A]'
+                    }`}>
+                      {story.price === 0 ? 'FREE' : `${story.price} UNC`}
+                    </span>
+                  </div>
                 </div>
                 
                 {/* Story Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-lg font-semibold text-white truncate">
+                    <h3 className="text-lg font-bold text-white truncate">
                       {story.title}
                     </h3>
                     <div className="flex items-center gap-1 text-sm">
                       <span className="text-[#FF9E4A]">★</span>
-                      <span className="text-white">{story.rating}</span>
+                      <span className="text-white font-semibold">{story.rating}</span>
                     </div>
                   </div>
                   
-                  <p className="text-white/80 text-sm mb-3 line-clamp-2">
+                  <p className="text-white/80 text-sm mb-3 line-clamp-2 font-medium">
                     {story.description}
                   </p>
                   
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-4 text-xs text-white/60">
-                      <span>📍 {story.location}</span>
-                      <span>⏱️ {story.duration}</span>
-                      <span>👤 {story.creator}</span>
+                      <span className="font-medium">📍 {story.location}</span>
+                      <span className="font-medium">⏱️ {story.duration}</span>
+                      <span className="font-medium">👤 {story.creator}</span>
                     </div>
                     
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-white/60">
+                      <span className="text-xs text-white/60 font-medium">
                         {story.reviews} reviews
-                      </span>
-                      <span className={`text-sm font-semibold ${
-                        story.price === 0 ? 'text-[#66D2A0]' : 'text-[#FF9E4A]'
-                      }`}>
-                        {story.price === 0 ? 'Free' : `${story.price} UNC`}
                       </span>
                     </div>
                   </div>
                   
                   {/* Difficulty and Tags */}
                   <div className="flex items-center justify-between">
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                       {story.tags.slice(0, 3).map(tag => (
                         <span
                           key={tag}
-                          className="px-2 py-1 bg-white/10 text-white/80 text-xs rounded-lg"
+                          className="px-3 py-1.5 bg-white/10 text-white/80 text-xs rounded-lg font-medium h-6 flex items-center justify-center min-w-0"
+                          style={{ maxWidth: '80px' }}
                         >
-                          {tag}
+                          <span className="truncate">{tag}</span>
                         </span>
                       ))}
                     </div>
-                    <span className={`text-xs font-medium ${getDifficultyColor(story.difficulty)}`}>
+                    <span className={`text-xs font-bold ${getDifficultyColor(story.difficulty)}`}>
                       {story.difficulty}
                     </span>
                   </div>
@@ -309,12 +314,20 @@ export default function BookshelfPage() {
           <span className="text-sm text-white/60">
             Found {filteredStories.length} adventures
           </span>
-          <button
-            onClick={handleNavigateToAIChat}
-            className="px-4 py-2 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
-          >
-            🤖 Create Your Story
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => router.push('/story-creat')}
+              className="px-3 py-2 bg-gradient-to-r from-[#66D2A0] to-[#10B981] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
+            >
+              ✍️ Create Story
+            </button>
+            <button
+              onClick={handleNavigateToAIChat}
+              className="px-4 py-2 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
+            >
+              🤖 AI Chat
+            </button>
+          </div>
         </div>
       </div>
     </div>
