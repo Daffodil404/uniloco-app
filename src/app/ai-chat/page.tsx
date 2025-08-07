@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import CitySearch from '@/components/ui/CitySearch';
 import DurationSlider from '@/components/ui/DurationSlider';
 import { useSearchParams } from 'next/navigation';
@@ -54,12 +54,13 @@ const questions: Question[] = [
   }
 ];
 
-export default function AIChatPage() {
+function AIChatContent() {
   const searchParams = useSearchParams();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [selectedCity, setSelectedCity] = useState<any>(null);
-  const [selectedDuration, setSelectedDuration] = useState<any>(null);
+  const [selectedCity, setSelectedCity] = useState<{ id: string; name: string; country: string } | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedDuration, setSelectedDuration] = useState<{ min: number; max: number; label: string } | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const [autoAdvanceTimer, setAutoAdvanceTimer] = useState<NodeJS.Timeout | null>(null);
@@ -123,7 +124,7 @@ export default function AIChatPage() {
     return () => {
       clearAutoAdvanceTimer();
     };
-  }, []);
+  }, [clearAutoAdvanceTimer]);
 
   const handleOptionSelect = (option: string) => {
     setAnswers(prev => ({
@@ -135,7 +136,7 @@ export default function AIChatPage() {
     autoAdvance();
   };
 
-  const handleCitySelect = (city: any) => {
+  const handleCitySelect = (city: { id: string; name: string; country: string }) => {
     setSelectedCity(city);
     setAnswers(prev => ({
       ...prev,
@@ -146,7 +147,7 @@ export default function AIChatPage() {
     autoAdvance(2000); // 给用户更多时间查看选择结果
   };
 
-  const handleDurationSelect = (duration: any) => {
+  const handleDurationSelect = (duration: { min: number; max: number; label: string }) => {
     setSelectedDuration(duration);
     setAnswers(prev => ({
       ...prev,
@@ -250,7 +251,7 @@ export default function AIChatPage() {
               {currentQuestion.type === 'city-search' ? (
                 <CitySearch 
                   onSelect={handleCitySelect}
-                  selectedCity={answers.destination ? { id: '1', name: answers.destination, country: '' } : selectedCity}
+                  selectedCity={answers.destination ? { id: '1', name: answers.destination, country: '' } : selectedCity || undefined}
                 />
               ) : currentQuestion.type === 'duration-slider' ? (
                 <DurationSlider
@@ -330,5 +331,21 @@ export default function AIChatPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function AIChatPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+          <h3 className="text-xl font-semibold text-white mb-2">Loading...</h3>
+          <p className="text-white/80">Preparing AI chat interface</p>
+        </div>
+      </div>
+    }>
+      <AIChatContent />
+    </Suspense>
   );
 } 

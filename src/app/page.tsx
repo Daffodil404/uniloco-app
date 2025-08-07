@@ -1,10 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import InteractiveMap from '@/components/features/InteractiveMap';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { MapPoint } from '@/types/travel';
 
 export default function SplashPage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [countdown, setCountdown] = useState(3);
+  const router = useRouter();
 
   useEffect(() => {
     // 记录访问状态
@@ -19,11 +26,25 @@ export default function SplashPage() {
       setShowContent(true);
     }, 600);
 
+    // 3秒倒计时
+    const countdownTimer = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(countdownTimer);
+          // 跳转到主页
+          router.push('/home');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
+      clearInterval(countdownTimer);
     };
-  }, []);
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% relative">
@@ -49,14 +70,20 @@ export default function SplashPage() {
           </div>
 
           {/* 副标题 "Travel with Stories" */}
-          <div className={`mb-24 transition-all duration-1000 delay-400 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`mb-12 transition-all duration-1000 delay-400 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <p className="text-[1.2rem] font-[500] text-[#F9F7F5] drop-shadow-md">
               Travel with Stories
             </p>
           </div>
+
+          {/* 倒计时 */}
+          <div className={`transition-all duration-1000 delay-600 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="text-[2rem] font-bold text-[#FF9E4A] drop-shadow-lg">
+              {countdown}
+            </div>
+          </div>
         </div>
       </div>
-
     </div>
   );
 }

@@ -64,6 +64,7 @@ export default function CitySearch({ onSelect, selectedCity }: CitySearchProps) 
       const data = await response.json();
       
       // 转换API响应格式
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cities: City[] = data.data.map((city: any) => ({
         id: city.id.toString(),
         name: city.name,

@@ -12,10 +12,14 @@ interface InteractiveMapProps {
 
 export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: InteractiveMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [map, setMap] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [markers, setMarkers] = useState<any[]>([]);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapInstanceRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const leafletRef = useRef<any>(null);
   const [isLocationInfoOpen, setIsLocationInfoOpen] = useState(false);
   const [selectedPoint, setSelectedPoint] = useState<MapPoint | null>(null);
@@ -140,6 +144,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
         }
       });
       
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newMarkers: any[] = [];
 
       // 测试节点 - 使用与mapPoints相同的点击链路
@@ -147,6 +152,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
         title: 'test'
       }).addTo(map);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       testMarker.on('click', function (e: any) {
         console.log('Test marker clicked:', e);
         // 使用与mapPoints相同的点击链路
@@ -198,8 +204,9 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
         map.setView([35.6762, 139.6504], 13);
       }
     }
-  }, [map, mapPoints, isMapLoaded, stableOnPointClick]);
+  }, [map, mapPoints, isMapLoaded, stableOnPointClick, markers, onPointClick]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSaveMap = () => {
     if (map) {
       // 使用html2canvas保存地图
@@ -233,22 +240,25 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
   };
 
   return (
-    <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/10">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-white">Interactive Map</h2>
+    <div className="w-full flex-1 bg-black/80 backdrop-blur-sm rounded-3xl p-4 border border-white/10">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-lg font-bold text-white">Interactive Map</h2>
         <button
           onClick={onSaveMap}
-          className="px-4 py-2 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
+          className="px-3 py-1.5 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
         >
           Save Map
         </button>
       </div>
       
-      {/* 地图容器 */}
+      {/* 地图容器 - 使用calc计算剩余高度 */}
       <div 
         ref={mapRef}
-        className="w-full h-96 rounded-2xl relative overflow-hidden"
-        style={{ zIndex: 1 }}
+        className="w-full rounded-2xl relative overflow-hidden"
+        style={{ 
+          zIndex: 1,
+          height: 'calc(100% - 60px)' // 减去标题区域的高度
+        }}
       >
         {/* 地点信息对话框 */}
         <LocationInfoModal

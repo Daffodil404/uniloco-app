@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import InteractiveMap from '@/components/features/InteractiveMap';
 import CheckInModal from '@/components/features/CheckInModal';
 import SuccessModal from '@/components/features/SuccessModal';
 import Drawer from '@/components/ui/Drawer';
 import type { TravelPlan, MapPoint } from '@/types/travel';
+import { useAuth } from '@/hooks/useAuth';
 
 interface CheckInData {
   pointId?: string;
@@ -17,8 +18,9 @@ interface CheckInData {
   unc?: string;
 }
 
-export default function TravelPlanPage() {
+function TravelPlanContent() {
   const searchParams = useSearchParams();
+  const { isLoggedIn, requireLogin } = useAuth();
   const [travelPlan, setTravelPlan] = useState<TravelPlan | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<MapPoint | null>(null);
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
@@ -27,8 +29,17 @@ export default function TravelPlanPage() {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [checkInData, setCheckInData] = useState<CheckInData | null>(null);
 
+  // 检查登录状态
+  useEffect(() => {
+    if (!requireLogin()) {
+      return;
+    }
+  }, [requireLogin, isLoggedIn]);
+
   // 生成旅行计划数据
   useEffect(() => {
+    if (!isLoggedIn) return;
+    
     // 从URL参数获取用户选择
     const destination = searchParams.get('destination') || 'Tokyo';
     const duration = searchParams.get('duration') || '4-7 days';
@@ -131,7 +142,7 @@ export default function TravelPlanPage() {
     };
 
     setTravelPlan(mockPlan);
-  }, [searchParams]);
+  }, [searchParams, isLoggedIn]);
 
   const handleSaveMap = () => {
     // 保存地图为PNG的逻辑
@@ -184,6 +195,28 @@ export default function TravelPlanPage() {
     
     window.location.href = `/ai-chat?${params.toString()}`;
   };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-white mb-2">Login Required</h3>
+          <p className="text-white/80 mb-4">This feature requires login to access</p>
+          <button
+            onClick={() => requireLogin()}
+            className="px-6 py-2 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] text-white rounded-xl font-medium"
+          >
+            Sign In
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (!travelPlan) {
     return (
@@ -258,7 +291,7 @@ export default function TravelPlanPage() {
       </div>
 
       {/* 地图区域 - 放大占比 */}
-      <div className="flex-1 px-6 pb-6">
+      <div className="flex-1 px-6 pb-6 flex">
         <InteractiveMap
           mapPoints={travelPlan.mapPoints}
           onPointClick={handlePointClick}
@@ -343,7 +376,7 @@ export default function TravelPlanPage() {
             <div className="space-y-4">
               <div className="bg-white/10 rounded-2xl p-4">
                 <p className="text-white/80 text-sm">
-                  Hi! I'm your AI travel assistant. I can help you refine your itinerary, 
+                  Hi! I&apos;m your AI travel assistant. I can help you refine your itinerary, 
                   suggest alternatives, or answer any questions about your trip to {travelPlan.destination}.
                 </p>
               </div>
@@ -373,5 +406,21 @@ export default function TravelPlanPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function TravelPlanPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+          <h3 className="text-xl font-semibold text-white mb-2">Loading...</h3>
+          <p className="text-white/80">Preparing your travel plan</p>
+        </div>
+      </div>
+    }>
+      <TravelPlanContent />
+    </Suspense>
   );
 } 

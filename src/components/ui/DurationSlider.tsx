@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface DurationRange {
   min: number;
@@ -23,6 +23,7 @@ const durationRanges: DurationRange[] = [
 export default function DurationSlider({ onSelect, selectedRange }: DurationSliderProps) {
   const [currentRange, setCurrentRange] = useState<DurationRange>(durationRanges[1]); // 默认选择4-7天
   const [isDragging, setIsDragging] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [dragPosition, setDragPosition] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -80,7 +81,7 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     setDragPosition(e.clientX);
   };
 
-  const handleSliderMouseMove = (e: MouseEvent) => {
+  const handleSliderMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging || !sliderRef.current) return;
     
     const rect = sliderRef.current.getBoundingClientRect();
@@ -89,14 +90,14 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     const newRange = getRangeFromPosition(position);
     
     setCurrentRange(newRange);
-  };
+  }, [isDragging, getRangeFromPosition]);
 
-  const handleSliderMouseUp = () => {
+  const handleSliderMouseUp = useCallback(() => {
     if (isDragging) {
       setIsDragging(false);
       onSelect(currentRange);
     }
-  };
+  }, [isDragging, onSelect, currentRange]);
 
   // 触摸事件处理
   const handleSliderTouchStart = (e: React.TouchEvent) => {
@@ -104,7 +105,7 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     setDragPosition(e.touches[0].clientX);
   };
 
-  const handleSliderTouchMove = (e: TouchEvent) => {
+  const handleSliderTouchMove = useCallback((e: TouchEvent) => {
     if (!isDragging || !sliderRef.current) return;
     
     const rect = sliderRef.current.getBoundingClientRect();
@@ -113,14 +114,14 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     const newRange = getRangeFromPosition(position);
     
     setCurrentRange(newRange);
-  };
+  }, [isDragging, getRangeFromPosition]);
 
-  const handleSliderTouchEnd = () => {
+  const handleSliderTouchEnd = useCallback(() => {
     if (isDragging) {
       setIsDragging(false);
       onSelect(currentRange);
     }
-  };
+  }, [isDragging, onSelect, currentRange]);
 
   useEffect(() => {
     if (isDragging) {
@@ -136,7 +137,7 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
         document.removeEventListener('touchend', handleSliderTouchEnd);
       };
     }
-  }, [isDragging, currentRange]);
+  }, [isDragging, currentRange, handleSliderMouseMove, handleSliderMouseUp, handleSliderTouchMove, handleSliderTouchEnd]);
 
   const getRangeColor = (range: DurationRange) => {
     if (selectedRange?.min === range.min && selectedRange?.max === range.max) {
@@ -177,7 +178,7 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
           />
           
           {/* 滑块轨道上的标记点 */}
-          {durationRanges.map((range, index) => (
+          {durationRanges.map((range) => (
             <div
               key={range.min}
               className={`absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full transition-all duration-200 ${
