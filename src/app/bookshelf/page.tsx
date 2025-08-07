@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface Story {
   id: string;
@@ -15,94 +15,147 @@ interface Story {
   emoji: string;
   duration: string;
   tags: string[];
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  highlights: string[];
 }
 
 const stories: Story[] = [
   {
-    id: 'tokyo',
-    title: '东京美食之旅',
-    creator: '美食达人',
-    location: '东京, 日本',
-    description: '探索东京最地道的美食，从街边小吃到米其林餐厅，体验日本独特的饮食文化。',
+    id: 'tokyo-nightlife',
+    title: 'Tokyo Nightlife Adventure',
+    creator: 'Night Owl Explorer',
+    location: 'Tokyo, Japan',
+    description: 'Dive into Tokyo\'s electric nightlife scene! From neon-lit streets of Shibuya to hidden izakayas in Golden Gai, experience the city that never sleeps.',
     rating: 4.8,
     reviews: 128,
     price: 0,
-    emoji: '🍜',
-    duration: '3天2夜',
-    tags: ['美食', '文化', '城市']
+    emoji: '🌃',
+    duration: '3 days',
+    tags: ['Nightlife', 'Food', 'Culture'],
+    difficulty: 'Easy',
+    highlights: ['Shibuya Crossing', 'Golden Gai', 'Robot Restaurant']
   },
   {
-    id: 'paris',
-    title: '巴黎艺术之旅',
-    creator: '艺术爱好者',
-    location: '巴黎, 法国',
-    description: '漫步艺术之都，感受浪漫与艺术的完美结合。从卢浮宫到埃菲尔铁塔。',
+    id: 'paris-street-art',
+    title: 'Paris Street Art Hunt',
+    creator: 'Urban Art Hunter',
+    location: 'Paris, France',
+    description: 'Discover Paris through the eyes of street artists! Follow the colorful murals and hidden gems that tell the city\'s untold stories.',
     rating: 4.9,
     reviews: 95,
     price: 50,
-    emoji: '🗼',
-    duration: '4天3夜',
-    tags: ['艺术', '浪漫', '历史']
+    emoji: '🎨',
+    duration: '4 days',
+    tags: ['Art', 'Street Culture', 'Photography'],
+    difficulty: 'Medium',
+    highlights: ['13th Arrondissement', 'Belleville', 'Le Marais']
   },
   {
-    id: 'kyoto',
-    title: '京都古都之旅',
-    creator: '文化探索者',
-    location: '京都, 日本',
-    description: '体验日本传统文化，感受千年古都的魅力。从金阁寺到清水寺。',
+    id: 'kyoto-temple-run',
+    title: 'Kyoto Temple Runner',
+    creator: 'Zen Master',
+    location: 'Kyoto, Japan',
+    description: 'Channel your inner temple runner! Sprint through Kyoto\'s most sacred sites before the crowds arrive. Perfect for early birds and photography enthusiasts.',
     rating: 4.7,
     reviews: 156,
     price: 30,
-    emoji: '⛩️',
-    duration: '3天2夜',
-    tags: ['文化', '历史', '传统']
+    emoji: '🏃‍♂️',
+    duration: '3 days',
+    tags: ['Temples', 'Photography', 'Culture'],
+    difficulty: 'Hard',
+    highlights: ['Fushimi Inari', 'Kinkaku-ji', 'Arashiyama']
   },
   {
-    id: 'venice',
-    title: '威尼斯浪漫之旅',
-    creator: '浪漫主义者',
-    location: '威尼斯, 意大利',
-    description: '在世界上最浪漫的城市中迷失，乘坐贡多拉穿梭于古老的运河之间。',
+    id: 'venice-gondola-race',
+    title: 'Venice Gondola Racing',
+    creator: 'Canal Captain',
+    location: 'Venice, Italy',
+    description: 'Navigate Venice\'s labyrinth of canals like a local! Skip the tourist traps and discover the city\'s secret waterways and hidden gems.',
     rating: 4.9,
     reviews: 89,
     price: 100,
     emoji: '🛶',
-    duration: '3天2夜',
-    tags: ['浪漫', '水上', '历史']
+    duration: '3 days',
+    tags: ['Waterways', 'Hidden Gems', 'Romance'],
+    difficulty: 'Medium',
+    highlights: ['Secret Canals', 'Local Islands', 'Hidden Squares']
   },
   {
-    id: 'bali',
-    title: '巴厘岛度假之旅',
-    creator: '度假专家',
-    location: '巴厘岛, 印尼',
-    description: '在热带天堂中放松身心，享受阳光、沙滩和海浪。从乌布到库塔。',
+    id: 'bali-surf-safari',
+    title: 'Bali Surf Safari',
+    creator: 'Wave Rider',
+    location: 'Bali, Indonesia',
+    description: 'Catch the perfect wave! From beginner-friendly breaks to challenging reef waves, this surf adventure covers Bali\'s best beaches and surf spots.',
     rating: 4.6,
     reviews: 203,
     price: 0,
-    emoji: '🌴',
-    duration: '5天4夜',
-    tags: ['度假', '自然', '放松']
+    emoji: '🏄‍♂️',
+    duration: '5 days',
+    tags: ['Surfing', 'Beach', 'Adventure'],
+    difficulty: 'Medium',
+    highlights: ['Uluwatu', 'Canggu', 'Nusa Lembongan']
   },
   {
-    id: 'santorini',
-    title: '圣托里尼日落之旅',
-    creator: '摄影爱好者',
-    location: '圣托里尼, 希腊',
-    description: '在爱琴海最美的岛屿上欣赏世界上最壮观的日落，漫步于白色建筑群中。',
+    id: 'santorini-sunset-chase',
+    title: 'Santorini Sunset Chaser',
+    creator: 'Golden Hour Hunter',
+    location: 'Santorini, Greece',
+    description: 'Chase the most epic sunsets on Earth! This photography-focused journey takes you to the best viewpoints and hidden spots for that perfect Instagram moment.',
     rating: 4.8,
     reviews: 167,
     price: 80,
-    emoji: '🏛️',
-    duration: '4天3夜',
-    tags: ['摄影', '日落', '海岛']
+    emoji: '🌅',
+    duration: '4 days',
+    tags: ['Photography', 'Sunsets', 'Islands'],
+    difficulty: 'Easy',
+    highlights: ['Oia Sunset', 'Hidden Viewpoints', 'Volcano Views']
+  },
+  {
+    id: 'nyc-food-truck-tour',
+    title: 'NYC Food Truck Marathon',
+    creator: 'Street Foodie',
+    location: 'New York City, USA',
+    description: 'Eat your way through NYC\'s best food trucks! From Brooklyn to Queens, discover the city\'s diverse culinary scene on wheels.',
+    rating: 4.7,
+    reviews: 234,
+    price: 40,
+    emoji: '🍕',
+    duration: '2 days',
+    tags: ['Food', 'Street Food', 'Culture'],
+    difficulty: 'Easy',
+    highlights: ['Brooklyn Bridge', 'Queens Night Market', 'Manhattan Trucks']
+  },
+  {
+    id: 'london-underground',
+    title: 'London Underground Explorer',
+    creator: 'Tube Master',
+    location: 'London, UK',
+    description: 'Master the London Underground like a local! Navigate the world\'s oldest metro system and discover hidden stations and secret passages.',
+    rating: 4.5,
+    reviews: 178,
+    price: 25,
+    emoji: '🚇',
+    duration: '3 days',
+    tags: ['Transport', 'History', 'Urban'],
+    difficulty: 'Medium',
+    highlights: ['Abandoned Stations', 'Secret Passages', 'Historic Lines']
   }
 ];
 
 export default function BookshelfPage() {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('all');
 
-  const tags = ['all', '美食', '文化', '艺术', '浪漫', '历史', '度假', '自然', '摄影'];
+  const handleBackToHome = () => {
+    router.push('/home');
+  };
+
+  const handleNavigateToAIChat = () => {
+    router.push('/ai-chat');
+  };
+
+  const tags = ['all', 'Food', 'Culture', 'Art', 'Photography', 'Adventure', 'Nightlife', 'Hidden Gems', 'Surfing'];
 
   const filteredStories = stories.filter(story => {
     const matchesSearch = story.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -111,148 +164,157 @@ export default function BookshelfPage() {
     return matchesSearch && matchesTag;
   });
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      {/* 顶部导航栏 */}
-      <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200/50">
-        <div className="px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button 
-              onClick={() => window.history.back()}
-              className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
-            >
-              ←
-            </button>
-            <div>
-              <h1 className="text-lg font-semibold text-gray-900">旅途脚本书架</h1>
-              <p className="text-xs text-gray-500">探索精选旅行故事</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-gradient-to-br from-green-500 to-teal-500 rounded-lg flex items-center justify-center text-white text-xs">
-              📚
-            </div>
-          </div>
-        </div>
-      </header>
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'Easy': return 'text-green-400';
+      case 'Medium': return 'text-yellow-400';
+      case 'Hard': return 'text-red-400';
+      default: return 'text-gray-400';
+    }
+  };
 
-      {/* 搜索和筛选 */}
-      <div className="px-4 py-4">
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
+      {/* Header */}
+      <div className="p-4">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={handleBackToHome}
+            className="text-white/80 hover:text-white"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <h1 className="text-xl font-bold text-white">Travel Stories</h1>
+          <div className="w-6"></div>
+        </div>
+      </div>
+
+      {/* Search and Filters */}
+      <div className="px-4 pb-4">
+        {/* Search Bar */}
         <div className="relative mb-4">
           <input
             type="text"
-            placeholder="🔍 搜索旅行故事..."
+            placeholder="🔍 Search adventures..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            className="w-full px-4 py-3 bg-black/80 backdrop-blur-sm rounded-2xl border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#FF9E4A]"
           />
         </div>
 
-        {/* 标签筛选 */}
+        {/* Tag Filters */}
         <div className="flex gap-2 overflow-x-auto pb-2">
           {tags.map(tag => (
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+              className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                 selectedTag === tag
-                  ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white shadow-lg'
-                  : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 text-gray-700 hover:bg-white/90'
+                  ? 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white'
+                  : 'bg-white/10 text-white/60 hover:bg-white/20'
               }`}
             >
-              {tag === 'all' ? '全部' : tag}
+              {tag === 'all' ? 'All' : tag}
             </button>
           ))}
         </div>
       </div>
 
-      {/* 故事列表 */}
+      {/* Stories List */}
       <div className="px-4 pb-20">
-        <div className="grid grid-cols-1 gap-4">
+        <div className="space-y-4">
           {filteredStories.map((story) => (
-            <Link key={story.id} href={`/story/${story.id}`}>
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-gray-200/50 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <div className="flex items-start gap-4">
-                  {/* 故事封面 */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">
-                    {story.emoji}
+            <div key={story.id} className="bg-black/80 backdrop-blur-sm rounded-3xl p-4 border border-white/20 hover:border-white/40 transition-all">
+              <div className="flex items-start gap-4">
+                {/* Story Cover */}
+                <div className="w-16 h-16 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
+                  {story.emoji}
+                </div>
+                
+                {/* Story Info */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-lg font-semibold text-white truncate">
+                      {story.title}
+                    </h3>
+                    <div className="flex items-center gap-1 text-sm">
+                      <span className="text-[#FF9E4A]">★</span>
+                      <span className="text-white">{story.rating}</span>
+                    </div>
                   </div>
                   
-                  {/* 故事信息 */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 truncate">
-                        {story.title}
-                      </h3>
-                      <div className="flex items-center gap-1 text-sm text-gray-500">
-                        <span>⭐</span>
-                        <span>{story.rating}</span>
-                      </div>
+                  <p className="text-white/80 text-sm mb-3 line-clamp-2">
+                    {story.description}
+                  </p>
+                  
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-4 text-xs text-white/60">
+                      <span>📍 {story.location}</span>
+                      <span>⏱️ {story.duration}</span>
+                      <span>👤 {story.creator}</span>
                     </div>
                     
-                    <p className="text-sm text-gray-600 mb-2 line-clamp-2">
-                      {story.description}
-                    </p>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 text-xs text-gray-500">
-                        <span>📍 {story.location}</span>
-                        <span>⏱️ {story.duration}</span>
-                        <span>👤 {story.creator}</span>
-                      </div>
-                      
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500">
-                          {story.reviews} 评价
-                        </span>
-                        <span className={`text-sm font-semibold ${
-                          story.price === 0 ? 'text-green-600' : 'text-purple-600'
-                        }`}>
-                          {story.price === 0 ? '免费' : `${story.price} UNC`}
-                        </span>
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-white/60">
+                        {story.reviews} reviews
+                      </span>
+                      <span className={`text-sm font-semibold ${
+                        story.price === 0 ? 'text-[#66D2A0]' : 'text-[#FF9E4A]'
+                      }`}>
+                        {story.price === 0 ? 'Free' : `${story.price} UNC`}
+                      </span>
                     </div>
-                    
-                    {/* 标签 */}
-                    <div className="flex gap-1 mt-2">
+                  </div>
+                  
+                  {/* Difficulty and Tags */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-2">
                       {story.tags.slice(0, 3).map(tag => (
                         <span
                           key={tag}
-                          className="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded-full"
+                          className="px-2 py-1 bg-white/10 text-white/80 text-xs rounded-lg"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
+                    <span className={`text-xs font-medium ${getDifficultyColor(story.difficulty)}`}>
+                      {story.difficulty}
+                    </span>
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
         
         {filteredStories.length === 0 && (
           <div className="text-center py-12">
-            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-2xl mb-4">
-              📚
+            <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </div>
-            <p className="text-gray-500">没有找到相关故事</p>
-            <p className="text-sm text-gray-400">尝试调整搜索条件</p>
+            <p className="text-white/60">No adventures found</p>
+            <p className="text-sm text-white/40">Try adjusting your search</p>
           </div>
         )}
       </div>
 
-      {/* 底部导航提示 */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-gray-200/50 px-4 py-3">
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-t border-white/20 px-4 py-3">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600">
-            发现 {filteredStories.length} 个故事
+          <span className="text-sm text-white/60">
+            Found {filteredStories.length} adventures
           </span>
-          <Link href="/ai-chat">
-            <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200">
-              🤖 创建专属故事
-            </button>
-          </Link>
+          <button
+            onClick={handleNavigateToAIChat}
+            className="px-4 py-2 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
+          >
+            🤖 Create Your Story
+          </button>
         </div>
       </div>
     </div>
