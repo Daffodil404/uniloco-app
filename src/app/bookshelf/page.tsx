@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -145,20 +145,13 @@ const stories: Story[] = [
 
 export default function BookshelfPage() {
   const router = useRouter();
-  const { isLoggedIn, requireLogin } = useAuth();
+  const { isLoggedIn, isLoading } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('all');
 
   const handleBackToHome = () => {
     router.push('/home');
   };
-
-  // 检查登录状态
-  useEffect(() => {
-    if (!requireLogin()) {
-      return;
-    }
-  }, [requireLogin]);
 
   const handleNavigateToAIChat = () => {
     router.push('/ai-chat');
@@ -182,9 +175,23 @@ export default function BookshelfPage() {
     }
   };
 
+  // 显示加载状态
+  if (isLoading) {
+    return (
+      <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+          <h3 className="text-xl font-semibold text-white mb-2">Loading...</h3>
+          <p className="text-white/80">Checking login status</p>
+        </div>
+      </div>
+    );
+  }
+
+  // 显示登录要求
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+      <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -194,7 +201,7 @@ export default function BookshelfPage() {
           <h3 className="text-xl font-semibold text-white mb-2">Login Required</h3>
           <p className="text-white/80 mb-4">This feature requires login to access</p>
           <button
-            onClick={() => requireLogin()}
+            onClick={() => router.push('/login?redirect=/bookshelf')}
             className="px-6 py-2 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] text-white rounded-xl font-medium"
           >
             Sign In
@@ -205,9 +212,9 @@ export default function BookshelfPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
+    <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
       {/* Header */}
-      <div className="p-4">
+      <div className="p-4 flex-shrink-0">
         <div className="flex items-center justify-between">
             <button 
             onClick={handleBackToHome}
@@ -223,7 +230,7 @@ export default function BookshelfPage() {
       </div>
 
       {/* Search and Filters */}
-      <div className="px-4 pb-4">
+      <div className="px-4 pb-4 flex-shrink-0">
         {/* Search Bar */}
         <div className="relative mb-4">
           <input
@@ -254,7 +261,7 @@ export default function BookshelfPage() {
       </div>
 
       {/* Stories List */}
-      <div className="px-4 pb-20">
+      <div className="flex-1 overflow-y-auto px-4 mobile-content-safe">
         <div className="space-y-4">
           {filteredStories.map((story) => (
             <div key={story.id} className="bg-black/80 backdrop-blur-sm rounded-3xl p-4 border border-white/20 hover:border-white/40 transition-all">

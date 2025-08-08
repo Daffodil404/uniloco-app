@@ -147,6 +147,7 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
     // 清理之前的标记
     markers.forEach(marker => marker.remove());
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newMarkers: any[] = [];
     
     mapPoints.forEach((point) => {
@@ -171,7 +172,7 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
     });
 
     setMarkers(newMarkers);
-  }, [map, isMapLoaded, mapPoints, stableOnPointClick]);
+  }, [map, isMapLoaded, mapPoints, stableOnPointClick]); // 移除 markers 依赖以避免无限循环
 
   // 地图控制按钮
   const handleZoomIn = () => {
@@ -202,7 +203,6 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
       <div 
         ref={mapRef} 
         className="w-full h-full rounded-2xl overflow-hidden"
-        style={{ minHeight: '400px' }}
       />
 
       {/* 地图控制按钮 */}

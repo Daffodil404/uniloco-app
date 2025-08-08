@@ -8,6 +8,7 @@ import SuccessModal from '@/components/features/SuccessModal';
 import Drawer from '@/components/ui/Drawer';
 import type { TravelPlan, MapPoint } from '@/types/travel';
 import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 interface CheckInData {
   pointId?: string;
@@ -19,27 +20,18 @@ interface CheckInData {
 }
 
 function TravelPlanContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const { isLoggedIn, requireLogin } = useAuth();
+  const { isLoggedIn, isLoading } = useAuth();
   const [travelPlan, setTravelPlan] = useState<TravelPlan | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<MapPoint | null>(null);
-  const [isAIChatOpen, setIsAIChatOpen] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCheckInModalOpen, setIsCheckInModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [checkInData, setCheckInData] = useState<CheckInData | null>(null);
+  const [isAIChatOpen, setIsAIChatOpen] = useState(false);
 
-  // 检查登录状态
+  // 初始化旅行计划数据
   useEffect(() => {
-    if (!requireLogin()) {
-      return;
-    }
-  }, [requireLogin, isLoggedIn]);
-
-  // 生成旅行计划数据
-  useEffect(() => {
-    if (!isLoggedIn) return;
-    
     // 从URL参数获取用户选择
     const destination = searchParams.get('destination') || 'Tokyo';
     const duration = searchParams.get('duration') || '4-7 days';
@@ -47,9 +39,9 @@ function TravelPlanContent() {
     const companion = searchParams.get('companion') || 'Solo travel';
     const atmosphere = searchParams.get('atmosphere') || 'Cultural';
 
-    // 生成模拟数据
+    // 模拟旅行计划数据
     const mockPlan: TravelPlan = {
-      id: 'plan-001',
+      id: '1',
       destination,
       duration,
       food,
@@ -60,45 +52,42 @@ function TravelPlanContent() {
       itinerary: [
         {
           day: 1,
-          title: 'Arrival & City Introduction',
+          title: 'Arrival & Orientation',
           activities: [
-            'Arrive at Tokyo Haneda Airport',
+            'Arrive at Tokyo Station',
             'Check into hotel in Shibuya',
             'Explore Shibuya Crossing',
-            'Visit Meiji Shrine',
-            'Evening at Tokyo Skytree'
+            'Dinner at local ramen shop'
           ],
-          locations: ['Shibuya', 'Meiji Shrine', 'Tokyo Skytree'],
+          locations: ['Tokyo Station', 'Shibuya', 'Shibuya Crossing'],
           estimatedCost: 150,
           weather: 'Sunny, 22°C'
         },
         {
           day: 2,
-          title: 'Traditional Tokyo',
+          title: 'Cultural Immersion',
           activities: [
-            'Morning at Senso-ji Temple',
-            'Explore Asakusa district',
-            'Lunch at traditional ramen shop',
-            'Visit Tokyo National Museum',
-            'Evening at Akihabara'
+            'Visit Meiji Shrine',
+            'Explore Harajuku district',
+            'Lunch at traditional sushi restaurant',
+            'Evening at Tokyo Skytree'
           ],
-          locations: ['Asakusa', 'Ueno', 'Akihabara'],
-          estimatedCost: 120,
+          locations: ['Meiji Shrine', 'Harajuku', 'Tokyo Skytree'],
+          estimatedCost: 200,
           weather: 'Partly cloudy, 20°C'
         },
         {
           day: 3,
           title: 'Modern Tokyo',
           activities: [
-            'Visit TeamLab Planets',
-            'Explore Odaiba',
+            'Visit Senso-ji Temple',
+            'Explore Asakusa district',
             'Lunch at Tsukiji Outer Market',
-            'Shopping in Ginza',
-            'Dinner at Michelin-starred restaurant'
+            'Evening shopping in Ginza'
           ],
-          locations: ['Odaiba', 'Tsukiji', 'Ginza'],
-          estimatedCost: 200,
-          weather: 'Sunny, 24°C'
+          locations: ['Senso-ji Temple', 'Asakusa', 'Tsukiji Market', 'Ginza'],
+          estimatedCost: 180,
+          weather: 'Clear, 24°C'
         }
       ],
       mapPoints: [
@@ -117,8 +106,8 @@ function TravelPlanContent() {
           lat: 35.6762,
           lng: 139.6993,
           type: 'attraction',
-          rating: 4.8,
-          openingHours: '6:00 AM - 5:00 PM'
+          rating: 4.7,
+          openingHours: '6:00-17:00'
         },
         {
           id: '3',
@@ -127,7 +116,7 @@ function TravelPlanContent() {
           lng: 139.7967,
           type: 'attraction',
           rating: 4.6,
-          openingHours: '6:00 AM - 5:00 PM'
+          openingHours: '6:00-17:00'
         },
         {
           id: '4',
@@ -135,16 +124,14 @@ function TravelPlanContent() {
           lat: 35.6654,
           lng: 139.7702,
           type: 'restaurant',
-          rating: 4.7,
-          openingHours: '5:00 AM - 2:00 PM'
+          rating: 4.4,
+          openingHours: '5:00-14:00'
         }
       ]
     };
 
     setTravelPlan(mockPlan);
   }, [searchParams, isLoggedIn]);
-
-
 
   const handlePointClick = (point: MapPoint) => {
     console.log('Point clicked:', point.name);
@@ -192,9 +179,22 @@ function TravelPlanContent() {
     window.location.href = `/ai-chat?${params.toString()}`;
   };
 
+  // 显示加载状态
+  if (isLoading) {
+    return (
+      <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+          <h3 className="text-xl font-semibold text-white mb-2">Loading...</h3>
+          <p className="text-white/80">Checking login status</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+      <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,7 +204,7 @@ function TravelPlanContent() {
           <h3 className="text-xl font-semibold text-white mb-2">Login Required</h3>
           <p className="text-white/80 mb-4">This feature requires login to access</p>
           <button
-            onClick={() => requireLogin()}
+            onClick={() => router.push('/login?redirect=/travel-plan')}
             className="px-6 py-2 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] text-white rounded-xl font-medium"
           >
             Sign In
@@ -216,7 +216,7 @@ function TravelPlanContent() {
 
   if (!travelPlan) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+      <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
         <div className="text-center">
           <h3 className="text-xl font-semibold text-white mb-2">Plan Not Found</h3>
           <p className="text-white/80">Unable to load your travel plan.</p>
@@ -226,7 +226,7 @@ function TravelPlanContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
+    <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
       {/* 顶部导航 */}
       <header className="relative z-20 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
@@ -279,15 +279,15 @@ function TravelPlanContent() {
               onClick={() => handleNavigateToChat(3)}
               className="bg-white/10 rounded-xl p-2 text-center hover:bg-white/20 transition-colors cursor-pointer"
             >
-              <div className="text-white/60 text-xs mb-1">Style</div>
-              <div className="text-white font-medium text-xs truncate">{travelPlan.atmosphere}</div>
+              <div className="text-white/60 text-xs mb-1">Companion</div>
+              <div className="text-white font-medium text-xs truncate">{travelPlan.companion}</div>
             </button>
           </div>
         </div>
       </div>
 
-      {/* 地图区域 - 放大占比 */}
-      <div className="flex-1 px-6 pb-6 flex">
+      {/* 地图区域 */}
+      <div className="flex-1 p-3 mobile-content-safe">
         <InteractiveMap
           mapPoints={travelPlan.mapPoints}
           onPointClick={handlePointClick}
@@ -296,8 +296,8 @@ function TravelPlanContent() {
 
       {/* 抽屉组件 */}
       <Drawer
-        isOpen={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        isOpen={false} // Drawer is not used in this component, so it's always closed
+        onClose={() => {}}
         title="Your Itinerary"
         tabLabel="View Plan"
       >

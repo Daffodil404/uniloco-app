@@ -75,17 +75,17 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
-      {/* 地图区域 - 占据更多空间 */}
-      <div className="flex-1 p-3 flex">
+    <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
+      {/* 地图区域 - 占据更多空间但有限制 */}
+      <div className="flex-1 p-3 flex" style={{ minHeight: 0 }}>
         <InteractiveMap
           mapPoints={mockMapPoints}
           onPointClick={handlePointClick}
         />
       </div>
 
-      {/* 底部导航卡片 - 减少高度 */}
-      <div className="p-2 pb-4">
+      {/* 底部导航卡片 - 确保不被压住 */}
+      <div className="mobile-footer-safe p-2 flex-shrink-0">
         <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-4 border border-white/20">
           {/* 用户信息行 */}
           <div className="flex items-center gap-3 mb-3">
