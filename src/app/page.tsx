@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import InteractiveMap from '@/components/features/InteractiveMap';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -54,10 +55,13 @@ export default function SplashPage() {
           {/* 组合图标 - 使用图片 */}
           <div className={`mb-16 transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}>
             <div className="flex justify-center">
-              <img
+              <Image
                 src="/static/locate.png"
                 alt="Location with speech bubble icon"
+                width={320}
+                height={320}
                 className="w-[80%] drop-shadow-2xl"
+                priority
               />
             </div>
           </div>

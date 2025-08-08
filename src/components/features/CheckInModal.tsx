@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import type { MapPoint } from '@/types/travel';
 import Image from 'next/image';
+import type { MapPoint } from '@/types/travel';
 
 interface CheckInData {
   pointId?: string;
@@ -26,7 +26,7 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
     photos: []
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [currentLocation, setCurrentLocation] = useState<{lat: number, lng: number} | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // 获取当前位置
@@ -41,11 +41,6 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
         },
         (error) => {
           console.error('Error getting location:', error);
-          // 使用默认位置（东京）
-          setCurrentLocation({
-            lat: 35.6762,
-            lng: 139.6503
-          });
         }
       );
     }
@@ -54,80 +49,85 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
   // 处理图片上传
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files && files.length > 0) {
-      const fileArray = Array.from(files);
-      const imageUrls = fileArray.map(file => URL.createObjectURL(file));
-      
-      setCheckInData(prev => ({
-        ...prev,
-        notes: prev.notes || '',
-        photos: [...(prev.photos || []), ...imageUrls]
-      }));
+    if (files) {
+      const newPhotos: string[] = [];
+      Array.from(files).forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target?.result) {
+            newPhotos.push(e.target.result as string);
+            if (newPhotos.length === files.length) {
+              setCheckInData(prev => ({
+                ...prev,
+                photos: [...prev.photos, ...newPhotos]
+              }));
+            }
+          }
+        };
+        reader.readAsDataURL(file);
+      });
     }
   };
 
   // 生成UNC
   const generateUNC = () => {
     const timestamp = Date.now();
-    const randomString = Math.random().toString(36).substring(2, 8);
-    return `UNC_${timestamp}_${randomString}`;
+    const random = Math.random().toString(36).substring(2, 8);
+    return `UNC-${timestamp}-${random}`;
   };
 
   // 提交打卡
   const handleSubmitCheckIn = async () => {
-    if (!selectedPoint) return;
+    if (!checkInData.notes.trim()) {
+      alert('Please share your experience');
+      return;
+    }
 
     setIsSubmitting(true);
 
     try {
-      // 模拟API调用延迟
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // 模拟API调用
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      const unc = generateUNC();
-      const finalCheckInData: CheckInData = {
+      const submitData: CheckInData = {
         ...checkInData,
-        pointId: selectedPoint.id,
+        pointId: selectedPoint?.id,
         timestamp: new Date().toISOString(),
-        location: selectedPoint.name,
-        unc
+        location: selectedPoint?.name || 'Unknown Location',
+        unc: generateUNC()
       };
 
-      onSubmit(finalCheckInData);
+      onSubmit(submitData);
       onClose();
     } catch (error) {
       console.error('Check-in failed:', error);
+      alert('Check-in failed. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // 当modal打开时获取位置
+  // 重置表单
   useEffect(() => {
-    if (isOpen && selectedPoint) {
-      getCurrentLocation();
-      // 重置表单数据
+    if (isOpen) {
       setCheckInData({
         notes: '',
         photos: []
       });
+      setCurrentLocation(null);
+      getCurrentLocation();
     }
-  }, [isOpen, selectedPoint]);
+  }, [isOpen]);
 
-  if (!isOpen || !selectedPoint) {
+  if (!isOpen) {
     return null;
   }
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-6">
       <div className="bg-black/90 backdrop-blur-sm rounded-3xl p-6 border border-white/20 max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h3 className="text-xl font-bold text-white">{selectedPoint.name}</h3>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="text-[#FF9E4A] text-sm">★ {selectedPoint.rating}</span>
-              <span className="text-white/60 text-xs">{selectedPoint.openingHours}</span>
-            </div>
-          </div>
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-bold text-white">Check-in at {selectedPoint?.name}</h3>
           <button
             onClick={onClose}
             className="text-white/60 hover:text-white"
@@ -137,25 +137,28 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
             </svg>
           </button>
         </div>
-        
-        <div className="space-y-4">
-          {/* 定位打卡 */}
-          <div className="bg-white/10 rounded-2xl p-4">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-full flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div>
-                <h4 className="text-white font-semibold">Location Check-in</h4>
-                <p className="text-white/60 text-sm">
-                  {currentLocation ? 
-                    `Lat: ${currentLocation.lat.toFixed(4)}, Lng: ${currentLocation.lng.toFixed(4)}` : 
-                    'Getting your location...'
-                  }
-                </p>
+
+        <div className="space-y-6">
+          {/* 位置信息 */}
+          <div>
+            <label className="block text-white/80 text-sm mb-2">Location</label>
+            <div className="bg-white/10 rounded-2xl p-4">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-white font-semibold">Location Check-in</h4>
+                  <p className="text-white/60 text-sm">
+                    {currentLocation ? 
+                      `Lat: ${currentLocation.lat.toFixed(4)}, Lng: ${currentLocation.lng.toFixed(4)}` : 
+                      'Getting your location...'
+                    }
+                  </p>
+                </div>
               </div>
             </div>
             <button

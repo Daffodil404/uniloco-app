@@ -1,8 +1,7 @@
 // 通用类型定义
 
 // 基础响应类型
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data: T;
   message: string;
@@ -99,15 +98,13 @@ export interface BaseEvent {
   id: string;
   type: string;
   timestamp: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: any;
+  data?: unknown;
 }
 
 // 错误类型
 export interface AppError {
   code: string;
   message: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  details?: any;
+  details?: unknown;
   timestamp: string;
 } 

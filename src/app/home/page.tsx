@@ -53,9 +53,7 @@ export default function HomePage() {
     // 这里可以添加点击处理逻辑
   };
 
-  const handleSaveMap = () => {
-    console.log('Save map');
-  };
+
 
   const handleNavigateToProfile = () => {
     router.push('/profile');
@@ -84,7 +82,6 @@ export default function HomePage() {
         <InteractiveMap
           mapPoints={mockMapPoints}
           onPointClick={handlePointClick}
-          onSaveMap={handleSaveMap}
         />
       </div>
 
