@@ -7,10 +7,9 @@ import LocationInfoModal from './LocationInfoModal';
 interface InteractiveMapProps {
   mapPoints: MapPoint[];
   onPointClick: (point: MapPoint) => void;
-  onSaveMap: () => void;
 }
 
-export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: InteractiveMapProps) {
+export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [map, setMap] = useState<any>(null);
@@ -81,7 +80,8 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
           }).addTo(mapInstance);
 
           // 添加地图点击事件处理，防止干扰标记点击
-          mapInstance.on('click', function (e) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          mapInstance.on('click', function (e: any) {
             console.log('Map clicked:', e.latlng);
             // 地图点击时不执行任何操作，让标记点击事件优先
           });
@@ -98,9 +98,19 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
               .leaflet-control-attribution {
                 display: none;
               }
+              .leaflet-popup-content-wrapper {
+                background: rgba(0, 0, 0, 0.9);
+                color: white;
+                border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+              }
+              .leaflet-popup-tip {
+                background: rgba(0, 0, 0, 0.9);
+              }
             </style>
           `;
-          
+
+          // 添加自定义样式
           if (!document.querySelector('#leaflet-custom-style')) {
             const styleElement = document.createElement('div');
             styleElement.id = 'leaflet-custom-style';
@@ -119,105 +129,52 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
 
     initMap();
 
+    // 清理函数
     return () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
-      setMap(null);
-      setIsMapLoaded(false);
     };
   }, []);
 
   // 添加标记点
   useEffect(() => {
-    if (map && mapPoints.length > 0 && isMapLoaded && leafletRef.current) {
-      console.log('Creating markers for', mapPoints.length, 'points');
-      console.log('onPointClick callback:', onPointClick);
-      
-      const L = getLeaflet();
-      
-      // 清除之前的标记
-      markers.forEach(marker => {
-        if (map.hasLayer(marker)) {
-          map.removeLayer(marker);
-        }
+    if (!map || !isMapLoaded || !leafletRef.current) return;
+
+    const L = getLeaflet();
+    
+    // 清理之前的标记
+    markers.forEach(marker => marker.remove());
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const newMarkers: any[] = [];
+    
+    mapPoints.forEach((point) => {
+      const marker = L.marker([point.lat, point.lng], {
+        icon: L.icon({
+          iconUrl: '/static/locate.png',
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
+        })
       });
-      
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const newMarkers: any[] = [];
 
-      // 测试节点 - 使用与mapPoints相同的点击链路
-      const testMarker = L.marker([35.6762, 139.6504], {
-        title: 'test'
-      }).addTo(map);
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      testMarker.on('click', function (e: any) {
-        console.log('Test marker clicked:', e);
-        // 使用与mapPoints相同的点击链路
-        const testPoint = mapPoints[0]; // 使用第一个mapPoint作为测试
-        setSelectedPoint(testPoint);
+      // 添加点击事件
+      marker.on('click', () => {
+        setSelectedPoint(point);
         setIsLocationInfoOpen(true);
+        stableOnPointClick(point);
       });
 
-      // TODO： mapPoints 的节点在点击时有问题，用测试节点代替
-      // mapPoints.forEach((point) => {
-      //   console.log('Creating marker for:', point.name, 'at:', point.lat, point.lng);
-        
-      //   // 使用默认图标，确保点击事件正常工作
-      //   const marker = L.marker([point.lat, point.lng], {
-      //     title: point.name
-      //   }).addTo(map);
+      marker.addTo(map);
+      newMarkers.push(marker);
+    });
 
-      //   console.log('Marker created for:', point.name, 'marker:', marker);
+    setMarkers(newMarkers);
+  }, [map, isMapLoaded, mapPoints, stableOnPointClick, markers]);
 
-      //   // 添加点击事件 - 显示地点信息对话框
-      //   marker.on('click', function (e: any) {
-      //     console.log('MapPoint marker clicked:', point.name, e);
-      //     // 显示地点信息对话框
-      //     setSelectedPoint(point);
-      //     setIsLocationInfoOpen(true);
-      //   });
-
-      //   // 添加悬停效果
-      //   marker.on('mouseover', function (this: any) {
-      //     console.log('Mouse over marker:', point.name);
-      //     this.getElement().style.transform = 'scale(1.2)';
-      //   });
-
-      //   marker.on('mouseout', function (this: any) {
-      //     console.log('Mouse out marker:', point.name);
-      //     this.getElement().style.transform = 'scale(1)';
-      //   });
-
-      //   newMarkers.push(marker);
-      // });
-
-      newMarkers.push(testMarker);
-
-      setMarkers(newMarkers);
-
-      // 调整地图视图以显示测试标记
-      if (newMarkers.length > 0) {
-        // 直接设置地图中心到测试marker位置
-        map.setView([35.6762, 139.6504], 13);
-      }
-    }
-  }, [map, mapPoints, isMapLoaded, stableOnPointClick, markers, onPointClick]);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleSaveMap = () => {
-    if (map) {
-      // 使用html2canvas保存地图
-      map.once('moveend', () => {
-        // 这里可以集成html2canvas来保存地图
-        console.log('Saving map as PNG...');
-        // 实际实现时需要安装html2canvas: npm install html2canvas
-      });
-    }
-  };
-
+  // 地图控制按钮
   const handleZoomIn = () => {
     if (map) {
       map.zoomIn();
@@ -236,71 +193,46 @@ export default function InteractiveMap({ mapPoints, onPointClick, onSaveMap }: I
   };
 
   const handleCheckIn = (point: MapPoint) => {
-    stableOnPointClick(point);
+    // 这里可以触发打卡功能
+    console.log('Check-in at:', point.name);
   };
 
   return (
-    <div className="w-full flex-1 bg-black/80 backdrop-blur-sm rounded-3xl p-4 border border-white/10">
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-lg font-bold text-white">Interactive Map</h2>
-        <button
-          onClick={onSaveMap}
-          className="px-3 py-1.5 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
-        >
-          Save Map
-        </button>
-      </div>
-      
-      {/* 地图容器 - 使用calc计算剩余高度 */}
+    <div className="relative w-full h-full">
+      {/* 地图容器 */}
       <div 
-        ref={mapRef}
-        className="w-full rounded-2xl relative overflow-hidden"
-        style={{ 
-          zIndex: 1,
-          height: 'calc(100% - 60px)' // 减去标题区域的高度
-        }}
-      >
-        {/* 地点信息对话框 */}
-        <LocationInfoModal
-          isOpen={isLocationInfoOpen}
-          onClose={handleLocationInfoClose}
-          selectedPoint={selectedPoint}
-          onCheckIn={handleCheckIn}
-        />
-      </div>
-      
+        ref={mapRef} 
+        className="w-full h-full rounded-2xl overflow-hidden"
+        style={{ minHeight: '400px' }}
+      />
+
       {/* 地图控制按钮 */}
-      <div className="absolute bottom-4 right-4 flex flex-col gap-2" style={{ zIndex: 1000 }}>
-        <button 
+      <div className="absolute top-4 right-4 flex flex-col gap-2">
+        <button
           onClick={handleZoomIn}
-          className="w-8 h-8 bg-black/50 backdrop-blur-sm rounded-lg flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+          className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
         </button>
-        <button 
+        <button
           onClick={handleZoomOut}
-          className="w-8 h-8 bg-black/50 backdrop-blur-sm rounded-lg flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+          className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
           </svg>
         </button>
       </div>
 
-      {/* 自定义样式 */}
-      <style jsx>{`
-        .leaflet-container {
-          background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%) !important;
-        }
-        .leaflet-control-zoom {
-          display: none !important;
-        }
-        .leaflet-control-attribution {
-          display: none !important;
-        }
-      `}</style>
+      {/* 位置信息弹窗 */}
+      <LocationInfoModal
+        isOpen={isLocationInfoOpen}
+        onClose={handleLocationInfoClose}
+        selectedPoint={selectedPoint}
+        onCheckIn={handleCheckIn}
+      />
     </div>
   );
 } 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense, useCallback } from 'react';
 import CitySearch from '@/components/ui/CitySearch';
 import DurationSlider from '@/components/ui/DurationSlider';
 import { useSearchParams } from 'next/navigation';
@@ -59,8 +59,6 @@ function AIChatContent() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selectedCity, setSelectedCity] = useState<{ id: string; name: string; country: string } | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedDuration, setSelectedDuration] = useState<{ min: number; max: number; label: string } | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const [autoAdvanceTimer, setAutoAdvanceTimer] = useState<NodeJS.Timeout | null>(null);
@@ -92,12 +90,12 @@ function AIChatContent() {
   }, [searchParams]);
 
   // 清除自动跳转定时器
-  const clearAutoAdvanceTimer = () => {
+  const clearAutoAdvanceTimer = useCallback(() => {
     if (autoAdvanceTimer) {
       clearTimeout(autoAdvanceTimer);
       setAutoAdvanceTimer(null);
     }
-  };
+  }, [autoAdvanceTimer]);
 
   // 通用自动跳转函数
   const autoAdvance = (delay: number = 1500) => {
@@ -148,7 +146,6 @@ function AIChatContent() {
   };
 
   const handleDurationSelect = (duration: { min: number; max: number; label: string }) => {
-    setSelectedDuration(duration);
     setAnswers(prev => ({
       ...prev,
       duration: duration.label

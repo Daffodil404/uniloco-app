@@ -144,11 +144,7 @@ function TravelPlanContent() {
     setTravelPlan(mockPlan);
   }, [searchParams, isLoggedIn]);
 
-  const handleSaveMap = () => {
-    // 保存地图为PNG的逻辑
-    console.log('Saving map as PNG...');
-    // 这里可以集成html2canvas或其他库来保存地图
-  };
+
 
   const handlePointClick = (point: MapPoint) => {
     console.log('Point clicked:', point.name);
@@ -295,7 +291,6 @@ function TravelPlanContent() {
         <InteractiveMap
           mapPoints={travelPlan.mapPoints}
           onPointClick={handlePointClick}
-          onSaveMap={handleSaveMap}
         />
       </div>
 

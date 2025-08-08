@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 interface DurationRange {
   min: number;
@@ -23,8 +23,6 @@ const durationRanges: DurationRange[] = [
 export default function DurationSlider({ onSelect, selectedRange }: DurationSliderProps) {
   const [currentRange, setCurrentRange] = useState<DurationRange>(durationRanges[1]); // 默认选择4-7天
   const [isDragging, setIsDragging] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [dragPosition, setDragPosition] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,8 +45,6 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
   const getSliderPosition = (range: DurationRange) => {
     const index = durationRanges.findIndex(r => r.min === range.min);
     const position = (index / (durationRanges.length - 1)) * 100;
-    // 调试信息：移除这行在生产环境中
-    // console.log(`Range ${range.label}: index=${index}, position=${position}%`);
     return position;
   };
 
@@ -57,11 +53,6 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     const clampedPosition = Math.max(0, Math.min(100, position));
     const index = Math.round((clampedPosition / 100) * (durationRanges.length - 1));
     return durationRanges[Math.max(0, Math.min(index, durationRanges.length - 1))];
-  };
-
-  const handleRangeSelect = (range: DurationRange) => {
-    setCurrentRange(range);
-    onSelect(range);
   };
 
   const handleSliderClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -76,9 +67,8 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     onSelect(newRange);
   };
 
-  const handleSliderMouseDown = (e: React.MouseEvent) => {
+  const handleSliderMouseDown = () => {
     setIsDragging(true);
-    setDragPosition(e.clientX);
   };
 
   const handleSliderMouseMove = useCallback((e: MouseEvent) => {
@@ -90,7 +80,7 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     const newRange = getRangeFromPosition(position);
     
     setCurrentRange(newRange);
-  }, [isDragging, getRangeFromPosition]);
+  }, [isDragging]);
 
   const handleSliderMouseUp = useCallback(() => {
     if (isDragging) {
@@ -100,9 +90,8 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
   }, [isDragging, onSelect, currentRange]);
 
   // 触摸事件处理
-  const handleSliderTouchStart = (e: React.TouchEvent) => {
+  const handleSliderTouchStart = () => {
     setIsDragging(true);
-    setDragPosition(e.touches[0].clientX);
   };
 
   const handleSliderTouchMove = useCallback((e: TouchEvent) => {
@@ -114,7 +103,7 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     const newRange = getRangeFromPosition(position);
     
     setCurrentRange(newRange);
-  }, [isDragging, getRangeFromPosition]);
+  }, [isDragging]);
 
   const handleSliderTouchEnd = useCallback(() => {
     if (isDragging) {
@@ -123,105 +112,75 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
     }
   }, [isDragging, onSelect, currentRange]);
 
+  // 添加和移除事件监听器
   useEffect(() => {
-    if (isDragging) {
-      document.addEventListener('mousemove', handleSliderMouseMove);
-      document.addEventListener('mouseup', handleSliderMouseUp);
-      document.addEventListener('touchmove', handleSliderTouchMove, { passive: false });
-      document.addEventListener('touchend', handleSliderTouchEnd);
-      
-      return () => {
-        document.removeEventListener('mousemove', handleSliderMouseMove);
-        document.removeEventListener('mouseup', handleSliderMouseUp);
-        document.removeEventListener('touchmove', handleSliderTouchMove);
-        document.removeEventListener('touchend', handleSliderTouchEnd);
-      };
-    }
-  }, [isDragging, currentRange, handleSliderMouseMove, handleSliderMouseUp, handleSliderTouchMove, handleSliderTouchEnd]);
+    const handleMouseMove = handleSliderMouseMove;
+    const handleMouseUp = handleSliderMouseUp;
+    const handleTouchMove = handleSliderTouchMove;
+    const handleTouchEnd = handleSliderTouchEnd;
 
-  const getRangeColor = (range: DurationRange) => {
-    if (selectedRange?.min === range.min && selectedRange?.max === range.max) {
-      return 'bg-gradient-to-r from-[#FF9E4A]/20 to-[#FFB366]/20 border-2 border-[#FF9E4A] text-white shadow-lg';
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('touchmove', handleTouchMove);
+      document.addEventListener('touchend', handleTouchEnd);
     }
-    return 'bg-white/10 border-white/20 text-white/90 hover:bg-white/20';
-  };
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [isDragging, handleSliderMouseMove, handleSliderMouseUp, handleSliderTouchMove, handleSliderTouchEnd]);
 
   return (
     <div className="w-full">
-      {/* 当前选择显示 */}
-      <div className="text-center mb-6">
-        <div className="text-3xl font-bold text-white mb-2">
-          {currentRange.min === 15 ? '15+' : `${currentRange.min}-${currentRange.max}`}
-        </div>
-        <div className="text-white/80 text-base">days</div>
-      </div>
-
       {/* 滑块容器 */}
-      <div className="relative mb-6 px-2">
-        {/* 滑块轨道 */}
+      <div 
+        ref={sliderRef}
+        className="relative w-full h-16 bg-white/10 rounded-2xl p-2 cursor-pointer"
+        onClick={handleSliderClick}
+        onMouseDown={handleSliderMouseDown}
+        onTouchStart={handleSliderTouchStart}
+      >
+        {/* 背景轨道 */}
+        <div className="absolute inset-2 bg-white/20 rounded-xl"></div>
+        
+        {/* 滑块 */}
         <div 
-          ref={sliderRef}
-          className="w-full h-3 bg-white/20 rounded-full relative cursor-pointer touch-none"
-          onClick={handleSliderClick}
-        >
-          {/* 滑块 */}
-          <div 
-            className={`absolute top-1/2 -translate-y-1/2 w-7 h-7 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] rounded-full shadow-lg cursor-pointer transition-all duration-200 hover:scale-110 ${
-              isDragging ? 'scale-110 shadow-xl' : ''
-            }`}
-            style={{
-              left: `${getSliderPosition(currentRange)}%`,
-              transform: 'translate(-50%, -50%)'
-            }}
-            onMouseDown={handleSliderMouseDown}
-            onTouchStart={handleSliderTouchStart}
-          />
-          
-          {/* 滑块轨道上的标记点 */}
+          className="absolute top-2 bottom-2 w-8 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] rounded-lg shadow-lg transition-all duration-200"
+          style={{ 
+            left: `${getSliderPosition(currentRange)}%`,
+            transform: 'translateX(-50%)'
+          }}
+        ></div>
+        
+        {/* 范围标签 */}
+        <div className="absolute inset-0 flex items-center justify-between px-4">
           {durationRanges.map((range) => (
             <div
-              key={range.min}
-              className={`absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full transition-all duration-200 ${
-                currentRange.min === range.min ? 'bg-[#FF9E4A] scale-125' : 'bg-white/40'
+              key={range.label}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
+                range.min === currentRange.min && range.max === currentRange.max
+                  ? 'bg-white text-black shadow-lg'
+                  : 'text-white/60'
               }`}
-              style={{
-                left: `${getSliderPosition(range)}%`,
-                transform: 'translate(-50%, -50%)'
-              }}
-            />
+            >
+              {range.label}
+            </div>
           ))}
         </div>
       </div>
 
-      {/* 范围选项 */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        {durationRanges.map((range) => (
-          <button
-            key={range.min}
-            onClick={() => handleRangeSelect(range)}
-            className={`
-              relative p-3 rounded-xl text-center transition-all duration-200 border-2
-              ${getRangeColor(range)}
-            `}
-          >
-            <div className="font-medium text-xs">{range.label}</div>
-            {selectedRange?.min === range.min && selectedRange?.max === range.max && (
-              <div className="absolute top-1.5 right-1.5 w-3 h-3 bg-[#FF9E4A] rounded-full flex items-center justify-center shadow-lg">
-                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-              </div>
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* 建议文本 */}
-      <div className="text-center">
-        <p className="text-white/60 text-xs">
-          {currentRange.min <= 3 && 'Perfect for a weekend getaway'}
-          {currentRange.min >= 4 && currentRange.max <= 7 && 'Great for a week-long adventure'}
-          {currentRange.min >= 8 && currentRange.max <= 14 && 'Ideal for an extended vacation'}
-          {currentRange.min >= 15 && 'Perfect for a long-term exploration'}
-        </p>
+      {/* 当前选择显示 */}
+      <div className="mt-4 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#FF9E4A]/20 to-[#FFB366]/20 rounded-xl border border-[#FF9E4A]/30">
+          <svg className="w-4 h-4 text-[#FF9E4A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span className="text-white font-medium">{currentRange.label}</span>
+        </div>
       </div>
     </div>
   );
