@@ -147,7 +147,6 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
     // 清理之前的标记
     markers.forEach(marker => marker.remove());
     
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newMarkers: any[] = [];
     
     mapPoints.forEach((point) => {
@@ -172,7 +171,7 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
     });
 
     setMarkers(newMarkers);
-  }, [map, isMapLoaded, mapPoints, stableOnPointClick, markers]);
+  }, [map, isMapLoaded, mapPoints, stableOnPointClick]);
 
   // 地图控制按钮
   const handleZoomIn = () => {

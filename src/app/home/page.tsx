@@ -46,31 +46,30 @@ const mockMapPoints: MapPoint[] = [
 
 export default function HomePage() {
   const router = useRouter();
-  const { isLoggedIn, userData } = useAuth();
+  const { isLoggedIn, userData, requireLogin } = useAuth();
 
   const handlePointClick = (point: MapPoint) => {
     console.log('Point clicked:', point.name);
     // 这里可以添加点击处理逻辑
   };
 
-
-
   const handleNavigateToProfile = () => {
+    if (!requireLogin()) {
+      return; // 如果未登录，requireLogin 会自动重定向
+    }
     router.push('/profile');
   };
 
   const handleNavigateToAIPlan = () => {
-    if (!isLoggedIn) {
-      router.push('/login?redirect=/travel-plan');
-      return;
+    if (!requireLogin('/travel-plan')) {
+      return; // 如果未登录，requireLogin 会自动重定向
     }
     router.push('/travel-plan');
   };
 
   const handleNavigateToStoryLibrary = () => {
-    if (!isLoggedIn) {
-      router.push('/login?redirect=/bookshelf');
-      return;
+    if (!requireLogin('/bookshelf')) {
+      return; // 如果未登录，requireLogin 会自动重定向
     }
     router.push('/bookshelf');
   };
