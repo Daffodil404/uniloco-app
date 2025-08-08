@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface LoginData {
@@ -16,7 +16,7 @@ export function useAuth() {
   const router = useRouter();
 
   // 检查登录状态
-  const checkLoginStatus = () => {
+  const checkLoginStatus = useCallback(() => {
     try {
       const loginData = sessionStorage.getItem('userLogin');
       if (loginData) {
@@ -36,10 +36,10 @@ export function useAuth() {
       setUserData(null);
       return false;
     }
-  };
+  }, []);
 
   // 登录
-  const login = (username: string) => {
+  const login = useCallback((username: string) => {
     const loginData: LoginData = {
       username,
       isLoggedIn: true,
@@ -49,18 +49,18 @@ export function useAuth() {
     sessionStorage.setItem('userLogin', JSON.stringify(loginData));
     setIsLoggedIn(true);
     setUserData(loginData);
-  };
+  }, []);
 
   // 登出
-  const logout = () => {
+  const logout = useCallback(() => {
     sessionStorage.removeItem('userLogin');
     setIsLoggedIn(false);
     setUserData(null);
     router.push('/login');
-  };
+  }, [router]);
 
   // 检查是否需要登录
-  const requireLogin = (redirectUrl?: string) => {
+  const requireLogin = useCallback((redirectUrl?: string) => {
     if (!isLoggedIn) {
       const currentUrl = window.location.pathname + window.location.search;
       const loginUrl = `/login?redirect=${encodeURIComponent(redirectUrl || currentUrl)}`;
@@ -68,13 +68,13 @@ export function useAuth() {
       return false;
     }
     return true;
-  };
+  }, [isLoggedIn, router]);
 
   // 初始化时检查登录状态
   useEffect(() => {
     checkLoginStatus();
     setIsLoading(false);
-  }, []);
+  }, [checkLoginStatus]);
 
   return {
     isLoggedIn,

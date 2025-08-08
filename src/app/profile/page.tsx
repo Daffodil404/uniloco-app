@@ -127,9 +127,9 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
+    <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
       {/* Header */}
-      <div className="p-4">
+      <div className="p-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <button
             onClick={handleBackToHome}
@@ -152,7 +152,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Main Content */}
-      <div className="px-4 pb-4">
+      <div className="flex-1 overflow-y-auto px-4 mobile-content-safe">
         {/* Profile Card */}
         <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/10 mb-6">
           <div className="flex items-center gap-4 mb-6">

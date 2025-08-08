@@ -1,48 +1,48 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
 
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { login, isLoggedIn } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  // 获取重定向URL
   const redirectUrl = searchParams.get('redirect') || '/home';
+
+  // 如果已经登录，自动重定向
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push(redirectUrl);
+    }
+  }, [isLoggedIn, router, redirectUrl]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!username.trim() || !password.trim()) {
-      setError('Please enter username and password');
+      setError('Please enter both username and password');
       return;
     }
 
     setIsLoading(true);
     setError('');
 
-    // 模拟登录延迟
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
     try {
-      // 模拟登录验证 - 任何用户名密码都可以通过
-      const loginData = {
-        username: username.trim(),
-        isLoggedIn: true,
-        loginTime: new Date().toISOString()
-      };
-
-      // 存储登录状态到 sessionStorage
-      sessionStorage.setItem('userLogin', JSON.stringify(loginData));
+      // 模拟登录延迟
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // 重定向到原页面或首页
-      router.push(redirectUrl);
+      // 调用登录方法
+      login(username.trim());
+      
+      // 登录成功后会通过 useEffect 自动重定向
     } catch {
-      setError('Login failed, please try again');
+      setError('Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -52,16 +52,31 @@ function LoginContent() {
     router.back();
   };
 
+  // 如果正在加载（即将重定向），显示加载状态
+  if (isLoggedIn) {
+    return (
+      <div className="flex-1 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+          <h3 className="text-xl font-semibold text-white mb-2">Redirecting...</h3>
+          <p className="text-white/80">Taking you to your destination</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
+    <>
       {/* 顶部导航 */}
-      <header className="relative z-20 px-6 py-4 flex-shrink-0">
-        <div className="flex items-center gap-4">
-          <button 
+      <header className="px-6 py-4 flex-shrink-0">
+        <div className="flex items-center">
+          <button
             onClick={handleBack}
-            className="text-white hover:text-white/80 transition-colors text-lg font-medium"
+            className="text-white/80 hover:text-white transition-colors"
           >
-            ← Back
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
           <div className="flex-1 text-center">
             <h1 className="text-lg font-semibold text-white">Login</h1>
@@ -71,7 +86,7 @@ function LoginContent() {
       </header>
 
       {/* 主要内容 */}
-      <div className="flex-1 flex items-center justify-center px-6">
+      <div className="flex-1 flex items-center justify-center px-6 mobile-content">
         <div className="w-full max-w-sm">
           {/* Logo 和标题 */}
           <div className="text-center mb-8">
@@ -157,22 +172,24 @@ function LoginContent() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-          <h3 className="text-xl font-semibold text-white mb-2">Loading...</h3>
-          <p className="text-white/80">Preparing login page</p>
+    <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
+      <Suspense fallback={
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+            <h3 className="text-xl font-semibold text-white mb-2">Loading...</h3>
+            <p className="text-white/80">Preparing login page</p>
+          </div>
         </div>
-      </div>
-    }>
-      <LoginContent />
-    </Suspense>
+      }>
+        <LoginContent />
+      </Suspense>
+    </div>
   );
 } 
