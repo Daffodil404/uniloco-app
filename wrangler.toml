@@ -1,0 +1,11 @@
+name = "uniloco-app"
+compatibility_date = "2024-01-01"
+
+[compatibility_flags]
+nodejs_compat = true
+
+[env.production]
+compatibility_flags = ["nodejs_compat"]
+
+[env.preview]
+compatibility_flags = ["nodejs_compat"]
