@@ -64,7 +64,7 @@ export default function TripPlannerPage() {
             {msg.content === "map_placeholder" ? (
               // AI 发送的地图占位符
               <div className="w-full max-w-[80%] bg-white border border-gray-200 rounded-lg rounded-bl-none p-4">
-                <p className="text-gray-800 text-sm mb-3">Here's your personalized Paris itinerary:</p>
+                <p className="text-gray-800 text-sm mb-3">Here&apos;s your personalized Paris itinerary:</p>
                 <div className="border-2 border-dashed border-[#fe585f] rounded-xl h-48 flex items-center justify-center text-gray-400 bg-gray-50">
                   🗺️ Your personalized itinerary map will appear here
                 </div>
