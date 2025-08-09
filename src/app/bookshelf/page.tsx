@@ -168,21 +168,21 @@ export default function BookshelfPage() {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Easy': return 'text-green-400';
-      case 'Medium': return 'text-yellow-400';
-      case 'Hard': return 'text-red-400';
-      default: return 'text-gray-400';
+      case 'Easy': return 'text-emerald-600';
+      case 'Medium': return 'text-amber-600';
+      case 'Hard': return 'text-red-600';
+      default: return 'text-slate-400';
     }
   };
 
   // 显示加载状态
   if (isLoading) {
     return (
-      <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+      <div className="mobile-screen bg-gradient-to-b from-white to-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-          <h3 className="text-xl font-semibold text-white mb-2">Loading...</h3>
-          <p className="text-white/80">Checking login status</p>
+          <div className="w-16 h-16 border-4 border-slate-200 border-t-[#fe585f] rounded-full animate-spin mx-auto mb-4"></div>
+          <h3 className="text-xl font-semibold text-slate-800 mb-2">Loading...</h3>
+          <p className="text-slate-600">Checking login status</p>
         </div>
       </div>
     );
@@ -191,18 +191,18 @@ export default function BookshelfPage() {
   // 显示登录要求
   if (!isLoggedIn) {
     return (
-      <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+      <div className="mobile-screen bg-gradient-to-b from-white to-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
           </div>
-          <h3 className="text-xl font-semibold text-white mb-2">Login Required</h3>
-          <p className="text-white/80 mb-4">This feature requires login to access</p>
+          <h3 className="text-xl font-semibold text-slate-800 mb-2">Login Required</h3>
+          <p className="text-slate-600 mb-4">This feature requires login to access</p>
           <button
             onClick={() => router.push('/login?redirect=/bookshelf')}
-            className="px-6 py-2 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] text-white rounded-xl font-medium"
+            className="px-6 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl font-medium"
           >
             Sign In
           </button>
@@ -212,19 +212,19 @@ export default function BookshelfPage() {
   }
 
   return (
-    <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
+    <div className="mobile-screen bg-gradient-to-b from-white to-slate-50 flex flex-col">
       {/* Header */}
       <div className="p-4 flex-shrink-0">
         <div className="flex items-center justify-between">
             <button 
             onClick={handleBackToHome}
-            className="text-white/80 hover:text-white"
+            className="text-slate-600 hover:text-slate-800"
             >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             </button>
-          <h1 className="text-xl font-bold text-white">Travel Stories</h1>
+          <h1 className="text-xl font-bold text-slate-800">Travel Stories</h1>
           <div className="w-6"></div>
         </div>
       </div>
@@ -238,7 +238,7 @@ export default function BookshelfPage() {
             placeholder="🔍 Search adventures..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 bg-black/80 backdrop-blur-sm rounded-2xl border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#FF9E4A]"
+            className="w-full px-4 py-3 bg-white shadow-sm rounded-2xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fe585f]/20 focus:border-[#fe585f]"
           />
         </div>
 
@@ -250,8 +250,8 @@ export default function BookshelfPage() {
               onClick={() => setSelectedTag(tag)}
               className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                 selectedTag === tag
-                  ? 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white'
-                  : 'bg-white/10 text-white/60 hover:bg-white/20'
+                  ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
+                  : 'bg-white text-slate-600 hover:bg-slate-50 shadow-sm border border-slate-200'
               }`}
             >
               {tag === 'all' ? 'All' : tag}
@@ -264,16 +264,16 @@ export default function BookshelfPage() {
       <div className="flex-1 overflow-y-auto px-4 mobile-content-safe">
         <div className="space-y-4">
           {filteredStories.map((story) => (
-            <div key={story.id} className="bg-black/80 backdrop-blur-sm rounded-3xl p-4 border border-white/20 hover:border-white/40 transition-all">
+            <div key={story.id} className="bg-white shadow-lg rounded-3xl p-4 border border-slate-200 hover:shadow-xl transition-all">
               <div className="flex items-start gap-4">
                 {/* Story Cover with Price */}
                 <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
                     {story.emoji}
                   </div>
                   <div className="text-center">
                     <span className={`text-sm font-bold ${
-                      story.price === 0 ? 'text-[#66D2A0]' : 'text-[#FF9E4A]'
+                      story.price === 0 ? 'text-emerald-600' : 'text-[#fe585f]'
                     }`}>
                       {story.price === 0 ? 'FREE' : `${story.price} UNC`}
                     </span>
@@ -283,28 +283,28 @@ export default function BookshelfPage() {
                 {/* Story Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-lg font-bold text-white truncate">
+                    <h3 className="text-lg font-bold text-slate-800 truncate">
                       {story.title}
                     </h3>
                     <div className="flex items-center gap-1 text-sm">
-                      <span className="text-[#FF9E4A]">★</span>
-                      <span className="text-white font-semibold">{story.rating}</span>
+                      <span className="text-amber-500">★</span>
+                      <span className="text-slate-700 font-semibold">{story.rating}</span>
                     </div>
                   </div>
                   
-                  <p className="text-white/80 text-sm mb-3 line-clamp-2 font-medium">
+                  <p className="text-slate-600 text-sm mb-3 line-clamp-2 font-medium">
                     {story.description}
                   </p>
                   
                   <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-4 text-xs text-white/60">
+                    <div className="flex items-center gap-4 text-xs text-slate-500">
                       <span className="font-medium">📍 {story.location}</span>
                       <span className="font-medium">⏱️ {story.duration}</span>
                       <span className="font-medium">👤 {story.creator}</span>
                     </div>
                     
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-white/60 font-medium">
+                      <span className="text-xs text-slate-500 font-medium">
                         {story.reviews} reviews
                       </span>
                     </div>
@@ -316,7 +316,7 @@ export default function BookshelfPage() {
                       {story.tags.slice(0, 3).map(tag => (
                         <span
                           key={tag}
-                          className="px-3 py-1.5 bg-white/10 text-white/80 text-xs rounded-lg font-medium h-6 flex items-center justify-center min-w-0"
+                          className="px-3 py-1.5 bg-slate-100 text-slate-600 text-xs rounded-lg font-medium h-6 flex items-center justify-center min-w-0"
                           style={{ maxWidth: '80px' }}
                         >
                           <span className="truncate">{tag}</span>
@@ -335,33 +335,33 @@ export default function BookshelfPage() {
         
         {filteredStories.length === 0 && (
           <div className="text-center py-12">
-            <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            <p className="text-white/60">No adventures found</p>
-            <p className="text-sm text-white/40">Try adjusting your search</p>
+            <p className="text-slate-600">No adventures found</p>
+            <p className="text-sm text-slate-400">Try adjusting your search</p>
           </div>
         )}
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-t border-white/20 px-4 py-3">
+      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-slate-200 px-4 py-3 shadow-lg">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-white/60">
+          <span className="text-sm text-slate-600">
             Found {filteredStories.length} adventures
           </span>
           <div className="flex gap-2">
             <button
               onClick={() => router.push('/story-creat')}
-              className="px-3 py-2 bg-gradient-to-r from-[#66D2A0] to-[#10B981] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
+              className="px-3 py-2 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
             >
               ✍️ Create Story
             </button>
             <button
               onClick={handleNavigateToAIChat}
-              className="px-4 py-2 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
+              className="px-4 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
             >
               🤖 AI Chat
             </button>

@@ -127,23 +127,23 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
+    <div className="mobile-screen bg-gradient-to-b from-white to-slate-50 flex flex-col">
       {/* Header */}
       <div className="p-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <button
             onClick={handleBackToHome}
-            className="text-white/80 hover:text-white"
+            className="text-slate-600 hover:text-slate-800"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <h1 className="text-xl font-bold text-white">Profile</h1>
+          <h1 className="text-xl font-bold text-slate-800">Profile</h1>
                       {isLoggedIn && (
               <button
                 onClick={handleLogout}
-                className="text-white/60 hover:text-white text-sm"
+                className="text-slate-500 hover:text-slate-700 text-sm"
               >
                 Logout
               </button>
@@ -154,10 +154,10 @@ export default function ProfilePage() {
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto px-4 mobile-content-safe">
         {/* Profile Card */}
-        <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/10 mb-6">
+        <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200 mb-6">
           <div className="flex items-center gap-4 mb-6">
             {/* Avatar */}
-            <div className="w-16 h-16 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
@@ -165,17 +165,17 @@ export default function ProfilePage() {
             
             {/* User Info */}
             <div className="flex-1">
-              <h2 className="text-xl font-bold text-white">{userProfile.name}</h2>
-              <p className="text-white/60 text-sm">ID: {userProfile.userId}</p>
-              <p className="text-white/60 text-sm">Joined: {userProfile.joinDate}</p>
+              <h2 className="text-xl font-bold text-slate-800">{userProfile.name}</h2>
+              <p className="text-slate-500 text-sm">ID: {userProfile.userId}</p>
+              <p className="text-slate-500 text-sm">Joined: {userProfile.joinDate}</p>
             </div>
           </div>
 
           {/* UNC Balance */}
-          <div className="bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] rounded-2xl p-4 mb-4">
+          <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl p-4 mb-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-white/80 text-sm">UNC Balance</p>
+                <p className="text-white/90 text-sm">UNC Balance</p>
                 <p className="text-white text-2xl font-bold">{userProfile.uncBalance.toLocaleString()}</p>
               </div>
               <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
@@ -188,17 +188,17 @@ export default function ProfilePage() {
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-white/10 rounded-2xl p-4 text-center">
-              <div className="text-2xl font-bold text-white">{userProfile.totalCheckIns}</div>
-              <div className="text-white/60 text-sm">Check-ins</div>
+            <div className="bg-slate-50 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-bold text-slate-800">{userProfile.totalCheckIns}</div>
+              <div className="text-slate-500 text-sm">Check-ins</div>
             </div>
-            <div className="bg-white/10 rounded-2xl p-4 text-center">
-              <div className="text-2xl font-bold text-white">{userProfile.completedJourneys}</div>
-              <div className="text-white/60 text-sm">Journeys</div>
+            <div className="bg-slate-50 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-bold text-slate-800">{userProfile.completedJourneys}</div>
+              <div className="text-slate-500 text-sm">Journeys</div>
             </div>
-            <div className="bg-white/10 rounded-2xl p-4 text-center">
-              <div className="text-2xl font-bold text-white">{userProfile.totalPoints}</div>
-              <div className="text-white/60 text-sm">Points</div>
+            <div className="bg-slate-50 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-bold text-slate-800">{userProfile.totalPoints}</div>
+              <div className="text-slate-500 text-sm">Points</div>
             </div>
           </div>
         </div>
@@ -209,8 +209,8 @@ export default function ProfilePage() {
             onClick={() => setActiveTab('journeys')}
             className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
               activeTab === 'journeys'
-                ? 'bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] text-white'
-                : 'bg-white/10 text-white/60'
+                ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
+                : 'bg-slate-100 text-slate-600'
             }`}
           >
             Unlocked Journeys
@@ -219,8 +219,8 @@ export default function ProfilePage() {
             onClick={handleNavigateToEquipment}
             className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
               activeTab === 'equipment'
-                ? 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white'
-                : 'bg-white/10 text-white/60'
+                ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
+                : 'bg-slate-100 text-slate-600'
             }`}
           >
             Equipment
@@ -231,18 +231,18 @@ export default function ProfilePage() {
         {activeTab === 'journeys' && (
           <div className="space-y-3">
             {unlockedJourneys.map((journey) => (
-              <div key={journey.id} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+              <div key={journey.id} className="bg-white shadow-sm rounded-2xl p-4 border border-slate-200">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-white font-semibold">{journey.title}</h3>
-                  <span className="text-[#FF9E4A] text-sm">★ {journey.totalPoints}</span>
+                  <h3 className="text-slate-800 font-semibold">{journey.title}</h3>
+                  <span className="text-amber-500 text-sm">★ {journey.totalPoints}</span>
                 </div>
-                <p className="text-white/60 text-sm mb-3">{journey.destination}</p>
+                <p className="text-slate-500 text-sm mb-3">{journey.destination}</p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4 text-sm">
-                    <span className="text-white/60">Check-ins: {journey.checkIns}</span>
-                    <span className="text-white/60">Completed: {journey.completedAt}</span>
+                    <span className="text-slate-500">Check-ins: {journey.checkIns}</span>
+                    <span className="text-slate-500">Completed: {journey.completedAt}</span>
                   </div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -256,18 +256,18 @@ export default function ProfilePage() {
         {/* Equipment Preview */}
         {activeTab === 'equipment' && (
           <div className="space-y-3">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+            <div className="bg-white shadow-sm rounded-2xl p-4 border border-slate-200">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-white font-semibold">My Equipment</h3>
-                <span className="text-white/60 text-sm">{equipment.filter(e => e.isOwned).length}/{equipment.length}</span>
+                <h3 className="text-slate-800 font-semibold">My Equipment</h3>
+                <span className="text-slate-500 text-sm">{equipment.filter(e => e.isOwned).length}/{equipment.length}</span>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 {equipment.slice(0, 4).map((item) => (
-                  <div key={item.id} className={`bg-white/5 rounded-xl p-3 border ${
-                    item.isOwned ? 'border-[#66D2A0]' : 'border-white/20'
+                  <div key={item.id} className={`bg-slate-50 rounded-xl p-3 border ${
+                    item.isOwned ? 'border-emerald-500' : 'border-slate-200'
                   }`}>
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="w-8 h-8 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center">
                         <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                         </svg>
@@ -276,16 +276,16 @@ export default function ProfilePage() {
                         {item.rarity.toUpperCase()}
                       </span>
                     </div>
-                    <p className="text-white text-sm font-medium">{item.name}</p>
+                    <p className="text-slate-800 text-sm font-medium">{item.name}</p>
                     {!item.isOwned && item.price && (
-                      <p className="text-[#FF9E4A] text-xs mt-1">{item.price} UNC</p>
+                      <p className="text-[#fe585f] text-xs mt-1">{item.price} UNC</p>
                     )}
                   </div>
                 ))}
               </div>
               <button
                 onClick={handleNavigateToEquipment}
-                className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-sm font-medium"
+                className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-sm font-medium"
               >
                 View All Equipment
               </button>
