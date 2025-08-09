@@ -3,7 +3,7 @@
 // 添加一个固定页面，用于展示合作商户的列表
 // app/page.tsx
 import React from "react";
-import { MapPinIcon, StarIcon, PhoneIcon } from "@radix";
+import { MapPin, Star, Phone } from "lucide-react";
 
 interface Merchant {
     name: string;
@@ -92,18 +92,18 @@ export default function Page() {
 
                         {/* Middle Row: Location */}
                         <div className="flex items-center text-sm text-gray-600 mt-2">
-                            <MapPinIcon className="text-[#fe585f] w-4 h-4 mr-1" />
+                            <MapPin className="text-[#fe585f] w-4 h-4 mr-1" />
                             {m.location}
                         </div>
 
                         {/* Bottom Row: Phone + Rating */}
                         <div className="flex justify-between items-center mt-3 text-sm">
                             <div className="flex items-center text-gray-600">
-                                <PhoneIcon className="text-[#fe585f] w-4 h-4 mr-1" />
+                                <Phone className="text-[#fe585f] w-4 h-4 mr-1" />
                                 {m.phone}
                             </div>
                             <div className="flex items-center text-yellow-500">
-                                <StarIcon className="w-4 h-4 mr-1" />
+                                <Star className="w-4 h-4 mr-1" />
                                 {m.rating.toFixed(1)}
                             </div>
                         </div>
