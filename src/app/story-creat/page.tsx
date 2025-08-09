@@ -144,13 +144,13 @@ export default function StoryCreatePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
       {/* Header */}
-      <div className="p-4">
+      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] p-4">
         <div className="flex items-center justify-between">
           <button
             onClick={currentStep === 'menu' ? handleBackToHome : handleBackToMenu}
-            className="text-white/80 hover:text-white"
+            className="text-white/90 hover:text-white"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -166,30 +166,30 @@ export default function StoryCreatePage() {
         <div className="px-4 pb-20">
           <div className="space-y-4">
             {/* AI Story Builder */}
-            <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/20">
+            <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200">
               <div className="text-center mb-6">
                 <div className="text-4xl mb-3">🎨</div>
-                <h3 className="text-lg font-bold text-white mb-2">AI Story Builder</h3>
-                <p className="text-white/60 text-sm">Generate amazing stories based on your check-in records</p>
+                <h3 className="text-lg font-bold text-slate-800 mb-2">AI Story Builder</h3>
+                <p className="text-slate-600 text-sm">Generate amazing stories based on your check-in records</p>
               </div>
               <button
                 onClick={startStoryCreation}
-                className="w-full bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl py-3 font-medium hover:shadow-lg transition-all"
+                className="w-full bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl py-3 font-medium hover:shadow-lg transition-all"
               >
                 🚀 Start Creating Story
               </button>
             </div>
 
             {/* Multi-Creator Collaboration */}
-            <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/20">
+            <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200">
               <div className="text-center mb-6">
                 <div className="text-4xl mb-3">🤝</div>
-                <h3 className="text-lg font-bold text-white mb-2">Multi-Creator Collaboration</h3>
-                <p className="text-white/60 text-sm">Invite friends to create amazing stories together</p>
+                <h3 className="text-lg font-bold text-slate-800 mb-2">Multi-Creator Collaboration</h3>
+                <p className="text-slate-600 text-sm">Invite friends to create amazing stories together</p>
               </div>
               <button
                 onClick={() => alert('Collaboration feature coming soon!')}
-                className="w-full bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white rounded-xl py-3 font-medium hover:shadow-lg transition-all"
+                className="w-full bg-slate-600 text-white rounded-xl py-3 font-medium hover:bg-slate-700 hover:shadow-lg transition-all"
               >
                 👥 Invite Collaborators
               </button>
@@ -201,38 +201,38 @@ export default function StoryCreatePage() {
         <div className="px-4 pb-20">
           <div className="space-y-4">
             {/* Story Basic Info */}
-            <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/20">
-              <h3 className="text-lg font-bold text-white mb-4">📝 Story Basic Info</h3>
+            <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-800 mb-4">📝 Story Basic Info</h3>
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-white/80 text-sm font-medium mb-2">Story Title</label>
+                  <label className="block text-slate-700 text-sm font-medium mb-2">Story Title</label>
                   <input
                     type="text"
                     value={storyData.title}
                     onChange={(e) => handleStoryDataChange('title', e.target.value)}
                     placeholder="Give your story a name..."
-                    className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-[#FF9E4A]"
+                    className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fe585f]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-white/80 text-sm font-medium mb-2">Story Description</label>
+                  <label className="block text-slate-700 text-sm font-medium mb-2">Story Description</label>
                   <textarea
                     value={storyData.description}
                     onChange={(e) => handleStoryDataChange('description', e.target.value)}
                     placeholder="Describe your story theme and features..."
                     rows={3}
-                    className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-[#FF9E4A] resize-none"
+                    className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fe585f] resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-white/80 text-sm font-medium mb-2">Story Type</label>
+                  <label className="block text-slate-700 text-sm font-medium mb-2">Story Type</label>
                   <select
                     value={storyData.type}
                     onChange={(e) => handleStoryDataChange('type', e.target.value)}
-                    className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#FF9E4A]"
+                    className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#fe585f]"
                   >
                     {storyTypes.map(type => (
                       <option key={type.value} value={type.value}>
@@ -245,9 +245,9 @@ export default function StoryCreatePage() {
             </div>
 
             {/* Locations Section */}
-            <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/20">
+            <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white">📍 Add Locations</h3>
+                <h3 className="text-lg font-bold text-slate-800">📍 Add Locations</h3>
                 <button
                   onClick={addLocation}
                   className="px-4 py-2 bg-gradient-to-r from-[#66D2A0] to-[#10B981] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
@@ -265,7 +265,7 @@ export default function StoryCreatePage() {
                   </div>
                 ) : (
                   storyData.locations.map((location, index) => (
-                    <div key={location.id} className="bg-white/10 rounded-xl p-4 border border-white/20">
+                    <div key={location.id} className="bg-slate-50 rounded-xl p-4 border border-slate-200">
                       <div className="flex items-center gap-3 mb-3">
                         <span className="text-2xl">{location.emoji}</span>
                         <input
@@ -277,7 +277,7 @@ export default function StoryCreatePage() {
                             handleStoryDataChange('locations', newLocations);
                           }}
                           placeholder="Location name..."
-                          className="flex-1 px-3 py-2 bg-white/10 rounded-lg border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-1 focus:ring-[#FF9E4A]"
+                          className="flex-1 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
                         />
                         <select
                           value={location.type}
@@ -288,7 +288,7 @@ export default function StoryCreatePage() {
                             newLocations[index].emoji = locationTypes.find(t => t.value === e.target.value)?.emoji || '📍';
                             handleStoryDataChange('locations', newLocations);
                           }}
-                          className="px-3 py-2 bg-white/10 rounded-lg border border-white/20 text-white focus:outline-none focus:ring-1 focus:ring-[#FF9E4A]"
+                          className="px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
                         >
                           {locationTypes.map(type => (
                             <option key={type.value} value={type.value}>
@@ -306,7 +306,7 @@ export default function StoryCreatePage() {
                         }}
                         placeholder="Describe this location..."
                         rows={2}
-                        className="w-full px-3 py-2 bg-white/10 rounded-lg border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-1 focus:ring-[#FF9E4A] resize-none"
+                        className="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f] resize-none"
                       />
                     </div>
                   ))
@@ -315,9 +315,9 @@ export default function StoryCreatePage() {
             </div>
 
             {/* Surprises Section */}
-            <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/20">
+            <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white">🎭 Add Surprises</h3>
+                <h3 className="text-lg font-bold text-slate-800">🎭 Add Surprises</h3>
                 <button
                   onClick={addSurprise}
                   className="px-4 py-2 bg-gradient-to-r from-[#66D2A0] to-[#10B981] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
@@ -335,7 +335,7 @@ export default function StoryCreatePage() {
                   </div>
                 ) : (
                   storyData.surprises.map((surprise, index) => (
-                    <div key={surprise.id} className="bg-white/10 rounded-xl p-4 border border-white/20">
+                    <div key={surprise.id} className="bg-slate-50 rounded-xl p-4 border border-slate-200">
                       <div className="flex items-center gap-3 mb-3">
                         <span className="text-2xl">{surprise.emoji}</span>
                         <input
@@ -347,7 +347,7 @@ export default function StoryCreatePage() {
                             handleStoryDataChange('surprises', newSurprises);
                           }}
                           placeholder="Surprise name..."
-                          className="flex-1 px-3 py-2 bg-white/10 rounded-lg border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-1 focus:ring-[#FF9E4A]"
+                          className="flex-1 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
                         />
                         <select
                           value={surprise.type}
@@ -358,7 +358,7 @@ export default function StoryCreatePage() {
                             newSurprises[index].emoji = surpriseTypes.find(t => t.value === e.target.value)?.emoji || '🎭';
                             handleStoryDataChange('surprises', newSurprises);
                           }}
-                          className="px-3 py-2 bg-white/10 rounded-lg border border-white/20 text-white focus:outline-none focus:ring-1 focus:ring-[#FF9E4A]"
+                          className="px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
                         >
                           {surpriseTypes.map(type => (
                             <option key={type.value} value={type.value}>
@@ -376,7 +376,7 @@ export default function StoryCreatePage() {
                         }}
                         placeholder="Describe this surprise..."
                         rows={2}
-                        className="w-full px-3 py-2 bg-white/10 rounded-lg border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-1 focus:ring-[#FF9E4A] resize-none"
+                        className="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f] resize-none"
                       />
                     </div>
                   ))
@@ -385,9 +385,9 @@ export default function StoryCreatePage() {
             </div>
 
             {/* Collaborators Section */}
-            <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/20">
+            <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white">🤝 Invite Collaborators</h3>
+                <h3 className="text-lg font-bold text-slate-800">🤝 Invite Collaborators</h3>
                 <button
                   onClick={addCollaborator}
                   className="px-4 py-2 bg-gradient-to-r from-[#66D2A0] to-[#10B981] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
@@ -405,7 +405,7 @@ export default function StoryCreatePage() {
                   </div>
                 ) : (
                   storyData.collaborators.map((collaborator, index) => (
-                    <div key={collaborator.id} className="bg-white/10 rounded-xl p-4 border border-white/20">
+                    <div key={collaborator.id} className="bg-slate-50 rounded-xl p-4 border border-slate-200">
                       <div className="flex items-center gap-3">
                         <span className="text-2xl">{collaborator.avatar}</span>
                         <input
@@ -417,7 +417,7 @@ export default function StoryCreatePage() {
                             handleStoryDataChange('collaborators', newCollaborators);
                           }}
                           placeholder="Friend's name..."
-                          className="flex-1 px-3 py-2 bg-white/10 rounded-lg border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-1 focus:ring-[#FF9E4A]"
+                          className="flex-1 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
                         />
                         <select
                           value={collaborator.role}
@@ -427,7 +427,7 @@ export default function StoryCreatePage() {
                             newCollaborators[index].role = e.target.value as any;
                             handleStoryDataChange('collaborators', newCollaborators);
                           }}
-                          className="px-3 py-2 bg-white/10 rounded-lg border border-white/20 text-white focus:outline-none focus:ring-1 focus:ring-[#FF9E4A]"
+                          className="px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
                         >
                           <option value="viewer">👁️ Viewer</option>
                           <option value="editor">✏️ Editor</option>
@@ -443,7 +443,7 @@ export default function StoryCreatePage() {
             {/* Publish Button */}
             <button
               onClick={publishStory}
-              className="w-full bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl py-4 font-bold text-lg hover:shadow-lg transition-all"
+              className="w-full bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl py-4 font-bold text-lg hover:shadow-lg transition-all"
             >
               🚀 Publish Story
             </button>

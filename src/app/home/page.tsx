@@ -75,7 +75,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="mobile-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex flex-col">
+    <div className="mobile-screen bg-gradient-to-b from-white to-slate-50 flex flex-col">
       {/* 地图区域 - 占据更多空间但有限制 */}
       <div className="flex-1 p-3 flex" style={{ minHeight: 0 }}>
         <InteractiveMap
@@ -86,11 +86,11 @@ export default function HomePage() {
 
       {/* 底部导航卡片 - 确保不被压住 */}
       <div className="mobile-footer-safe p-2 flex-shrink-0">
-        <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-4 border border-white/20">
+        <div className="bg-white shadow-lg rounded-3xl p-4 border border-slate-200">
           {/* 用户信息行 */}
           <div className="flex items-center gap-3 mb-3">
             {/* 头像 */}
-            <div className="w-10 h-10 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
@@ -98,10 +98,10 @@ export default function HomePage() {
             
             {/* 用户信息 */}
             <div className="flex-1">
-              <div className="text-white font-semibold text-sm">
+              <div className="text-slate-800 font-semibold text-sm">
                 {isLoggedIn ? userData?.username || '用户' : '游客'}
               </div>
-              <div className="text-white/60 text-xs">
+              <div className="text-slate-500 text-xs">
                 {isLoggedIn ? 'Balance: ¥1,234' : 'Login to access more features'}
               </div>
             </div>
@@ -109,7 +109,7 @@ export default function HomePage() {
             {/* 个人中心按钮 */}
             <button
               onClick={handleNavigateToProfile}
-              className="px-3 py-1.5 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
+              className="px-3 py-1.5 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
             >
               Profile
             </button>
@@ -120,10 +120,10 @@ export default function HomePage() {
             {/* AI行程规划 */}
             <button
               onClick={handleNavigateToAIPlan}
-              className={`flex-1 px-3 py-2.5 text-white rounded-xl text-xs font-medium transition-all ${
+              className={`flex-1 px-3 py-2.5 rounded-xl text-xs font-medium transition-all ${
                 isLoggedIn 
-                  ? 'bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] hover:shadow-lg' 
-                  : 'bg-white/20 hover:bg-white/30'
+                  ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white hover:shadow-lg' 
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
               <div className="flex items-center justify-center gap-1.5">
@@ -138,10 +138,10 @@ export default function HomePage() {
             {/* 旅途故事 */}
             <button
               onClick={handleNavigateToStoryLibrary}
-              className={`flex-1 px-3 py-2.5 text-white rounded-xl text-xs font-medium transition-all ${
+              className={`flex-1 px-3 py-2.5 rounded-xl text-xs font-medium transition-all ${
                 isLoggedIn 
-                  ? 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] hover:shadow-lg' 
-                  : 'bg-white/20 hover:bg-white/30'
+                  ? 'bg-slate-600 text-white hover:bg-slate-700 hover:shadow-lg' 
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
               <div className="flex items-center justify-center gap-1.5">

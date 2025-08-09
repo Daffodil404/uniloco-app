@@ -150,8 +150,8 @@ export default function EquipmentPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
       {/* Header */}
-      <div className="p-4">
-        <div className="flex items-center justify-between">
+      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] p-4">
+        <div className="flex items-center gap-4">
           <button
             onClick={handleBackToProfile}
             className="text-white/80 hover:text-white"
@@ -161,7 +161,6 @@ export default function EquipmentPage() {
             </svg>
           </button>
           <h1 className="text-xl font-bold text-white">Equipment</h1>
-          <div className="w-6"></div>
         </div>
       </div>
 
