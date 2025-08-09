@@ -187,15 +187,17 @@ function AIChatContent() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
       {/* 顶部导航 */}
-      <header className="relative z-20 px-6 py-4">
+      <header className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] relative z-20 px-6 py-4">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => window.history.back()}
-            className="text-white hover:text-white/80 transition-colors text-lg font-medium"
+            className="text-white hover:text-white/80 transition-colors"
           >
-            ← Back
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
-          <div className="flex-1 text-center">
+          <div>
             <h1 className="text-lg font-semibold text-white">AI Travel Planner</h1>
             <p className="text-xs text-white/80">Create your personalized journey</p>
           </div>

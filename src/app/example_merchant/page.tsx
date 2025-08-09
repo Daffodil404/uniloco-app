@@ -65,11 +65,25 @@ const merchants: Merchant[] = [
 
 export default function Page() {
     return (
-        <main className="min-h-screen bg-white px-4 py-8">
-            {/* Title */}
-            <h1 className="text-2xl font-bold text-[#fe585f] mb-6">
-                Partner Merchants
-            </h1>
+        <main className="min-h-screen bg-white flex flex-col">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] px-4 py-6">
+                <div className="flex items-center gap-4">
+                    <button 
+                        onClick={() => window.history.back()}
+                        className="text-white hover:text-white/80 transition-colors"
+                    >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <h1 className="text-2xl font-bold text-white">
+                        Partner Merchants
+                    </h1>
+                </div>
+            </div>
+
+            <div className="px-4 py-8 flex-1">
 
             {/* Merchant List */}
             <div className="space-y-4">
@@ -109,6 +123,7 @@ export default function Page() {
                         </div>
                     </div>
                 ))}
+            </div>
             </div>
         </main>
     );

@@ -32,11 +32,25 @@ export default function TripPlannerPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center px-4 py-8">
-      {/* Title */}
-      <h1 className="text-2xl font-bold text-[#fe585f] mb-6">
-        AI Trip Planner
-      </h1>
+    <main className="min-h-screen bg-white flex flex-col">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] px-4 py-6">
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={() => window.history.back()}
+            className="text-white hover:text-white/80 transition-colors"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <h1 className="text-2xl font-bold text-white">
+            AI Trip Planner
+          </h1>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center px-4 py-8 flex-1">
 
       {/* Chat Box */}
       <div className="w-full max-w-2xl flex-1 border border-gray-200 rounded-xl p-4 mb-6 bg-gray-50 overflow-y-auto">
@@ -87,6 +101,7 @@ export default function TripPlannerPage() {
         >
           Send
         </button>
+      </div>
       </div>
     </main>
   );

@@ -8,9 +8,23 @@ export default function WalletPage() {
   const [toAmount, setToAmount] = useState("");
 
   return (
-    <main className="min-h-screen bg-white text-gray-900 px-4 py-6 flex flex-col items-center">
-      {/* Title */}
-      <h1 className="text-2xl font-bold text-[#fe585f] mb-6">Currency Exchange</h1>
+    <main className="min-h-screen bg-white text-gray-900 flex flex-col">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] px-4 py-6">
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={() => window.history.back()}
+            className="text-white hover:text-white/80 transition-colors"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <h1 className="text-2xl font-bold text-white">Currency Exchange</h1>
+        </div>
+      </div>
+      
+      <div className="px-4 py-6 flex flex-col items-center flex-1">
 
       {/* Exchange Card */}
       <div className="w-full max-w-lg bg-white border border-gray-200 rounded-2xl shadow-lg p-6 mb-8">
@@ -105,6 +119,7 @@ export default function WalletPage() {
             <span className="text-gray-400">1 day ago</span>
           </div>
         </div>
+      </div>
       </div>
     </main>
   );
