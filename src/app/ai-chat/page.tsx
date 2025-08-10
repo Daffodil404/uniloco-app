@@ -185,7 +185,7 @@ function AIChatContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 relative z-10">
       {/* 顶部导航 */}
       <header className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] relative z-20 px-6 py-4">
         <div className="flex items-center gap-4">
@@ -219,7 +219,7 @@ function AIChatContent() {
       </div>
 
       {/* 问题卡片容器 */}
-      <div className="flex-1 px-6 relative overflow-hidden">
+      <div className="flex-1 px-6 relative">
         <div 
           ref={containerRef}
           className={`transition-all duration-300 ease-out ${

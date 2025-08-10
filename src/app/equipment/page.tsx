@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Star, Zap, Check, SlidersHorizontal, X } from 'lucide-react';
 
 interface Equipment {
   id: string;
@@ -23,6 +25,7 @@ export default function EquipmentPage() {
   const router = useRouter();
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'owned' | 'available'>('all');
   const [selectedType, setSelectedType] = useState<'all' | 'avatar' | 'badge' | 'tool'>('all');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const handleBackToProfile = () => {
     router.push('/profile');
@@ -30,12 +33,10 @@ export default function EquipmentPage() {
 
   const handlePurchase = (item: Equipment) => {
     console.log('Purchase:', item.name);
-    // 这里可以添加购买逻辑
   };
 
   const handleEquip = (item: Equipment) => {
     console.log('Equip:', item.name);
-    // 这里可以添加装备逻辑
   };
 
   // Mock data
@@ -46,11 +47,9 @@ export default function EquipmentPage() {
       description: 'Increases check-in bonus by 10%',
       type: 'tool',
       rarity: 'common',
-      image: '/static/locate.png',
+      image: '/placeholder.png',
       isOwned: true,
-      stats: {
-        checkInBonus: 10
-      }
+      stats: { checkInBonus: 10 }
     },
     {
       id: '2',
@@ -58,11 +57,9 @@ export default function EquipmentPage() {
       description: 'Reveals hidden locations on the map',
       type: 'tool',
       rarity: 'rare',
-      image: '/static/locate.png',
+      image: '/placeholder.png',
       isOwned: true,
-      stats: {
-        specialEffect: 'Hidden locations revealed'
-      }
+      stats: { specialEffect: 'Hidden locations revealed' }
     },
     {
       id: '3',
@@ -70,52 +67,10 @@ export default function EquipmentPage() {
       description: 'Stylish hat that boosts your avatar',
       type: 'avatar',
       rarity: 'epic',
-      image: '/static/locate.png',
+      image: '/placeholder.png',
       isOwned: false,
       price: 500,
-      stats: {
-        pointMultiplier: 1.2
-      }
-    },
-    {
-      id: '4',
-      name: 'Legendary Wings',
-      description: 'Rare wings that grant flight ability',
-      type: 'badge',
-      rarity: 'legendary',
-      image: '/static/locate.png',
-      isOwned: false,
-      price: 2000,
-      stats: {
-        checkInBonus: 25,
-        pointMultiplier: 1.5,
-        specialEffect: 'Flight ability unlocked'
-      }
-    },
-    {
-      id: '5',
-      name: 'Treasure Map',
-      description: 'Shows rare item locations',
-      type: 'tool',
-      rarity: 'rare',
-      image: '/static/locate.png',
-      isOwned: false,
-      price: 800,
-      stats: {
-        specialEffect: 'Rare items revealed'
-      }
-    },
-    {
-      id: '6',
-      name: 'Crystal Necklace',
-      description: 'Beautiful necklace with magical properties',
-      type: 'avatar',
-      rarity: 'epic',
-      image: '/static/locate.png',
-      isOwned: true,
-      stats: {
-        pointMultiplier: 1.3
-      }
+      stats: { pointMultiplier: 1.2 }
     }
   ];
 
@@ -129,17 +84,6 @@ export default function EquipmentPage() {
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const getRarityBgColor = (rarity: string) => {
-    switch (rarity) {
-      case 'common': return 'bg-gray-400/20';
-      case 'rare': return 'bg-blue-400/20';
-      case 'epic': return 'bg-purple-400/20';
-      case 'legendary': return 'bg-yellow-400/20';
-      default: return 'bg-gray-400/20';
-    }
-  };
-
   const filteredEquipment = equipment.filter(item => {
     if (selectedFilter === 'owned' && !item.isOwned) return false;
     if (selectedFilter === 'available' && item.isOwned) return false;
@@ -148,205 +92,159 @@ export default function EquipmentPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#FF9E4A]/20">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] p-4">
+      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] p-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <button
-            onClick={handleBackToProfile}
-            className="text-white/80 hover:text-white"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
+          <button onClick={handleBackToProfile} className="text-white/80 hover:text-white">
+            ←
           </button>
           <h1 className="text-xl font-bold text-white">Equipment</h1>
         </div>
+
+        {/* Filter Drawer Trigger */}
+        <button
+          onClick={() => setIsFilterOpen(true)}
+          className="p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white"
+        >
+          <SlidersHorizontal />
+        </button>
+
+        {isFilterOpen && (
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-end z-[9999]">
+            <div className="bg-white/95 backdrop-blur-md text-slate-800 shadow-xl border-l border-slate-200 p-4 w-72">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-bold">Filters</h2>
+                <button onClick={() => setIsFilterOpen(false)} className="p-1 rounded hover:bg-slate-100">
+                  <X />
+                </button>
+              </div>
+
+              {/* Filter by Status */}
+              <div className="mb-6">
+                <p className="text-sm text-slate-600 mb-2">Status</p>
+                <div className="space-y-2">
+                  {['all', 'owned', 'available'].map(f => (
+                    <button
+                      key={f}
+                      onClick={() => {
+                        setSelectedFilter(f as any);
+                        setIsFilterOpen(false);
+                      }}
+                      className={`block w-full text-left px-3 py-2 rounded-lg ${selectedFilter === f
+                          ? 'bg-[#fe585f] text-white'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        }`}
+                    >
+                      {f.charAt(0).toUpperCase() + f.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Filter by Type */}
+              <div>
+                <p className="text-sm text-slate-600 mb-2">Type</p>
+                <div className="space-y-2">
+                  {['all', 'avatar', 'badge', 'tool'].map(t => (
+                    <button
+                      key={t}
+                      onClick={() => {
+                        setSelectedType(t as any);
+                        setIsFilterOpen(false);
+                      }}
+                      className={`block w-full text-left px-3 py-2 rounded-lg ${selectedType === t
+                          ? 'bg-[#fe585f] text-white'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        }`}
+                    >
+                      {t.charAt(0).toUpperCase() + t.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Main Content */}
-      <div className="px-4 pb-4">
-        {/* Stats Card */}
-        <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-4 border border-white/10 mb-4">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <p className="text-white/80 text-sm">Total Equipment</p>
-              <p className="text-white text-xl font-bold">{equipment.filter(e => e.isOwned).length}/{equipment.length}</p>
-            </div>
-            <div className="text-right">
-              <p className="text-white/80 text-sm">UNC Balance</p>
-              <p className="text-[#FF9E4A] text-xl font-bold">2,847</p>
-            </div>
+      <div className="p-4">
+        {/* Stats */}
+        <div className="bg-white/80 backdrop-blur-md rounded-2xl p-4 border border-slate-200 mb-4 flex justify-between shadow-lg">
+          <div>
+            <p className="text-slate-600 text-sm">Total Equipment</p>
+            <p className="text-slate-800 text-xl font-bold">
+              {equipment.filter(e => e.isOwned).length}/{equipment.length}
+            </p>
           </div>
-        </div>
-
-        {/* Filters */}
-        <div className="space-y-3 mb-4">
-          {/* Status Filter */}
-          <div className="flex gap-2">
-            <button
-              onClick={() => setSelectedFilter('all')}
-              className={`flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                selectedFilter === 'all'
-                  ? 'bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] text-white'
-                  : 'bg-white/10 text-white/60'
-              }`}
-            >
-              All
-            </button>
-            <button
-              onClick={() => setSelectedFilter('owned')}
-              className={`flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                selectedFilter === 'owned'
-                  ? 'bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] text-white'
-                  : 'bg-white/10 text-white/60'
-              }`}
-            >
-              Owned
-            </button>
-            <button
-              onClick={() => setSelectedFilter('available')}
-              className={`flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                selectedFilter === 'available'
-                  ? 'bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] text-white'
-                  : 'bg-white/10 text-white/60'
-              }`}
-            >
-              Available
-            </button>
-          </div>
-
-          {/* Type Filter */}
-          <div className="flex gap-2">
-            <button
-              onClick={() => setSelectedType('all')}
-              className={`flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                selectedType === 'all'
-                  ? 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white'
-                  : 'bg-white/10 text-white/60'
-              }`}
-            >
-              All Types
-            </button>
-            <button
-              onClick={() => setSelectedType('avatar')}
-              className={`flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                selectedType === 'avatar'
-                  ? 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white'
-                  : 'bg-white/10 text-white/60'
-              }`}
-            >
-              Avatar
-            </button>
-            <button
-              onClick={() => setSelectedType('badge')}
-              className={`flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                selectedType === 'badge'
-                  ? 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white'
-                  : 'bg-white/10 text-white/60'
-              }`}
-            >
-              Badge
-            </button>
-            <button
-              onClick={() => setSelectedType('tool')}
-              className={`flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                selectedType === 'tool'
-                  ? 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white'
-                  : 'bg-white/10 text-white/60'
-              }`}
-            >
-              Tool
-            </button>
+          <div className="text-right">
+            <p className="text-slate-600 text-sm">UNC Balance</p>
+            <p className="text-[#FF9E4A] text-xl font-bold">2,847</p>
           </div>
         </div>
 
         {/* Equipment Grid */}
         <div className="grid grid-cols-2 gap-3">
-          {filteredEquipment.map((item) => (
-            <div key={item.id} className={`bg-black/80 backdrop-blur-sm rounded-2xl p-4 border ${
-              item.isOwned ? 'border-[#66D2A0]' : 'border-white/20'
-            }`}>
-              {/* Item Header */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className={`text-xs font-medium ${getRarityColor(item.rarity)}`}>
-                      {item.rarity.toUpperCase()}
-                    </span>
-                    <span className="text-white/60 text-xs capitalize">{item.type}</span>
-                  </div>
-                </div>
+          {filteredEquipment.map(item => (
+            <div
+              key={item.id}
+              className={`bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden border shadow-lg ${item.isOwned ? 'border-[#66D2A0]' : 'border-slate-200'
+                }`}
+            >
+              {/* Image */}
+              <div className="relative w-full h-28 bg-slate-100">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  fill
+                  className="object-contain p-2"
+                />
               </div>
 
-              {/* Item Info */}
-              <div className="mb-3">
-                <h3 className="text-white font-semibold text-sm mb-1">{item.name}</h3>
-                <p className="text-white/60 text-xs leading-relaxed">{item.description}</p>
-              </div>
+              {/* Info */}
+              <div className="p-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className={`text-xs font-medium ${getRarityColor(item.rarity)}`}>
+                    {item.rarity.toUpperCase()}
+                  </span>
+                  <span className="text-slate-500 text-xs capitalize">{item.type}</span>
+                </div>
+                <h3 className="text-slate-800 font-semibold text-sm">{item.name}</h3>
+                <p className="text-slate-600 text-xs">{item.description}</p>
 
-              {/* Stats */}
-              {item.stats && (
-                <div className="mb-3 space-y-1">
-                  {item.stats.checkInBonus && (
-                    <div className="flex items-center gap-1">
-                      <span className="text-[#66D2A0] text-xs">✓</span>
-                      <span className="text-white/80 text-xs">+{item.stats.checkInBonus}% Check-in Bonus</span>
+                {/* Stats */}
+                <div className="mt-2 space-y-1">
+                  {item.stats?.checkInBonus && (
+                    <div className="flex items-center gap-1 text-[#66D2A0] text-xs">
+                      <Check /> +{item.stats.checkInBonus}% Check-in Bonus
                     </div>
                   )}
-                  {item.stats.pointMultiplier && (
-                    <div className="flex items-center gap-1">
-                      <span className="text-[#FF9E4A] text-xs">★</span>
-                      <span className="text-white/80 text-xs">x{item.stats.pointMultiplier} Point Multiplier</span>
+                  {item.stats?.pointMultiplier && (
+                    <div className="flex items-center gap-1 text-[#FF9E4A] text-xs">
+                      <Star /> x{item.stats.pointMultiplier} Points
                     </div>
                   )}
-                  {item.stats.specialEffect && (
-                    <div className="flex items-center gap-1">
-                      <span className="text-[#4A90E2] text-xs">⚡</span>
-                      <span className="text-white/80 text-xs">{item.stats.specialEffect}</span>
+                  {item.stats?.specialEffect && (
+                    <div className="flex items-center gap-1 text-[#4A90E2] text-xs">
+                      <Zap /> {item.stats.specialEffect}
                     </div>
                   )}
                 </div>
-              )}
 
-              {/* Action Button */}
-              <div className="flex gap-2">
-                {item.isOwned ? (
-                  <button
-                    onClick={() => handleEquip(item)}
-                    className="flex-1 px-3 py-2 bg-gradient-to-r from-[#66D2A0] to-[#4A90E2] text-white rounded-xl text-xs font-medium"
-                  >
-                    Equip
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handlePurchase(item)}
-                    className="flex-1 px-3 py-2 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-xs font-medium"
-                  >
-                    {item.price ? `${item.price} UNC` : 'Free'}
-                  </button>
-                )}
+                {/* Action */}
+                <button
+                  onClick={() => (item.isOwned ? handleEquip(item) : handlePurchase(item))}
+                  className={`mt-3 w-full py-2 rounded-xl text-xs font-medium ${item.isOwned
+                      ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
+                      : 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white'
+                    }`}
+                >
+                  {item.isOwned ? 'Equip' : `${item.price || 0} UNC`}
+                </button>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Empty State */}
-        {filteredEquipment.length === 0 && (
-          <div className="text-center py-8">
-            <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-              </svg>
-            </div>
-            <p className="text-white/60 text-sm">No equipment found</p>
-          </div>
-        )}
       </div>
     </div>
   );

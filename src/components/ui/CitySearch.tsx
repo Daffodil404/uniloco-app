@@ -163,7 +163,7 @@ export default function CitySearch({ onSelect, selectedCity }: CitySearchProps) 
 
         {/* 搜索结果下拉框 */}
         {showDropdown && searchResults.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg rounded-2xl border border-slate-200 max-h-60 overflow-y-auto z-50">
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-xl rounded-2xl border border-slate-200 max-h-60 overflow-y-auto z-[9999]">
             {searchResults.map((city) => (
               <button
                 key={city.id}

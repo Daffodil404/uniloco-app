@@ -48,7 +48,12 @@ export default function SplashPage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% relative">
+    <div 
+      className="min-h-screen relative"
+      style={{
+        background: 'linear-gradient(to bottom, #ffffff 0%, #ffffff 60%, rgba(255, 158, 74, 0.3) 100%)'
+      }}
+    >
       {/* 主要内容容器 - 使用绝对定位 */}
       <div className="absolute left-1/2 -translate-x-1/2 w-full px-8 z-10" style={{ top: '20%' }}>
         <div className="flex flex-col items-center">
@@ -68,14 +73,14 @@ export default function SplashPage() {
 
           {/* 主标题 "Unilloco" */}
           <div className={`mb-8 transition-all duration-1000 delay-200 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="text-[3rem] leading-tight font-[900] text-[#F9F7F5] tracking-wide drop-shadow-lg">
+            <div className="text-[3rem] leading-tight font-[900] text-[#fe585f] tracking-wide drop-shadow-lg">
               Unilloco+
             </div>
           </div>
 
           {/* 副标题 "Travel with Stories" */}
           <div className={`mb-12 transition-all duration-1000 delay-400 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <p className="text-[1.2rem] font-[500] text-[#F9F7F5] drop-shadow-md">
+              <p className="text-[1.2rem] font-[500] text-slate-700 drop-shadow-md">
               Travel with Stories
             </p>
           </div>
