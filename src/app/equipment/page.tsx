@@ -1,3 +1,5 @@
+// src/app/equipment/page.tsx
+
 'use client';
 
 import { useState } from 'react';
@@ -41,37 +43,57 @@ export default function EquipmentPage() {
 
   // Mock data
   const equipment: Equipment[] = [
+    // 新增手环装备
     {
-      id: '1',
-      name: 'Explorer Backpack',
-      description: 'Increases check-in bonus by 10%',
+      id: '4',
+      name: 'Smart Fitness Band',
+      description: 'This band tracks your fitness data to help you stay healthy.',
       type: 'tool',
       rarity: 'common',
-      image: '/placeholder.png',
-      isOwned: true,
-      stats: { checkInBonus: 10 }
+      image: '/static/1.jpg',
+      isOwned: false,
+      price: 29.99,
     },
     {
-      id: '2',
-      name: 'Golden Compass',
-      description: 'Reveals hidden locations on the map',
+      id: '5',
+      name: 'Heart Rate Monitor Band',
+      description: 'Monitors your heart rate in real-time to ensure safe and effective workouts.',
       type: 'tool',
       rarity: 'rare',
-      image: '/placeholder.png',
-      isOwned: true,
-      stats: { specialEffect: 'Hidden locations revealed' }
+      image: '/static/2.png',
+      isOwned: false,
+      price: 39.99,
     },
     {
-      id: '3',
-      name: 'Adventure Hat',
-      description: 'Stylish hat that boosts your avatar',
-      type: 'avatar',
+      id: '6',
+      name: 'Waterproof Fitness Band',
+      description: 'Perfect for swimming and water sports, with a waterproof design for worry-free use.',
+      type: 'tool',
       rarity: 'epic',
-      image: '/placeholder.png',
+      image: '/static/3.png',
       isOwned: false,
-      price: 500,
-      stats: { pointMultiplier: 1.2 }
-    }
+      price: 49.99,
+    },
+    {
+      id: '7',
+      name: 'Multi-Function Smart Band',
+      description: 'Integrates multiple features, including step tracking, sleep monitoring, and message alerts.',
+      type: 'tool',
+      rarity: 'legendary',
+      image: '/static/4.png',
+      isOwned: false,
+      price: 59.99,
+    },
+    {
+      id: '8',
+      name: 'Stylish Health Band',
+      description: 'Combines style and functionality, perfect for everyday wear.',
+      type: 'tool',
+      rarity: 'common',
+      image: '/static/5.jpeg',
+      isOwned: false,
+      price: 34.99,
+    },
   ];
 
   const getRarityColor = (rarity: string) => {
@@ -101,7 +123,6 @@ export default function EquipmentPage() {
           </button>
           <h1 className="text-xl font-bold text-white">Equipment</h1>
         </div>
-
         {/* Filter Drawer Trigger */}
         <button
           onClick={() => setIsFilterOpen(true)}
@@ -109,7 +130,7 @@ export default function EquipmentPage() {
         >
           <SlidersHorizontal />
         </button>
-
+        {/* Filter Drawer */}
         {isFilterOpen && (
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-end z-[9999]">
             <div className="bg-white/95 backdrop-blur-md text-slate-800 shadow-xl border-l border-slate-200 p-4 w-72">
@@ -119,7 +140,6 @@ export default function EquipmentPage() {
                   <X />
                 </button>
               </div>
-
               {/* Filter by Status */}
               <div className="mb-6">
                 <p className="text-sm text-slate-600 mb-2">Status</p>
@@ -132,8 +152,8 @@ export default function EquipmentPage() {
                         setIsFilterOpen(false);
                       }}
                       className={`block w-full text-left px-3 py-2 rounded-lg ${selectedFilter === f
-                          ? 'bg-[#fe585f] text-white'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-[#fe585f] text-white'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                         }`}
                     >
                       {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -141,7 +161,6 @@ export default function EquipmentPage() {
                   ))}
                 </div>
               </div>
-
               {/* Filter by Type */}
               <div>
                 <p className="text-sm text-slate-600 mb-2">Type</p>
@@ -154,8 +173,8 @@ export default function EquipmentPage() {
                         setIsFilterOpen(false);
                       }}
                       className={`block w-full text-left px-3 py-2 rounded-lg ${selectedType === t
-                          ? 'bg-[#fe585f] text-white'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-[#fe585f] text-white'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                         }`}
                     >
                       {t.charAt(0).toUpperCase() + t.slice(1)}
@@ -200,7 +219,6 @@ export default function EquipmentPage() {
                   className="object-contain p-2"
                 />
               </div>
-
               {/* Info */}
               <div className="p-3">
                 <div className="flex items-center gap-2 mb-1">
@@ -211,7 +229,6 @@ export default function EquipmentPage() {
                 </div>
                 <h3 className="text-slate-800 font-semibold text-sm">{item.name}</h3>
                 <p className="text-slate-600 text-xs">{item.description}</p>
-
                 {/* Stats */}
                 <div className="mt-2 space-y-1">
                   {item.stats?.checkInBonus && (
@@ -230,13 +247,12 @@ export default function EquipmentPage() {
                     </div>
                   )}
                 </div>
-
                 {/* Action */}
                 <button
                   onClick={() => (item.isOwned ? handleEquip(item) : handlePurchase(item))}
                   className={`mt-3 w-full py-2 rounded-xl text-xs font-medium ${item.isOwned
-                      ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
-                      : 'bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white'
+                    ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
+                    : 'bg-gradient-to-r from-[#fe585f] to-[#FFB366] text-white'
                     }`}
                 >
                   {item.isOwned ? 'Equip' : `${item.price || 0} UNC`}

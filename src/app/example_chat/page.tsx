@@ -1,18 +1,60 @@
 // 添加一个固定页面，用于展示AI聊天生成藏宝图的示例
 "use client";
 import React, { useState } from "react";
+import InteractiveMap from "@/components/features/InteractiveMap";
+import type { MapPoint } from "@/types/travel";
 
 interface Message {
   role: "ai" | "user";
   content: string;
 }
 
+// 示例地图点数据 - 卢森堡景点
+const luxembourgMapPoints: MapPoint[] = [
+  {
+    id: '1',
+    name: 'Notre-Dame Cathedral',
+    lat: 49.6116,
+    lng: 6.1319,
+    type: 'attraction',
+    rating: 4.6,
+    openingHours: '8:00-18:00'
+  },
+  {
+    id: '2',
+    name: 'Palais Grand-Ducal',
+    lat: 49.6119,
+    lng: 6.1319,
+    type: 'attraction',
+    rating: 4.7,
+    openingHours: '10:00-17:00'
+  },
+  {
+    id: '3',
+    name: 'Casemates du Bock',
+    lat: 49.6125,
+    lng: 6.1358,
+    type: 'attraction',
+    rating: 4.5,
+    openingHours: '10:00-17:30'
+  },
+  {
+    id: '4',
+    name: 'Place d\'Armes',
+    lat: 49.6111,
+    lng: 6.1306,
+    type: 'attraction',
+    rating: 4.4,
+    openingHours: '24/7'
+  }
+];
+
 export default function TripPlannerPage() {
   const [messages, setMessages] = useState<Message[]>([
     { role: "ai", content: "Hello! Where would you like to travel?" },
-    { role: "user", content: "I want to visit Paris." },
+    { role: "user", content: "I want to visit Luxembourg." },
     { role: "ai", content: "Great choice! What kind of activities do you enjoy?" },
-    { role: "user", content: "I love art museums and local food." },
+    { role: "user", content: "I love historic sites and local culture." },
     { role: "ai", content: "Perfect! I'll prepare your personalized itinerary." },
     { role: "ai", content: "map_placeholder" },
   ]);
@@ -29,6 +71,10 @@ export default function TripPlannerPage() {
         { role: "ai", content: "Got it! Adding that to your plan..." },
       ]);
     }, 800);
+  };
+
+  const handlePointClick = (point: MapPoint) => {
+    console.log('Point clicked:', point.name);
   };
 
   return (
@@ -64,9 +110,12 @@ export default function TripPlannerPage() {
             {msg.content === "map_placeholder" ? (
               // AI 发送的地图占位符
               <div className="w-full max-w-[80%] bg-white border border-gray-200 rounded-lg rounded-bl-none p-4">
-                <p className="text-gray-800 text-sm mb-3">Here&apos;s your personalized Paris itinerary:</p>
-                <div className="border-2 border-dashed border-[#fe585f] rounded-xl h-48 flex items-center justify-center text-gray-400 bg-gray-50">
-                  🗺️ Your personalized itinerary map will appear here
+                <p className="text-gray-800 text-sm mb-3">Here&apos;s your personalized Luxembourg itinerary:</p>
+                <div className="border-2 border-gray-200 rounded-xl h-48 overflow-hidden">
+                  <InteractiveMap
+                    mapPoints={luxembourgMapPoints}
+                    onPointClick={handlePointClick}
+                  />
                 </div>
               </div>
             ) : (

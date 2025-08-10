@@ -2,11 +2,11 @@
 
 // 应用信息
 export const APP_CONFIG = {
-  name: 'UniLoco App',
+  name: 'Uniloco App',
   version: '1.0.0',
   description: '移动端应用',
-  author: 'UniLoco Team',
-  website: 'https://uniloco.app'
+  author: 'Uniloco Team',
+  website: 'https://Uniloco.app'
 } as const;
 
 // API 配置

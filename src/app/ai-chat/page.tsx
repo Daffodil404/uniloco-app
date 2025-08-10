@@ -19,7 +19,7 @@ const questions: Question[] = [
     id: 'destination',
     title: 'Where do you want to go?',
     subtitle: 'Choose a destination that excites you',
-    options: ['Tokyo', 'Paris', 'Kyoto', 'Venice', 'Bali', 'Santorini', 'New York', 'London'],
+    options: ['Luxembourg', 'Brussels', 'Amsterdam', 'Strasbourg', 'Trier', 'Metz', 'Nancy', 'Frankfurt'],
     key: 'destination',
     type: 'city-search'
   },
@@ -174,7 +174,7 @@ function AIChatContent() {
       setIsGenerating(false);
       // 跳转到结果页面，并传递用户选择
       const params = new URLSearchParams();
-      params.set('destination', answers.destination || 'Tokyo');
+      params.set('destination', answers.destination || 'Luxembourg');
       params.set('duration', answers.duration || '4-7 days');
       params.set('food', answers.food || 'Local specialties');
       params.set('companion', answers.companion || 'Solo travel');
@@ -182,6 +182,11 @@ function AIChatContent() {
       
       window.location.href = `/travel-plan?${params.toString()}`;
     }, 3000);
+  };
+
+  const destinationOptions = {
+    label: 'Where would you like to travel?',
+    options: ['Luxembourg', 'Brussels', 'Amsterdam', 'Strasbourg', 'Trier', 'Metz', 'Nancy', 'Frankfurt'],
   };
 
   return (

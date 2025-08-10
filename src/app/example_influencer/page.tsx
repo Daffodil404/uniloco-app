@@ -25,8 +25,8 @@ import {
 const themeColor = '#fe585f';
 
 const influencer = {
-  name: 'Xiaoya Li',
-  title: 'Japan Travel Specialist',
+  name: 'Fabrice.Jason',
+  title: 'Luxembourg Travel Specialist',
   avatar: '👩‍💼', // 用 emoji 替换头像
   rating: 4.9,
   followers: 128500,
@@ -35,46 +35,46 @@ const influencer = {
   yearsExperience: 6,
   responseRate: 98,
   location: 'Shanghai',
-  languages: ['Chinese', 'Japanese', 'English'],
-  specialties: ['Food Exploration', 'Cultural Experience', 'Photography', 'Hot Springs'],
+  languages: ['Chinese', 'French', 'English'],
+  specialties: ['Historic Sites', 'Cultural Experience', 'Photography', 'European Heritage'],
   bio:
-    '6 years professional travel planner, with 3 years living in Japan. Focused on unique cultural travel experiences throughout all 47 prefectures. Expert in discovering hidden gems and authentic cuisine recommendations.',
-  achievements: ['Top Influencer 2023', 'Certified Travel Blogger', 'JNTO Japan Travel Expert'],
+    '6 years professional travel planner, with 3 years living in Luxembourg. Focused on unique cultural travel experiences throughout the Grand Duchy. Expert in discovering hidden gems and authentic Luxembourgish cuisine recommendations.',
+  achievements: ['Top Influencer 2023', 'Certified Travel Blogger', 'Luxembourg Tourism Expert'],
 };
 
 const itineraries = [
   {
     id: 1,
-    title: 'Tokyo-Kyoto 7-Day Cultural Tour',
-    image: '🗾', // 日本地图 emoji
+    title: 'Luxembourg City 7-Day Cultural Tour',
+    image: '/static/real_pic2.png', // 使用真实图片替换 emoji
     duration: '7 days 6 nights',
-    price: '¥8,800 - ¥12,800',
+    price: '8,800UNC - 12,800UNC',
     rating: 4.9,
     reviews: 156,
-    tags: ['Culture', 'Food', 'Hot Springs'],
-    highlight: 'Private Tea Ceremony + Kaiseki Dining',
+    tags: ['Culture', 'History', 'Heritage'],
+    highlight: 'Private Palace Tour + Traditional Cuisine',
   },
   {
     id: 2,
-    title: 'Hokkaido Snow Romantic Journey',
-    image: '❄️', // 雪花 emoji
+    title: 'Luxembourg Countryside Discovery',
+    image: '/static/real_pic3.png', // 使用真实图片替换 emoji
     duration: '5 days 4 nights',
-    price: '¥6,500 - ¥9,800',
+    price: '6,500UNC - 9,800UNC',
     rating: 4.8,
     reviews: 89,
-    tags: ['Snow', 'Hot Springs', 'Food'],
-    highlight: 'Sapporo Snow Festival + Noboribetsu Onsen',
+    tags: ['Nature', 'Heritage', 'Food'],
+    highlight: 'Mullerthal Trail + Local Wineries',
   },
   {
     id: 3,
-    title: 'Kansai Cherry Blossom Photography Tour',
-    image: '🌸', // 樱花 emoji
+    title: 'Luxembourg Photography & History Tour',
+    image: '/static/real_pic1.png', // 使用真实图片替换 emoji
     duration: '6 days 5 nights',
-    price: '¥7,200 - ¥10,500',
+    price: '7,200UNC - 10,500UNC',
     rating: 4.9,
     reviews: 203,
-    tags: ['Cherry Blossom', 'Photography', 'Historic'],
-    highlight: 'Pro Photography Guide + Hidden Cherry Spots',
+    tags: ['Photography', 'History', 'Architecture'],
+    highlight: 'Pro Photography Guide + Hidden Historic Spots',
   },
 ];
 
@@ -86,8 +86,8 @@ const reviews = [
     rating: 5,
     date: '2024-07-15',
     content:
-      'Xiaoya\'s Japan itinerary planning was fantastic! Every detail was thoughtfully arranged, especially the hidden hot spring inns. A truly unforgettable experience.',
-    trip: 'Kansai Hot Springs & Food Tour',
+      'Fabrice.Jason\'s Luxembourg itinerary planning was fantastic! Every detail was thoughtfully arranged, especially the historic sites and local restaurants. A truly unforgettable experience.',
+    trip: 'Luxembourg Heritage & Food Tour',
   },
   {
     id: 2,
@@ -97,7 +97,7 @@ const reviews = [
     date: '2024-06-28',
     content:
       'Exceeded expectations professionally! The itinerary was perfect and photography guidance helped us capture amazing photos. Highly recommended!',
-    trip: 'Tokyo Family Photography Tour',
+    trip: 'Luxembourg Family Photography Tour',
   },
 ];
 
@@ -105,8 +105,8 @@ const works = [
   {
     id: 1,
     type: 'article',
-    title: 'Kyoto Secret Coffee Shops Guide',
-    image: '☕', // 咖啡 emoji
+    title: 'Luxembourg Secret Cafes Guide',
+    image: '/static/real_pic1.png', // 使用真实图片替换 emoji
     views: 45600,
     likes: 2890,
     comments: 234,
@@ -114,8 +114,8 @@ const works = [
   {
     id: 2,
     type: 'video',
-    title: 'Tokyo Authentic Ramen Check-in',
-    image: '🍜', // 拉面 emoji
+    title: 'Luxembourg Authentic Cuisine Check-in',
+    image: '/static/real_pic2.png', // 使用真实图片替换 emoji
     views: 128400,
     likes: 5670,
     comments: 445,
@@ -124,8 +124,8 @@ const works = [
   {
     id: 3,
     type: 'photo',
-    title: 'Mt. Fuji Sunrise Photo Collection',
-    image: '🗻', // 富士山 emoji
+    title: 'Luxembourg Historic Architecture Collection',
+    image: '/static/real_pic3.png', // 使用真实图片替换 emoji
     views: 67800,
     likes: 4520,
     comments: 189,
@@ -214,8 +214,12 @@ export default function TravelInfluencerProfile() {
                 key={it.id}
                 className="rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col bg-white border border-gray-100"
               >
-                <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">
-                  <div className="text-8xl">{it.image}</div>
+                <div className="relative h-48 w-full overflow-hidden rounded-t-lg">
+                  <img 
+                    src={it.image} 
+                    alt={it.title}
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute top-3 right-3 bg-white/90 text-gray-800 px-2 py-1 rounded-full text-sm font-medium select-none">
                     {it.duration}
                   </div>
@@ -264,8 +268,12 @@ export default function TravelInfluencerProfile() {
                 key={work.id}
                 className="rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col bg-white border border-gray-100"
               >
-                <div className="relative h-40 w-full overflow-hidden rounded-t-lg bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center">
-                  <div className="text-6xl">{work.image}</div>
+                <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
+                  <img 
+                    src={work.image} 
+                    alt={work.title}
+                    className="w-full h-full object-cover"
+                  />
                   {work.type === 'video' && (
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-black/50 rounded-full p-3">

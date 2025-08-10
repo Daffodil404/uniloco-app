@@ -102,10 +102,10 @@ export default function LocationInfoModal({ isOpen, onClose, selectedPoint, onCh
 // 获取简化的地点描述
 function getLocationDescription(point: MapPoint): string {
   const descriptions: Record<string, string> = {
-    'Shibuya Crossing': 'World\'s busiest pedestrian crossing.',
-    'Meiji Shrine': 'Peaceful shrine in lush forest.',
-    'Senso-ji Temple': 'Tokyo\'s oldest temple.',
-    'Tsukiji Outer Market': 'Vibrant food market.'
+    'Place d\'Armes': 'Historic square in the heart of Luxembourg City.',
+    'Notre-Dame Cathedral': 'Beautiful Gothic cathedral in the old town.',
+    'Casemates du Bock': 'Ancient underground fortifications.',
+    'Palais Grand-Ducal': 'Official residence of the Grand Duke.'
   };
   
   return descriptions[point.name] || `Discover ${point.name}.`;
