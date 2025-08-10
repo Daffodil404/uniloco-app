@@ -177,10 +177,17 @@ export default function TravelInfluencerProfile() {
             Message
           </button>
           <button
-            style={{ borderColor: themeColor, color: themeColor }}
-            className="border-2 rounded-lg px-6 py-3 font-semibold hover:bg-[#fe585f]/10 transition"
+            style={{ backgroundColor: themeColor }}
+            className="text-white rounded-lg px-6 py-3 font-semibold hover:brightness-110 transition"
           >
             Follow
+          </button>
+
+          <button
+            style={{ backgroundColor: themeColor }}
+            className="text-white rounded-lg px-6 py-3 font-semibold hover:brightness-110 transition"
+          >
+            Merchant Partnership
           </button>
         </div>
       </header>
