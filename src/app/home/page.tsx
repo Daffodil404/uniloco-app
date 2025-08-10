@@ -8,39 +8,39 @@ import { useAuth } from '@/hooks/useAuth';
 const mockMapPoints: MapPoint[] = [
   {
     id: '1',
-    name: 'Shibuya Crossing',
-    lat: 35.6595,
-    lng: 139.7004,
+    name: 'Notre-Dame Cathedral',
+    lat: 49.6106,
+    lng: 6.1319,
     type: 'attraction',
-    rating: 4.5,
-    openingHours: '24/7'
+    rating: 4.6,
+    openingHours: '8:00-18:00'
   },
   {
     id: '2',
-    name: 'Meiji Shrine',
-    lat: 35.6762,
-    lng: 139.6993,
+    name: 'Palais Grand-Ducal',
+    lat: 49.6119,
+    lng: 6.1319,
     type: 'attraction',
     rating: 4.7,
-    openingHours: '6:00-17:00'
+    openingHours: '10:00-17:00'
   },
   {
     id: '3',
-    name: 'Senso-ji Temple',
-    lat: 35.7148,
-    lng: 139.7967,
+    name: 'Casemates du Bock',
+    lat: 49.6125,
+    lng: 6.1358,
     type: 'attraction',
-    rating: 4.6,
-    openingHours: '6:00-17:00'
+    rating: 4.5,
+    openingHours: '10:00-17:30'
   },
   {
     id: '4',
-    name: 'Tsukiji Outer Market',
-    lat: 35.6654,
-    lng: 139.7702,
-    type: 'restaurant',
+    name: 'Place d\'Armes',
+    lat: 49.6111,
+    lng: 6.1306,
+    type: 'attraction',
     rating: 4.4,
-    openingHours: '5:00-14:00'
+    openingHours: '24/7'
   }
 ];
 
