@@ -128,7 +128,7 @@ export default function EquipmentPage() {
                     <button
                       key={f}
                       onClick={() => {
-                        setSelectedFilter(f as any);
+                        setSelectedFilter(f as 'all' | 'owned' | 'available');
                         setIsFilterOpen(false);
                       }}
                       className={`block w-full text-left px-3 py-2 rounded-lg ${selectedFilter === f
@@ -150,7 +150,7 @@ export default function EquipmentPage() {
                     <button
                       key={t}
                       onClick={() => {
-                        setSelectedType(t as any);
+                        setSelectedType(t as 'all' | 'avatar' | 'badge' | 'tool');
                         setIsFilterOpen(false);
                       }}
                       className={`block w-full text-left px-3 py-2 rounded-lg ${selectedType === t

@@ -31,7 +31,7 @@ export default function SuccessModal({ isOpen, onClose, checkInData }: SuccessMo
           </div>
           <h3 className="text-xl font-bold text-slate-800 mb-2">Check-in Successful!</h3>
           <p className="text-slate-600 text-sm mb-4">
-            Congratulations! You've successfully checked in at <span className="font-semibold text-[#fe585f]">{checkInData.location}</span>! 
+            Congratulations! You&apos;ve successfully checked in at <span className="font-semibold text-[#fe585f]">{checkInData.location}</span>! 
             Your experience has been recorded and shared with the community!
           </p>
           <div className="bg-gradient-to-r from-[#F9F7F5] to-[#E8E8E8] rounded-2xl p-4 mb-4 border border-slate-200">
