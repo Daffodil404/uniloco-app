@@ -13,6 +13,13 @@ import {
   Eye,
   MessageCircle,
   Filter,
+  Camera,
+  Plane,
+  Mountain,
+  Coffee,
+  Camera as CameraIcon,
+  Video,
+  FileText,
 } from 'lucide-react';
 
 const themeColor = '#fe585f';
@@ -20,7 +27,7 @@ const themeColor = '#fe585f';
 const influencer = {
   name: 'Xiaoya Li',
   title: 'Japan Travel Specialist',
-  avatar: '/api/placeholder/120/120',
+  avatar: '👩‍💼', // 用 emoji 替换头像
   rating: 4.9,
   followers: 128500,
   totalTrips: 89,
@@ -39,7 +46,7 @@ const itineraries = [
   {
     id: 1,
     title: 'Tokyo-Kyoto 7-Day Cultural Tour',
-    image: '/api/placeholder/300/200',
+    image: '🗾', // 日本地图 emoji
     duration: '7 days 6 nights',
     price: '¥8,800 - ¥12,800',
     rating: 4.9,
@@ -50,7 +57,7 @@ const itineraries = [
   {
     id: 2,
     title: 'Hokkaido Snow Romantic Journey',
-    image: '/api/placeholder/300/200',
+    image: '❄️', // 雪花 emoji
     duration: '5 days 4 nights',
     price: '¥6,500 - ¥9,800',
     rating: 4.8,
@@ -61,7 +68,7 @@ const itineraries = [
   {
     id: 3,
     title: 'Kansai Cherry Blossom Photography Tour',
-    image: '/api/placeholder/300/200',
+    image: '🌸', // 樱花 emoji
     duration: '6 days 5 nights',
     price: '¥7,200 - ¥10,500',
     rating: 4.9,
@@ -75,17 +82,17 @@ const reviews = [
   {
     id: 1,
     user: 'Ms. Zhang',
-    avatar: '/api/placeholder/40/40',
+    avatar: '👩', // 女性 emoji
     rating: 5,
     date: '2024-07-15',
     content:
-      'Xiaoya’s Japan itinerary planning was fantastic! Every detail was thoughtfully arranged, especially the hidden hot spring inns. A truly unforgettable experience.',
+      'Xiaoya\'s Japan itinerary planning was fantastic! Every detail was thoughtfully arranged, especially the hidden hot spring inns. A truly unforgettable experience.',
     trip: 'Kansai Hot Springs & Food Tour',
   },
   {
     id: 2,
     user: 'Mr. Wang',
-    avatar: '/api/placeholder/40/40',
+    avatar: '👨', // 男性 emoji
     rating: 5,
     date: '2024-06-28',
     content:
@@ -99,7 +106,7 @@ const works = [
     id: 1,
     type: 'article',
     title: 'Kyoto Secret Coffee Shops Guide',
-    image: '/api/placeholder/250/150',
+    image: '☕', // 咖啡 emoji
     views: 45600,
     likes: 2890,
     comments: 234,
@@ -108,7 +115,7 @@ const works = [
     id: 2,
     type: 'video',
     title: 'Tokyo Authentic Ramen Check-in',
-    image: '/api/placeholder/250/150',
+    image: '🍜', // 拉面 emoji
     views: 128400,
     likes: 5670,
     comments: 445,
@@ -118,7 +125,7 @@ const works = [
     id: 3,
     type: 'photo',
     title: 'Mt. Fuji Sunrise Photo Collection',
-    image: '/api/placeholder/250/150',
+    image: '🗻', // 富士山 emoji
     views: 67800,
     likes: 4520,
     comments: 189,
@@ -135,11 +142,9 @@ export default function TravelInfluencerProfile() {
         {/* Left: Avatar + Basic Info */}
         <div className="flex items-center gap-6 flex-shrink-0">
           <div className="relative">
-            <img
-              src={influencer.avatar}
-              alt={influencer.name}
-              className="w-28 h-28 rounded-full border-4 border-white shadow-lg"
-            />
+            <div className="w-28 h-28 rounded-full border-4 border-white shadow-lg bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center text-4xl">
+              {influencer.avatar}
+            </div>
             <div
               className="absolute -bottom-1 -right-1 bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1"
               title="Verified"
@@ -207,14 +212,10 @@ export default function TravelInfluencerProfile() {
             {itineraries.map((it) => (
               <div
                 key={it.id}
-                className="rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col"
+                className="rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col bg-white border border-gray-100"
               >
-                <div className="relative h-48 w-full overflow-hidden rounded-t-lg">
-                  <img
-                    src={it.image}
-                    alt={it.title}
-                    className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
-                  />
+                <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">
+                  <div className="text-8xl">{it.image}</div>
                   <div className="absolute top-3 right-3 bg-white/90 text-gray-800 px-2 py-1 rounded-full text-sm font-medium select-none">
                     {it.duration}
                   </div>
@@ -261,14 +262,10 @@ export default function TravelInfluencerProfile() {
             {works.map((work) => (
               <div
                 key={work.id}
-                className="border rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col"
+                className="rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col bg-white border border-gray-100"
               >
-                <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
-                  <img
-                    src={work.image}
-                    alt={work.title}
-                    className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
-                  />
+                <div className="relative h-40 w-full overflow-hidden rounded-t-lg bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center">
+                  <div className="text-6xl">{work.image}</div>
                   {work.type === 'video' && (
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-black/50 rounded-full p-3">
@@ -312,14 +309,12 @@ export default function TravelInfluencerProfile() {
             {reviews.map((review) => (
               <article
                 key={review.id}
-                className="border rounded-lg p-6 shadow-sm hover:shadow-md transition"
+                className="rounded-lg p-6 shadow-sm hover:shadow-md transition bg-white border border-gray-100"
               >
                 <header className="flex items-center gap-4 mb-4">
-                  <img
-                    src={review.avatar}
-                    alt={review.user}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center text-xl">
+                    {review.avatar}
+                  </div>
                   <div className="flex-1">
                     <h4 className="font-semibold text-lg">{review.user}</h4>
                     <p className="text-sm text-gray-500">

@@ -122,7 +122,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
               }
               .leaflet-marker-icon:hover {
-                transform: scale(1.2) rotate(5deg);
+                transform: scale(1.3) rotate(5deg);
                 filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
               }
               .leaflet-marker-shadow {
@@ -190,13 +190,12 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newMarkers: any[] = [];
     
-    // 创建 Google Maps 风格的红色标点 SVG
-    const createGoogleMapsIcon = () => {
+    // 创建数字标记 SVG
+    const createNumberIcon = (number: number) => {
       const svg = `
-        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="24" cy="24" r="20" fill="#EA4335" stroke="#FFFFFF" stroke-width="3"/>
-          <circle cx="24" cy="24" r="8" fill="#FFFFFF"/>
-          <circle cx="24" cy="24" r="4" fill="#EA4335"/>
+        <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" fill="#fe585f" stroke="#FFFFFF" stroke-width="3"/>
+          <text x="20" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#FFFFFF">${number}</text>
         </svg>
       `;
       
@@ -204,13 +203,13 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
       return URL.createObjectURL(blob);
     };
     
-    mapPoints.forEach((point) => {
+    mapPoints.forEach((point, index) => {
       const marker = L.marker([point.lat, point.lng], {
         icon: L.icon({
-          iconUrl: createGoogleMapsIcon(),
-          iconSize: [48, 48],
-          iconAnchor: [24, 48],
-          popupAnchor: [0, -48]
+          iconUrl: createNumberIcon(index + 1),
+          iconSize: [40, 40],
+          iconAnchor: [20, 40],
+          popupAnchor: [0, -40]
         })
       });
 
