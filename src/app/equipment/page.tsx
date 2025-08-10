@@ -73,27 +73,7 @@ export default function EquipmentPage() {
       image: '/static/3.png',
       isOwned: false,
       price: 49.99,
-    },
-    {
-      id: '7',
-      name: 'Multi-Function Smart Band',
-      description: 'Integrates multiple features, including step tracking, sleep monitoring, and message alerts.',
-      type: 'tool',
-      rarity: 'legendary',
-      image: '/static/4.png',
-      isOwned: false,
-      price: 59.99,
-    },
-    {
-      id: '8',
-      name: 'Stylish Health Band',
-      description: 'Combines style and functionality, perfect for everyday wear.',
-      type: 'tool',
-      rarity: 'common',
-      image: '/static/5.jpeg',
-      isOwned: false,
-      price: 34.99,
-    },
+    }
   ];
 
   const getRarityColor = (rarity: string) => {
