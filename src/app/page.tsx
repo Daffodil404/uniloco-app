@@ -51,7 +51,7 @@ export default function SplashPage() {
     <div 
       className="min-h-screen relative"
       style={{
-        background: 'linear-gradient(to bottom, #ffffff 0%, #ffffff 60%, rgba(255, 158, 74, 0.3) 100%)'
+        background: 'linear-gradient(to bottom, #ffffff 0%, #ffffff 70%, rgba(254, 88, 95, 0.1) 85%, rgba(254, 88, 95, 0.3) 100%)'
       }}
     >
       {/* 主要内容容器 - 使用绝对定位 */}
@@ -61,11 +61,11 @@ export default function SplashPage() {
           <div className={`mb-16 transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}>
             <div className="flex justify-center">
               <Image
-                src="/static/locate.png"
-                alt="Location with speech bubble icon"
+                src="/static/logo.jpeg"
+                alt="Unilloco Logo"
                 width={320}
                 height={320}
-                className="w-[80%] drop-shadow-2xl"
+                className="w-[80%]"
                 priority
               />
             </div>
