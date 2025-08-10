@@ -26,7 +26,7 @@ const themeColor = '#fe585f';
 
 const influencer = {
   name: 'Xiaoya Li',
-  title: 'Japan Travel Specialist',
+  title: 'Luxembourg Travel Specialist',
   avatar: '👩‍💼', // 用 emoji 替换头像
   rating: 4.9,
   followers: 128500,
@@ -35,46 +35,46 @@ const influencer = {
   yearsExperience: 6,
   responseRate: 98,
   location: 'Shanghai',
-  languages: ['Chinese', 'Japanese', 'English'],
-  specialties: ['Food Exploration', 'Cultural Experience', 'Photography', 'Hot Springs'],
+  languages: ['Chinese', 'French', 'English'],
+  specialties: ['Historic Sites', 'Cultural Experience', 'Photography', 'European Heritage'],
   bio:
-    '6 years professional travel planner, with 3 years living in Japan. Focused on unique cultural travel experiences throughout all 47 prefectures. Expert in discovering hidden gems and authentic cuisine recommendations.',
-  achievements: ['Top Influencer 2023', 'Certified Travel Blogger', 'JNTO Japan Travel Expert'],
+    '6 years professional travel planner, with 3 years living in Luxembourg. Focused on unique cultural travel experiences throughout the Grand Duchy. Expert in discovering hidden gems and authentic Luxembourgish cuisine recommendations.',
+  achievements: ['Top Influencer 2023', 'Certified Travel Blogger', 'Luxembourg Tourism Expert'],
 };
 
 const itineraries = [
   {
     id: 1,
-    title: 'Tokyo-Kyoto 7-Day Cultural Tour',
-    image: '🗾', // 日本地图 emoji
+    title: 'Luxembourg City 7-Day Cultural Tour',
+    image: '🏰', // 城堡 emoji
     duration: '7 days 6 nights',
     price: '¥8,800 - ¥12,800',
     rating: 4.9,
     reviews: 156,
-    tags: ['Culture', 'Food', 'Hot Springs'],
-    highlight: 'Private Tea Ceremony + Kaiseki Dining',
+    tags: ['Culture', 'History', 'Heritage'],
+    highlight: 'Private Palace Tour + Traditional Cuisine',
   },
   {
     id: 2,
-    title: 'Hokkaido Snow Romantic Journey',
-    image: '❄️', // 雪花 emoji
+    title: 'Luxembourg Countryside Discovery',
+    image: '🌲', // 森林 emoji
     duration: '5 days 4 nights',
     price: '¥6,500 - ¥9,800',
     rating: 4.8,
     reviews: 89,
-    tags: ['Snow', 'Hot Springs', 'Food'],
-    highlight: 'Sapporo Snow Festival + Noboribetsu Onsen',
+    tags: ['Nature', 'Heritage', 'Food'],
+    highlight: 'Mullerthal Trail + Local Wineries',
   },
   {
     id: 3,
-    title: 'Kansai Cherry Blossom Photography Tour',
-    image: '🌸', // 樱花 emoji
+    title: 'Luxembourg Photography & History Tour',
+    image: '📸', // 相机 emoji
     duration: '6 days 5 nights',
     price: '¥7,200 - ¥10,500',
     rating: 4.9,
     reviews: 203,
-    tags: ['Cherry Blossom', 'Photography', 'Historic'],
-    highlight: 'Pro Photography Guide + Hidden Cherry Spots',
+    tags: ['Photography', 'History', 'Architecture'],
+    highlight: 'Pro Photography Guide + Hidden Historic Spots',
   },
 ];
 
@@ -86,8 +86,8 @@ const reviews = [
     rating: 5,
     date: '2024-07-15',
     content:
-      'Xiaoya\'s Japan itinerary planning was fantastic! Every detail was thoughtfully arranged, especially the hidden hot spring inns. A truly unforgettable experience.',
-    trip: 'Kansai Hot Springs & Food Tour',
+      'Xiaoya\'s Luxembourg itinerary planning was fantastic! Every detail was thoughtfully arranged, especially the historic sites and local restaurants. A truly unforgettable experience.',
+    trip: 'Luxembourg Heritage & Food Tour',
   },
   {
     id: 2,
@@ -97,7 +97,7 @@ const reviews = [
     date: '2024-06-28',
     content:
       'Exceeded expectations professionally! The itinerary was perfect and photography guidance helped us capture amazing photos. Highly recommended!',
-    trip: 'Tokyo Family Photography Tour',
+    trip: 'Luxembourg Family Photography Tour',
   },
 ];
 
@@ -105,7 +105,7 @@ const works = [
   {
     id: 1,
     type: 'article',
-    title: 'Kyoto Secret Coffee Shops Guide',
+    title: 'Luxembourg Secret Cafes Guide',
     image: '☕', // 咖啡 emoji
     views: 45600,
     likes: 2890,
@@ -114,8 +114,8 @@ const works = [
   {
     id: 2,
     type: 'video',
-    title: 'Tokyo Authentic Ramen Check-in',
-    image: '🍜', // 拉面 emoji
+    title: 'Luxembourg Authentic Cuisine Check-in',
+    image: '🍽️', // 餐具 emoji
     views: 128400,
     likes: 5670,
     comments: 445,
@@ -124,8 +124,8 @@ const works = [
   {
     id: 3,
     type: 'photo',
-    title: 'Mt. Fuji Sunrise Photo Collection',
-    image: '🗻', // 富士山 emoji
+    title: 'Luxembourg Historic Architecture Collection',
+    image: '🏛️', // 建筑 emoji
     views: 67800,
     likes: 4520,
     comments: 189,

@@ -43,7 +43,7 @@ function TravelPlanContent() {
   // 初始化旅行计划数据
   useEffect(() => {
     // 从URL参数获取用户选择
-    const destination = searchParams.get('destination') || 'Tokyo';
+    const destination = searchParams.get('destination') || 'Luxembourg';
     const duration = searchParams.get('duration') || '4-7 days';
     const food = searchParams.get('food') || 'Local specialties';
     const companion = searchParams.get('companion') || 'Solo travel';
@@ -64,78 +64,78 @@ function TravelPlanContent() {
           day: 1,
           title: 'Arrival & Orientation',
           activities: [
-            'Arrive at Tokyo Station',
-            'Check into hotel in Shibuya',
-            'Explore Shibuya Crossing',
-            'Dinner at local ramen shop'
+            'Arrive at Luxembourg Central Station',
+            'Check into hotel in Ville Haute',
+            'Explore Place d\'Armes',
+            'Dinner at local Luxembourgish restaurant'
           ],
-          locations: ['Tokyo Station', 'Shibuya', 'Shibuya Crossing'],
+          locations: ['Luxembourg Central Station', 'Ville Haute', 'Place d\'Armes'],
           estimatedCost: 150,
-          weather: 'Sunny, 22°C'
+          weather: 'Sunny, 18°C'
         },
         {
           day: 2,
-          title: 'Cultural Immersion',
+          title: 'Historic Luxembourg',
           activities: [
-            'Visit Meiji Shrine',
-            'Explore Harajuku district',
-            'Lunch at traditional sushi restaurant',
-            'Evening at Tokyo Skytree'
+            'Visit Notre-Dame Cathedral',
+            'Explore Palais Grand-Ducal',
+            'Lunch at traditional Luxembourgish restaurant',
+            'Evening at Casemates du Bock'
           ],
-          locations: ['Meiji Shrine', 'Harajuku', 'Tokyo Skytree'],
+          locations: ['Notre-Dame Cathedral', 'Palais Grand-Ducal', 'Casemates du Bock'],
           estimatedCost: 200,
-          weather: 'Partly cloudy, 20°C'
+          weather: 'Partly cloudy, 16°C'
         },
         {
           day: 3,
-          title: 'Modern Tokyo',
+          title: 'Modern Luxembourg',
           activities: [
-            'Visit Senso-ji Temple',
-            'Explore Asakusa district',
-            'Lunch at Tsukiji Outer Market',
-            'Evening shopping in Ginza'
+            'Visit Kirchberg district',
+            'Explore European institutions',
+            'Lunch at Place Guillaume II',
+            'Evening shopping in Grand Rue'
           ],
-          locations: ['Senso-ji Temple', 'Asakusa', 'Tsukiji Market', 'Ginza'],
+          locations: ['Kirchberg', 'European institutions', 'Place Guillaume II', 'Grand Rue'],
           estimatedCost: 180,
-          weather: 'Clear, 24°C'
+          weather: 'Clear, 20°C'
         }
       ],
       mapPoints: [
         {
           id: '1',
-          name: 'Shibuya Crossing',
-          lat: 35.6595,
-          lng: 139.7004,
+          name: 'Place d\'Armes',
+          lat: 49.6111,
+          lng: 6.1306,
           type: 'attraction',
           rating: 4.5,
           openingHours: '24/7'
         },
         {
           id: '2',
-          name: 'Meiji Shrine',
-          lat: 35.6762,
-          lng: 139.6993,
+          name: 'Notre-Dame Cathedral',
+          lat: 49.6116,
+          lng: 6.1319,
           type: 'attraction',
           rating: 4.7,
-          openingHours: '6:00-17:00'
+          openingHours: '8:00-18:00'
         },
         {
           id: '3',
-          name: 'Senso-ji Temple',
-          lat: 35.7148,
-          lng: 139.7967,
+          name: 'Casemates du Bock',
+          lat: 49.6125,
+          lng: 6.1358,
           type: 'attraction',
           rating: 4.6,
-          openingHours: '6:00-17:00'
+          openingHours: '10:00-17:30'
         },
         {
           id: '4',
-          name: 'Tsukiji Outer Market',
-          lat: 35.6654,
-          lng: 139.7702,
-          type: 'restaurant',
+          name: 'Palais Grand-Ducal',
+          lat: 49.6119,
+          lng: 6.1319,
+          type: 'attraction',
           rating: 4.4,
-          openingHours: '5:00-14:00'
+          openingHours: '10:00-17:00'
         }
       ]
     };
