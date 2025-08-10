@@ -7,9 +7,10 @@ import LocationInfoModal from './LocationInfoModal';
 interface InteractiveMapProps {
   mapPoints: MapPoint[];
   onPointClick: (point: MapPoint) => void;
+  onCheckInRequest?: (point: MapPoint) => void;
 }
 
-export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveMapProps) {
+export default function InteractiveMap({ mapPoints, onPointClick, onCheckInRequest }: InteractiveMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [map, setMap] = useState<any>(null);
@@ -72,7 +73,7 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
             keyboard: true
           });
 
-          // 添加地图图层
+          // 添加地图图层 - 使用卡通风格
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 18,
@@ -86,12 +87,9 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
             // 地图点击时不执行任何操作，让标记点击事件优先
           });
 
-          // 自定义地图样式
+          // 自定义地图样式 - 卡通风格
           const customStyle = `
             <style>
-              .leaflet-container {
-                background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%);
-              }
               .leaflet-control-zoom {
                 display: none;
               }
@@ -99,13 +97,55 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
                 display: none;
               }
               .leaflet-popup-content-wrapper {
-                background: rgba(0, 0, 0, 0.9);
+                background: linear-gradient(135deg, #fe585f 0%, #ff7a80 100%);
                 color: white;
-                border-radius: 12px;
-                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 16px;
+                border: 3px solid #ffffff;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                z-index: 1000 !important;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
               }
               .leaflet-popup-tip {
-                background: rgba(0, 0, 0, 0.9);
+                background: linear-gradient(135deg, #fe585f 0%, #ff7a80 100%);
+                border: 2px solid #ffffff;
+              }
+              .leaflet-popup {
+                z-index: 1000 !important;
+              }
+              .leaflet-popup-content {
+                margin: 12px 16px;
+                font-weight: 500;
+              }
+              .leaflet-marker-icon {
+                z-index: 100 !important;
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+              .leaflet-marker-icon:hover {
+                transform: scale(1.2) rotate(5deg);
+                filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+              }
+              .leaflet-marker-shadow {
+                z-index: 99 !important;
+              }
+              /* 地图瓦片卡通化效果 */
+              .leaflet-tile {
+                filter: saturate(1.4) contrast(1.3) brightness(1.15) hue-rotate(8deg) sepia(0.1);
+                transition: all 0.3s ease;
+                border-radius: 3px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+              }
+              .leaflet-tile:hover {
+                filter: saturate(1.6) contrast(1.4) brightness(1.2) hue-rotate(12deg) sepia(0.15);
+                transform: scale(1.02);
+              }
+              /* 地图容器卡通化 */
+              .leaflet-container {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                z-index: 1 !important;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
               }
             </style>
           `;
@@ -150,13 +190,27 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newMarkers: any[] = [];
     
+    // 创建 Google Maps 风格的红色标点 SVG
+    const createGoogleMapsIcon = () => {
+      const svg = `
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="20" fill="#EA4335" stroke="#FFFFFF" stroke-width="3"/>
+          <circle cx="24" cy="24" r="8" fill="#FFFFFF"/>
+          <circle cx="24" cy="24" r="4" fill="#EA4335"/>
+        </svg>
+      `;
+      
+      const blob = new Blob([svg], { type: 'image/svg+xml' });
+      return URL.createObjectURL(blob);
+    };
+    
     mapPoints.forEach((point) => {
       const marker = L.marker([point.lat, point.lng], {
         icon: L.icon({
-          iconUrl: '/static/locate.png',
-          iconSize: [32, 32],
-          iconAnchor: [16, 32],
-          popupAnchor: [0, -32]
+          iconUrl: createGoogleMapsIcon(),
+          iconSize: [48, 48],
+          iconAnchor: [24, 48],
+          popupAnchor: [0, -48]
         })
       });
 
@@ -193,8 +247,14 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
   };
 
   const handleCheckIn = (point: MapPoint) => {
-    // 这里可以触发打卡功能
-    console.log('Check-in at:', point.name);
+    // 关闭位置信息模态框
+    setIsLocationInfoOpen(false);
+    setSelectedPoint(null);
+    
+    // 调用父组件的打卡请求回调
+    if (onCheckInRequest) {
+      onCheckInRequest(point);
+    }
   };
 
   return (
@@ -205,22 +265,22 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
         className="w-full h-full rounded-2xl overflow-hidden"
       />
 
-      {/* 地图控制按钮 */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2">
+      {/* 地图控制按钮 - 卡通风格 */}
+      <div className="absolute top-4 right-4 flex flex-col gap-3">
         <button
           onClick={handleZoomIn}
-          className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+          className="w-12 h-12 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
         </button>
         <button
           onClick={handleZoomOut}
-          className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+          className="w-12 h-12 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />
           </svg>
         </button>
       </div>

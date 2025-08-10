@@ -20,25 +20,25 @@ export default function LocationInfoModal({ isOpen, onClose, selectedPoint, onCh
   };
 
   return (
-    <div className="absolute top-0 left-0 z-[1000] pointer-events-auto">
+    <div className="fixed inset-0 z-[9997] pointer-events-auto flex items-center justify-center p-4">
       {/* 对话气泡 */}
-      <div className="relative bg-black/95 backdrop-blur-sm rounded-2xl p-3 border border-white/20 max-w-[280px] shadow-2xl">
+      <div className="relative bg-white shadow-lg rounded-2xl p-4 border border-slate-200 max-w-[320px] w-full">
         {/* 气泡尾巴 */}
-        <div className="absolute -top-2 left-4 w-4 h-4 bg-black/95 border-l border-t border-white/20 transform rotate-45"></div>
+        <div className="absolute -top-2 left-4 w-4 h-4 bg-white border-l border-t border-slate-200 transform rotate-45"></div>
         
         <div className="space-y-2">
           {/* 标题和关闭按钮 */}
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-white">{selectedPoint.name}</h3>
+              <h3 className="text-sm font-bold text-slate-800">{selectedPoint.name}</h3>
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-[#FF9E4A] text-xs">★ {selectedPoint.rating}</span>
-                <span className="text-white/60 text-xs">{selectedPoint.openingHours}</span>
+                <span className="text-amber-500 text-xs">★ {selectedPoint.rating}</span>
+                <span className="text-slate-500 text-xs">{selectedPoint.openingHours}</span>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="text-white/60 hover:text-white p-1"
+              className="text-slate-400 hover:text-slate-600 p-1"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -48,7 +48,7 @@ export default function LocationInfoModal({ isOpen, onClose, selectedPoint, onCh
           
           {/* 地点类型和简介 */}
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center">
               {selectedPoint.type === 'attraction' && (
                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -73,15 +73,15 @@ export default function LocationInfoModal({ isOpen, onClose, selectedPoint, onCh
               )}
             </div>
             <div className="flex-1">
-              <p className="text-white/80 text-xs capitalize">{selectedPoint.type}</p>
-              <p className="text-white/60 text-xs">{getLocationDescription(selectedPoint)}</p>
+              <p className="text-slate-600 text-xs capitalize">{selectedPoint.type}</p>
+              <p className="text-slate-500 text-xs">{getLocationDescription(selectedPoint)}</p>
             </div>
           </div>
 
           {/* 打卡按钮 */}
           <button 
             onClick={handleCheckIn}
-            className="w-full px-3 py-2 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
+            className="w-full px-3 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-xs font-medium hover:shadow-lg transition-all"
           >
             <div className="flex items-center justify-center gap-1">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

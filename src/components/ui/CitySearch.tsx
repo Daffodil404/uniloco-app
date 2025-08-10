@@ -152,26 +152,26 @@ export default function CitySearch({ onSelect, selectedCity }: CitySearchProps) 
             value={searchTerm}
             onChange={handleSearchChange}
             placeholder="Search for a city..."
-            className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-white/50 focus:outline-none focus:border-white/40 transition-colors"
+            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#fe585f] focus:ring-2 focus:ring-[#fe585f]/20 transition-colors"
           />
           {isSearching && (
             <div className="absolute right-4 top-1/2 -translate-y-1/2">
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              <div className="w-5 h-5 border-2 border-slate-300 border-t-[#fe585f] rounded-full animate-spin"></div>
             </div>
           )}
         </div>
 
         {/* 搜索结果下拉框 */}
         {showDropdown && searchResults.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-black/90 backdrop-blur-sm rounded-2xl border border-white/20 max-h-60 overflow-y-auto z-50">
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-xl rounded-2xl border border-slate-200 max-h-60 overflow-y-auto z-[9999]">
             {searchResults.map((city) => (
               <button
                 key={city.id}
                 onClick={() => handleCitySelect(city)}
-                className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors border-b border-white/10 last:border-b-0"
+                className="w-full px-4 py-3 text-left text-slate-800 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-b-0"
               >
                 <div className="font-medium">{city.name}</div>
-                <div className="text-sm text-white/60">{city.country}</div>
+                <div className="text-sm text-slate-500">{city.country}</div>
               </button>
             ))}
           </div>
@@ -180,7 +180,7 @@ export default function CitySearch({ onSelect, selectedCity }: CitySearchProps) 
 
              {/* 热门城市标签 */}
        <div className="mb-6">
-         <h3 className="text-white/80 text-sm font-medium mb-4">Popular Destinations</h3>
+         <h3 className="text-slate-600 text-sm font-medium mb-4">Popular Destinations</h3>
          <div className="grid grid-cols-3 gap-3">
            {popularCities.map((city) => (
              <button
@@ -189,15 +189,15 @@ export default function CitySearch({ onSelect, selectedCity }: CitySearchProps) 
                className={`
                  relative p-3 rounded-xl text-left transition-all duration-200
                  ${selectedCity?.id === city.id
-                   ? 'bg-gradient-to-r from-[#FF9E4A]/20 to-[#FFB366]/20 border-2 border-[#FF9E4A] text-white shadow-lg'
-                   : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/20'
+                   ? 'bg-gradient-to-r from-[#fe585f]/10 to-[#ff7a80]/10 border-2 border-[#fe585f] text-slate-800 shadow-lg'
+                   : 'bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100'
                  }
                `}
              >
                <div className="font-medium text-xs">{city.name}</div>
-               <div className="text-xs opacity-70">{city.country}</div>
+               <div className="text-xs text-slate-500">{city.country}</div>
                {selectedCity?.id === city.id && (
-                 <div className="absolute top-1 right-1 w-3 h-3 bg-[#FF9E4A] rounded-full flex items-center justify-center shadow-lg">
+                 <div className="absolute top-1 right-1 w-3 h-3 bg-[#fe585f] rounded-full flex items-center justify-center shadow-lg">
                    <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                  </div>
                )}
