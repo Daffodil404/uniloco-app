@@ -1,4 +1,4 @@
-# UniLoco App - 移动端原型开发规范
+# Uniloco App - 移动端原型开发规范
 
 ## 项目概述
 这是一个移动端 H5 应用的原型开发项目，专注于前端 UI/UX 和交互逻辑，使用 Next.js + TypeScript + Tailwind CSS 技术栈。

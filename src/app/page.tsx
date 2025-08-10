@@ -16,7 +16,7 @@ export default function SplashPage() {
 
   useEffect(() => {
     // 记录访问状态
-    localStorage.setItem('uniloco-splash-visited', 'true');
+    localStorage.setItem('Uniloco-splash-visited', 'true');
 
     // 模拟加载过程
     const timer1 = setTimeout(() => {
@@ -62,7 +62,7 @@ export default function SplashPage() {
             <div className="flex justify-center">
               <Image
                 src="/static/logo.jpeg"
-                alt="Unilloco Logo"
+                alt="Uniloco Logo"
                 width={320}
                 height={320}
                 className="w-[80%]"
@@ -71,10 +71,10 @@ export default function SplashPage() {
             </div>
           </div>
 
-          {/* 主标题 "Unilloco" */}
+          {/* 主标题 "Uniloco" */}
           <div className={`mb-8 transition-all duration-1000 delay-200 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="text-[3rem] leading-tight font-[900] text-[#fe585f] tracking-wide drop-shadow-lg">
-              Unilloco+
+              Uniloco+
             </div>
           </div>
 

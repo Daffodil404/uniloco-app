@@ -1,10 +1,10 @@
-# UniLoco App - Web3 旅行故事平台
+# Uniloco App - Web3 旅行故事平台
 
 一个专为移动端设计的 Next.js 应用，专注于 Web3 旅行故事和 AI 驱动的旅程生成。
 
 ## 🎯 项目概述
 
-UniLoco 是一个创新的 Web3 旅行故事平台，结合了 AI 技术、游戏化元素和社区分享功能。用户可以通过 AI 助手生成个性化的旅行路线，探索精选的旅行故事，并与全球旅行者分享自己的冒险经历。
+Uniloco 是一个创新的 Web3 旅行故事平台，结合了 AI 技术、游戏化元素和社区分享功能。用户可以通过 AI 助手生成个性化的旅行路线，探索精选的旅行故事，并与全球旅行者分享自己的冒险经历。
 
 ## 🚀 技术栈
 
@@ -81,7 +81,7 @@ npm run lint
 ## 🏗️ 项目结构
 
 ```
-uniloco-app/
+Uniloco-app/
 ├── src/
 │   ├── app/                 # Next.js App Router
 │   │   ├── layout.tsx       # 根布局
