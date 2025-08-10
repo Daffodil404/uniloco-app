@@ -67,7 +67,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
 
           // 创建地图实例
           const mapInstance = L.map(mapRef.current, {
-            center: [35.6762, 139.6503], // 东京中心
+            center: [49.6117, 6.1319], // 卢森堡中心
             zoom: 12,
             zoomControl: false,
             attributionControl: false,
