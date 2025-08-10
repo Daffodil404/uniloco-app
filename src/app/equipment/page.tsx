@@ -52,7 +52,7 @@ export default function EquipmentPage() {
       rarity: 'common',
       image: '/static/1.jpg',
       isOwned: false,
-      price: 29.99,
+      price: 0,
     },
     {
       id: '5',
@@ -62,7 +62,7 @@ export default function EquipmentPage() {
       rarity: 'rare',
       image: '/static/2.png',
       isOwned: false,
-      price: 39.99,
+      price: 30,
     },
     {
       id: '6',
@@ -72,7 +72,17 @@ export default function EquipmentPage() {
       rarity: 'epic',
       image: '/static/3.png',
       isOwned: false,
-      price: 49.99,
+      price: 60,
+    },
+    {
+      id: '7',
+      name: 'Multi-Function Smart Band',
+      description: 'Integrates multiple features, including step tracking, sleep monitoring, and message alerts.',
+      type: 'tool',
+      rarity: 'legendary',
+      image: '/static/4.png',
+      isOwned: false,
+      price: 90,
     }
   ];
 
