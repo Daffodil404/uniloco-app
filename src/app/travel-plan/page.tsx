@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import InteractiveMap from '@/components/features/InteractiveMap';
 import CheckInModal from '@/components/features/CheckInModal';
@@ -29,6 +29,16 @@ function TravelPlanContent() {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [checkInData, setCheckInData] = useState<CheckInData | null>(null);
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
+
+  // 定义处理函数
+  const handlePointClick = (point: MapPoint) => {
+    // 处理点击事件
+  };
+
+  const handleCheckInRequest = useCallback((point: MapPoint) => {
+    setSelectedPoint(point);
+    setIsCheckInModalOpen(true);
+  }, []);
 
   // 初始化旅行计划数据
   useEffect(() => {
@@ -133,17 +143,7 @@ function TravelPlanContent() {
     setTravelPlan(mockPlan);
   }, [searchParams, isLoggedIn]);
 
-  const handlePointClick = (point: MapPoint) => {
-    console.log('Point clicked:', point.name);
-    // 只设置选中的点，不直接打开打卡模态框
-    // LocationInfoModal 会通过 InteractiveMap 组件显示
-  };
 
-  const handleCheckInRequest = (point: MapPoint) => {
-    console.log('Check-in requested for:', point.name);
-    setSelectedPoint(point);
-    setIsCheckInModalOpen(true);
-  };
 
   const handleEditPlan = () => {
     // 返回编辑页面
