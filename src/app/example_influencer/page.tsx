@@ -25,9 +25,9 @@ import {
 const themeColor = '#fe585f';
 
 const influencer = {
-  name: 'Xiaoya Li',
+  name: 'Fabrice.Jason',
   title: 'Luxembourg Travel Specialist',
-  avatar: '👩‍💼', // 用 emoji 替换头像
+  avatar: '/static/real_pic1.png', // 使用真实图片替换 emoji
   rating: 4.9,
   followers: 128500,
   totalTrips: 89,
@@ -46,9 +46,9 @@ const itineraries = [
   {
     id: 1,
     title: 'Luxembourg City 7-Day Cultural Tour',
-    image: '🏰', // 城堡 emoji
+    image: '/static/real_pic2.png', // 使用真实图片替换 emoji
     duration: '7 days 6 nights',
-    price: '¥8,800 - ¥12,800',
+    price: '8,800UNC - 12,800UNC',
     rating: 4.9,
     reviews: 156,
     tags: ['Culture', 'History', 'Heritage'],
@@ -57,9 +57,9 @@ const itineraries = [
   {
     id: 2,
     title: 'Luxembourg Countryside Discovery',
-    image: '🌲', // 森林 emoji
+    image: '/static/real_pic3.png', // 使用真实图片替换 emoji
     duration: '5 days 4 nights',
-    price: '¥6,500 - ¥9,800',
+    price: '6,500UNC - 9,800UNC',
     rating: 4.8,
     reviews: 89,
     tags: ['Nature', 'Heritage', 'Food'],
@@ -68,9 +68,9 @@ const itineraries = [
   {
     id: 3,
     title: 'Luxembourg Photography & History Tour',
-    image: '📸', // 相机 emoji
+    image: '/static/real_pic1.png', // 使用真实图片替换 emoji
     duration: '6 days 5 nights',
-    price: '¥7,200 - ¥10,500',
+    price: '7,200UNC - 10,500UNC',
     rating: 4.9,
     reviews: 203,
     tags: ['Photography', 'History', 'Architecture'],
@@ -82,17 +82,17 @@ const reviews = [
   {
     id: 1,
     user: 'Ms. Zhang',
-    avatar: '👩', // 女性 emoji
+    avatar: '/static/real_pic2.png', // 使用真实图片替换 emoji
     rating: 5,
     date: '2024-07-15',
     content:
-      'Xiaoya\'s Luxembourg itinerary planning was fantastic! Every detail was thoughtfully arranged, especially the historic sites and local restaurants. A truly unforgettable experience.',
+      'Fabrice.Jason\'s Luxembourg itinerary planning was fantastic! Every detail was thoughtfully arranged, especially the historic sites and local restaurants. A truly unforgettable experience.',
     trip: 'Luxembourg Heritage & Food Tour',
   },
   {
     id: 2,
     user: 'Mr. Wang',
-    avatar: '👨', // 男性 emoji
+    avatar: '/static/real_pic3.png', // 使用真实图片替换 emoji
     rating: 5,
     date: '2024-06-28',
     content:
@@ -106,7 +106,7 @@ const works = [
     id: 1,
     type: 'article',
     title: 'Luxembourg Secret Cafes Guide',
-    image: '☕', // 咖啡 emoji
+    image: '/static/real_pic1.png', // 使用真实图片替换 emoji
     views: 45600,
     likes: 2890,
     comments: 234,
@@ -115,7 +115,7 @@ const works = [
     id: 2,
     type: 'video',
     title: 'Luxembourg Authentic Cuisine Check-in',
-    image: '🍽️', // 餐具 emoji
+    image: '/static/real_pic2.png', // 使用真实图片替换 emoji
     views: 128400,
     likes: 5670,
     comments: 445,
@@ -125,7 +125,7 @@ const works = [
     id: 3,
     type: 'photo',
     title: 'Luxembourg Historic Architecture Collection',
-    image: '🏛️', // 建筑 emoji
+    image: '/static/real_pic3.png', // 使用真实图片替换 emoji
     views: 67800,
     likes: 4520,
     comments: 189,
@@ -142,8 +142,12 @@ export default function TravelInfluencerProfile() {
         {/* Left: Avatar + Basic Info */}
         <div className="flex items-center gap-6 flex-shrink-0">
           <div className="relative">
-            <div className="w-28 h-28 rounded-full border-4 border-white shadow-lg bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center text-4xl">
-              {influencer.avatar}
+            <div className="w-28 h-28 rounded-full border-4 border-white shadow-lg overflow-hidden">
+              <img 
+                src={influencer.avatar} 
+                alt={influencer.name}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div
               className="absolute -bottom-1 -right-1 bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1"
@@ -214,8 +218,12 @@ export default function TravelInfluencerProfile() {
                 key={it.id}
                 className="rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col bg-white border border-gray-100"
               >
-                <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">
-                  <div className="text-8xl">{it.image}</div>
+                <div className="relative h-48 w-full overflow-hidden rounded-t-lg">
+                  <img 
+                    src={it.image} 
+                    alt={it.title}
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute top-3 right-3 bg-white/90 text-gray-800 px-2 py-1 rounded-full text-sm font-medium select-none">
                     {it.duration}
                   </div>
@@ -264,8 +272,12 @@ export default function TravelInfluencerProfile() {
                 key={work.id}
                 className="rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer flex flex-col bg-white border border-gray-100"
               >
-                <div className="relative h-40 w-full overflow-hidden rounded-t-lg bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center">
-                  <div className="text-6xl">{work.image}</div>
+                <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
+                  <img 
+                    src={work.image} 
+                    alt={work.title}
+                    className="w-full h-full object-cover"
+                  />
                   {work.type === 'video' && (
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-black/50 rounded-full p-3">
@@ -312,8 +324,12 @@ export default function TravelInfluencerProfile() {
                 className="rounded-lg p-6 shadow-sm hover:shadow-md transition bg-white border border-gray-100"
               >
                 <header className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center text-xl">
-                    {review.avatar}
+                  <div className="w-12 h-12 rounded-full overflow-hidden">
+                    <img 
+                      src={review.avatar} 
+                      alt={review.user}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="flex-1">
                     <h4 className="font-semibold text-lg">{review.user}</h4>
