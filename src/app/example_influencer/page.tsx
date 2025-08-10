@@ -27,7 +27,7 @@ const themeColor = '#fe585f';
 const influencer = {
   name: 'Fabrice.Jason',
   title: 'Luxembourg Travel Specialist',
-  avatar: '/static/real_pic1.png', // 使用真实图片替换 emoji
+  avatar: '👩‍💼', // 用 emoji 替换头像
   rating: 4.9,
   followers: 128500,
   totalTrips: 89,
@@ -82,7 +82,7 @@ const reviews = [
   {
     id: 1,
     user: 'Ms. Zhang',
-    avatar: '/static/real_pic2.png', // 使用真实图片替换 emoji
+    avatar: '👩', // 女性 emoji
     rating: 5,
     date: '2024-07-15',
     content:
@@ -92,7 +92,7 @@ const reviews = [
   {
     id: 2,
     user: 'Mr. Wang',
-    avatar: '/static/real_pic3.png', // 使用真实图片替换 emoji
+    avatar: '👨', // 男性 emoji
     rating: 5,
     date: '2024-06-28',
     content:
@@ -142,12 +142,8 @@ export default function TravelInfluencerProfile() {
         {/* Left: Avatar + Basic Info */}
         <div className="flex items-center gap-6 flex-shrink-0">
           <div className="relative">
-            <div className="w-28 h-28 rounded-full border-4 border-white shadow-lg overflow-hidden">
-              <img 
-                src={influencer.avatar} 
-                alt={influencer.name}
-                className="w-full h-full object-cover"
-              />
+            <div className="w-28 h-28 rounded-full border-4 border-white shadow-lg bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center text-4xl">
+              {influencer.avatar}
             </div>
             <div
               className="absolute -bottom-1 -right-1 bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1"
@@ -324,12 +320,8 @@ export default function TravelInfluencerProfile() {
                 className="rounded-lg p-6 shadow-sm hover:shadow-md transition bg-white border border-gray-100"
               >
                 <header className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden">
-                    <img 
-                      src={review.avatar} 
-                      alt={review.user}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center text-xl">
+                    {review.avatar}
                   </div>
                   <div className="flex-1">
                     <h4 className="font-semibold text-lg">{review.user}</h4>
