@@ -90,7 +90,7 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
           const customStyle = `
             <style>
               .leaflet-container {
-                background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%);
+                background: #f8fafc;
               }
               .leaflet-control-zoom {
                 display: none;
@@ -209,7 +209,7 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
       <div className="absolute top-4 right-4 flex flex-col gap-2">
         <button
           onClick={handleZoomIn}
-          className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+          className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-700 hover:bg-white shadow-lg transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -217,7 +217,7 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
         </button>
         <button
           onClick={handleZoomOut}
-          className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+          className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-700 hover:bg-white shadow-lg transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />

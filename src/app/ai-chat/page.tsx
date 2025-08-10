@@ -152,7 +152,7 @@ function AIChatContent() {
     }));
 
     // 滑块选择后延迟跳转，给用户时间调整
-    autoAdvance(2500); // 滑块交互需要更多时间
+    autoAdvance(1500); // 减少延迟时间，让跳转更快
   };
 
   const handlePrevious = () => {
@@ -185,7 +185,7 @@ function AIChatContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100%">
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
       {/* 顶部导航 */}
       <header className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] relative z-20 px-6 py-4">
         <div className="flex items-center gap-4">
@@ -206,13 +206,13 @@ function AIChatContent() {
 
       {/* 进度条 */}
       <div className="px-6 mb-8">
-        <div className="flex items-center justify-between text-white/80 text-sm mb-3">
+        <div className="flex items-center justify-between text-slate-600 text-sm mb-3">
           <span>Progress</span>
           <span>{currentIndex + 1} / {questions.length}</span>
         </div>
-        <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
+        <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
           <div 
-            className="bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] h-2 rounded-full transition-all duration-700 ease-out shadow-lg"
+            className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] h-2 rounded-full transition-all duration-700 ease-out shadow-lg"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -228,19 +228,19 @@ function AIChatContent() {
           }`}
         >
           {/* 问题卡片 */}
-          <div className="bg-black/80 backdrop-blur-sm rounded-3xl p-6 border border-white/10 shadow-2xl min-h-[520px] flex flex-col">
+          <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200 min-h-[520px] flex flex-col">
             {/* 问题序号 */}
             <div className="flex items-center justify-center mb-6">
-              <div className="px-4 py-2 bg-white/20 rounded-full">
+              <div className="px-4 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full">
                 <span className="text-white font-bold text-lg">{currentIndex + 1} / {questions.length}</span>
               </div>
             </div>
 
             <div className="text-center mb-8 flex-1 flex flex-col justify-center">
-              <h2 className="text-2xl font-bold text-white mb-3">
+              <h2 className="text-2xl font-bold text-slate-800 mb-3">
                 {currentQuestion.title}
               </h2>
-              <p className="text-white/80 text-sm">
+              <p className="text-slate-600 text-sm">
                 {currentQuestion.subtitle}
               </p>
             </div>
@@ -266,15 +266,15 @@ function AIChatContent() {
                       className={`
                         relative p-6 rounded-2xl text-left transition-all duration-200
                         ${answers[currentQuestion.key] === option
-                          ? 'bg-gradient-to-r from-[#FF9E4A]/20 to-[#FFB366]/20 border-2 border-[#FF9E4A] text-white shadow-lg'
-                          : 'bg-white/10 border border-white/20 text-white/90 hover:bg-white/20'
+                          ? 'bg-gradient-to-r from-[#fe585f]/10 to-[#ff7a80]/10 border-2 border-[#fe585f] text-slate-800 shadow-lg'
+                          : 'bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100'
                         }
                       `}
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       <span className="text-base font-medium">{option}</span>
                       {answers[currentQuestion.key] === option && (
-                        <div className="absolute top-3 right-3 w-5 h-5 bg-[#FF9E4A] rounded-full flex items-center justify-center shadow-lg">
+                        <div className="absolute top-3 right-3 w-5 h-5 bg-[#fe585f] rounded-full flex items-center justify-center shadow-lg">
                           <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
                         </div>
                       )}
@@ -296,8 +296,8 @@ function AIChatContent() {
             className={`
               px-6 py-3 rounded-2xl text-sm font-medium transition-all duration-200
               ${currentIndex === 0
-                ? 'bg-white/10 text-white/50 cursor-not-allowed'
-                : 'bg-white/20 text-white hover:bg-white/30'
+                ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
               }
             `}
           >
@@ -309,7 +309,7 @@ function AIChatContent() {
               <div
                 key={index}
                 className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                  index === currentIndex ? 'bg-white' : 'bg-white/30'
+                  index === currentIndex ? 'bg-[#fe585f]' : 'bg-slate-300'
                 }`}
               />
             ))}
@@ -322,10 +322,10 @@ function AIChatContent() {
       {/* 生成状态覆盖层 */}
       {isGenerating && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 text-center">
-            <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-            <h3 className="text-xl font-semibold text-white mb-2">Generating Travel Plan</h3>
-            <p className="text-white/80">AI is creating your personalized journey...</p>
+          <div className="bg-white shadow-lg rounded-3xl p-8 border border-slate-200 text-center">
+            <div className="w-16 h-16 border-4 border-slate-300 border-t-[#fe585f] rounded-full animate-spin mx-auto mb-4"></div>
+            <h3 className="text-xl font-semibold text-slate-800 mb-2">Generating Travel Plan</h3>
+            <p className="text-slate-600">AI is creating your personalized journey...</p>
           </div>
         </div>
       )}
@@ -336,11 +336,11 @@ function AIChatContent() {
 export default function AIChatPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-[#64D8EF] to-[#000000] from-10% to-100% flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-          <h3 className="text-xl font-semibold text-white mb-2">Loading...</h3>
-          <p className="text-white/80">Preparing AI chat interface</p>
+          <div className="w-16 h-16 border-4 border-slate-300 border-t-[#fe585f] rounded-full animate-spin mx-auto mb-4"></div>
+          <h3 className="text-xl font-semibold text-slate-800 mb-2">Loading...</h3>
+          <p className="text-slate-600">Preparing AI chat interface</p>
         </div>
       </div>
     }>
