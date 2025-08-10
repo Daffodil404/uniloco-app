@@ -52,7 +52,7 @@ export default function EquipmentPage() {
       rarity: 'common',
       image: '/static/1.jpg',
       isOwned: false,
-      price: 29.99,
+      price: 0,
     },
     {
       id: '5',
@@ -62,7 +62,7 @@ export default function EquipmentPage() {
       rarity: 'rare',
       image: '/static/2.png',
       isOwned: false,
-      price: 39.99,
+      price: 30,
     },
     {
       id: '6',
@@ -72,7 +72,7 @@ export default function EquipmentPage() {
       rarity: 'epic',
       image: '/static/3.png',
       isOwned: false,
-      price: 49.99,
+      price: 60,
     },
     {
       id: '7',
@@ -82,18 +82,8 @@ export default function EquipmentPage() {
       rarity: 'legendary',
       image: '/static/4.png',
       isOwned: false,
-      price: 59.99,
-    },
-    {
-      id: '8',
-      name: 'Stylish Health Band',
-      description: 'Combines style and functionality, perfect for everyday wear.',
-      type: 'tool',
-      rarity: 'common',
-      image: '/static/5.jpeg',
-      isOwned: false,
-      price: 34.99,
-    },
+      price: 90,
+    }
   ];
 
   const getRarityColor = (rarity: string) => {
