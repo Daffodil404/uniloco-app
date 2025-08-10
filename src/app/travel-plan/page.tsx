@@ -135,6 +135,12 @@ function TravelPlanContent() {
 
   const handlePointClick = (point: MapPoint) => {
     console.log('Point clicked:', point.name);
+    // 只设置选中的点，不直接打开打卡模态框
+    // LocationInfoModal 会通过 InteractiveMap 组件显示
+  };
+
+  const handleCheckInRequest = (point: MapPoint) => {
+    console.log('Check-in requested for:', point.name);
     setSelectedPoint(point);
     setIsCheckInModalOpen(true);
   };
@@ -291,6 +297,7 @@ function TravelPlanContent() {
         <InteractiveMap
           mapPoints={travelPlan.mapPoints}
           onPointClick={handlePointClick}
+          onCheckInRequest={handleCheckInRequest}
         />
       </div>
 

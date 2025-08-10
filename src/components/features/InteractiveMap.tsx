@@ -7,9 +7,10 @@ import LocationInfoModal from './LocationInfoModal';
 interface InteractiveMapProps {
   mapPoints: MapPoint[];
   onPointClick: (point: MapPoint) => void;
+  onCheckInRequest?: (point: MapPoint) => void;
 }
 
-export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveMapProps) {
+export default function InteractiveMap({ mapPoints, onPointClick, onCheckInRequest }: InteractiveMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [map, setMap] = useState<any>(null);
@@ -91,6 +92,7 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
             <style>
               .leaflet-container {
                 background: #f8fafc;
+                z-index: 1 !important;
               }
               .leaflet-control-zoom {
                 display: none;
@@ -103,9 +105,19 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
                 color: white;
                 border-radius: 12px;
                 border: 1px solid rgba(255, 255, 255, 0.2);
+                z-index: 1000 !important;
               }
               .leaflet-popup-tip {
                 background: rgba(0, 0, 0, 0.9);
+              }
+              .leaflet-popup {
+                z-index: 1000 !important;
+              }
+              .leaflet-marker-icon {
+                z-index: 100 !important;
+              }
+              .leaflet-marker-shadow {
+                z-index: 99 !important;
               }
             </style>
           `;
@@ -193,8 +205,14 @@ export default function InteractiveMap({ mapPoints, onPointClick }: InteractiveM
   };
 
   const handleCheckIn = (point: MapPoint) => {
-    // 这里可以触发打卡功能
-    console.log('Check-in at:', point.name);
+    // 关闭位置信息模态框
+    setIsLocationInfoOpen(false);
+    setSelectedPoint(null);
+    
+    // 调用父组件的打卡请求回调
+    if (onCheckInRequest) {
+      onCheckInRequest(point);
+    }
   };
 
   return (

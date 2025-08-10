@@ -124,13 +124,13 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-6">
-      <div className="bg-black/90 backdrop-blur-sm rounded-3xl p-6 border border-white/20 max-w-md w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9998] p-6">
+      <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200 max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold text-white">Check-in at {selectedPoint?.name}</h3>
+          <h3 className="text-xl font-bold text-slate-800">Check-in at {selectedPoint?.name}</h3>
           <button
             onClick={onClose}
-            className="text-white/60 hover:text-white"
+            className="text-slate-400 hover:text-slate-600"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -141,18 +141,18 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
         <div className="space-y-6">
           {/* 位置信息 */}
           <div>
-            <label className="block text-white/80 text-sm mb-2">Location</label>
-            <div className="bg-white/10 rounded-2xl p-4">
+            <label className="block text-slate-600 text-sm mb-2">Location</label>
+            <div className="bg-slate-50 rounded-2xl p-4">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold">Location Check-in</h4>
-                  <p className="text-white/60 text-sm">
+                  <h4 className="text-slate-800 font-semibold">Location Check-in</h4>
+                  <p className="text-slate-500 text-sm">
                     {currentLocation ? 
                       `Lat: ${currentLocation.lat.toFixed(4)}, Lng: ${currentLocation.lng.toFixed(4)}` : 
                       'Getting your location...'
@@ -163,7 +163,7 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
             </div>
             <button
               onClick={getCurrentLocation}
-              className="w-full px-4 py-2 bg-gradient-to-r from-[#4A90E2] to-[#64D8EF] text-white rounded-xl text-sm font-medium"
+              className="w-full px-4 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-sm font-medium"
             >
               Update Location
             </button>
@@ -171,10 +171,10 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
 
           {/* 文字记录 */}
           <div>
-            <label className="block text-white/80 text-sm mb-2">Share Your Experience</label>
+            <label className="block text-slate-600 text-sm mb-2">Share Your Experience</label>
             <textarea
               placeholder="What's your impression of this place? Any tips for other travelers?"
-              className="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-white/40"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#fe585f] focus:ring-2 focus:ring-[#fe585f]/20"
               rows={3}
               value={checkInData.notes}
               onChange={(e) => setCheckInData(prev => ({
@@ -187,15 +187,15 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
           
           {/* 上传图片 */}
           <div>
-            <label className="block text-white/80 text-sm mb-2">Upload Photos</label>
+            <label className="block text-slate-600 text-sm mb-2">Upload Photos</label>
             <div 
-              className="border-2 border-dashed border-white/20 rounded-xl p-6 text-center cursor-pointer hover:border-white/40 transition-colors"
+              className="border-2 border-dashed border-slate-200 rounded-xl p-6 text-center cursor-pointer hover:border-[#fe585f] transition-colors"
               onClick={() => fileInputRef.current?.click()}
             >
-              <svg className="w-8 h-8 text-white/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-8 h-8 text-slate-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
-              <p className="text-white/60 text-sm">Tap to upload photos</p>
+              <p className="text-slate-500 text-sm">Tap to upload photos</p>
               <input
                 ref={fileInputRef}
                 type="file"
@@ -229,7 +229,7 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
             <button 
               onClick={handleSubmitCheckIn}
               disabled={isSubmitting}
-              className="flex-1 px-4 py-3 bg-gradient-to-r from-[#FF9E4A] to-[#FFB366] text-white rounded-xl text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <div className="flex items-center justify-center gap-2">
@@ -242,7 +242,7 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
             </button>
             <button 
               onClick={onClose}
-              className="flex-1 px-4 py-3 bg-white/10 text-white rounded-xl text-sm font-medium"
+              className="flex-1 px-4 py-3 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-200"
             >
               Cancel
             </button>
