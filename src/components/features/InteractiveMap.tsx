@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import type { MapPoint } from '@/types/travel';
 import LocationInfoModal from './LocationInfoModal';
+import CheckInModal from './CheckInModal';
 
 interface InteractiveMapProps {
   mapPoints: MapPoint[];
@@ -11,6 +12,10 @@ interface InteractiveMapProps {
 }
 
 export default function InteractiveMap({ mapPoints, onPointClick, onCheckInRequest }: InteractiveMapProps) {
+  
+  // 本地状态管理
+  const [isCheckInModalOpen, setIsCheckInModalOpen] = useState(false);
+  const [checkInPoint, setCheckInPoint] = useState<MapPoint | null>(null);
   const mapRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [map, setMap] = useState<any>(null);
@@ -26,6 +31,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
 
   // 稳定的回调函数引用
   const stableOnPointClick = useCallback(onPointClick, [onPointClick]);
+  const stableOnCheckInRequest = useCallback(onCheckInRequest || (() => {}), [onCheckInRequest]);
 
   // 统一的Leaflet实例获取函数
   const getLeaflet = () => {
@@ -116,6 +122,14 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
                 margin: 12px 16px;
                 font-weight: 500;
               }
+              .custom-number-marker {
+                z-index: 100 !important;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+              .custom-number-marker:hover {
+                transform: scale(1.3) rotate(5deg);
+                filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+              }
               .leaflet-marker-icon {
                 z-index: 100 !important;
                 filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
@@ -190,27 +204,39 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newMarkers: any[] = [];
     
-    // 创建数字标记 SVG
+    // 创建简单的数字标记
     const createNumberIcon = (number: number) => {
-      const svg = `
-        <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="20" r="18" fill="#fe585f" stroke="#FFFFFF" stroke-width="3"/>
-          <text x="20" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#FFFFFF">${number}</text>
-        </svg>
-      `;
-      
-      const blob = new Blob([svg], { type: 'image/svg+xml' });
-      return URL.createObjectURL(blob);
+      return L.divIcon({
+        className: 'custom-number-marker',
+        html: `
+          <div style="
+            width: 40px; 
+            height: 40px; 
+            background: #fe585f; 
+            border: 3px solid #FFFFFF; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-weight: bold; 
+            font-size: 16px; 
+            font-family: Arial, sans-serif;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            cursor: pointer;
+          ">
+            ${number}
+          </div>
+        `,
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -40]
+      });
     };
     
     mapPoints.forEach((point, index) => {
       const marker = L.marker([point.lat, point.lng], {
-        icon: L.icon({
-          iconUrl: createNumberIcon(index + 1),
-          iconSize: [40, 40],
-          iconAnchor: [20, 40],
-          popupAnchor: [0, -40]
-        })
+        icon: createNumberIcon(index + 1)
       });
 
       // 添加点击事件
@@ -250,12 +276,13 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
     setIsLocationInfoOpen(false);
     setSelectedPoint(null);
     
-    // 调用父组件的打卡请求回调
-    if (onCheckInRequest) {
-      onCheckInRequest(point);
-    }
+    // 直接打开本地打卡模态框
+    setCheckInPoint(point);
+    setIsCheckInModalOpen(true);
   };
 
+
+  
   return (
     <div className="relative w-full h-full">
       {/* 地图容器 */}
@@ -290,6 +317,21 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
         onClose={handleLocationInfoClose}
         selectedPoint={selectedPoint}
         onCheckIn={handleCheckIn}
+      />
+
+      {/* 打卡Modal */}
+      <CheckInModal
+        isOpen={isCheckInModalOpen}
+        onClose={() => {
+          setIsCheckInModalOpen(false);
+          setCheckInPoint(null);
+        }}
+        selectedPoint={checkInPoint}
+        onSubmit={(data) => {
+          setIsCheckInModalOpen(false);
+          setCheckInPoint(null);
+          // 这里可以添加成功提示或其他逻辑
+        }}
       />
     </div>
   );

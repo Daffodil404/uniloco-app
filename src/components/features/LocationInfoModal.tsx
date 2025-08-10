@@ -15,6 +15,8 @@ export default function LocationInfoModal({ isOpen, onClose, selectedPoint, onCh
   }
 
   const handleCheckIn = () => {
+    console.log('LocationInfoModal: handleCheckIn called');
+    console.log('LocationInfoModal: selectedPoint:', selectedPoint);
     onCheckIn(selectedPoint);
     onClose();
   };
