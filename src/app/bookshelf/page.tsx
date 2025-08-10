@@ -145,6 +145,10 @@ const stories: Story[] = [
 
 export default function BookshelfPage() {
   const router = useRouter();
+  
+  const handleStoryClick = () => {
+    router.push('/story-detail');
+  };
   const { isLoggedIn, isLoading } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('all');
@@ -264,7 +268,7 @@ export default function BookshelfPage() {
       <div className="flex-1 overflow-y-auto px-4 mobile-content-safe">
         <div className="space-y-4">
           {filteredStories.map((story) => (
-            <div key={story.id} className="bg-white shadow-lg rounded-3xl p-4 border border-slate-200 hover:shadow-xl transition-all">
+            <div key={story.id} onClick={handleStoryClick}  className="bg-white shadow-lg rounded-3xl p-4 border border-slate-200 hover:shadow-xl transition-all">
               <div className="flex items-start gap-4">
                 {/* Story Cover with Price */}
                 <div className="flex flex-col items-center gap-2">
