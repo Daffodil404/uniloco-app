@@ -6,7 +6,7 @@ import { Star, ArrowLeft, MapPin, Clock, User, ShoppingCart } from 'lucide-react
 // Mock story data - same as in bookshelf
 const story = {
     id: 'luxembourg-city-tour',
-    title: 'Luxembourg City Explorer',
+    title: 'Charoles Jason',
     creator: 'Culture Enthusiast',
     location: 'Luxembourg City, Luxembourg',
     description: 'Discover the rich history and stunning architecture of Luxembourg City. This comprehensive tour takes you through UNESCO World Heritage sites, ancient fortifications, and charming old town streets.',

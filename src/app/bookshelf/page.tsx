@@ -22,19 +22,19 @@ interface Story {
 
 const stories: Story[] = [
   {
-    id: 'tokyo-nightlife',
-    title: 'Tokyo Nightlife Adventure',
-    creator: 'Night Owl Explorer',
-    location: 'Tokyo, Japan',
-    description: 'Dive into Tokyo\'s electric nightlife scene! From neon-lit streets of Shibuya to hidden izakayas in Golden Gai, experience the city that never sleeps.',
-    rating: 4.8,
+    id: 'luxembourg-city-tour',
+    title: 'Luxembourg City Tour',
+    creator: 'Culture Enthusiast',
+    location: 'Luxembourg City, Luxembourg',
+    description: 'Discover the rich history and stunning architecture of Luxembourg City. This comprehensive tour takes you through UNESCO World Heritage sites, ancient fortifications, and charming old town streets.',
+    rating: 4.9,
     reviews: 128,
     price: 0,
-    emoji: '🌃',
-    duration: '3 days',
-    tags: ['Nightlife', 'Food', 'Culture'],
+    emoji: '🏰',
+    duration: '2 days',
+    tags: ['History', 'Architecture', 'Culture'],
     difficulty: 'Easy',
-    highlights: ['Shibuya Crossing', 'Golden Gai', 'Robot Restaurant']
+    highlights: ['Notre-Dame Cathedral', 'Palais Grand-Ducal', 'Casemates du Bock', "Place d'Armes", 'Adolphe Bridge']
   },
   {
     id: 'paris-street-art',
