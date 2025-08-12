@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function IntroPage() {
   const router = useRouter();
@@ -8,6 +9,11 @@ export default function IntroPage() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+  const [videoLoadingTimeout, setVideoLoadingTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [bandImagesLoaded, setBandImagesLoaded] = useState<boolean[]>([false, false, false, false]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -22,6 +28,40 @@ export default function IntroPage() {
     }, 2000);
     
     return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // 视频加载超时处理
+  useEffect(() => {
+    if (!videoLoaded && !videoError) {
+      const timeout = setTimeout(() => {
+        console.log('Video loading timeout - forcing error state');
+        setVideoError(true);
+        setVideoLoaded(false);
+      }, 15000); // 15秒超时
+      
+      setVideoLoadingTimeout(timeout);
+      
+      return () => {
+        if (timeout) clearTimeout(timeout);
+      };
+    }
+  }, [videoLoaded, videoError]);
+
+  // 强制视频加载检测
+  useEffect(() => {
+    const checkVideoLoad = () => {
+      const video = document.querySelector('video') as HTMLVideoElement;
+      if (video && video.readyState >= 2) { // HAVE_CURRENT_DATA
+        console.log('Video ready state:', video.readyState);
+        setVideoLoaded(true);
+        setVideoError(false);
+      }
+    };
+
+    // 延迟检查视频状态
+    const timer = setTimeout(checkVideoLoad, 2000);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   const handleNavigation = (section: string) => {
@@ -50,6 +90,119 @@ export default function IntroPage() {
         button.classList.remove('downloading');
         alert('Download started! 🚀');
       }, 2000);
+    }
+  };
+
+  const handleVideoPlay = () => {
+    setIsVideoPlaying(true);
+    // 模拟触觉反馈
+    if ('vibrate' in navigator) {
+      navigator.vibrate(100);
+    }
+  };
+
+  const handleVideoPause = () => {
+    setIsVideoPlaying(false);
+  };
+
+  const handleVideoLoad = () => {
+    console.log('Video loaded successfully');
+    setVideoLoaded(true);
+    setVideoError(false);
+    
+    // 清除加载超时
+    if (videoLoadingTimeout) {
+      clearTimeout(videoLoadingTimeout);
+      setVideoLoadingTimeout(null);
+    }
+  };
+
+  const handleVideoCanPlay = () => {
+    console.log('Video can play');
+    setVideoLoaded(true);
+    setVideoError(false);
+  };
+
+  const handlePlayButtonClick = () => {
+    const video = document.querySelector('video') as HTMLVideoElement;
+    if (video) {
+      console.log('Play button clicked, attempting to play video');
+      
+      // 添加触觉反馈
+      if ('vibrate' in navigator) {
+        navigator.vibrate(100);
+      }
+      
+      video.play().then(() => {
+        console.log('Video started playing');
+        setIsVideoPlaying(true);
+      }).catch((error) => {
+        console.error('Failed to play video:', error);
+        // 如果自动播放失败，显示友好的提示
+        const playButton = document.querySelector('.play-button') as HTMLElement;
+        if (playButton) {
+          playButton.style.animation = 'shake 0.5s ease-in-out';
+          setTimeout(() => {
+            playButton.style.animation = '';
+          }, 500);
+        }
+        
+        // 显示提示信息
+        const message = document.createElement('div');
+        message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#fe585f] text-white px-4 py-2 rounded-lg z-50';
+        message.textContent = 'Click the play button in video controls to start playback';
+        document.body.appendChild(message);
+        
+        setTimeout(() => {
+          document.body.removeChild(message);
+        }, 3000);
+      });
+    }
+  };
+
+  const handleVideoDoubleClick = () => {
+    const video = document.querySelector('video') as HTMLVideoElement;
+    if (video && video.requestFullscreen) {
+      video.requestFullscreen().catch((error) => {
+        console.log('Fullscreen request failed:', error);
+      });
+    }
+  };
+
+  const handleBandImageLoad = (index: number) => {
+    setBandImagesLoaded(prev => {
+      const newState = [...prev];
+      newState[index] = true;
+      return newState;
+    });
+  };
+
+  const handleVideoError = (e: any) => {
+    console.error('Video error:', e);
+    setVideoError(true);
+    setVideoLoaded(false);
+    
+    // 清除加载超时
+    if (videoLoadingTimeout) {
+      clearTimeout(videoLoadingTimeout);
+      setVideoLoadingTimeout(null);
+    }
+  };
+
+  const handleVideoRetry = () => {
+    console.log('Retrying video load...');
+    setVideoError(false);
+    setVideoLoaded(false);
+    // 重新加载视频
+    const video = document.querySelector('video') as HTMLVideoElement;
+    if (video) {
+      video.load();
+      // 强制触发加载事件
+      setTimeout(() => {
+        if (!videoLoaded && !videoError) {
+          console.log('Video still not loaded after retry');
+        }
+      }, 5000);
     }
   };
 
@@ -241,15 +394,105 @@ export default function IntroPage() {
               Discover the revolutionary travel-to-earn ecosystem in action
             </p>
             
-            <div className="relative group cursor-pointer">
-              <div className="w-full h-96 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 flex items-center justify-center">
-                <div className="w-24 h-24 bg-white/90 rounded-full flex items-center justify-center text-4xl group-hover:scale-110 transition-transform duration-300">
-                  ▶️
+            <div className="relative group">
+              <div 
+                className="w-full h-96 rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 overflow-hidden bg-black cursor-pointer"
+                onClick={handlePlayButtonClick}
+              >
+                {/* 简化的视频加载状态 - 只在最初显示 */}
+                {!videoLoaded && !videoError && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#fe585f] to-[#ff7a80] z-10">
+                    <div className="text-center text-white">
+                      <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                      <p className="text-lg font-semibold">Loading Video...</p>
+                      <p className="text-sm opacity-80 mt-2">Please wait...</p>
+                      <button
+                        onClick={() => setVideoLoaded(true)}
+                        className="mt-4 px-4 py-2 bg-white text-[#fe585f] rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
+                      >
+                        Skip Loading
+                      </button>
+                    </div>
+                  </div>
+                )}
+                
+                {/* 视频错误状态 */}
+                {videoError && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#fe585f] to-[#ff7a80] z-10">
+                    <div className="text-center text-white">
+                      <div className="text-6xl mb-4">⚠️</div>
+                      <p className="text-lg font-semibold mb-2">Video Unavailable</p>
+                      <p className="text-sm opacity-80 mb-4">Please try again later</p>
+                      <button
+                        onClick={handleVideoRetry}
+                        className="px-6 py-2 bg-white text-[#fe585f] rounded-full font-semibold hover:bg-gray-100 transition-all duration-300"
+                      >
+                        🔄 Retry
+                      </button>
+                    </div>
+                  </div>
+                )}
+                
+                {/* 视频播放器 */}
+                <video
+                  className="w-full h-full object-cover"
+                  controls
+                  preload="auto"
+                  playsInline
+                  onPlay={handleVideoPlay}
+                  onPause={handleVideoPause}
+                  onEnded={handleVideoPause}
+                  onLoadedData={handleVideoLoad}
+                  onCanPlay={handleVideoCanPlay}
+                  onError={handleVideoError}
+                  onLoadStart={() => console.log('Video load started')}
+                  onDoubleClick={handleVideoDoubleClick}
+                >
+                  <source src="/video/uniloco.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                
+                {/* 自定义播放按钮覆盖层 */}
+                {!isVideoPlaying && videoLoaded && !videoError && (
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-all duration-300 cursor-pointer z-20"
+                    onClick={handlePlayButtonClick}
+                  >
+                    <div className="play-button w-24 h-24 bg-white/95 rounded-full flex items-center justify-center text-4xl group-hover:scale-110 transition-transform duration-300 shadow-lg hover:bg-white">
+                      ▶️
+                    </div>
+                    <div className="absolute bottom-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                      Click to Play
+                    </div>
+                  </div>
+                )}
+                
+                {/* 播放状态指示器 */}
+                {isVideoPlaying && videoLoaded && !videoError && (
+                  <div className="absolute top-4 right-4 bg-[#fe585f] text-white px-3 py-1 rounded-full text-sm font-semibold z-20">
+                    ▶️ Playing
+                  </div>
+                )}
+                
+                {/* 全屏提示 */}
+                {videoLoaded && !videoError && (
+                  <div className="absolute bottom-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-xs z-20">
+                    Double-click for fullscreen
+                  </div>
+                )}
+              </div>
+              
+              {/* 视频信息 */}
+              <div className="mt-6 text-center">
+                <p className="text-gray-600 italic mb-2">
+                  See AI personalization, 3D travel stories, NFT bands, and UNC earning in action
+                </p>
+                <div className="flex items-center justify-center space-x-4 text-sm text-gray-500">
+                  <span>🎬 HD Quality</span>
+                  <span>⏱️ 2:30 min</span>
+                  <span>🔊 With Audio</span>
                 </div>
               </div>
-              <p className="text-gray-600 mt-4 italic">
-                See AI personalization, 3D travel stories, NFT bands, and UNC earning in action
-              </p>
             </div>
           </div>
         </section>
@@ -269,15 +512,14 @@ export default function IntroPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
-                  icon: '🤍',
+                  image: '/static/band1.jpg',
                   name: 'Basic Band',
                   price: 'Free to Get',
                   boost: '+10%',
                   action: 'Free Mint',
-                  gradient: 'from-gray-200 to-gray-300'
                 },
                 {
-                  icon: '💙',
+                  image: '/static/band2.jpg',
                   name: 'Rare Band',
                   price: '100 UNC',
                   boost: '+25%',
@@ -285,7 +527,7 @@ export default function IntroPage() {
                   gradient: 'from-blue-400 to-blue-600'
                 },
                 {
-                  icon: '🧡',
+                  image: '/static/band3.jpg',
                   name: 'Epic Band',
                   price: '500 UNC',
                   boost: '+50%',
@@ -293,7 +535,7 @@ export default function IntroPage() {
                   gradient: 'from-orange-400 to-orange-600'
                 },
                 {
-                  icon: '❤️',
+                  image: '/static/band4.jpg',
                   name: 'Legendary Band',
                   price: 'Rare Drop',
                   boost: '+100%',
@@ -305,8 +547,25 @@ export default function IntroPage() {
                   key={index}
                   className="group bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center"
                 >
-                  <div className={`w-32 h-32 bg-gradient-to-br ${band.gradient} rounded-full flex items-center justify-center text-4xl mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto`}>
-                    {band.icon}
+                  <div 
+                    className="band-image-container mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto relative"
+                  >
+                    {/* 加载状态指示器 */}
+                    {!bandImagesLoaded[index] && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      </div>
+                    )}
+                    <Image
+                      src={band.image}
+                      alt={band.name}
+                      fill
+                      className="object-contain p-3"
+                      priority={index < 2}
+                      sizes="(max-width: 768px) 96px, 128px"
+                      onLoad={() => handleBandImageLoad(index)}
+                      onError={() => console.error(`Failed to load image: ${band.image}`)}
+                    />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-800 mb-2">{band.name}</h3>
                   <p className="text-[#fe585f] font-semibold mb-2">{band.price}</p>
@@ -467,8 +726,98 @@ export default function IntroPage() {
           100% { transform: scale(1); }
         }
         
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
+        }
+        
         .shadow-3xl {
           box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* 视频播放器优化 */
+        video {
+          border-radius: 1rem;
+          background: transparent;
+        }
+        
+        /* 移除默认的黑色背景 */
+        video::-webkit-media-controls {
+          background-color: rgba(0, 0, 0, 0.5);
+          border-radius: 0 0 1rem 1rem;
+        }
+        
+        video::-webkit-media-controls-panel {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        video::-webkit-media-controls-play-button {
+          background-color: rgba(254, 88, 95, 0.9);
+          border-radius: 50%;
+          color: white;
+        }
+        
+        video::-webkit-media-controls-timeline {
+          background-color: rgba(255, 255, 255, 0.4);
+          border-radius: 2px;
+        }
+        
+        video::-webkit-media-controls-current-time-display,
+        video::-webkit-media-controls-time-remaining-display {
+          color: white;
+          font-weight: bold;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* 确保视频没有额外的黑色背景 */
+        video::-webkit-media-controls-enclosure {
+          background: transparent;
+        }
+        
+        /* Firefox 视频控件样式 */
+        video::-moz-media-controls {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        /* 确保视频在移动端也能正常显示 */
+        @media (max-width: 768px) {
+          video {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+          }
+        }
+        
+        /* 手环图片优化 */
+        .band-image-container {
+          position: relative;
+          width: 128px;
+          height: 128px;
+          border-radius: 50%;
+          overflow: hidden;
+          background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .band-image-container img {
+          transition: transform 0.3s ease;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+        
+        .band-image-container:hover img {
+          transform: scale(1.05);
+        }
+        
+        .band-image-container:hover {
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        @media (max-width: 768px) {
+          .band-image-container {
+            width: 96px;
+            height: 96px;
+          }
         }
       `}</style>
     </div>
