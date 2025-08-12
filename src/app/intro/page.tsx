@@ -177,7 +177,7 @@ export default function IntroPage() {
     });
   };
 
-  const handleVideoError = (e: any) => {
+  const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
     console.error('Video error:', e);
     setVideoError(true);
     setVideoLoaded(false);
@@ -297,7 +297,7 @@ export default function IntroPage() {
             </h2>
             
             <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Building the world's first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
+              Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
