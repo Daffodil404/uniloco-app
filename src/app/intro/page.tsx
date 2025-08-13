@@ -264,7 +264,7 @@ export default function IntroPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-white via-red-50 to-red-100 overflow-x-hidden relative">
+        <div className="min-h-screen bg-[#fff] overflow-x-hidden relative">
             {/* Mouse Follow Effect */}
             <div
                 className="fixed w-4 h-4 bg-[#fe585f]/30 rounded-full pointer-events-none z-50 transition-transform duration-100 ease-out"
@@ -319,7 +319,7 @@ export default function IntroPage() {
             )}
 
             {/* Navigation */}
-            <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-red-200 shadow-lg">
+            <nav className="fixed top-0 w-full bg-[#fe585f] backdrop-blur-md z-50 border-b border-red-200 shadow-lg">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center space-x-2">
@@ -330,13 +330,13 @@ export default function IntroPage() {
                         </div>
 
                         <div className="hidden md:flex space-x-8">
-                            {['home', 'how-to', 'marketplace', 'tokens', 'events', 'whitepaper'].map((item) => (
+                            {['home', 'how-to', 'web3 hub', 'events'].map((item) => (
                                 <button
                                     key={item}
                                     onClick={() => handleNavigation(item)}
                                     className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 ${activeSection === item
-                                        ? 'text-[#fe585f] border-b-2 border-[#fe585f]'
-                                        : 'text-gray-600 hover:text-[#fe585f]'
+                                        ? 'text-[#fff] border-b-2 border-[#fff]'
+                                        : 'text-[#fff] hover:text-[#fff]'
                                         }`}
                                 >
                                     {item.replace('-', ' ')}
@@ -351,7 +351,7 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="pt-16 min-h-screen flex items-center relative overflow-hidden">
                     {/* Animated Background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white via-red-50 to-red-100">
+                    <div className="absolute inset-0 bg-[#fff]">
                         {/* Floating Elements */}
                         <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe585f]/10 rounded-full animate-bounce animate-float"></div>
                         <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe585f]/15 rounded-full animate-pulse"></div>
@@ -377,10 +377,9 @@ export default function IntroPage() {
                                 {/* Main Slogan */}
                                 <div className="space-y-1 lg:space-y-2">
                                     <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                                        <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe585f] text-3xl md:text-5xl lg:text-6xl xl:text-7xl`}>Own Your</span>
-                                        <span className={`block ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Journey</span>
-                                        <span className={`block ${heroLoaded ? 'slide-in-left-delay-2' : 'opacity-100'} text-[#fe585f] text-3xl md:text-4xl lg:text-5xl xl:text-6xl`}>Earn Your</span>
-                                        <span className={`block ${heroLoaded ? 'slide-in-left-delay-3' : 'opacity-100'} text-[#fe585f] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Adventures</span>
+                                        <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe585f] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Own Your</span>
+                                        <span className={`block ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>&nbsp; &nbsp;{`Journey`}</span>
+                                       
                                     </h1>
                                 </div>
 
@@ -491,7 +490,7 @@ export default function IntroPage() {
                             ].map((feature, index) => (
                                 <div
                                     key={index}
-                                    className="group bg-gradient-to-br from-red-50 to-white rounded-2xl p-8 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer"
+                                    className="group bg-gradient-to-br bg-[#fff] rounded-2xl p-8 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer"
                                 >
                                     <div className="w-20 h-20 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300">
                                         {feature.icon}
@@ -507,7 +506,7 @@ export default function IntroPage() {
 
             {/* Video Section */}
             {activeSection === 'home' && (
-                <section className="py-20 bg-gradient-to-br from-red-50 to-red-100">
+                <section className="py-20 bg-gradient-to-br bg-[#fff]">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-8">
                             Watch How Uniloco Works
