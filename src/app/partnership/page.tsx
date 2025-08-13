@@ -17,15 +17,12 @@ import {
 } from 'lucide-react';
 
 export default function PartnershipPage() {
-  const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Handle scroll events for navbar and section highlighting
+  // Handle scroll events for section highlighting
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      
       // Determine active section based on scroll position
       const sections = ['home', 'types', 'how-it-works', 'stories', 'contact', 'cta'];
       const currentSection = sections.find(section => {
@@ -59,45 +56,48 @@ export default function PartnershipPage() {
   return (
     <main className="font-sans text-gray-800 bg-white overflow-x-hidden">
       {/* Navigation */}
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-5'
-        }`}
-      >
-        <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-          <div className="flex items-center">
-            <span className="text-[#fe585f] font-bold text-xl animate-pulse">🚀 Uniloco</span>
-          </div>
-          
-          <div className="hidden md:flex items-center space-x-8">
-            {['home', 'types', 'how-it-works', 'stories', 'contact'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item)}
-                className={`text-sm font-medium transition-all duration-300 hover:text-[#fe585f] hover:scale-105 ${
-                  activeSection === item ? 'text-[#fe585f] font-semibold' : 'text-gray-700'
-                }`}
+      <nav className="fixed top-0 w-full bg-[#fe585f] backdrop-blur-md z-50 border-b border-red-200 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-2">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg animate-pulse">
+                ✈️
+              </div>
+              <span className="text-2xl font-bold text-[#fe585f]">Uniloco</span>
+            </div>
+
+            <div className="hidden md:flex space-x-8">
+              {['home', 'types', 'how-it-works', 'stories', 'contact'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item)}
+                  className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 ${
+                    activeSection === item
+                      ? 'text-[#fff] border-b-2 border-[#fff]'
+                      : 'text-[#fff] hover:text-[#fff]'
+                  }`}
+                >
+                  {item.split('-').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                  ).join(' ')}
+                </button>
+              ))}
+              <button 
+                onClick={() => scrollToSection('cta')}
+                className="bg-white text-[#fe585f] px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
               >
-                {item.split('-').map(word => 
-                  word.charAt(0).toUpperCase() + word.slice(1)
-                ).join(' ')}
+                🚀 Apply Now
               </button>
-            ))}
-            <button 
-              onClick={() => scrollToSection('cta')}
-              className="bg-gradient-to-r from-[#fe585f] to-[#ff7a82] text-white px-6 py-3 rounded-full text-sm font-medium hover:shadow-lg hover:shadow-[#fe585f]/30 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
-            >
-              🚀 Apply Now
+            </div>
+            
+            <button className="md:hidden text-white hover:text-gray-200 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
             </button>
           </div>
-          
-          <button className="md:hidden text-gray-700 hover:text-[#fe585f] transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          </button>
         </div>
       </nav>
 
