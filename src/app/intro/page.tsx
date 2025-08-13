@@ -43,7 +43,7 @@ export default function IntroPage() {
                 console.log('Video loading timeout - forcing error state');
                 setVideoError(true);
                 setVideoLoaded(false);
-            }, 15000); // 15秒超时
+            }, 30000); // 30秒超时，给视频更多时间加载
 
             setVideoLoadingTimeout(timeout);
 
@@ -57,15 +57,24 @@ export default function IntroPage() {
     useEffect(() => {
         const checkVideoLoad = () => {
             const video = document.querySelector('video') as HTMLVideoElement;
-            if (video && video.readyState >= 2) { // HAVE_CURRENT_DATA
-                console.log('Video ready state:', video.readyState);
-                setVideoLoaded(true);
-                setVideoError(false);
+            if (video) {
+                console.log('Video element found, ready state:', video.readyState);
+                if (video.readyState >= 2) { // HAVE_CURRENT_DATA
+                    console.log('Video ready state:', video.readyState);
+                    setVideoLoaded(true);
+                    setVideoError(false);
+                } else {
+                    // 如果视频还没准备好，继续检查
+                    setTimeout(checkVideoLoad, 1000);
+                }
+            } else {
+                // 如果视频元素还没找到，继续检查
+                setTimeout(checkVideoLoad, 500);
             }
         };
 
         // 延迟检查视频状态
-        const timer = setTimeout(checkVideoLoad, 2000);
+        const timer = setTimeout(checkVideoLoad, 1000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -326,8 +335,8 @@ export default function IntroPage() {
                                     key={item}
                                     onClick={() => handleNavigation(item)}
                                     className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 ${activeSection === item
-                                            ? 'text-[#fe585f] border-b-2 border-[#fe585f]'
-                                            : 'text-gray-600 hover:text-[#fe585f]'
+                                        ? 'text-[#fe585f] border-b-2 border-[#fe585f]'
+                                        : 'text-gray-600 hover:text-[#fe585f]'
                                         }`}
                                 >
                                     {item.replace('-', ' ')}
@@ -361,91 +370,91 @@ export default function IntroPage() {
                         <div className="absolute bottom-1/4 left-1/4 w-4 h-4 bg-[#ff7a80]/25 rounded-full animate-bounce" style={{ animationDelay: '0.7s' }}></div>
                     </div>
 
-                                         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                         <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
-                             {/* Left Side - Slogan */}
-                             <div className="flex-1 text-left space-y-3 lg:space-y-4 pl-8 lg:pl-12">
-                                 {/* Main Slogan */}
-                                 <div className="space-y-1 lg:space-y-2">
-                                     <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                                         <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe585f] text-3xl md:text-5xl lg:text-6xl xl:text-7xl`}>Own Your</span>
-                                         <span className={`block ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Journey</span>
-                                         <span className={`block ${heroLoaded ? 'slide-in-left-delay-2' : 'opacity-100'} text-[#fe585f] text-3xl md:text-4xl lg:text-5xl xl:text-6xl`}>Earn Your</span>
-                                         <span className={`block ${heroLoaded ? 'slide-in-left-delay-3' : 'opacity-100'} text-[#fe585f] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Adventures</span>
-                                     </h1>
-                                 </div>
- 
-                                 {/* Subtitle */}
-                                 <h2 className={`text-lg md:text-xl lg:text-2xl text-gray-700 font-light ${heroLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
-                                     Your Ultimate Travel App
-                                 </h2>
- 
-                                 {/* Description */}
-                                 <p className={`text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-lg ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
-                                     Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
-                                 </p>
- 
-                                 {/* Action Buttons */}
-                                 <div className={`flex flex-col sm:flex-row gap-4 ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
-                                     <button
-                                         onClick={() => handleNavigation('how-to')}
-                                         className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
-                                     >
-                                         <span className="relative z-10 flex items-center space-x-2">
-                                             <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">✈️</span>
-                                             <span>How to Start</span>
-                                         </span>
-                                         <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe585f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                     </button>
- 
-                                     <button
-                                         onClick={handleDownload}
-                                         className="game-button download-btn group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe585f] text-[#fe585f] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe585f] hover:text-white transform hover:scale-105 transition-all duration-300"
-                                     >
-                                         <span className="flex items-center space-x-2">
-                                             <span>📱</span>
-                                             <span>Download Now</span>
-                                         </span>
-                                     </button>
-                                 </div>
-                             </div>
- 
-                             {/* Right Side - Logo and Stats */}
-                             <div className={`flex flex-col items-center space-y-4 ${heroLoaded ? 'slide-in-right' : 'opacity-0'}`}>
-                                 {/* Logo */}
-                                 <div className="relative group">
-                                     <Image
-                                         src="/static/logo-transparent-bg.png"
-                                         alt="Uniloco Logo"
-                                         width={400}
-                                         height={400}
-                                         className="w-56 h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-contain transform hover:scale-105 transition-all duration-500"
-                                         priority
-                                     />
-                                     {/* Subtle glow effect */}
-                                     <div className="absolute inset-0 bg-gradient-to-r from-[#fe585f]/10 to-[#ff7a80]/10 rounded-full blur-lg group-hover:blur-xl transition-all duration-500 -z-10"></div>
-                                 </div>
- 
-                                 {/* Stats in a more compact layout */}
-                                 <div className="flex gap-3">
-                                     <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 shadow-lg hover:shadow-xl transition-all duration-300">
-                                         <div className="text-xl lg:text-2xl font-bold text-[#fe585f] mb-1 animate-glow">50K+</div>
-                                         <div className="text-xs text-gray-600">Travelers</div>
-                                     </div>
-                                     <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 shadow-lg hover:shadow-xl transition-all duration-300">
-                                         <div className="text-xl lg:text-2xl font-bold text-[#fe585f] mb-1 animate-glow">1M+</div>
-                                         <div className="text-xs text-gray-600">UNC Earned</div>
-                                     </div>
-                                 </div>
- 
-                                 {/* Small floating elements */}
-                                 <div className="relative">
-                                     <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#fe585f] rounded-full animate-bounce"></div>
-                                     <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#ff7a80] rounded-full animate-pulse"></div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
+                    <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
+                            {/* Left Side - Slogan */}
+                            <div className="flex-1 text-left space-y-3 lg:space-y-4 pl-8 lg:pl-12">
+                                {/* Main Slogan */}
+                                <div className="space-y-1 lg:space-y-2">
+                                    <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
+                                        <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe585f] text-3xl md:text-5xl lg:text-6xl xl:text-7xl`}>Own Your</span>
+                                        <span className={`block ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Journey</span>
+                                        <span className={`block ${heroLoaded ? 'slide-in-left-delay-2' : 'opacity-100'} text-[#fe585f] text-3xl md:text-4xl lg:text-5xl xl:text-6xl`}>Earn Your</span>
+                                        <span className={`block ${heroLoaded ? 'slide-in-left-delay-3' : 'opacity-100'} text-[#fe585f] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Adventures</span>
+                                    </h1>
+                                </div>
+
+                                {/* Subtitle */}
+                                <h2 className={`text-lg md:text-xl lg:text-2xl text-gray-700 font-light ${heroLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
+                                    Your Ultimate Travel App
+                                </h2>
+
+                                {/* Description */}
+                                <p className={`text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-lg ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
+                                    Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
+                                </p>
+
+                                {/* Action Buttons */}
+                                <div className={`flex flex-col sm:flex-row gap-4 ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
+                                    <button
+                                        onClick={() => handleNavigation('how-to')}
+                                        className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                                    >
+                                        <span className="relative z-10 flex items-center space-x-2">
+                                            <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">✈️</span>
+                                            <span>How to Start</span>
+                                        </span>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe585f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    </button>
+
+                                    <button
+                                        onClick={handleDownload}
+                                        className="game-button download-btn group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe585f] text-[#fe585f] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe585f] hover:text-white transform hover:scale-105 transition-all duration-300"
+                                    >
+                                        <span className="flex items-center space-x-2">
+                                            <span>📱</span>
+                                            <span>Download Now</span>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Right Side - Logo and Stats */}
+                            <div className={`flex flex-col items-center space-y-4 ${heroLoaded ? 'slide-in-right' : 'opacity-0'}`}>
+                                {/* Logo */}
+                                <div className="relative group">
+                                    <Image
+                                        src="/static/logo-transparent-bg.png"
+                                        alt="Uniloco Logo"
+                                        width={400}
+                                        height={400}
+                                        className="w-56 h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-contain transform hover:scale-105 transition-all duration-500"
+                                        priority
+                                    />
+                                    {/* Subtle glow effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-[#fe585f]/10 to-[#ff7a80]/10 rounded-full blur-lg group-hover:blur-xl transition-all duration-500 -z-10"></div>
+                                </div>
+
+                                {/* Stats in a more compact layout */}
+                                <div className="flex gap-3">
+                                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 shadow-lg hover:shadow-xl transition-all duration-300">
+                                        <div className="text-xl lg:text-2xl font-bold text-[#fe585f] mb-1 animate-glow">50K+</div>
+                                        <div className="text-xs text-gray-600">Travelers</div>
+                                    </div>
+                                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 shadow-lg hover:shadow-xl transition-all duration-300">
+                                        <div className="text-xl lg:text-2xl font-bold text-[#fe585f] mb-1 animate-glow">1M+</div>
+                                        <div className="text-xs text-gray-600">UNC Earned</div>
+                                    </div>
+                                </div>
+
+                                {/* Small floating elements */}
+                                <div className="relative">
+                                    <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#fe585f] rounded-full animate-bounce"></div>
+                                    <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#ff7a80] rounded-full animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             )}
 
@@ -509,7 +518,7 @@ export default function IntroPage() {
 
                         <div className="relative group">
                             <div
-                                className="w-full h-96 rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 overflow-hidden bg-black cursor-pointer"
+                                className="w-full h-96 rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 overflow-hidden bg-transparent cursor-pointer"
                                 onClick={handlePlayButtonClick}
                             >
                                 {/* 简化的视频加载状态 - 只在最初显示 */}
@@ -520,7 +529,10 @@ export default function IntroPage() {
                                             <p className="text-lg font-semibold">Loading Video...</p>
                                             <p className="text-sm opacity-80 mt-2">Please wait...</p>
                                             <button
-                                                onClick={() => setVideoLoaded(true)}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setVideoLoaded(true);
+                                                }}
                                                 className="mt-4 px-4 py-2 bg-white text-[#fe585f] rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
                                             >
                                                 Skip Loading
@@ -547,72 +559,57 @@ export default function IntroPage() {
                                 )}
 
                                 {/* 视频播放器 */}
-                                {/* 临时使用占位符，避免部署时的文件大小限制 */}
-                                <div className="w-full h-full bg-gradient-to-br from-[#fe585f] to-[#ff7a80] flex items-center justify-center">
-                                    <div className="text-center text-white">
-                                        <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center text-4xl mb-4">
-                                            🎬
+                                <video
+                                    className="w-full h-full object-cover rounded-2xl"
+                                    controls
+                                    preload="auto"
+                                    playsInline
+                                    onPlay={handleVideoPlay}
+                                    onPause={handleVideoPause}
+                                    onEnded={handleVideoPause}
+                                    onLoadedData={handleVideoLoad}
+                                    onCanPlay={handleVideoCanPlay}
+                                    onError={handleVideoError}
+                                    onLoadStart={() => console.log('Video load started')}
+                                    onDoubleClick={handleVideoDoubleClick}
+                                >
+                                    <source src="/video/uniloco.mov" type="video/quicktime" />
+                                    <source src="/video/uniloco.mov" type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+
+
+
+                                {!isVideoPlaying && videoLoaded && !videoError && (
+                                    <div
+                                        className="absolute inset-0 flex items-center justify-center bg-black/5 group-hover:bg-black/10 transition-all duration-300 cursor-pointer z-20"
+                                        onClick={handlePlayButtonClick}
+                                    >
+                                        <div className="play-button w-24 h-24 bg-white/95 rounded-full flex items-center justify-center text-4xl group-hover:scale-110 transition-transform duration-300 shadow-lg hover:bg-white">
+                                            ▶️
                                         </div>
-                                        <h3 className="text-xl font-bold mb-2">Video Coming Soon</h3>
-                                        <p className="text-sm opacity-80">Video will be available after deployment</p>
+                                        <div className="absolute bottom-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                                            Click to Play
+                                        </div>
                                     </div>
-                                </div>
+                                )}
 
-                                {/* 原始视频代码（注释掉，避免部署错误） */}
-                                {/*
-                <video
-                  className="w-full h-full object-cover"
-                  controls
-                  preload="auto"
-                  playsInline
-                  onPlay={handleVideoPlay}
-                  onPause={handleVideoPause}
-                  onEnded={handleVideoPause}
-                  onLoadedData={handleVideoLoad}
-                  onCanPlay={handleVideoCanPlay}
-                  onError={handleVideoError}
-                  onLoadStart={() => console.log('Video load started')}
-                  onDoubleClick={handleVideoDoubleClick}
-                >
-                  <source src="/video/uniloco.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                */}
 
-                                {/* 自定义播放按钮覆盖层 - 临时禁用 */}
-                                {/*
-                {!isVideoPlaying && videoLoaded && !videoError && (
-                  <div 
-                    className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-all duration-300 cursor-pointer z-20"
-                    onClick={handlePlayButtonClick}
-                  >
-                    <div className="play-button w-24 h-24 bg-white/95 rounded-full flex items-center justify-center text-4xl group-hover:scale-110 transition-transform duration-300 shadow-lg hover:bg-white">
-                      ▶️
-                    </div>
-                    <div className="absolute bottom-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-                      Click to Play
-                    </div>
-                  </div>
-                )}
-                */}
 
-                                {/* 播放状态指示器 - 临时禁用 */}
-                                {/* 
-                {isVideoPlaying && videoLoaded && !videoError && (
-                  <div className="absolute top-4 right-4 bg-[#fe585f] text-white px-3 py-1 rounded-full text-sm font-semibold z-20">
-                    ▶️ Playing
-                  </div>
-                )}
-                
-                {videoLoaded && !videoError && (
-                  <div className="absolute bottom-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-xs z-20">
-                    Double-click for fullscreen
-                  </div>
-                )}
-                */}
+                                {isVideoPlaying && videoLoaded && !videoError && (
+                                    <div className="absolute top-4 right-4 bg-[#fe585f] text-white px-3 py-1 rounded-full text-sm font-semibold z-20">
+                                        ▶️ Playing
+                                    </div>
+                                )}
+
+                                {videoLoaded && !videoError && (
+                                    <div className="absolute bottom-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-xs z-20">
+                                        Double-click for fullscreen
+                                    </div>
+                                )}
                             </div>
 
-                            {/* 视频信息 */}
+
                             <div className="mt-6 text-center">
                                 <p className="text-gray-600 italic mb-2">
                                     See AI personalization, 3D travel stories, NFT bands, and UNC earning in action
@@ -701,8 +698,8 @@ export default function IntroPage() {
                                     <p className="text-[#fe585f] font-semibold mb-2">{band.price}</p>
                                     <p className="text-gray-600 mb-6">Base UNC Boost {band.boost}</p>
                                     <button className={`w-full py-3 rounded-full font-bold transition-all duration-300 ${band.action === 'Coming Soon'
-                                            ? 'bg-gray-400 text-white cursor-not-allowed'
-                                            : 'bg-[#fe585f] text-white hover:bg-[#ff7a80] hover:scale-105'
+                                        ? 'bg-gray-400 text-white cursor-not-allowed'
+                                        : 'bg-[#fe585f] text-white hover:bg-[#ff7a80] hover:scale-105'
                                         }`}>
                                         {band.action}
                                     </button>
@@ -1084,12 +1081,12 @@ export default function IntroPage() {
         
         /* 移除默认的黑色背景 */
         video::-webkit-media-controls {
-          background-color: rgba(0, 0, 0, 0.5);
+          background-color: rgba(0, 0, 0, 0.3);
           border-radius: 0 0 1rem 1rem;
         }
         
         video::-webkit-media-controls-panel {
-          background-color: rgba(0, 0, 0, 0.5);
+          background-color: rgba(0, 0, 0, 0.3);
         }
         
         video::-webkit-media-controls-play-button {
@@ -1117,7 +1114,7 @@ export default function IntroPage() {
         
         /* Firefox 视频控件样式 */
         video::-moz-media-controls {
-          background-color: rgba(0, 0, 0, 0.5);
+          background-color: rgba(0, 0, 0, 0.3);
         }
         
         /* 确保视频在移动端也能正常显示 */
