@@ -1,4 +1,3 @@
-// app/page.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -14,11 +13,7 @@ import {
   MessageCircle,
   Mail,
   ChevronDown,
-  Star,
-  Users,
-  Map,
-  Heart,
-  Zap
+  Star
 } from 'lucide-react';
 
 export default function PartnershipPage() {
@@ -138,7 +133,7 @@ export default function PartnershipPage() {
                 🌟 Join the Travel-to-Earn Revolution 🌟
               </p>
               <p className="text-xl mb-12 text-white/80 max-w-3xl mx-auto leading-relaxed partnership-fade-in" style={{animationDelay: '0.6s'}}>
-                Whether you're an influencer with a passionate audience or a local business wanting to attract travelers, 
+                Whether you&apos;re an influencer with a passionate audience or a local business wanting to attract travelers, 
                 Uniloco offers proven partnership programs that drive real results and sustainable income.
               </p>
             </div>
@@ -209,7 +204,7 @@ export default function PartnershipPage() {
               🎯 Two Partnership Programs
             </h2>
             <p className="text-gray-600 text-xl leading-relaxed">
-              Choose the program that matches your expertise and start earning with Uniloco's ecosystem
+              Choose the program that matches your expertise and start earning with Uniloco&apos;s ecosystem
             </p>
           </div>
           
@@ -355,7 +350,7 @@ export default function PartnershipPage() {
               ⚡ How Partnership Works
             </h2>
             <p className="text-gray-600 text-xl leading-relaxed">
-              A simple 4-step process to start earning with Uniloco's partnership ecosystem
+              A simple 4-step process to start earning with Uniloco&apos;s partnership ecosystem
             </p>
           </div>
           
@@ -482,7 +477,7 @@ export default function PartnershipPage() {
                 emoji: '📱',
                 name: 'Emma Rodriguez',
                 details: 'Travel Blogger • 120K Followers',
-                quote: 'Uniloco transformed my hobby into a full-time career. I\'ve doubled my income while creating content about places I love.',
+                quote: 'Uniloco transformed my hobby into a full-time career. I&apos;ve doubled my income while creating content about places I love.',
                 metrics: ['42% Conversion Rate', '35K UNC Earned', '8 Sponsored Trips']
               },
               {
@@ -490,7 +485,7 @@ export default function PartnershipPage() {
                 emoji: '🏪',
                 name: 'Bali Beach Cafe',
                 details: 'Restaurant • Seminyak, Bali',
-                quote: 'Since joining Uniloco, we\'ve seen a 65% increase in foreign customers. The platform brings exactly the crowd we want.',
+                quote: 'Since joining Uniloco, we&apos;ve seen a 65% increase in foreign customers. The platform brings exactly the crowd we want.',
                 metrics: ['+65% Foreign Customers', '12% Revenue Growth', '4.8/5 Rating']
               },
               {
@@ -519,7 +514,7 @@ export default function PartnershipPage() {
                 <h3 className="text-2xl font-bold text-[#fe585f] mb-2 text-center">{story.name}</h3>
                 <p className="text-[#fe585f]/70 text-sm mb-6 text-center">{story.details}</p>
                 
-                <p className="text-gray-600 italic mb-8 text-sm leading-relaxed text-center">"{story.quote}"</p>
+                <p className="text-gray-600 italic mb-8 text-sm leading-relaxed text-center">&ldquo;{story.quote}&rdquo;</p>
                 
                 <div className="flex flex-wrap gap-3 justify-center mb-6">
                   {story.metrics.map((metric, i) => (
@@ -566,7 +561,7 @@ export default function PartnershipPage() {
                 icon: <Mail size={32} />,
                 emoji: '📧',
                 title: 'Email Us',
-                desc: 'Send us your questions and we\'ll get back to you within 24 hours',
+                desc: 'Send us your questions and we&apos;ll get back to you within 24 hours',
                 btnText: 'Send Message'
               },
               {
@@ -664,7 +659,7 @@ export default function PartnershipPage() {
                 🚀 Uniloco
               </h3>
               <p className="text-gray-400 text-lg leading-relaxed">
-                The world's first travel-to-earn platform connecting travelers, creators, and local businesses.
+                The world&apos;s first travel-to-earn platform connecting travelers, creators, and local businesses.
               </p>
             </div>
             
