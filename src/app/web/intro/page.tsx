@@ -328,7 +328,7 @@ export default function IntroPage() {
 
             {/* Hero Section */}
             {activeSection === 'home' && (
-                <section className="pt-16 min-h-screen flex items-center relative overflow-hidden">
+                <section className="hero-section pt-16 min-h-screen flex items-center relative overflow-hidden">
                     {/* Animated Background */}
                     <div className="absolute inset-0 bg-[#fff]">
                         {/* Floating Elements */}
