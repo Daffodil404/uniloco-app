@@ -323,7 +323,7 @@ export default function IntroPage() {
             <Header 
                 activeSection={activeSection}
                 onNavigation={handleNavigation}
-                navItems={['home', 'how-to', 'web3 hub', 'events']}
+                navItems={['home', 'how-to', 'web3 hub', 'partnership']}
             />
 
             {/* Hero Section */}

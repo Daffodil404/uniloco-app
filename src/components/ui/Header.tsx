@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface HeaderProps {
   activeSection?: string;
@@ -12,32 +13,100 @@ interface HeaderProps {
   applyButtonAction?: () => void;
 }
 
+interface DropdownItem {
+  label: string;
+  action: () => void;
+}
+
 export default function Header({
   activeSection = 'home',
   onNavigation,
   scrollToSection,
-  navItems = ['home', 'how-to', 'web3 hub', 'events'],
+  navItems = ['home', 'how-to', 'web3 hub', 'partnership'],
   showApplyButton = false,
   applyButtonText = '🚀 Apply Now',
   applyButtonAction
 }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('.dropdown-container')) {
+        setDropdownOpen(null);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleNavClick = (item: string) => {
+    if (item === 'partnership') {
+      router.push('/partnership');
+      return;
+    }
+
+    if (item === 'web3 hub') {
+      router.push('/web3hub');
+      return;
+    }
+    
+    if (item === 'how-to') {
+      setDropdownOpen(dropdownOpen === 'how-to' ? null : 'how-to');
+      return;
+    }
+    
     if (onNavigation) {
       onNavigation(item);
     } else if (scrollToSection) {
       scrollToSection(item);
     }
+  };
+
+  const handleDropdownItemClick = (action: () => void) => {
+    setDropdownOpen(null);
+    action();
+  };
+
+  const getDropdownItems = (item: string): DropdownItem[] => {
+    if (item === 'how-to') {
+      return [
+        {
+          label: 'Set Up Account',
+          action: () => {
+            if (onNavigation) onNavigation('set-up-account');
+            else if (scrollToSection) scrollToSection('set-up-account');
+          }
+        },
+        {
+          label: 'Play',
+          action: () => {
+            if (onNavigation) onNavigation('play');
+            else if (scrollToSection) scrollToSection('play');
+          }
+        },
+        {
+          label: 'Join In Events',
+          action: () => {
+            if (onNavigation) onNavigation('join-events');
+            else if (scrollToSection) scrollToSection('join-events');
+          }
+        }
+      ];
+    }
+    return [];
   };
 
   const handleApplyClick = () => {
@@ -61,19 +130,45 @@ export default function Header({
 
           <div className="hidden md:flex space-x-8">
             {navItems.map((item) => (
-              <button
-                key={item}
-                onClick={() => handleNavClick(item)}
-                className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 ${
-                  activeSection === item
-                    ? 'text-[#fff] border-b-2 border-[#fff]'
-                    : 'text-[#fff] hover:text-[#fff]'
-                }`}
-              >
-                {item.split('-').map(word => 
-                  word.charAt(0).toUpperCase() + word.slice(1)
-                ).join(' ')}
-              </button>
+              <div key={item} className="relative dropdown-container">
+                <button
+                  onClick={() => handleNavClick(item)}
+                  className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 flex items-center gap-1 ${
+                    activeSection === item
+                      ? 'text-[#fff] border-b-2 border-[#fff]'
+                      : 'text-[#fff] hover:text-[#fff]'
+                  }`}
+                >
+                  {item.split('-').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                  ).join(' ')}
+                  {item === 'how-to' && (
+                    <svg 
+                      className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen === 'how-to' ? 'rotate-180' : ''}`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  )}
+                </button>
+                
+                {/* Dropdown Menu */}
+                {item === 'how-to' && dropdownOpen === 'how-to' && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    {getDropdownItems(item).map((dropdownItem, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleDropdownItemClick(dropdownItem.action)}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-[#fe585f] hover:text-white transition-colors duration-200"
+                      >
+                        {dropdownItem.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
             {showApplyButton && (
               <button 
