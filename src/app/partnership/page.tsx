@@ -104,92 +104,124 @@ export default function PartnershipPage() {
       {/* Hero Section */}
       <section 
         id="home"
-        className="min-h-screen partnership-gradient-bg text-white pt-32 pb-20 relative overflow-hidden flex items-center"
+        className="pt-16 min-h-screen flex items-center relative overflow-hidden bg-white"
       >
-        {/* Animated background elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-[#fff]">
+          {/* Floating Elements */}
+          <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe585f]/10 rounded-full animate-bounce animate-float"></div>
+          <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe585f]/15 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#fe585f]/20 rounded-full animate-spin"></div>
+          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#fe585f]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#fe585f]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#fe585f]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
+
+          {/* Particle Effects */}
+          <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#fe585f]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
+          <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-[#ff7a80]/40 rounded-full animate-ping" style={{ animationDelay: '1.2s' }}></div>
+          <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#fe585f]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
+
+          {/* Geometric Shapes */}
+          <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#fe585f]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute bottom-1/4 left-1/4 w-4 h-4 bg-[#ff7a80]/25 rounded-full animate-bounce" style={{ animationDelay: '0.7s' }}></div>
         </div>
-        
-        {/* Floating emojis */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 text-4xl animate-bounce" style={{animationDelay: '0.5s'}}>✈️</div>
-          <div className="absolute top-40 right-20 text-3xl animate-bounce" style={{animationDelay: '1.5s'}}>🌍</div>
-          <div className="absolute bottom-40 left-20 text-3xl animate-bounce" style={{animationDelay: '2.5s'}}>🏖️</div>
-          <div className="absolute bottom-20 right-10 text-4xl animate-bounce" style={{animationDelay: '3s'}}>🎒</div>
-          <div className="absolute top-1/3 left-1/3 text-2xl animate-bounce" style={{animationDelay: '1s'}}>🗺️</div>
-          <div className="absolute bottom-1/3 right-1/3 text-2xl animate-bounce" style={{animationDelay: '2s'}}>📸</div>
-        </div>
-        
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="max-w-6xl mx-auto text-center">
-            <div className={`transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight partnership-bounce-in">
-                Partner with <span className="text-yellow-300 partnership-text-glow">Uniloco</span>
-              </h1>
-              <p className="text-2xl md:text-3xl mb-8 text-white/90 font-light partnership-slide-up" style={{animationDelay: '0.3s'}}>
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
+            {/* Left Side - Slogan */}
+            <div className="flex-1 text-left space-y-3 lg:space-y-4 pl-8 lg:pl-12">
+              {/* Main Slogan */}
+              <div className="space-y-1 lg:space-y-2">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
+                  <span className={`block ${isLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe585f] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Partner with</span>
+                  <span className={`block ${isLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Uniloco</span>
+                </h1>
+              </div>
+
+              {/* Subtitle */}
+              <h2 className={`text-lg md:text-xl lg:text-2xl text-gray-700 font-light ${isLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
                 🌟 Join the Travel-to-Earn Revolution 🌟
-              </p>
-              <p className="text-xl mb-12 text-white/80 max-w-3xl mx-auto leading-relaxed partnership-fade-in" style={{animationDelay: '0.6s'}}>
+              </h2>
+
+              {/* Description */}
+              <p className={`text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-lg ${isLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
                 Whether you&apos;re an influencer with a passionate audience or a local business wanting to attract travelers, 
                 Uniloco offers proven partnership programs that drive real results and sustainable income.
               </p>
-            </div>
-            
-            <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{animationDelay: '0.9s'}}>
-              {[
-                { 
-                  icon: <TrendingUp size={40} className="text-yellow-300" />, 
-                  emoji: '📈',
-                  title: 'Proven Results', 
-                  desc: 'Partners average 40-60% revenue increase within 3 months' 
-                },
-                { 
-                  icon: <Globe size={40} className="text-yellow-300" />, 
-                  emoji: '🌐',
-                  title: 'Global Reach', 
-                  desc: 'Access to 50K+ active travelers across 150+ countries' 
-                },
-                { 
-                  icon: <DollarSign size={40} className="text-yellow-300" />, 
-                  emoji: '💰',
-                  title: 'Multiple Revenue Streams', 
-                  desc: 'Earn through commissions, UNC tokens, and exclusive opportunities' 
-                }
-              ].map((item, index) => (
-                <div 
-                  key={index}
-                  className="bg-white/15 backdrop-blur-md rounded-3xl p-8 border border-white/20 partnership-card-hover group partnership-scale-in"
-                  style={{animationDelay: `${1.2 + index * 0.2}s`}}
+
+              {/* Action Buttons */}
+              <div className={`flex flex-col sm:flex-row gap-4 ${isLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
+                <button
+                  onClick={() => scrollToSection('types')}
+                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
                 >
-                  <div className="text-6xl mb-4 partnership-float group-hover:partnership-tada">{item.emoji}</div>
-                  <div className="mb-4 text-white group-hover:scale-110 transition-transform duration-300 partnership-glow">{item.icon}</div>
-                  <h3 className="text-xl font-bold mb-3 text-yellow-300 partnership-text-glow">{item.title}</h3>
-                  <p className="text-white/90 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
+                  <span className="relative z-10 flex items-center space-x-2">
+                    <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">🚀</span>
+                    <span>Explore Programs</span>
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe585f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+
+                <button
+                  onClick={() => scrollToSection('cta')}
+                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe585f] text-[#fe585f] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe585f] hover:text-white transform hover:scale-105 transition-all duration-300"
+                >
+                  <span className="flex items-center space-x-2">
+                    <span>💼</span>
+                    <span>Apply Now</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Side - Stats Cards */}
+            <div className={`flex flex-col items-center space-y-4 ${isLoaded ? 'slide-in-right' : 'opacity-0'}`}>
+              {/* Stats Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl">
+                {[
+                  { 
+                    icon: <TrendingUp size={32} className="text-[#fe585f]" />, 
+                    emoji: '📈',
+                    title: 'Proven Results', 
+                    desc: '40-60% revenue increase' 
+                  },
+                  { 
+                    icon: <Globe size={32} className="text-[#fe585f]" />, 
+                    emoji: '🌐',
+                    title: 'Global Reach', 
+                    desc: '50K+ active travelers' 
+                  },
+                  { 
+                    icon: <DollarSign size={32} className="text-[#fe585f]" />, 
+                    emoji: '💰',
+                    title: 'Multiple Streams', 
+                    desc: 'UNC tokens & commissions' 
+                  }
+                ].map((item, index) => (
+                  <div 
+                    key={index}
+                    className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group"
+                  >
+                    <div className="text-4xl mb-3 text-center animate-bounce group-hover:animate-pulse">{item.emoji}</div>
+                    <div className="mb-3 text-center group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
+                    <h3 className="text-lg font-bold mb-2 text-[#fe585f] text-center">{item.title}</h3>
+                    <p className="text-gray-600 text-sm text-center leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Small floating elements */}
+              <div className="relative">
+                <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#fe585f] rounded-full animate-bounce"></div>
+                <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#ff7a80] rounded-full animate-pulse"></div>
+              </div>
             </div>
           </div>
-        </div>
-        
-        {/* Wave separator */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-          <svg 
-            viewBox="0 0 1200 120" 
-            preserveAspectRatio="none" 
-            className="w-full h-20 md:h-28 text-white"
-          >
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.11,165.07,111.28,321.39,56.44Z" 
-              fill="currentColor">
-            </path>
-          </svg>
         </div>
       </section>
 
       {/* Partnership Types Section */}
-      <section id="types" className="py-24 bg-gradient-to-br from-[#fff5f5] via-white to-[#ffebeb] relative">
+      <section id="types" className="py-24 bg-white relative">
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-10 left-10 text-6xl opacity-10 animate-pulse">🏢</div>
@@ -238,7 +270,7 @@ export default function PartnershipPage() {
                   ].map((benefit, index) => (
                     <div 
                       key={index}
-                      className="flex items-start p-4 bg-gradient-to-r from-gray-50 to-[#fff5f5] rounded-xl hover:bg-gradient-to-r hover:from-[#fff5f5] hover:to-[#ffebeb] transition-all duration-300 hover:scale-105 border border-transparent hover:border-[#fe585f]/30"
+                      className="flex items-start p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 border border-transparent hover:border-[#fe585f]/30"
                     >
                       <div className="mr-3 mt-1 w-6 h-6 bg-gradient-to-br from-[#fe585f] to-[#ff7a82] rounded-full flex items-center justify-center flex-shrink-0">
                         <Check size={14} className="text-white" />
@@ -249,7 +281,7 @@ export default function PartnershipPage() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-[#fff5f5] to-[#ffebeb] p-6 rounded-2xl border-l-4 border-[#fe585f] mb-10">
+              <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-[#fe585f] mb-10">
                 <h4 className="font-bold text-[#fe585f] mb-4 text-lg">📋 Requirements</h4>
                 <ul className="space-y-3">
                   {[
@@ -298,7 +330,7 @@ export default function PartnershipPage() {
                   ].map((benefit, index) => (
                     <div 
                       key={index}
-                      className="flex items-start p-4 bg-gradient-to-r from-gray-50 to-[#fff5f5] rounded-xl hover:bg-gradient-to-r hover:from-[#fff5f5] hover:to-[#ffebeb] transition-all duration-300 hover:scale-105 border border-transparent hover:border-[#fe585f]/30"
+                      className="flex items-start p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 border border-transparent hover:border-[#fe585f]/30"
                     >
                       <div className="mr-3 mt-1 w-6 h-6 bg-gradient-to-br from-[#fe585f] to-[#ff7a82] rounded-full flex items-center justify-center flex-shrink-0">
                         <Check size={14} className="text-white" />
@@ -309,7 +341,7 @@ export default function PartnershipPage() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-[#fff5f5] to-[#ffebeb] p-6 rounded-2xl border-l-4 border-[#fe585f] mb-10">
+              <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-[#fe585f] mb-10">
                 <h4 className="font-bold text-[#fe585f] mb-4 text-lg">📋 Requirements</h4>
                 <ul className="space-y-3">
                   {[
@@ -355,7 +387,7 @@ export default function PartnershipPage() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            <div className="bg-gradient-to-br from-[#fff5f5] to-[#ffebeb] rounded-3xl p-10 border border-[#fe585f]/10 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+            <div className="bg-white rounded-3xl p-10 border border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:border-[#fe585f]/30">
               <h3 className="text-3xl font-bold text-[#fe585f] text-center mb-10">📱 For Content Creators</h3>
               
               <ul className="space-y-8">
@@ -401,7 +433,7 @@ export default function PartnershipPage() {
               </ul>
             </div>
             
-            <div className="bg-gradient-to-br from-[#fff5f5] to-[#ffebeb] rounded-3xl p-10 border border-[#fe585f]/10 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+            <div className="bg-white rounded-3xl p-10 border border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:border-[#fe585f]/30">
               <h3 className="text-3xl font-bold text-[#fe585f] text-center mb-10">🏪 For Local Merchants</h3>
               
               <ul className="space-y-8">
@@ -451,7 +483,7 @@ export default function PartnershipPage() {
       </section>
 
       {/* Success Stories Section */}
-      <section id="stories" className="py-24 bg-gradient-to-br from-[#ffebeb] via-white to-[#fff5f5] relative">
+      <section id="stories" className="py-24 bg-white relative">
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-10 left-10 text-6xl opacity-10 animate-pulse">🏆</div>
@@ -518,7 +550,7 @@ export default function PartnershipPage() {
                 
                 <div className="flex flex-wrap gap-3 justify-center mb-6">
                   {story.metrics.map((metric, i) => (
-                    <span key={i} className="bg-gradient-to-r from-[#fff5f5] to-[#ffebeb] text-[#fe585f] text-xs px-4 py-2 rounded-full font-bold border border-[#fe585f]/20">
+                    <span key={i} className="bg-gray-100 text-[#fe585f] text-xs px-4 py-2 rounded-full font-bold border border-[#fe585f]/20">
                       {metric}
                     </span>
                   ))}
@@ -581,7 +613,7 @@ export default function PartnershipPage() {
             ].map((contact, index) => (
               <div 
                 key={index}
-                className="bg-gradient-to-br from-[#fff5f5] to-[#ffebeb] rounded-3xl p-10 text-center border border-[#fe585f]/10 hover:border-[#fe585f]/30 transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group"
+                className="bg-white rounded-3xl p-10 text-center border border-gray-200 hover:border-[#fe585f]/30 transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group"
               >
                 <div className="text-6xl mb-6 animate-bounce group-hover:animate-pulse">{contact.emoji}</div>
                 <div className="w-20 h-20 bg-gradient-to-br from-[#fe585f] to-[#ff7a82] rounded-full flex items-center justify-center mx-auto mb-8 text-white group-hover:scale-110 transition-transform duration-300">
@@ -601,12 +633,12 @@ export default function PartnershipPage() {
       </section>
 
       {/* CTA Section */}
-      <section id="cta" className="py-24 bg-gradient-to-br from-[#fe585f] via-[#ff7a82] to-[#ff9e4a] text-white relative overflow-hidden">
-        {/* Animated background elements */}
+      <section id="cta" className="py-24 bg-white relative overflow-hidden">
+        {/* Background elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[#fe585f]/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-[#ff7a80]/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#fe585f]/3 rounded-full blur-3xl"></div>
         </div>
         
         {/* Floating emojis */}
@@ -619,24 +651,24 @@ export default function PartnershipPage() {
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">🚀 Ready to Join the Revolution?</h2>
-            <p className="text-2xl text-white/90 mb-12 leading-relaxed">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-[#fe585f]">🚀 Ready to Join the Revolution?</h2>
+            <p className="text-2xl text-gray-600 mb-12 leading-relaxed">
               Start earning more with your travel content or attract more customers to your business. 
               Join hundreds of successful partners already growing with Uniloco.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-              <button className="bg-white text-[#fe585f] px-10 py-5 rounded-full text-xl font-bold hover:shadow-xl hover:shadow-white/20 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 flex items-center justify-center gap-3 group">
+              <button className="bg-[#fe585f] text-white px-10 py-5 rounded-full text-xl font-bold hover:shadow-xl hover:shadow-[#fe585f]/30 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 flex items-center justify-center gap-3 group">
                 📱 Apply as Creator <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="bg-transparent border-2 border-white text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-white/10 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 flex items-center justify-center gap-3 group">
+              <button className="bg-transparent border-2 border-[#fe585f] text-[#fe585f] px-10 py-5 rounded-full text-xl font-bold hover:bg-[#fe585f] hover:text-white transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 flex items-center justify-center gap-3 group">
                 🏪 Join as Merchant <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
             
-            <div className="flex justify-center items-center text-white/80 text-lg">
+            <div className="flex justify-center items-center text-gray-600 text-lg">
               <span>Have questions?</span>
-              <button className="ml-3 text-white underline hover:text-white/90 flex items-center gap-2">
+              <button className="ml-3 text-[#fe585f] underline hover:text-[#fe585f]/80 flex items-center gap-2">
                 Schedule a call <ChevronDown size={20} className="animate-bounce" />
               </button>
             </div>
