@@ -45,7 +45,7 @@ export default function Header({
 
     window.addEventListener('scroll', handleScroll);
     document.addEventListener('mousedown', handleClickOutside);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousedown', handleClickOutside);
@@ -54,25 +54,25 @@ export default function Header({
 
   const handleNavClick = (item: string) => {
     if (item === 'home') {
-      router.push('/intro');
+      router.push('/web/intro');
       return;
     }
 
     if (item === 'partnership') {
-      router.push('/partnership');
+      router.push('/web/partnership');
       return;
     }
 
     if (item === 'web3 hub') {
-      router.push('/web3hub');
+      router.push('/web/web3hub');
       return;
     }
-    
+
     if (item === 'how-to') {
       setDropdownOpen(dropdownOpen === 'how-to' ? null : 'how-to');
       return;
     }
-    
+
     if (onNavigation) {
       onNavigation(item);
     } else if (scrollToSection) {
@@ -91,22 +91,21 @@ export default function Header({
         {
           label: 'Set Up Account',
           action: () => {
-            if (onNavigation) onNavigation('set-up-account');
-            else if (scrollToSection) scrollToSection('set-up-account');
+            router.push('/web/intro');
+
           }
         },
         {
           label: 'Play',
           action: () => {
-            if (onNavigation) onNavigation('play');
-            else if (scrollToSection) scrollToSection('play');
+            router.push('/web/intro');
+
           }
         },
         {
           label: 'Join In Events',
           action: () => {
-            if (onNavigation) onNavigation('join-events');
-            else if (scrollToSection) scrollToSection('join-events');
+            router.push('/web/events');
           }
         }
       ];
@@ -138,27 +137,26 @@ export default function Header({
               <div key={item} className="relative dropdown-container">
                 <button
                   onClick={() => handleNavClick(item)}
-                  className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 flex items-center gap-1 ${
-                    activeSection === item
-                      ? 'text-[#fff] border-b-2 border-[#fff]'
-                      : 'text-[#fff] hover:text-[#fff]'
-                  }`}
+                  className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 flex items-center gap-1 ${activeSection === item
+                    ? 'text-[#fff] border-b-2 border-[#fff]'
+                    : 'text-[#fff] hover:text-[#fff]'
+                    }`}
                 >
-                  {item.split('-').map(word => 
+                  {item.split('-').map(word =>
                     word.charAt(0).toUpperCase() + word.slice(1)
                   ).join(' ')}
                   {item === 'how-to' && (
-                    <svg 
-                      className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen === 'how-to' ? 'rotate-180' : ''}`} 
-                      fill="none" 
-                      stroke="currentColor" 
+                    <svg
+                      className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen === 'how-to' ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   )}
                 </button>
-                
+
                 {/* Dropdown Menu */}
                 {item === 'how-to' && dropdownOpen === 'how-to' && (
                   <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
@@ -176,7 +174,7 @@ export default function Header({
               </div>
             ))}
             {showApplyButton && (
-              <button 
+              <button
                 onClick={handleApplyClick}
                 className="bg-white text-[#fe585f] px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
               >
@@ -184,7 +182,7 @@ export default function Header({
               </button>
             )}
           </div>
-          
+
           <button className="md:hidden text-white hover:text-gray-200 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
