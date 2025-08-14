@@ -380,7 +380,7 @@ export default function IntroPage() {
                                     >
                                         <span className="relative z-10 flex items-center space-x-2">
                                             <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">✈️</span>
-                                            <span>How to Start</span>
+                                            <span>How to Play</span>
                                         </span>
                                         <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe585f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     </button>
@@ -391,7 +391,7 @@ export default function IntroPage() {
                                     >
                                         <span className="flex items-center space-x-2">
                                             <span>📱</span>
-                                            <span>Download Now</span>
+                                            <span>Set up Account</span>
                                         </span>
                                     </button>
                                 </div>
@@ -413,15 +413,15 @@ export default function IntroPage() {
                                     <div className="absolute inset-0 bg-gradient-to-r from-[#fe585f]/10 to-[#ff7a80]/10 rounded-full blur-lg group-hover:blur-xl transition-all duration-500 -z-10"></div>
                                 </div>
 
-                                {/* Stats in a more compact layout */}
-                                <div className="flex gap-3">
-                                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 shadow-lg hover:shadow-xl transition-all duration-300">
-                                        <div className="text-xl lg:text-2xl font-bold text-[#fe585f] mb-1 animate-glow">50K+</div>
-                                        <div className="text-xs text-gray-600">Travelers</div>
+                                {/* Stats in a more prominent layout */}
+                                <div className="flex gap-4 lg:gap-6">
+                                    <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-white/20">
+                                        <div className="text-2xl lg:text-3xl xl:text-4xl font-black text-[#fe585f] mb-2 animate-glow">50K+</div>
+                                        <div className="text-sm lg:text-base text-gray-700 font-semibold">Travelers</div>
                                     </div>
-                                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 shadow-lg hover:shadow-xl transition-all duration-300">
-                                        <div className="text-xl lg:text-2xl font-bold text-[#fe585f] mb-1 animate-glow">1M+</div>
-                                        <div className="text-xs text-gray-600">UNC Earned</div>
+                                    <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-white/20">
+                                        <div className="text-2xl lg:text-3xl xl:text-4xl font-black text-[#fe585f] mb-2 animate-glow">1M+</div>
+                                        <div className="text-sm lg:text-base text-gray-700 font-semibold">UNC Earned</div>
                                     </div>
                                 </div>
 
