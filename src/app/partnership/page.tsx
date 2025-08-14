@@ -15,9 +15,11 @@ import {
   ChevronDown,
   Star
 } from 'lucide-react';
+import Header from '@/components/ui/Header';
 
 export default function PartnershipPage() {
   const [activeSection, setActiveSection] = useState('home');
+  const [isAnimating, setIsAnimating] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Handle scroll events for section highlighting
@@ -45,6 +47,13 @@ export default function PartnershipPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle navigation (same as intro page)
+  const handleNavigation = (section: string) => {
+    setIsAnimating(true);
+    setActiveSection(section);
+    setTimeout(() => setIsAnimating(false), 300);
+  };
+
   // Smooth scroll to section
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -56,50 +65,11 @@ export default function PartnershipPage() {
   return (
     <main className="font-sans text-gray-800 bg-white overflow-x-hidden">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-[#fe585f] backdrop-blur-md z-50 border-b border-red-200 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg animate-pulse">
-                ✈️
-              </div>
-              <span className="text-2xl font-bold text-[#fe585f]">Uniloco</span>
-            </div>
-
-            <div className="hidden md:flex space-x-8">
-              {['home', 'types', 'how-it-works', 'stories', 'contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 ${
-                    activeSection === item
-                      ? 'text-[#fff] border-b-2 border-[#fff]'
-                      : 'text-[#fff] hover:text-[#fff]'
-                  }`}
-                >
-                  {item.split('-').map(word => 
-                    word.charAt(0).toUpperCase() + word.slice(1)
-                  ).join(' ')}
-                </button>
-              ))}
-              <button 
-                onClick={() => scrollToSection('cta')}
-                className="bg-white text-[#fe585f] px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
-              >
-                🚀 Apply Now
-              </button>
-            </div>
-            
-            <button className="md:hidden text-white hover:text-gray-200 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Header 
+        activeSection={activeSection}
+        onNavigation={handleNavigation}
+        navItems={['home', 'how-to', 'web3 hub', 'partnership']}
+      />
 
       {/* Hero Section */}
       <section 
