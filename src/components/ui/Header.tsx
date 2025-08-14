@@ -53,6 +53,11 @@ export default function Header({
   }, []);
 
   const handleNavClick = (item: string) => {
+    if (item === 'home') {
+      router.push('/intro');
+      return;
+    }
+
     if (item === 'partnership') {
       router.push('/partnership');
       return;
