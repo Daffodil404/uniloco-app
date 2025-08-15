@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Star, Clock, Users, MapPin, Heart, Calendar, Check, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Star, Clock, Users, MapPin, Heart, Calendar as CalendarIcon, Check, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Reviews from '@/components/ui/reviews';
+import Calendar from '@/components/ui/calendar';
 
 export default function ExperienceDetailPage() {
     const router = useRouter();
@@ -76,6 +78,7 @@ export default function ExperienceDetailPage() {
             avatar: "M",
             rating: 5,
             date: "July 2024",
+            type: "Local Experience",
             text: "This experience completely exceeded my expectations! Pierre really took us around Strasbourg like a local friend. We visited several places that aren't in any travel guide and tasted the most authentic Alsatian cuisine. The cycling route was cleverly designed, both safe and fun. Highly recommended for friends who want to deeply experience this city!"
         },
         {
@@ -83,14 +86,8 @@ export default function ExperienceDetailPage() {
             avatar: "D",
             rating: 5,
             date: "June 2024",
+            type: "Cultural Tour",
             text: "Amazing experience! As someone who has been to Strasbourg multiple times, I was surprised by how many new places Pierre showed us. The local market visit was a highlight - we tried foods I would never have discovered on my own. The pace was perfect and Pierre's knowledge of the city's history is impressive."
-        },
-        {
-            name: "Sophie Dubois",
-            avatar: "S",
-            rating: 5,
-            date: "June 2024",
-            text: "Uniloco's service is really thoughtful! From booking to the end of the experience, every aspect was professional. Pierre is not only an excellent guide but more like an enthusiastic local friend. The restaurant choice for lunch was great, completely a place where locals go. This kind of authentic experience is exactly what I wanted!"
         }
     ];
 
@@ -107,22 +104,22 @@ export default function ExperienceDetailPage() {
 
     // Enhanced availability calendar with more realistic data
     const availabilityCalendar = [
-        { date: "8/16", status: "available", label: "Available", price: 227 },
-        { date: "8/17", status: "limited", label: "Only 2 spots", price: 227 },
-        { date: "8/18", status: "full", label: "Full", price: 227 },
-        { date: "8/19", status: "available", label: "Available", price: 227 },
-        { date: "8/20", status: "limited", label: "Only 1 spot", price: 227 },
-        { date: "8/21", status: "available", label: "Available", price: 227 },
-        { date: "8/22", status: "available", label: "Available", price: 227 },
-        { date: "8/23", status: "available", label: "Available", price: 227 },
-        { date: "8/24", status: "limited", label: "Only 3 spots", price: 227 },
-        { date: "8/25", status: "available", label: "Available", price: 227 },
-        { date: "8/26", status: "available", label: "Available", price: 227 },
-        { date: "8/27", status: "available", label: "Available", price: 227 },
-        { date: "8/28", status: "limited", label: "Only 2 spots", price: 227 },
-        { date: "8/29", status: "available", label: "Available", price: 227 },
-        { date: "8/30", status: "available", label: "Available", price: 227 },
-        { date: "8/31", status: "available", label: "Available", price: 227 }
+        { date: "8/16", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/17", status: "limited" as const, label: "Only 2 spots", price: 227 },
+        { date: "8/18", status: "full" as const, label: "Full", price: 227 },
+        { date: "8/19", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/20", status: "limited" as const, label: "Only 1 spot", price: 227 },
+        { date: "8/21", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/22", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/23", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/24", status: "limited" as const, label: "Only 3 spots", price: 227 },
+        { date: "8/25", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/26", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/27", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/28", status: "limited" as const, label: "Only 2 spots", price: 227 },
+        { date: "8/29", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/30", status: "available" as const, label: "Available", price: 227 },
+        { date: "8/31", status: "available" as const, label: "Available", price: 227 }
     ];
 
     const handleBooking = () => {
@@ -133,30 +130,8 @@ export default function ExperienceDetailPage() {
         setSelectedDate(date);
     };
 
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'available':
-                return 'border-gray-300 hover:border-[#fe585f] hover:bg-[#fe585f]/5';
-            case 'limited':
-                return 'border-orange-300 bg-orange-50 hover:border-orange-400 hover:bg-orange-100';
-            case 'full':
-                return 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed';
-            default:
-                return 'border-gray-300';
-        }
-    };
-
-    const getStatusTextColor = (status: string) => {
-        switch (status) {
-            case 'available':
-                return 'text-gray-900';
-            case 'limited':
-                return 'text-orange-700';
-            case 'full':
-                return 'text-gray-400';
-            default:
-                return 'text-gray-900';
-        }
+    const handleMonthChange = (date: Date) => {
+        setCurrentMonth(date);
     };
 
     return (
@@ -341,90 +316,16 @@ export default function ExperienceDetailPage() {
                     </div>
                 </section>
 
-                {/* Enhanced Availability Calendar */}
-                <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
-                    <div className="flex items-center justify-between mb-6">
-                        <h3 className="text-2xl font-bold text-gray-900">📅 Check availability</h3>
-                        <div className="flex items-center space-x-2">
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
-                                className="p-2 hover:bg-gray-100 rounded-full"
-                            >
-                                <ChevronLeft className="h-4 w-4" />
-                            </Button>
-                            <span className="font-semibold text-gray-900">
-                                {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                            </span>
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
-                                className="p-2 hover:bg-gray-100 rounded-full"
-                            >
-                                <ChevronRight className="h-4 w-4" />
-                            </Button>
-                        </div>
-                    </div>
-
-                    {/* Calendar Header */}
-                    <div className="grid grid-cols-7 gap-2 mb-4">
-                        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                            <div key={day} className="text-center text-sm font-medium text-gray-500 py-2">
-                                {day}
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Calendar Grid */}
-                    <div className="grid grid-cols-7 gap-2">
-                        {availabilityCalendar.map((day, index) => (
-                            <div
-                                key={index}
-                                onClick={() => day.status !== 'full' && handleDateSelect(day.date)}
-                                className={`relative p-3 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
-                                    getStatusColor(day.status)
-                                } ${day.status === 'full' ? 'cursor-not-allowed' : 'hover:shadow-md'}`}
-                            >
-                                <div className={`text-center ${getStatusTextColor(day.status)}`}>
-                                    <div className="font-semibold text-sm mb-1">{day.date.split('/')[1]}</div>
-                                    <div className="text-xs opacity-75">{day.label}</div>
-                                    {day.status === 'available' && (
-                                        <div className="text-xs font-medium text-[#fe585f] mt-1">
-                                            ¥{day.price}
-                                        </div>
-                                    )}
-                                </div>
-                                
-                                {/* Status indicator */}
-                                {day.status === 'limited' && (
-                                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 rounded-full border-2 border-white"></div>
-                                )}
-                                {day.status === 'full' && (
-                                    <div className="absolute inset-0 bg-gray-100 rounded-xl opacity-50"></div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Legend */}
-                    <div className="flex items-center justify-center space-x-6 mt-6 pt-6 border-t border-gray-200">
-                        <div className="flex items-center space-x-2">
-                            <div className="w-4 h-4 border-2 border-gray-300 rounded"></div>
-                            <span className="text-sm text-gray-600">Available</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <div className="w-4 h-4 border-2 border-orange-300 bg-orange-50 rounded relative">
-                                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-orange-500 rounded-full"></div>
-                            </div>
-                            <span className="text-sm text-gray-600">Limited</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <div className="w-4 h-4 border-2 border-gray-200 bg-gray-100 rounded"></div>
-                            <span className="text-sm text-gray-600">Full</span>
-                        </div>
-                    </div>
+                {/* Enhanced Calendar */}
+                <section className="mb-8">
+                    <Calendar
+                        days={availabilityCalendar}
+                        currentMonth={currentMonth}
+                        onMonthChange={handleMonthChange}
+                        onDateSelect={handleDateSelect}
+                        selectedDate={selectedDate}
+                        title="📅 Check availability"
+                    />
                 </section>
 
                 {/* Location & Map */}
@@ -543,67 +444,14 @@ export default function ExperienceDetailPage() {
                     </div>
                 </section>
 
-                {/* Reviews */}
-                <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6">⭐ {experience.reviewCount} reviews</h3>
-                    
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-                        <div className="text-center">
-                            <div className="text-4xl font-bold text-[#fe585f] mb-2">{experience.rating}</div>
-                            <div className="flex justify-center mb-2">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                                ))}
-                            </div>
-                            <div className="text-gray-600">{experience.reviewCount} reviews</div>
-                        </div>
-                        
-                        <div className="lg:col-span-2 space-y-4">
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm font-medium">Cleanliness</span>
-                                <div className="flex-1 mx-4 bg-gray-200 rounded-full h-2">
-                                    <div className="bg-yellow-400 h-2 rounded-full" style={{ width: '95%' }}></div>
-                                </div>
-                                <span className="text-sm font-semibold">4.95</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm font-medium">Accuracy</span>
-                                <div className="flex-1 mx-4 bg-gray-200 rounded-full h-2">
-                                    <div className="bg-yellow-400 h-2 rounded-full" style={{ width: '92%' }}></div>
-                                </div>
-                                <span className="text-sm font-semibold">4.92</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm font-medium">Communication</span>
-                                <div className="flex-1 mx-4 bg-gray-200 rounded-full h-2">
-                                    <div className="bg-yellow-400 h-2 rounded-full" style={{ width: '96%' }}></div>
-                                </div>
-                                <span className="text-sm font-semibold">4.96</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="space-y-6">
-                        {reviews.map((review, index) => (
-                            <div key={index} className="border-b border-gray-200 pb-6 last:border-b-0">
-                                <div className="flex items-start gap-4 mb-4">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#667eea] to-[#764ba2] rounded-full flex items-center justify-center text-white font-semibold">
-                                        {review.avatar}
-                                    </div>
-                                    <div className="flex-1">
-                                        <h5 className="font-semibold text-gray-900">{review.name}</h5>
-                                        <p className="text-sm text-gray-600">{review.date}</p>
-                                    </div>
-                                    <div className="flex">
-                                        {[...Array(review.rating)].map((_, i) => (
-                                            <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
-                                        ))}
-                                    </div>
-                                </div>
-                                <p className="text-gray-700 leading-relaxed">{review.text}</p>
-                            </div>
-                        ))}
-                    </div>
+                {/* Enhanced Reviews */}
+                <section className="mb-8">
+                    <Reviews
+                        reviews={reviews}
+                        totalReviews={experience.reviewCount}
+                        averageRating={experience.rating}
+                        title="⭐ Client Reviews"
+                    />
                 </section>
 
                 {/* Host Information */}

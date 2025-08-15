@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Search, Camera, Utensils, Brush, HeartPulse, Dumbbell, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function ExclusiveServicePage() {
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     
@@ -154,6 +156,11 @@ export default function ExclusiveServicePage() {
     const getCategoryName = (id: string) => {
         return categories.find(cat => cat.id === id)?.name || id;
     };
+
+    // 处理服务卡片点击
+    const handleServiceClick = (serviceId: string) => {
+        router.push(`/web2/service_detail?id=${serviceId}`);
+    };
     
     return (
         <div className="min-h-screen bg-white">
@@ -254,6 +261,7 @@ export default function ExclusiveServicePage() {
                             <div 
                                 key={service.id} 
                                 className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 group cursor-pointer hover:-translate-y-1"
+                                onClick={() => handleServiceClick(service.id)}
                             >
                                 {/* Image Section */}
                                 <div className="relative h-64 overflow-hidden">
