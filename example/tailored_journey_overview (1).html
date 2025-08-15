@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailored Journey - Uniloco定制旅程</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #222;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff385c;
+            text-decoration: none;
+        }
+
+        .tagline {
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #ff385c;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .filter-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .filter-tags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            background: #f1f3f4;
+            color: #5f6368;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-tag:hover, .filter-tag.active {
+            border-color: #ff385c;
+            background: #ff385c;
+            color: white;
+        }
+
+        /* Scripts Grid */
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .script-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .script-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .script-header {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Script Theme Backgrounds */
+        .mystery-bg {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+
+        .romance-bg {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+
+        .adventure-bg {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .fantasy-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .historical-bg {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .thriller-bg {
+            background: linear-gradient(135deg, #434343 0%, #000000 100%);
+        }
+
+        .script-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .script-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .difficulty-easy { background: rgba(76, 175, 80, 0.9); color: white; }
+        .difficulty-medium { background: rgba(255, 152, 0, 0.9); color: white; }
+        .difficulty-hard { background: rgba(244, 67, 54, 0.9); color: white; }
+
+        .script-content {
+            padding: 2rem;
+        }
+
+        .script-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #222;
+        }
+
+        .script-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            height: 3.6rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .script-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .script-details {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .script-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .script-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ff385c;
+        }
+
+        .script-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+        }
+
+        .rating-text {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .script-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .script-tag {
+            background: #f1f3f4;
+            color: #5f6368;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+        }
+
+        .book-script-btn {
+            width: 100%;
+            background: #ff385c;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .book-script-btn:hover {
+            background: #e31c5f;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .featured-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .featured-item {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #f8f9fa;
+        }
+
+        .featured-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-item h4 {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .featured-item p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px dashed #dee2e6;
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .coming-soon h3 {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .notify-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .notify-btn:hover {
+            background: #5a6268;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .scripts-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .filter-tags {
+                gap: 0.5rem;
+            }
+
+            .filter-tag {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <button class="back-btn" onclick="history.back()">← 返回首页</button>
+            <div>
+                <a href="#" class="logo">Uniloco</a>
+                <div class="tagline">只为你，定制美好旅程</div>
+            </div>
+            <div></div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <h1 class="hero-title">Tailored Journey</h1>
+            <p class="hero-subtitle">沉浸式主题体验，专业NPC演员参与，打造独一无二的角色扮演旅程</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">原创剧本</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2,847</div>
+                    <div class="stat-label">完成场次</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.94</div>
+                    <div class="stat-label">平均评分</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <h3 class="filter-title">🎭 选择您喜欢的剧本类型</h3>
+            <div class="filter-tags">
+                <div class="filter-tag active" data-filter="all">全部剧本</div>
+                <div class="filter-tag" data-filter="mystery">悬疑推理</div>
+                <div class="filter-tag" data-filter="romance">浪漫爱情</div>
+                <div class="filter-tag" data-filter="adventure">冒险探索</div>
+                <div class="filter-tag" data-filter="fantasy">奇幻魔法</div>
+                <div class="filter-tag" data-filter="historical">历史穿越</div>
+                <div class="filter-tag" data-filter="thriller">惊悚悬念</div>
+            </div>
+        </section>
+
+        <!-- Scripts Grid -->
+        <section class="scripts-grid">
+            <!-- Mystery Script 1 -->
+            <div class="script-card" data-category="mystery">
+                <div class="script-header mystery-bg">
+                    <div class="script-icon">🏰</div>
+                    <div class="script-badge difficulty-medium">中等难度</div>
+                </div>
+                <div class="script-content">
+                    <h3 class="script-title">《约克幽灵传说》</h3>
+                    <p class="script-description">踏入有着2000年历史的约克古城，解开一桩跨越千年的超自然谜案。在真实的历史场景中与专业NPC互动...</p>
+                    <div class="script-tags">
+                        <span class="script-tag">悬疑推理</span>
+                        <span class="script-tag">历史背景</span>
+                        <span class="script-tag">团队合作</span>
+                    </div>
+                    <div class="script-rating">
+                        <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">4.9 (127条评价)</span>
+                    </div>
+                    <div class="script-meta">
+                        <div class="script-details">
+                            <div class="script-detail">
+                                <span>👥</span>
+                                <span>4-6人</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>⏱️</span>
+                                <span>4小时</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>📍</span>
+                                <span>约克</span>
+                            </div>
+                        </div>
+                        <div class="script-price">£95/人</div>
+                    </div>
+                    <button class="book-script-btn">查看详情</button>
+                </div>
+            </div>
+
+            <!-- Romance Script -->
+            <div class="script-card" data-category="romance">
+                <div class="script-header romance-bg">
+                    <div class="script-icon">🌹</div>
+                    <div class="script-badge difficulty-easy">轻松浪漫</div>
+                </div>
+                <div class="script-content">
+                    <h3 class="script-title">《巴黎蒙马特之恋》</h3>
+                    <p class="script-description">在19世纪的蒙马特高地，体验艺术家与缪斯的浪漫爱情故事。漫步在充满艺术气息的街道，重现经典爱情传说...</p>
+                    <div class="script-tags">
+                        <span class="script-tag">浪漫爱情</span>
+                        <span class="script-tag">艺术文化</span>
+                        <span class="script-tag">情侣专属</span>
+                    </div>
+                    <div class="script-rating">
+                        <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">4.8 (89条评价)</span>
+                    </div>
+                    <div class="script-meta">
+                        <div class="script-details">
+                            <div class="script-detail">
+                                <span>👥</span>
+                                <span>2-4人</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>⏱️</span>
+                                <span>3小时</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>📍</span>
+                                <span>巴黎</span>
+                            </div>
+                        </div>
+                        <div class="script-price">€120/人</div>
+                    </div>
+                    <button class="book-script-btn">查看详情</button>
+                </div>
+            </div>
+
+            <!-- Adventure Script -->
+            <div class="script-card" data-category="adventure">
+                <div class="script-header adventure-bg">
+                    <div class="script-icon">⚔️</div>
+                    <div class="script-badge difficulty-medium">中等难度</div>
+                </div>
+                <div class="script-content">
+                    <h3 class="script-title">《阿登森林传说》</h3>
+                    <p class="script-description">在卢森堡神秘的阿登森林中寻找传说中的古代宝藏。团队合作解谜，体验中世纪骑士的冒险之旅...</p>
+                    <div class="script-tags">
+                        <span class="script-tag">冒险探索</span>
+                        <span class="script-tag">寻宝解谜</span>
+                        <span class="script-tag">户外体验</span>
+                    </div>
+                    <div class="script-rating">
+                        <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">4.7 (156条评价)</span>
+                    </div>
+                    <div class="script-meta">
+                        <div class="script-details">
+                            <div class="script-detail">
+                                <span>👥</span>
+                                <span>4-8人</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>⏱️</span>
+                                <span>5小时</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>📍</span>
+                                <span>卢森堡</span>
+                            </div>
+                        </div>
+                        <div class="script-price">€85/人</div>
+                    </div>
+                    <button class="book-script-btn">查看详情</button>
+                </div>
+            </div>
+
+            <!-- Fantasy Script -->
+            <div class="script-card" data-category="fantasy">
+                <div class="script-header fantasy-bg">
+                    <div class="script-icon">🧙‍♂️</div>
+                    <div class="script-badge difficulty-hard">高难度</div>
+                </div>
+                <div class="script-content">
+                    <h3 class="script-title">《莱茵河传说》</h3>
+                    <p class="script-description">在德国莱茵河谷，寻找传说中的尼伯龙根宝藏。魔法道具加持，体验北欧神话的奇幻世界...</p>
+                    <div class="script-tags">
+                        <span class="script-tag">奇幻魔法</span>
+                        <span class="script-tag">神话传说</span>
+                        <span class="script-tag">高难挑战</span>
+                    </div>
+                    <div class="script-rating">
+                        <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">4.9 (98条评价)</span>
+                    </div>
+                    <div class="script-meta">
+                        <div class="script-details">
+                            <div class="script-detail">
+                                <span>👥</span>
+                                <span>4-10人</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>⏱️</span>
+                                <span>6小时</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>📍</span>
+                                <span>德国</span>
+                            </div>
+                        </div>
+                        <div class="script-price">€130/人</div>
+                    </div>
+                    <button class="book-script-btn">查看详情</button>
+                </div>
+            </div>
+
+            <!-- Historical Script -->
+            <div class="script-card" data-category="historical">
+                <div class="script-header historical-bg">
+                    <div class="script-icon">👑</div>
+                    <div class="script-badge difficulty-medium">中等难度</div>
+                </div>
+                <div class="script-content">
+                    <h3 class="script-title">《凡尔赛宫廷秘史》</h3>
+                    <p class="script-description">回到路易十四时代的凡尔赛宫，体验宫廷政治斗争。专业古装造型，与NPC宫廷贵族互动...</p>
+                    <div class="script-tags">
+                        <span class="script-tag">历史穿越</span>
+                        <span class="script-tag">宫廷政治</span>
+                        <span class="script-tag">古装体验</span>
+                    </div>
+                    <div class="script-rating">
+                        <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">4.8 (203条评价)</span>
+                    </div>
+                    <div class="script-meta">
+                        <div class="script-details">
+                            <div class="script-detail">
+                                <span>👥</span>
+                                <span>6-12人</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>⏱️</span>
+                                <span>6小时</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>📍</span>
+                                <span>凡尔赛</span>
+                            </div>
+                        </div>
+                        <div class="script-price">€150/人</div>
+                    </div>
+                    <button class="book-script-btn">查看详情</button>
+                </div>
+            </div>
+
+            <!-- Thriller Script -->
+            <div class="script-card" data-category="thriller">
+                <div class="script-header thriller-bg">
+                    <div class="script-icon">🎩</div>
+                    <div class="script-badge difficulty-hard">高难度</div>
+                </div>
+                <div class="script-content">
+                    <h3 class="script-title">《维也纳咖啡馆》</h3>
+                    <p class="script-description">冷战时期的维也纳，在传统咖啡馆中进行秘密任务。扮演间谍角色，体验紧张刺激的谍战生活...</p>
+                    <div class="script-tags">
+                        <span class="script-tag">惊悚悬念</span>
+                        <span class="script-tag">间谍战</span>
+                        <span class="script-tag">心理博弈</span>
+                    </div>
+                    <div class="script-rating">
+                        <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">4.6 (167条评价)</span>
+                    </div>
+                    <div class="script-meta">
+                        <div class="script-details">
+                            <div class="script-detail">
+                                <span>👥</span>
+                                <span>3-6人</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>⏱️</span>
+                                <span>4小时</span>
+                            </div>
+                            <div class="script-detail">
+                                <span>📍</span>
+                                <span>维也纳</span>
+                            </div>
+                        </div>
+                        <div class="script-price">€110/人</div>
+                    </div>
+                    <button class="book-script-btn">查看详情</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Section -->
+        <section class="featured-section">
+            <h3 class="featured-title">🌟 Uniloco Tailored Journey 独家优势</h3>
+            <div class="featured-content">
+                <div class="featured-item">
+                    <div class="featured-icon">🎭</div>
+                    <h4>专业NPC演员</h4>
+                    <p>2年+戏剧演出经验，沉浸式互动表演</p>
+                </div>
+                <div class="featured-item">
+                    <div class="featured-icon">🏛️</div>
+                    <h4>真实历史场景</h4>
+                    <p>在欧洲著名历史地标进行，非虚拟场景</p>
+                </div>
+                <div class="featured-item">
+                    <div class="featured-icon">📖</div>
+                    <h4>原创剧本</h4>
+                    <p>Uniloco独家原创，融合历史与娱乐</p>
+                </div>
+                <div class="featured-item">
+                    <div class="featured-icon">🛡️</div>
+                    <h4>品质保障</h4>
+                    <p>专属客服全程支持，不满意全额退款</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coming Soon -->
+        <section class="coming-soon">
+            <h3>🚀 更多精彩剧本即将上线</h3>
+            <p>我们正在开发更多激动人心的剧本体验，包括《爱丁堡城堡谜案》、《布拉格炼金术师》等。</p>
+            <button class="notify-btn">获取上新通知</button>
+        </section>
+    </div>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                // Update active filter
+                document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                
+                // Show/hide cards
+                document.querySelectorAll('.script-card').forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Script card interactions
+        document.querySelectorAll('.book-script-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const scriptTitle = this.closest('.script-card').querySelector('.script-title').textContent;
+                alert(`查看 ${scriptTitle} 详情页面\n包含:\n- 完整剧情介绍\n- 详细游戏流程\n- 可预约场次\n- 集合地点信息\n- 用户评价等`);
+            });
+        });
+
+        // Card hover effects
+        document.querySelectorAll('.script-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const scriptTitle = this.querySelector('.script-title').textContent;
+                alert(`点击进入 ${scriptTitle} 详情页面`);
+            });
+        });
+
+        // Coming soon notification
+        document.querySelector('.notify-btn').addEventListener('click', function() {
+            alert('感谢您的关注！\n\n我们会在新剧本上线时第一时间通知您：\n• 《爱丁堡城堡谜案》- 预计9月上线\n• 《布拉格炼金术师》- 预计10月上线\n• 《威尼斯面具舞会》- 预计11月上线\n\n📧 通知将发送至您的注册邮箱');
+        });
+
+        // Search functionality (if needed)
+        function searchScripts(query) {
+            const cards = document.querySelectorAll('.script-card');
+            cards.forEach(card => {
+                const title = card.querySelector('.script-title').textContent.toLowerCase();
+                const description = card.querySelector('.script-description').textContent.toLowerCase();
+                const tags = card.querySelector('.script-tags').textContent.toLowerCase();
+                
+                if (title.includes(query.toLowerCase()) || 
+                    description.includes(query.toLowerCase()) || 
+                    tags.includes(query.toLowerCase())) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Add search functionality if search bar exists
+        if (document.querySelector('.search-input')) {
+            document.querySelector('.search-input').addEventListener('input', function() {
+                searchScripts(this.value);
+            });
+        }
+    </script>
+</body>
+</html>

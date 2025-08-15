@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摄影师 Laurent Dubois - Uniloco专属服务</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #222;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff385c;
+            text-decoration: none;
+        }
+
+        .service-badge {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #ff385c;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-left {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .photographer-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .photographer-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+            border: 4px solid rgba(255,255,255,0.3);
+        }
+
+        .photographer-name {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .photographer-title {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .photographer-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .hero-content {
+            padding: 2rem;
+        }
+
+        .service-description {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .specialties {
+            margin-bottom: 2rem;
+        }
+
+        .specialties h4 {
+            margin-bottom: 1rem;
+            color: #222;
+        }
+
+        .specialty-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .specialty-tag {
+            background: #f1f3f4;
+            color: #5f6368;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .credentials {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #ff385c;
+        }
+
+        .credentials h4 {
+            margin-bottom: 1rem;
+            color: #222;
+        }
+
+        .credential-list {
+            list-style: none;
+        }
+
+        .credential-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .credential-list .icon {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        /* Booking Card */
+        .booking-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .availability-status {
+            background: #e8f5e8;
+            color: #2d5a3d;
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .busy-status {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .pricing-section {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pricing-option {
+            border: 2px solid #eee;
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pricing-option:hover, .pricing-option.selected {
+            border-color: #ff385c;
+            background: #fff5f5;
+        }
+
+        .option-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .option-price {
+            color: #ff385c;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .option-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .booking-form {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #ff385c;
+        }
+
+        .book-btn {
+            width: 100%;
+            background: #ff385c;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .book-btn:hover {
+            background: #e31c5f;
+        }
+
+        .guarantee {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+
+        /* Portfolio Gallery */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .portfolio-item {
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .portfolio-item.portrait {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+        }
+
+        .portfolio-item.wedding {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+        }
+
+        .portfolio-item.fashion {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .portfolio-item.travel {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        /* Schedule Section */
+        .schedule-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day:hover {
+            border-color: #ff385c;
+        }
+
+        .calendar-day.available {
+            background: #e8f5e8;
+            border-color: #28a745;
+        }
+
+        .calendar-day.busy {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .calendar-day.booked {
+            background: #f8d7da;
+            border-color: #dc3545;
+            cursor: not-allowed;
+        }
+
+        .day-number {
+            font-weight: 600;
+        }
+
+        .day-status {
+            font-size: 0.7rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Reviews Section */
+        .reviews-overview {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .rating-summary {
+            text-align: center;
+        }
+
+        .rating-big {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff385c;
+        }
+
+        .review-item {
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .reviewer-info h5 {
+            margin-bottom: 0.2rem;
+        }
+
+        .review-date {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .review-rating {
+            margin-left: auto;
+        }
+
+        .review-text {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .review-photos {
+            margin-top: 1rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Service Process */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #ff385c;
+        }
+
+        .step-number {
+            background: #ff385c;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .step-content p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .photographer-stats {
+                gap: 1rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reviews-overview {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .booking-card {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <button class="back-btn" onclick="history.back()">← 返回专属服务</button>
+            <div style="text-align: center;">
+                <a href="#" class="logo">Uniloco</a>
+                <div class="service-badge">💎 专属服务</div>
+            </div>
+            <div></div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-left">
+                <div class="photographer-header">
+                    <div class="photographer-avatar">📸</div>
+                    <h1 class="photographer-name">Laurent Dubois</h1>
+                    <p class="photographer-title">法国知名时尚摄影师</p>
+                    <div class="photographer-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">342</div>
+                            <div class="stat-label">委托完成</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.98</div>
+                            <div class="stat-label">平均评分</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">12年</div>
+                            <div class="stat-label">专业经验</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <p class="service-description">
+                        我是Laurent，一名专业的时尚摄影师，在巴黎工作超过12年。曾为Vogue、Elle、Marie Claire等知名杂志拍摄，擅长捕捉自然光线下的美丽瞬间。我相信每张照片都应该讲述一个故事，每次拍摄都是独一无二的艺术创作。
+                    </p>
+
+                    <!-- Location Info -->
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border-left: 4px solid #ff385c;">
+                        <h4 style="margin-bottom: 1rem; color: #222;">📍 服务地点</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <strong style="color: #ff385c;">主要工作室</strong>
+                                <p style="color: #666; margin-top: 0.3rem;">巴黎9区 - Pigalle工作室</p>
+                                <p style="color: #666; font-size: 0.9rem;">配备专业灯光设备和背景</p>
+                            </div>
+                            <div>
+                                <strong style="color: #ff385c;">服务范围</strong>
+                                <p style="color: #666; margin-top: 0.3rem;">巴黎及周边 50km 内</p>
+                                <p style="color: #666; font-size: 0.9rem;">可根据需求外出拍摄</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #ff385c;">热门拍摄地点：</strong>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+                                <span style="background: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; color: #666;">埃菲尔铁塔</span>
+                                <span style="background: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; color: #666;">卢浮宫</span>
+                                <span style="background: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; color: #666;">蒙马特高地</span>
+                                <span style="background: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; color: #666;">塞纳河畔</span>
+                                <span style="background: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; color: #666;">香榭丽舍大街</span>
+                                <span style="background: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; color: #666;">凡尔赛宫</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="specialties">
+                        <h4>💫 专业领域</h4>
+                        <div class="specialty-tags">
+                            <span class="specialty-tag">人像摄影</span>
+                            <span class="specialty-tag">时尚摄影</span>
+                            <span class="specialty-tag">婚礼摄影</span>
+                            <span class="specialty-tag">旅行摄影</span>
+                            <span class="specialty-tag">商业摄影</span>
+                            <span class="specialty-tag">艺术摄影</span>
+                        </div>
+                    </div>
+
+                    <div class="credentials">
+                        <h4>🏆 专业认证</h4>
+                        <ul class="credential-list">
+                            <li><span class="icon">✓</span>法国摄影师协会认证会员</li>
+                            <li><span class="icon">✓</span>Vogue、Elle杂志签约摄影师</li>
+                            <li><span class="icon">✓</span>巴黎时装周官方摄影师</li>
+                            <li><span class="icon">✓</span>法国文化部艺术摄影奖获得者</li>
+                            <li><span class="icon">✓</span>Uniloco专属服务金牌认证</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Card -->
+            <div class="booking-card">
+                <div class="availability-status busy-status">
+                    🔥 本月档期紧张，建议提前预约
+                </div>
+
+                <div class="pricing-section">
+                    <h4 style="margin-bottom: 1rem;">📋 服务套餐</h4>
+                    <div class="pricing-options">
+                        <div class="pricing-option selected">
+                            <div class="option-name">🌟 经典人像套餐</div>
+                            <div class="option-price">€280/小时</div>
+                            <div class="option-description">包含：2小时拍摄 + 20张精修照片 + 在线相册</div>
+                        </div>
+                        <div class="pricing-option">
+                            <div class="option-name">💎 时尚大片套餐</div>
+                            <div class="option-price">€450/半天</div>
+                            <div class="option-description">包含：4小时拍摄 + 化妆师 + 50张精修 + 实体相册</div>
+                        </div>
+                        <div class="pricing-option">
+                            <div class="option-name">👰 婚礼全程套餐</div>
+                            <div class="option-price">€1200/全天</div>
+                            <div class="option-description">包含：8小时拍摄 + 助理摄影师 + 200张精修 + 婚礼相册</div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="booking-form">
+                    <div class="form-group">
+                        <label class="form-label">首选日期</label>
+                        <input type="date" class="form-input" min="2024-08-16">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">备选日期</label>
+                        <input type="date" class="form-input" min="2024-08-16">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">拍摄地点</label>
+                        <select class="form-input">
+                            <option>巴黎工作室 (Pigalle区)</option>
+                            <option>埃菲尔铁塔周边 (+€50交通费)</option>
+                            <option>卢浮宫/杜乐丽花园 (+€30交通费)</option>
+                            <option>蒙马特高地 (+€40交通费)</option>
+                            <option>塞纳河畔 (+€30交通费)</option>
+                            <option>凡尔赛宫 (+€80交通费)</option>
+                            <option>客户指定地点 (费用面议)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">拍摄类型</label>
+                        <select class="form-input">
+                            <option>个人写真</option>
+                            <option>情侣写真</option>
+                            <option>家庭写真</option>
+                            <option>商业拍摄</option>
+                            <option>活动拍摄</option>
+                            <option>其他 (请备注)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">特殊需求</label>
+                        <textarea class="form-textarea" placeholder="请描述您的拍摄需求、风格偏好、特殊要求等..."></textarea>
+                    </div>
+                </form>
+
+                <button class="book-btn">提交预约申请</button>
+                <p class="guarantee">💎 Uniloco专属客服将在2小时内联系您确认详情</p>
+            </div>
+        </section>
+
+        <!-- Portfolio Gallery -->
+        <section class="content-section">
+            <h3 class="section-title">📷 作品集展示</h3>
+            <div class="portfolio-grid">
+                <div class="portfolio-item portrait">
+                    <div class="portfolio-icon">👩‍🦰</div>
+                    <div class="portfolio-overlay">
+                        <h4>人像摄影</h4>
+                        <p>自然光下的优雅人像</p>
+                    </div>
+                </div>
+                <div class="portfolio-item fashion">
+                    <div class="portfolio-icon">👗</div>
+                    <div class="portfolio-overlay">
+                        <h4>时尚摄影</h4>
+                        <p>Vogue杂志内页作品</p>
+                    </div>
+                </div>
+                <div class="portfolio-item wedding">
+                    <div class="portfolio-icon">💒</div>
+                    <div class="portfolio-overlay">
+                        <h4>婚礼摄影</h4>
+                        <p>记录最美好的时刻</p>
+                    </div>
+                </div>
+                <div class="portfolio-item travel">
+                    <div class="portfolio-icon">🌍</div>
+                    <div class="portfolio-overlay">
+                        <h4>旅行摄影</h4>
+                        <p>世界各地的美好回忆</p>
+                    </div>
+                </div>
+                <div class="portfolio-item portrait">
+                    <div class="portfolio-icon">👨‍💼</div>
+                    <div class="portfolio-overlay">
+                        <h4>商业摄影</h4>
+                        <p>专业的企业形象照</p>
+                    </div>
+                </div>
+                <div class="portfolio-item fashion">
+                    <div class="portfolio-icon">📸</div>
+                    <div class="portfolio-overlay">
+                        <h4>艺术摄影</h4>
+                        <p>创意与美学的结合</p>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; color: #666;">
+                💡 点击查看完整作品集，或联系我获取更多案例展示
+            </p>
+        </section>
+
+        <!-- Availability Calendar -->
+        <section class="content-section">
+            <h3 class="section-title">📅 近期档期安排</h3>
+            <div style="margin-bottom: 1rem; color: #666;">
+                <span style="color: #28a745;">● 可预约</span> |
+                <span style="color: #ffc107;">● 部分可用</span> |
+                <span style="color: #dc3545;">● 已预约</span>
+            </div>
+            <div class="schedule-calendar">
+                <div class="calendar-day available">
+                    <div class="day-number">16</div>
+                    <div class="day-status">可预约</div>
+                </div>
+                <div class="calendar-day booked">
+                    <div class="day-number">17</div>
+                    <div class="day-status">已预约</div>
+                </div>
+                <div class="calendar-day busy">
+                    <div class="day-number">18</div>
+                    <div class="day-status">下午可用</div>
+                </div>
+                <div class="calendar-day available">
+                    <div class="day-number">19</div>
+                    <div class="day-status">可预约</div>
+                </div>
+                <div class="calendar-day booked">
+                    <div class="day-number">20</div>
+                    <div class="day-status">已预约</div>
+                </div>
+                <div class="calendar-day busy">
+                    <div class="day-number">21</div>
+                    <div class="day-status">上午可用</div>
+                </div>
+                <div class="calendar-day available">
+                    <div class="day-number">22</div>
+                    <div class="day-status">可预约</div>
+                </div>
+                <div class="calendar-day booked">
+                    <div class="day-number">23</div>
+                    <div class="day-status">已预约</div>
+                </div>
+                <div class="calendar-day available">
+                    <div class="day-number">24</div>
+                    <div class="day-status">可预约</div>
+                </div>
+                <div class="calendar-day busy">
+                    <div class="day-number">25</div>
+                    <div class="day-status">下午可用</div>
+                </div>
+                <div class="calendar-day booked">
+                    <div class="day-number">26</div>
+                    <div class="day-status">已预约</div>
+                </div>
+                <div class="calendar-day available">
+                    <div class="day-number">27</div>
+                    <div class="day-status">可预约</div>
+                </div>
+                <div class="calendar-day booked">
+                    <div class="day-number">28</div>
+                    <div class="day-status">已预约</div>
+                </div>
+                <div class="calendar-day available">
+                    <div class="day-number">29</div>
+                    <div class="day-status">可预约</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Process -->
+        <section class="content-section">
+            <h3 class="section-title">📋 服务流程</h3>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>咨询预约</h4>
+                        <p>提交预约申请后，我会在2小时内联系您，详细了解您的拍摄需求、风格偏好和具体要求。</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>方案定制</h4>
+                        <p>根据您的需求制定专属拍摄方案，包括场地选择、服装建议、拍摄风格等，确保每个细节都符合您的期待。</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>专业拍摄</h4>
+                        <p>使用专业器材进行拍摄，全程指导pose和表情，营造轻松愉快的拍摄氛围，捕捉最自然美丽的瞬间。</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>后期制作</h4>
+                        <p>专业修图团队进行精细后期处理，包括色彩调校、瑕疵修复、艺术效果等，确保每张照片都达到专业水准。</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>作品交付</h4>
+                        <p>在约定时间内交付所有照片，提供高清数字版本和在线相册，高端套餐还包含精美实体相册。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="content-section">
+            <h3 class="section-title">⭐ 客户评价 (342条)</h3>
+            
+            <div class="reviews-overview">
+                <div class="rating-summary">
+                    <div class="rating-big">4.98</div>
+                    <div>⭐⭐⭐⭐⭐</div>
+                    <div style="margin-top: 0.5rem; color: #666;">342条评价</div>
+                </div>
+                
+                <div>
+                    <p style="color: #666; margin-bottom: 1rem;">
+                        Laurent的客户遍布世界各地，从时尚名流到普通家庭，每一次拍摄都获得极高评价。
+                    </p>
+                    <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                        <div>
+                            <strong>专业技术</strong>
+                            <div style="color: #ff385c;">4.99/5.0</div>
+                        </div>
+                        <div>
+                            <strong>沟通交流</strong>
+                            <div style="color: #ff385c;">4.97/5.0</div>
+                        </div>
+                        <div>
+                            <strong>准时守约</strong>
+                            <div style="color: #ff385c;">4.98/5.0</div>
+                        </div>
+                        <div>
+                            <strong>作品质量</strong>
+                            <div style="color: #ff385c;">4.99/5.0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">S</div>
+                    <div class="reviewer-info">
+                        <h5>Sophie Chen (CEO)</h5>
+                        <div class="review-date">2024年7月 · 商业摄影</div>
+                    </div>
+                    <div class="review-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                <p class="review-text">Laurent为我们公司拍摄了一整套企业形象照片，专业程度令人印象深刻！他不仅技术精湛，更重要的是能够理解我们的品牌理念，拍出的照片完美展现了我们想要传达的专业形象。整个拍摄过程非常愉快，强烈推荐！</p>
+                <div class="review-photos">📸 包含12张企业形象照片</div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">M</div>
+                    <div class="reviewer-info">
+                        <h5>Marie & Pierre (新婚夫妇)</h5>
+                        <div class="review-date">2024年6月 · 婚礼摄影</div>
+                    </div>
+                    <div class="review-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                <p class="review-text">这是我们人生中最重要的一天，Laurent用镜头记录下了每一个珍贵的瞬间。他的专业素养让我们完全放松，自然地享受婚礼的每一刻。收到照片时我们都感动得流泪了，每张照片都讲述着我们的爱情故事。Thank you Laurent for capturing our love so beautifully!</p>
+                <div class="review-photos">📸 包含完整婚礼相册(200+张)</div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">J</div>
+                    <div class="reviewer-info">
+                        <h5>Julia Martinez (时尚博主)</h5>
+                        <div class="review-date">2024年6月 · 时尚摄影</div>
+                    </div>
+                    <div class="review-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                <p class="review-text">作为时尚博主，我与很多摄影师合作过，但Laurent绝对是顶级的！他对光线的掌控、对构图的把握都达到了艺术级别。拍摄当天他提供了很多专业建议，让我在镜头前更加自信。照片发布后获得了粉丝们的疯狂点赞，已经预约下次合作了！</p>
+                <div class="review-photos">📸 包含50张时尚大片</div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">D</div>
+                    <div class="reviewer-info">
+                        <h5>David Wilson (旅行者)</h5>
+                        <div class="review-date">2024年5月 · 个人写真</div>
+                    </div>
+                    <div class="review-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                <p class="review-text">在巴黎旅行时想留下一些专业的纪念照，通过Uniloco找到了Laurent。他带我去了几个游客不知道的绝美拍摄地点，巴黎的浪漫在他的镜头下展现得淋漓尽致。作为一个不太会拍照的人，Laurent的指导让我在镜头前变得自然放松。这次体验远超期待！</p>
+                <div class="review-photos">📸 包含巴黎旅拍写真集</div>
+            </div>
+        </section>
+
+        <!-- Uniloco Guarantee -->
+        <section class="content-section">
+            <div style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border: 2px solid #dee2e6; border-radius: 16px; padding: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; text-align: center;">🛡️ Uniloco专属服务保障</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎯</div>
+                        <h5 style="margin-bottom: 0.5rem;">专业认证</h5>
+                        <p style="color: #666; font-size: 0.9rem;">所有服务提供者都经过严格背景调查和专业技能认证</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">👨‍💼</div>
+                        <h5 style="margin-bottom: 0.5rem;">专属客服</h5>
+                        <p style="color: #666; font-size: 0.9rem;">一对一专属客服全程跟进，确保服务质量</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💰</div>
+                        <h5 style="margin-bottom: 0.5rem;">满意保证</h5>
+                        <p style="color: #666; font-size: 0.9rem;">不满意100%退款，让您零风险享受高品质服务</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔒</div>
+                        <h5 style="margin-bottom: 0.5rem;">隐私保护</h5>
+                        <p style="color: #666; font-size: 0.9rem;">严格的隐私保护协议，您的信息和照片绝对安全</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                    <h4 style="margin-bottom: 1rem; color: #ff385c;">🌟 为什么选择Uniloco专属服务？</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
+                        <div>
+                            <strong>VS 自由摄影师平台：</strong>
+                            <ul style="margin-top: 0.5rem; color: #666;">
+                                <li>✓ 严格筛选，非开放注册</li>
+                                <li>✓ 专业认证，品质保障</li>
+                                <li>✓ 专属客服，售后无忧</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong>VS 传统摄影工作室：</strong>
+                            <ul style="margin-top: 0.5rem; color: #666;">
+                                <li>✓ 灵活档期，个性定制</li>
+                                <li>✓ 透明定价，无隐藏费用</li>
+                                <li>✓ 多样选择，风格丰富</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong>VS 普通预约平台：</strong>
+                            <ul style="margin-top: 0.5rem; color: #666;">
+                                <li>✓ 深度了解，精准匹配</li>
+                                <li>✓ 全程跟进，品质监控</li>
+                                <li>✓ 满意保证，风险保障</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 套餐选择功能
+        document.querySelectorAll('.pricing-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.pricing-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // 日历选择功能
+        document.querySelectorAll('.calendar-day').forEach(day => {
+            day.addEventListener('click', function() {
+                if (!this.classList.contains('booked')) {
+                    document.querySelectorAll('.calendar-day').forEach(d => d.style.background = '');
+                    this.style.background = '#ff385c';
+                    this.style.color = 'white';
+                }
+            });
+        });
+
+        // 作品集点击功能
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', function() {
+                alert('查看完整作品集\n包含该类别的所有高清作品展示');
+            });
+        });
+
+        // 预约提交功能
+        document.querySelector('.book-btn').addEventListener('click', function() {
+            alert('预约申请已提交！\n\nUniloco专属客服将在2小时内联系您：\n- 确认拍摄需求和风格偏好\n- 协调具体时间和地点\n- 提供专业建议和方案\n- 确认最终报价和付款方式\n\n感谢您选择Uniloco专属服务！');
+        });
+
+        // 表单验证
+        document.querySelector('.booking-form').addEventListener('change', function() {
+            console.log('预约信息已更新');
+        });
+    </script>
+</body>
+</html>
