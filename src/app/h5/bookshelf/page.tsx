@@ -147,18 +147,18 @@ export default function BookshelfPage() {
   const router = useRouter();
   
   const handleStoryClick = () => {
-    router.push('/story-detail');
+    router.push('/h5/story-detail');
   };
   const { isLoggedIn, isLoading } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('all');
 
   const handleBackToHome = () => {
-    router.push('/home');
+    router.push('/h5/home');
   };
 
   const handleNavigateToAIChat = () => {
-    router.push('/ai-chat');
+    router.push('/h5/ai-chat');
   };
 
   const tags = ['all', 'Food', 'Culture', 'Art', 'Photography', 'Adventure', 'Nightlife', 'Hidden Gems', 'Surfing'];
@@ -205,7 +205,7 @@ export default function BookshelfPage() {
           <h3 className="text-xl font-semibold text-slate-800 mb-2">Login Required</h3>
           <p className="text-slate-600 mb-4">This feature requires login to access</p>
           <button
-            onClick={() => router.push('/login?redirect=/bookshelf')}
+                            onClick={() => router.push('/h5/login?redirect=/h5/bookshelf')}
             className="px-6 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl font-medium"
           >
             Sign In
@@ -358,7 +358,7 @@ export default function BookshelfPage() {
           </span>
           <div className="flex gap-2">
             <button
-              onClick={() => router.push('/story-creat')}
+                              onClick={() => router.push('/h5/story-creat')}
               className="px-3 py-2 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
             >
               ✍️ Create Story

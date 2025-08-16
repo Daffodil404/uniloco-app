@@ -57,21 +57,21 @@ export default function HomePage() {
     if (!requireLogin()) {
       return; // 如果未登录，requireLogin 会自动重定向
     }
-    router.push('/profile');
+    router.push('/h5/profile');
   };
 
   const handleNavigateToAIPlan = () => {
-    if (!requireLogin('/travel-plan')) {
+    if (!requireLogin('/h5/travel-plan')) {
       return; // 如果未登录，requireLogin 会自动重定向
     }
-    router.push('/travel-plan');
+    router.push('/h5/travel-plan');
   };
 
   const handleNavigateToStoryLibrary = () => {
-    if (!requireLogin('/bookshelf')) {
+    if (!requireLogin('/h5/bookshelf')) {
       return; // 如果未登录，requireLogin 会自动重定向
     }
-    router.push('/bookshelf');
+    router.push('/h5/bookshelf');
   };
 
   return (
