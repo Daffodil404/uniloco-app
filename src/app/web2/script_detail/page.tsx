@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Star, Clock, Users, MapPin, Heart, Calendar as CalendarIcon, Check, X, ChevronLeft, ChevronRight, Play, Shield, Award, Users2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Web2Header from '@/components/ui/Web2Header';
 
 export default function ScriptDetailPage() {
     const router = useRouter();
@@ -212,32 +213,7 @@ export default function ScriptDetailPage() {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
-            <header className="bg-white border-b border-gray-200 py-4 sticky top-0 z-50">
-                <div className="container mx-auto px-4 flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => router.back()}
-                            className="text-gray-600 hover:text-[#fe585f] hover:bg-gray-100 rounded-full p-2"
-                        >
-                            <ArrowLeft className="h-5 w-5" />
-                        </Button>
-                        <div>
-                            <h1 className="text-xl font-semibold text-[#fe585f]">Tailored Journey</h1>
-                            <p className="text-xs text-gray-500">Immersive Themed Experiences</p>
-                        </div>
-                    </div>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setIsLiked(!isLiked)}
-                        className={`rounded-full p-2 ${isLiked ? 'text-[#fe585f]' : 'text-gray-600 hover:text-[#fe585f]'}`}
-                    >
-                        <Heart className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
-                    </Button>
-                </div>
-            </header>
+            <Web2Header />
 
             <div className="container mx-auto px-4 py-8">
                 {/* Hero Section */}

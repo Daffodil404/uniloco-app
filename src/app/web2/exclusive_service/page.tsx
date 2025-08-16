@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Search, Camera, Utensils, Brush, HeartPulse, Dumbbell, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Web2Header from '@/components/ui/Web2Header';
 
 export default function ExclusiveServicePage() {
     const router = useRouter();
@@ -164,6 +165,8 @@ export default function ExclusiveServicePage() {
     
     return (
         <div className="min-h-screen bg-white">
+            <Web2Header />
+            
             {/* Hero Section */}
             <div className="bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white py-20">
                 <div className="container mx-auto px-4 text-center">

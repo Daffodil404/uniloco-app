@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Heart, Star, MapPin, Clock, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Web2Header from '@/components/ui/Web2Header';
 
 export default function CuratedExperiencePage() {
     const router = useRouter();
@@ -185,26 +186,7 @@ export default function CuratedExperiencePage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header */}
-            <header className="bg-white shadow-sm py-4 sticky top-0 z-50">
-                <div className="container mx-auto px-4 flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => router.back()}
-                            className="text-gray-600 hover:text-[#fe585f]"
-                        >
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back
-                        </Button>
-                        <h1 className="text-2xl font-bold text-[#fe585f]">Curated Experience</h1>
-                    </div>
-                    <div className="text-sm text-gray-500">
-                        Handpicked unique experiences
-                    </div>
-                </div>
-            </header>
+            <Web2Header />
 
             {/* Hero Section */}
             <section className="bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white py-16">

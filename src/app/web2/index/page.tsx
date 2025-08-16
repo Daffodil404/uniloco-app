@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Search, MapPin, Calendar, Users } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import Web2Header from '@/components/ui/Web2Header';
 
 export default function Web2HomePage() {
     const router = useRouter();
@@ -76,32 +77,7 @@ People: ${searchParams.people || 'Any Number'}`);
 
     return (
         <div className="min-h-screen bg-white">
-            {/* Header */}
-            <header className="bg-white shadow-sm py-4 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
-                <div className="container mx-auto px-4 flex justify-between items-center">
-                    <div
-                        className="text-2xl font-bold text-[#fe585f] cursor-pointer hover:scale-105 transition-transform"
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    >
-                        Uniloco
-                    </div>
-                    <nav className="hidden md:flex space-x-6">
-                        {['Curated Experience', 'Exclusive Service', 'Tailored Journey'].map((item) => (
-                            <a
-                                key={item}
-                                className="text-gray-600 hover:text-[#fe585f] transition-colors font-medium relative group"
-                                href={`#${item.replace(/\s+/g, '-').toLowerCase()}`}
-                            >
-                                {item}
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#fe585f] transition-all group-hover:w-full"></span>
-                            </a>
-                        ))}
-                        <a className="text-gray-600 hover:text-[#fe585f] transition-colors font-medium" href="#">
-                            Profile
-                        </a>
-                    </nav>
-                </div>
-            </header>
+            <Web2Header />
 
             {/* Hero Section */}
             <section className="pt-16 pb-24 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white relative overflow-hidden">
