@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uniloco - Curated Experience · Exclusive Service · Tailored Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #222;
+            background: #f8f9fa;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff385c;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #222;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ff385c;
+        }
+
+        /* Back Button */
+        .back-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #ff385c;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .search-bar {
+            background: white;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+
+        .search-btn {
+            background: #ff385c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Main Categories */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .categories-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: #222;
+        }
+
+        .main-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            height: 400px;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .category-header {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .curated-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .exclusive-bg {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .tailored-bg {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .category-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            opacity: 0.8;
+        }
+
+        .category-content {
+            padding: 2rem;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #222;
+        }
+
+        .category-description {
+            color: #666;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Detail Pages */
+        .detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Featured Banner */
+        .featured-banner {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .featured-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .featured-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .featured-date {
+            color: #ff385c;
+            font-weight: 600;
+        }
+
+        /* Cards Grid */
+        .cards-section {
+            margin-bottom: 3rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .experience-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image.chef { background: linear-gradient(45deg, #ff9a9e, #fecfef); }
+        .card-image.cycling { background: linear-gradient(45deg, #a8edea, #fed6e3); }
+        .card-image.culture { background: linear-gradient(45deg, #ffecd2, #fcb69f); }
+        .card-image.photo { background: linear-gradient(45deg, #667eea, #764ba2); }
+        .card-image.spa { background: linear-gradient(45deg, #fdfbfb, #ebedee); }
+        .card-image.wine { background: linear-gradient(45deg, #ff8a80, #ea6100); }
+        .card-image.mystery { background: linear-gradient(45deg, #434343, #000000); }
+        .card-image.ancient { background: linear-gradient(45deg, #d299c2, #fef9d7); }
+        .card-image.romance { background: linear-gradient(45deg, #ff9a9e, #fecfef); }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .card-image-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            z-index: 1;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .star {
+            color: #ffc107;
+        }
+
+        .card-price {
+            font-weight: 600;
+            color: #ff385c;
+        }
+
+        .card-duration {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .availability-badge {
+            background: #e8f5e8;
+            color: #2d5a3d;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .limited-badge {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .main-container, .detail-container {
+                padding: 2rem 1rem;
+            }
+
+            .main-categories {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .category-card {
+                height: 350px;
+            }
+
+            .category-header {
+                height: 200px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .featured-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo" onclick="showPage('home')">Uniloco</a>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('curated')">Curated Experience</a></li>
+                <li><a href="#" onclick="showPage('exclusive')">Exclusive Service</a></li>
+                <li><a href="#" onclick="showPage('tailored')">Tailored Journey</a></li>
+                <li><a href="#profile">个人中心</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-container">
+                <h1 class="hero-title">Curated Experience · Exclusive Service · Tailored Journey</h1>
+                <p class="hero-subtitle">探索精选体验，享受专属服务，定制专属旅程</p>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="搜索目的地、体验或服务...">
+                    <button class="search-btn">🔍</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="main-container">
+            <!-- Main Categories -->
+            <section class="categories-section">
+                <h2 class="section-title">探索我们的三大核心服务</h2>
+                <div class="main-categories">
+                    <!-- Curated Experience Card -->
+                    <div class="category-card" onclick="showPage('curated')">
+                        <div class="category-header curated-bg">
+                            <div class="category-icon">🌟</div>
+                            <div class="category-badge">精选体验</div>
+                        </div>
+                        <div class="category-content">
+                            <h3 class="category-title">Curated Experience</h3>
+                            <p class="category-description">精心策划的独特体验，每一个都经过严格筛选，为您提供难忘的文化、美食、探险和艺术体验。与当地专家一起，发现隐藏的宝地。</p>
+                        </div>
+                    </div>
+
+                    <!-- Exclusive Service Card -->
+                    <div class="category-card" onclick="showPage('exclusive')">
+                        <div class="category-header exclusive-bg">
+                            <div class="category-icon">💎</div>
+                            <div class="category-badge">专属服务</div>
+                        </div>
+                        <div class="category-content">
+                            <h3 class="category-title">Exclusive Service</h3>
+                            <p class="category-description">专业的个人服务团队，包括摄影师、私厨、SPA理疗师、化妆师、美护专家和健身教练，为您提供一对一的专属服务体验。</p>
+                        </div>
+                    </div>
+
+                    <!-- Tailored Journey Card -->
+                    <div class="category-card" onclick="showPage('tailored')">
+                        <div class="category-header tailored-bg">
+                            <div class="category-icon">🎭</div>
+                            <div class="category-badge">定制旅程</div>
+                        </div>
+                        <div class="category-content">
+                            <h3 class="category-title">Tailored Journey</h3>
+                            <p class="category-description">沉浸式主题体验，如悬疑剧本杀、古装穿越、浪漫约会等。专业NPC演员参与，为您打造独一无二的角色扮演旅程。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Curated Experience Page -->
+    <div id="curated" class="page">
+        <div class="detail-container">
+            <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+            
+            <h1 class="page-title">Curated Experience</h1>
+            <p class="page-subtitle">精心策划的独特体验，与当地专家一起探索文化之美</p>
+
+            <!-- Featured Banner -->
+            <div class="featured-banner">
+                <div class="featured-content">
+                    <h3>继续搜索巴黎周密的体验</h3>
+                    <p>发现更多当地隐藏宝地和文化体验</p>
+                </div>
+                <div class="featured-date">8月14日 →</div>
+            </div>
+
+            <!-- Recent Experiences -->
+            <section class="cards-section">
+                <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">最近浏览的体验 →</h2>
+                <div class="cards-grid">
+                    <div class="experience-card">
+                        <div class="card-image spa">
+                            <div class="card-image-icon">✨</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">美容护理师 - Isabella</h3>
+                            <p class="card-description">专业美容师执照，提供面部护理、抗衰老治疗和个人美容咨询服务。</p>
+                            <div class="card-duration">1.5-2 小时</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.89</span>
+                                    <span>(134)</span>
+                                </div>
+                                <div class="card-price">¥780/次</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Tailored Journey Page -->
+    <div id="tailored" class="page">
+        <div class="detail-container">
+            <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+            
+            <h1 class="page-title">Tailored Journey</h1>
+            <p class="page-subtitle">沉浸式主题体验，专业NPC演员参与，打造独一无二的角色扮演旅程</p>
+
+            <!-- Featured Banner -->
+            <div class="featured-banner">
+                <div class="featured-content">
+                    <h3>热门剧本杀体验</h3>
+                    <p>选择您喜欢的剧本主题，开启沉浸式冒险之旅</p>
+                </div>
+                <div class="featured-date">立即预约 →</div>
+            </div>
+
+            <!-- Script Categories -->
+            <section class="cards-section">
+                <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">精选剧本体验</h2>
+                <div class="cards-grid">
+                    <div class="experience-card">
+                        <div class="card-image mystery">
+                            <div class="card-image-icon">🔍</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">《卢森堡城堡之谜》- 悬疑推理</h3>
+                            <p class="card-description">在维安登古堡中，一桩百年前的神秘失踪案重现。与专业NPC演员互动，解开贵族家族的黑暗秘密。</p>
+                            <div class="card-duration">4-5 小时 | 4-6人</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.95</span>
+                                    <span>(127)</span>
+                                </div>
+                                <div class="card-price">€95/人</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image ancient">
+                            <div class="card-image-icon">👑</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">《凡尔赛宫廷秘史》- 宫廷剧本</h3>
+                            <p class="card-description">回到路易十四时代的凡尔赛宫，体验宫廷政治斗争。专业古装造型，与NPC宫廷贵族互动。</p>
+                            <div class="card-duration">6 小时 | 6-12人</div>
+                            <div class="availability-badge limited-badge">限定</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.92</span>
+                                    <span>(89)</span>
+                                </div>
+                                <div class="card-price">€150/人</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image romance">
+                            <div class="card-image-icon">🌹</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">《巴黎蒙马特之恋》- 浪漫剧本</h3>
+                            <p class="card-description">在19世纪的蒙马特高地，体验艺术家与缪斯的浪漫爱情故事。专业摄影师记录每个浪漫瞬间。</p>
+                            <div class="card-duration">3 小时 | 2-4人</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.88</span>
+                                    <span>(156)</span>
+                                </div>
+                                <div class="card-price">€120/人</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image culture">
+                            <div class="card-image-icon">⚔️</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">《阿登森林传说》- 冒险探索</h3>
+                            <p class="card-description">在卢森堡阿登森林寻找传说中的古代宝藏。团队合作解谜，体验中世纪骑士的冒险之旅。</p>
+                            <div class="card-duration">5 小时 | 4-8人</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.90</span>
+                                    <span>(234)</span>
+                                </div>
+                                <div class="card-price">€85/人</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image mystery">
+                            <div class="card-image-icon">🎩</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">《维也纳咖啡馆》- 间谍剧本</h3>
+                            <p class="card-description">冷战时期的维也纳，在传统咖啡馆中进行秘密任务。扮演间谍角色，体验紧张刺激的谍战生活。</p>
+                            <div class="card-duration">4 小时 | 3-6人</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.86</span>
+                                    <span>(167)</span>
+                                </div>
+                                <div class="card-price">€110/人</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image ancient">
+                            <div class="card-image-icon">🧙‍♂️</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">《莱茵河传说》- 奇幻冒险</h3>
+                            <p class="card-description">在德国莱茵河谷，寻找传说中的尼伯龙根宝藏。魔法道具加持，体验北欧神话的奇幻世界。</p>
+                            <div class="card-duration">6 小时 | 4-10人</div>
+                            <div class="availability-badge limited-badge">限定</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.93</span>
+                                    <span>(98)</span>
+                                </div>
+                                <div class="card-price">€130/人</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation active state
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Search functionality
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const query = document.querySelector('.search-input').value;
+            if (query) {
+                alert(`搜索: ${query}`);
+            }
+        });
+
+        // Card click interactions
+        document.querySelectorAll('.experience-card').forEach(card => {
+            card.addEventListener('click', function() {
+                alert('跳转到体验详情页面，包含:\n- 集合地点和地图\n- 详细行程安排\n- 预订须知\n- 用户评价\n- 立即预订功能');
+            });
+        });
+    </script>
+</body>
+</html>="card-image chef">
+                            <div class="card-image-icon">👨‍🍳</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">与奥运选手 Enzo Lefort 一起击剑和拍照</h3>
+                            <p class="card-description">跟随奥运击剑冠军学习专业技巧，体验击剑运动的优雅与力量，并获得专业拍摄服务。</p>
+                            <div class="card-duration">2.5 小时</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.95</span>
+                                    <span>(127)</span>
+                                </div>
+                                <div class="card-price">¥980/人</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image cycling">
+                            <div class="card-image-icon">🚴‍♂️</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">像当地人一样体验斯特拉斯堡</h3>
+                            <p class="card-description">骑行穿越斯特拉斯堡老城，品尝当地美食，探索游客不知道的隐秘景点。</p>
+                            <div class="card-duration">2.5 小时</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.97</span>
+                                    <span>(89)</span>
+                                </div>
+                                <div class="card-price">¥420/人</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image culture">
+                            <div class="card-image-icon">🎨</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">与时尚偶像 Lenny Niemeyer 在她家共进午餐</h3>
+                            <p class="card-description">在著名设计师的私人工作室享用午餐，了解时尚设计背后的故事和创作过程。</p>
+                            <div class="card-duration">2 小时</div>
+                            <div class="availability-badge limited-badge">限定</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.92</span>
+                                    <span>(45)</span>
+                                </div>
+                                <div class="card-price">¥1,280/人</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image wine">
+                            <div class="card-image-icon">🍷</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">葡萄酒的香槟：品鉴，学习</h3>
+                            <p class="card-description">在专业侍酒师指导下，深入了解香槟的历史文化，品鉴不同年份的珍藏香槟。</p>
+                            <div class="card-duration">1.5 小时</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.97</span>
+                                    <span>(156)</span>
+                                </div>
+                                <div class="card-price">¥680/人</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image culture">
+                            <div class="card-image-icon">🏛️</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">在迈阿密阿密比斯坎湾水上托艇</h3>
+                            <p class="card-description">驾驶豪华游艇穿越比斯坎湾，欣赏迈阿密天际线，享受海上奢华体验。</p>
+                            <div class="card-duration">1.5 小时</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.62</span>
+                                    <span>(203)</span>
+                                </div>
+                                <div class="card-price">¥1,580/人</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Exclusive Service Page -->
+    <div id="exclusive" class="page">
+        <div class="detail-container">
+            <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+            
+            <h1 class="page-title">Exclusive Service</h1>
+            <p class="page-subtitle">专业的个人服务团队，为您提供一对一的专属体验</p>
+
+            <!-- Featured Banner -->
+            <div class="featured-banner">
+                <div class="featured-content">
+                    <h3>专属服务预约</h3>
+                    <p>选择您需要的专业服务，享受个性化定制体验</p>
+                </div>
+                <div class="featured-date">立即预约 →</div>
+            </div>
+
+            <!-- Service Categories -->
+            <section class="cards-section">
+                <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">专业服务团队</h2>
+                <div class="cards-grid">
+                    <div class="experience-card">
+                        <div class="card-image photo">
+                            <div class="card-image-icon">📸</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">专业摄影师 - Marco</h3>
+                            <p class="card-description">10年专业摄影经验，擅长人像、风景和旅行摄影，为您记录最美好的瞬间。</p>
+                            <div class="card-duration">全天跟拍</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.98</span>
+                                    <span>(234)</span>
+                                </div>
+                                <div class="card-price">¥1,200/天</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image chef">
+                            <div class="card-image-icon">👨‍🍳</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">私人厨师 - Sophie</h3>
+                            <p class="card-description">米其林星级餐厅出身，专注法式料理，为您定制专属菜单和用餐体验。</p>
+                            <div class="card-duration">私人定制</div>
+                            <div class="availability-badge limited-badge">限定</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.96</span>
+                                    <span>(187)</span>
+                                </div>
+                                <div class="card-price">¥2,800/次</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image spa">
+                            <div class="card-image-icon">💆‍♀️</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">SPA理疗师 - Emma</h3>
+                            <p class="card-description">专业芳疗师认证，提供深层放松理疗、热石按摩和定制护理方案。</p>
+                            <div class="card-duration">2-3 小时</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.94</span>
+                                    <span>(156)</span>
+                                </div>
+                                <div class="card-price">¥890/次</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image culture">
+                            <div class="card-image-icon">💄</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">专业化妆师 - Chloe</h3>
+                            <p class="card-description">时尚杂志御用化妆师，擅长各种风格妆容设计，为特殊场合打造完美造型。</p>
+                            <div class="card-duration">2-4 小时</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.93</span>
+                                    <span>(98)</span>
+                                </div>
+                                <div class="card-price">¥680/次</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="card-image cycling">
+                            <div class="card-image-icon">💪</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">私人健身教练 - Alex</h3>
+                            <p class="card-description">国际认证健身教练，专注功能性训练和体态调整，制定个性化健身计划。</p>
+                            <div class="card-duration">1-2 小时</div>
+                            <div class="availability-badge">可预订</div>
+                            <div class="card-meta">
+                                <div class="card-rating">
+                                    <span class="star">⭐</span>
+                                    <span>4.91</span>
+                                    <span>(267)</span>
+                                </div>
+                                <div class="card-price">¥450/次</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class

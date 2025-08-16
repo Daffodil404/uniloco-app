@@ -91,69 +91,13 @@ export default function Header({
         {
           label: 'Set Up Account',
           action: () => {
-            // 检查当前是否已经在intro页面
-            if (window.location.pathname === '/web/intro') {
-              // 如果已经在intro页面，直接滚动到hero部分
-              const heroSection = document.querySelector('.hero-section') as HTMLElement;
-              if (heroSection) {
-                const headerHeight = 64; // Header高度
-                const elementPosition = heroSection.offsetTop - headerHeight;
-                
-                window.scrollTo({
-                  top: elementPosition,
-                  behavior: 'smooth'
-                });
-              }
-            } else {
-              // 如果不在intro页面，先跳转再滚动
-              router.push('/web/intro');
-              setTimeout(() => {
-                const heroSection = document.querySelector('.hero-section') as HTMLElement;
-                if (heroSection) {
-                  const headerHeight = 64; // Header高度
-                  const elementPosition = heroSection.offsetTop - headerHeight;
-                  
-                  window.scrollTo({
-                    top: elementPosition,
-                    behavior: 'smooth'
-                  });
-                }
-              }, 100);
-            }
+            router.push('/web/setup');
           }
         },
         {
           label: 'Play',
           action: () => {
-            // 检查当前是否已经在intro页面
-            if (window.location.pathname === '/web/intro') {
-              // 如果已经在intro页面，直接滚动到hero部分
-              const heroSection = document.querySelector('.hero-section') as HTMLElement;
-              if (heroSection) {
-                const headerHeight = 64; // Header高度
-                const elementPosition = heroSection.offsetTop - headerHeight;
-                
-                window.scrollTo({
-                  top: elementPosition,
-                  behavior: 'smooth'
-                });
-              }
-            } else {
-              // 如果不在intro页面，先跳转再滚动
-              router.push('/web/intro');
-              setTimeout(() => {
-                const heroSection = document.querySelector('.hero-section') as HTMLElement;
-                if (heroSection) {
-                  const headerHeight = 64; // Header高度
-                  const elementPosition = heroSection.offsetTop - headerHeight;
-                  
-                  window.scrollTo({
-                    top: elementPosition,
-                    behavior: 'smooth'
-                  });
-                }
-              }, 100);
-            }
+            router.push('/web/play');
           }
         },
         {
