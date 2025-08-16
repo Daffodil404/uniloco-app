@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Star, Clock, Users, MapPin, Heart, Calendar as CalendarIcon, Check, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, Clock, Users, MapPin, Check, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Reviews from '@/components/ui/reviews';
@@ -14,7 +14,7 @@ export default function ExperienceDetailPage() {
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
     const [selectedPeople, setSelectedPeople] = useState('');
-    const [isLiked, setIsLiked] = useState(false);
+
     const [currentMonth, setCurrentMonth] = useState(new Date());
 
     const experience = {
@@ -336,7 +336,7 @@ export default function ExperienceDetailPage() {
 
                 {/* Itinerary */}
                 <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6">🗓️ What you'll do</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6">🗓️ What you&apos;ll do</h3>
                     <div className="space-y-6">
                         {itinerary.map((step, index) => (
                             <div key={index} className="flex gap-4 p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe585f] hover:bg-gray-100 transition-colors">
@@ -355,12 +355,12 @@ export default function ExperienceDetailPage() {
 
                 {/* What's Included */}
                 <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6">💼 What's included</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6">💼 What&apos;s included</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                             <h4 className="text-lg font-semibold text-green-600 mb-4 flex items-center">
                                 <Check className="h-5 w-5 mr-2" />
-                                What's Included
+                                What&apos;s Included
                             </h4>
                             <ul className="space-y-3">
                                 {includes.map((item, index) => (
@@ -465,7 +465,7 @@ export default function ExperienceDetailPage() {
                         </div>
                         <div>
                             <h4 className="text-2xl font-bold text-gray-900 mb-2">Uniloco - Every moment, exclusively yours.</h4>
-                            <p className="text-gray-600 italic">"Every moment, exclusively yours."</p>
+                            <p className="text-gray-600 italic">&quot;Every moment, exclusively yours.&quot;</p>
                         </div>
                     </div>
 

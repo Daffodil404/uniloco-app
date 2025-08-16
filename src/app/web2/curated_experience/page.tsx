@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Heart, Star, MapPin, Clock, Users } from 'lucide-react';
+import { Heart, Star, MapPin, Clock, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Web2Header from '@/components/ui/Web2Header';
 

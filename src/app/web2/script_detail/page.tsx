@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft, Star, Clock, Users, MapPin, Heart, Calendar as CalendarIcon, Check, X, ChevronLeft, ChevronRight, Play, Shield, Award, Users2 } from 'lucide-react';
+import { Star, Clock, Users, MapPin, Check, X, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Web2Header from '@/components/ui/Web2Header';
 
-export default function ScriptDetailPage() {
+function ScriptDetailContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const scriptId = searchParams.get('id');
@@ -15,7 +15,7 @@ export default function ScriptDetailPage() {
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
     const [selectedPeople, setSelectedPeople] = useState('');
-    const [isLiked, setIsLiked] = useState(false);
+
 
     // Mock script data based on the York Ghost Script
     const script = {
@@ -620,7 +620,7 @@ export default function ScriptDetailPage() {
                                             <strong>For Groups:</strong> Book 4-6 people for best experience
                                         </div>
                                         <div>
-                                            <strong>For Solo Travelers:</strong> 1-3 people, we'll match you with others
+                                            <strong>For Solo Travelers:</strong> 1-3 people, we&apos;ll match you with others
                                         </div>
                                     </div>
                                 </div>
@@ -707,7 +707,7 @@ export default function ScriptDetailPage() {
                                     <div className="text-[#fe585f] font-medium text-sm mb-2">{step.time}</div>
                                     <h4 className="font-semibold text-lg mb-2 text-gray-900">{step.title}</h4>
                                     <p className="text-gray-600 text-sm mb-2"><strong>Location:</strong> {step.location}</p>
-                                    <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                                    <p className="text-gray-600 leading-relaxed">{step.description.replace(/'/g, '&apos;')}</p>
                                 </div>
                             </div>
                         ))}
@@ -754,12 +754,12 @@ export default function ScriptDetailPage() {
 
                 {/* What's Included */}
                 <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6">💼 What's Included</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6">💼 What&apos;s Included</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                             <h4 className="text-lg font-semibold text-green-600 mb-4 flex items-center">
                                 <Check className="h-5 w-5 mr-2" />
-                                What's Included
+                                What&apos;s Included
                             </h4>
                             <ul className="space-y-3">
                                 {includes.map((item, index) => (
@@ -804,7 +804,7 @@ export default function ScriptDetailPage() {
                         
                         <div className="flex-1">
                             <p className="text-gray-600 mb-4">
-                                This is one of Uniloco's most popular immersive script experiences, praised by players for its historical authenticity and professional actor standards.
+                                This is one of Uniloco&apos;s most popular immersive script experiences, praised by players for its historical authenticity and professional actor standards.
                             </p>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div>
@@ -912,5 +912,13 @@ export default function ScriptDetailPage() {
                 </section>
             </div>
         </div>
+    );
+}
+
+export default function ScriptDetailPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ScriptDetailContent />
+        </Suspense>
     );
 }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Star, Clock, MapPin, Heart, Calendar as CalendarIcon, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Reviews from '@/components/ui/reviews';
@@ -15,7 +15,7 @@ export default function ServiceDetailPage() {
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedLocation, setSelectedLocation] = useState('');
     const [selectedType, setSelectedType] = useState('');
-    const [isLiked, setIsLiked] = useState(false);
+
     const [currentMonth, setCurrentMonth] = useState(new Date());
 
     // 服务提供者信息

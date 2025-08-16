@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Heart, Star, MapPin, Clock, Users, ChevronRight, Search, Filter } from 'lucide-react';
+import { Heart, Star, MapPin, Clock, Users, ChevronRight, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Web2Header from '@/components/ui/Web2Header';
@@ -438,7 +438,7 @@ export default function TailoredTravelPage() {
                             Upcoming Experiences
                         </h3>
                         <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                            We are currently developing additional exclusive experiences including "The Edinburgh Castle Mystery", "The Prague Alchemist's Laboratory", and "The Venetian Masquerade Ball".
+                            We are currently developing additional exclusive experiences including &quot;The Edinburgh Castle Mystery&quot;, &quot;The Prague Alchemist&apos;s Laboratory&quot;, and &quot;The Venetian Masquerade Ball&quot;.
                         </p>
                         <Button variant="outline" className="border-gray-400 text-gray-600 hover:bg-gray-600 hover:text-white px-8 py-3 rounded-full font-medium transition-all duration-300">
                             Join the Waitlist
