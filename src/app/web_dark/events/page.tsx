@@ -50,109 +50,56 @@ export default function EventsPage() {
 
       {/* Hero Section */}
       <section className="pt-16 min-h-screen flex items-center relative overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-[#fff]">
-          {/* Floating Elements */}
-          <div className="absolute top-20 left-20 w-32 h-32 bg-[#2563EB]/10 rounded-full animate-bounce animate-float"></div>
-          <div className="absolute top-40 right-32 w-24 h-24 bg-[#2563EB]/15 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#2563EB]/20 rounded-full animate-spin"></div>
-          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#2563EB]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#2563EB]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#2563EB]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
-
-          {/* Particle Effects */}
-          <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#2563EB]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
-          <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-[#7C3AED]/40 rounded-full animate-ping" style={{ animationDelay: '1.2s' }}></div>
-          <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#2563EB]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
-
-          {/* Geometric Shapes */}
-          <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#2563EB]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-          <div className="absolute bottom-1/4 left-1/4 w-4 h-4 bg-[#7C3AED]/25 rounded-full animate-bounce" style={{ animationDelay: '0.7s' }}></div>
+        {/* Video Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="/video/events_hero.webm" type="video/webm" />
+          </video>
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-[#1a0f0f]/70 to-black/75"></div>
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
-            {/* Left Side - Slogan */}
-            <div className="flex-1 text-left space-y-3 lg:space-y-4 pl-8 lg:pl-12">
-              {/* Main Slogan */}
-              <div className="space-y-1 lg:space-y-2">
-                <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                  <span className={`block ${isLoaded ? 'slide-in-left' : 'opacity-100'} text-[#2563EB] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Featured</span>
-                  <span className={`block ${isLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Events</span>
-                </h1>
-              </div>
-
-              {/* Subtitle */}
-              <h2 className={`text-lg md:text-xl lg:text-2xl text-gray-700 font-light ${isLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
-                🌟 Join Epic Travel Adventures & Earn Rewards 🌟
-              </h2>
-
-              {/* Description */}
-              <p className={`text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-lg ${isLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
-                Discover unique blockchain travel events, participate in digital treasure hunts, 
-                and earn exclusive NFTs and UNC tokens while exploring the world.
-              </p>
-
-              {/* Action Buttons */}
-              <div className={`flex flex-col sm:flex-row gap-4 ${isLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
-                <button
-                  onClick={() => document.getElementById('main-event')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
-                >
-                  <span className="relative z-10 flex items-center space-x-2">
-                    <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">🍄</span>
-                    <span>Join Adventure</span>
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#7C3AED] to-[#2563EB] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
-
-                <button
-                  onClick={() => document.getElementById('upcoming')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#2563EB] text-[#2563EB] font-bold text-base lg:text-lg rounded-full hover:bg-[#2563EB] hover:text-white transform hover:scale-105 transition-all duration-300"
-                >
-                  <span className="flex items-center space-x-2">
-                    <span>📅</span>
-                    <span>View All Events</span>
-                  </span>
-                </button>
-              </div>
+          <div className="text-center space-y-6 lg:space-y-8">
+            {/* Main Slogan */}
+            <div className="space-y-2">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight">
+                <span className={`${isLoaded ? 'slide-in-left' : 'opacity-0'} inline text-white`}>Featured&nbsp;</span>
+                <span className={`${isLoaded ? 'slide-in-left-delay' : 'opacity-0'} inline text-[#fe585f]`}>Events</span>
+              </h1>
             </div>
 
-            {/* Right Side - Event Stats */}
-            <div className={`flex flex-col items-center space-y-4 ${isLoaded ? 'slide-in-right' : 'opacity-0'}`}>
-              {/* Event Stats Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
-                {[
-                  { 
-                    icon: '🎯',
-                    title: 'Active Events', 
-                    desc: '3 Upcoming',
-                    value: 'Join Now'
-                  },
-                  { 
-                    icon: '🌍',
-                    title: 'Global Reach', 
-                    desc: '15 Countries',
-                    value: 'Worldwide'
-                  }
-                ].map((item, index) => (
-                  <div 
-                    key={index}
-                    className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#2563EB] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group"
-                  >
-                    <div className="text-4xl mb-3 text-center animate-bounce group-hover:animate-pulse">{item.icon}</div>
-                    <h3 className="text-lg font-bold mb-2 text-[#2563EB] text-center">{item.title}</h3>
-                    <p className="text-gray-600 text-sm text-center leading-relaxed mb-2">{item.desc}</p>
-                    <p className="text-[#2563EB] text-xs text-center font-semibold">{item.value}</p>
-                  </div>
-                ))}
-              </div>
+            {/* Subtitle */}
+            <h2 className={`text-xl md:text-2xl lg:text-3xl text-white font-medium ${isLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
+              🌟 Join Epic Travel Adventures & Earn Rewards 🌟
+            </h2>
 
-              {/* Small floating elements */}
-              <div className="relative">
-                <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#2563EB] rounded-full animate-bounce"></div>
-                <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#7C3AED] rounded-full animate-pulse"></div>
-              </div>
+            {/* Description */}
+            <p className={`text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto ${isLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
+              Discover unique blockchain travel events, participate in digital treasure hunts,
+              and earn exclusive NFTs and UNC tokens while exploring the world.
+            </p>
+
+            {/* Action Buttons */}
+            <div className={`flex flex-col sm:flex-row gap-4 justify-center ${isLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
+              <button
+                onClick={() => document.getElementById('main-event')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-6 lg:px-8 py-3 lg:py-4 bg-[#fe585f] text-white font-semibold text-base lg:text-lg rounded-full shadow-lg hover:bg-[#e14b52] transition-colors"
+              >
+                <span className="flex items-center space-x-2">🍄<span>Join Adventure</span></span>
+              </button>
+              <button
+                onClick={() => document.getElementById('upcoming')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-6 lg:px-8 py-3 lg:py-4 border-2 border-white text-white font-semibold text-base lg:text-lg rounded-full hover:bg-white hover:text-black transition-colors"
+              >
+                <span className="flex items-center space-x-2">📅<span>View All Events</span></span>
+              </button>
             </div>
           </div>
         </div>
@@ -160,17 +107,11 @@ export default function EventsPage() {
 
       {/* Main Event Section */}
       <section id="main-event" className="py-24 bg-white text-gray-800 relative">
-        {/* Background decorations */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-10 left-10 text-6xl opacity-5 animate-pulse">🍄</div>
-          <div className="absolute top-20 right-20 text-5xl opacity-5 animate-pulse" style={{animationDelay: '1s'}}>🌲</div>
-          <div className="absolute bottom-20 left-20 text-5xl opacity-5 animate-pulse" style={{animationDelay: '2s'}}>🗺️</div>
-          <div className="absolute bottom-10 right-10 text-6xl opacity-5 animate-pulse" style={{animationDelay: '3s'}}>🏆</div>
-        </div>
+        {/* Background decorations removed for cleaner, non-distracting layout */}
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#2563EB] mb-6 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-6">
               🍄 Luxembourg Forest Mushroom Hunt 2025
             </h2>
             <p className="text-gray-600 text-xl leading-relaxed">
@@ -210,10 +151,10 @@ export default function EventsPage() {
              ].map((detail, index) => (
                <div 
                  key={index}
-                 className="bg-gray-50 rounded-2xl p-6 border border-gray-200 hover:border-[#2563EB] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                 className="bg-gray-50 rounded-2xl p-6 border border-gray-200 hover:border-[#fe585f] transition-colors"
                >
                  <div className="text-3xl mb-4">{detail.icon}</div>
-                 <h3 className="text-xl font-bold mb-3 text-[#2563EB]">{detail.title}</h3>
+                 <h3 className="text-xl font-bold mb-3 text-[#fe585f]">{detail.title}</h3>
                  <p className="text-lg mb-2 text-gray-800">{detail.main}</p>
                  <p className="text-gray-600 text-sm">{detail.sub}</p>
                </div>
@@ -222,7 +163,7 @@ export default function EventsPage() {
 
                      {/* Detailed Route Information */}
            <div className="bg-gray-50 rounded-3xl p-8 border border-gray-200 mb-16">
-             <h3 className="text-2xl font-bold mb-8 text-center text-[#2563EB]">🗺️ Detailed Route: Mullerthal Trail & Grünewald Forest</h3>
+             <h3 className="text-2xl font-bold mb-8 text-center text-[#fe585f]">🗺️ Detailed Route: Mullerthal Trail & Grünewald Forest</h3>
              
              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                {[
@@ -257,12 +198,12 @@ export default function EventsPage() {
                    ]
                  }
                ].map((day, index) => (
-                 <div key={index} className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#2563EB] transition-all duration-300 hover:shadow-lg">
-                   <h4 className="text-xl font-bold mb-4 text-[#2563EB]">{day.day}</h4>
+                 <div key={index} className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#fe585f] transition-colors">
+                   <h4 className="text-xl font-bold mb-4 text-[#fe585f]">{day.day}</h4>
                    <ul className="space-y-3">
                      {day.items.map((item, i) => (
                        <li key={i} className="text-gray-700 text-sm flex items-start">
-                         <span className="text-[#2563EB] mr-2 mt-1">•</span>
+                         <span className="text-[#fe585f] mr-2 mt-1">•</span>
                          {item}
                        </li>
                      ))}
@@ -274,7 +215,7 @@ export default function EventsPage() {
 
                      {/* Event Highlights */}
            <div className="bg-gray-50 rounded-3xl p-8 border border-gray-200 mb-16">
-             <h3 className="text-2xl font-bold mb-8 text-center text-[#2563EB]">🌟 Event Highlights</h3>
+             <h3 className="text-2xl font-bold mb-8 text-center text-[#fe585f]">🌟 Event Highlights</h3>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {[
                  { icon: '🗺️', text: '3D AR Mushroom Navigation' },
@@ -284,8 +225,8 @@ export default function EventsPage() {
                  { icon: '🏕️', text: 'Eco-friendly Accommodation' },
                  { icon: '🎁', text: 'Daily Surprise Rewards' }
                ].map((highlight, index) => (
-                 <div key={index} className="flex items-center gap-4 bg-white rounded-xl p-4 border border-gray-200 hover:border-[#2563EB] transition-all duration-300 hover:shadow-md">
-                   <div className="w-12 h-12 bg-[#2563EB]/10 rounded-full flex items-center justify-center text-xl">
+                 <div key={index} className="flex items-center gap-4 bg-white rounded-xl p-4 border border-gray-200 hover:border-[#fe585f] transition-colors">
+                   <div className="w-12 h-12 bg-[#fe585f]/10 rounded-full flex items-center justify-center text-xl">
                      {highlight.icon}
                    </div>
                    <span className="font-medium text-gray-800">{highlight.text}</span>
@@ -297,10 +238,10 @@ export default function EventsPage() {
                      {/* Registration Section */}
            <div className="text-center">
              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
-               <button className="bg-[#2563EB] text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-[#7C3AED] transform hover:scale-105 transition-all duration-300 flex items-center gap-3">
+               <button className="bg-[#fe585f] text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-3">
                  🚀 Join Adventure
                </button>
-               <button className="bg-transparent border-2 border-[#2563EB] text-[#2563EB] px-8 py-4 rounded-full text-xl font-bold hover:bg-[#2563EB] hover:text-white transition-all duration-300 flex items-center gap-3">
+               <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-white hover:text-black transition-colors flex items-center gap-3">
                  📋 View Details
                </button>
              </div>
@@ -319,27 +260,21 @@ export default function EventsPage() {
 
       {/* Event Statistics Section */}
       <section className="py-24 bg-white relative">
-        {/* Background decorations */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-20 text-5xl opacity-5 animate-pulse">📊</div>
-          <div className="absolute bottom-20 right-20 text-5xl opacity-5 animate-pulse" style={{animationDelay: '1s'}}>🌍</div>
-          <div className="absolute top-1/2 left-10 text-4xl opacity-5 animate-pulse" style={{animationDelay: '2s'}}>👥</div>
-          <div className="absolute top-1/2 right-10 text-4xl opacity-5 animate-pulse" style={{animationDelay: '3s'}}>⏰</div>
-        </div>
+        {/* Background decorations removed */}
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gray-50 rounded-3xl p-8 border-2 border-[#2563EB]/20">
-              <h3 className="text-2xl font-bold text-[#2563EB] mb-8 text-center">Event Statistics</h3>
+            <div className="bg-gray-50 rounded-3xl p-8 border-2 border-[#fe585f]/20">
+              <h3 className="text-2xl font-bold text-[#fe585f] mb-8 text-center">Event Statistics</h3>
               
               {/* Progress Bar */}
               <div className="mb-8">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-gray-600 font-semibold">Registration Progress</span>
-                  <span className="text-[#2563EB] font-bold text-xl">77%</span>
+                  <span className="text-[#fe585f] font-bold text-xl">77%</span>
                 </div>
                 <div className="bg-gray-200 h-3 rounded-full overflow-hidden">
-                  <div className="bg-gradient-to-r from-[#2563EB] to-[#7C3AED] h-full rounded-full transition-all duration-1000" style={{width: '77%'}}></div>
+                  <div className="bg-[#fe585f] h-full rounded-full transition-all duration-1000" style={{width: '77%'}}></div>
                 </div>
               </div>
 
@@ -350,8 +285,8 @@ export default function EventsPage() {
                   { number: '15', label: 'Countries Represented' },
                   { number: '12', label: 'Days Countdown' }
                 ].map((stat, index) => (
-                  <div key={index} className="text-center p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#2563EB] transition-all duration-300">
-                    <p className="text-3xl font-bold text-[#2563EB] mb-2">{stat.number}</p>
+                  <div key={index} className="text-center p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#fe585f] transition-colors">
+                    <p className="text-3xl font-bold text-[#fe585f] mb-2">{stat.number}</p>
                     <p className="text-gray-600 text-sm">{stat.label}</p>
                   </div>
                 ))}
@@ -359,10 +294,10 @@ export default function EventsPage() {
 
               {/* Recent Participants */}
               <div className="border-t border-gray-200 pt-8">
-                <h4 className="text-lg font-bold text-[#2563EB] mb-4 text-center">Recent Participants</h4>
+                <h4 className="text-lg font-bold text-[#fe585f] mb-4 text-center">Recent Participants</h4>
                 <div className="flex justify-center gap-2 mb-4">
                   {['🌍', '🗺️', '🎯', '⭐'].map((emoji, index) => (
-                    <div key={index} className="w-12 h-12 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] rounded-full flex items-center justify-center text-lg text-white">
+                    <div key={index} className="w-12 h-12 bg-[#fe585f] rounded-full flex items-center justify-center text-lg text-white">
                       {emoji}
                     </div>
                   ))}
@@ -378,14 +313,8 @@ export default function EventsPage() {
       </section>
 
       {/* Upcoming Adventures Section */}
-      <section id="upcoming" className="py-24 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] text-white relative">
-        {/* Background decorations */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-10 left-10 text-6xl opacity-10 animate-pulse">🏰</div>
-          <div className="absolute top-20 right-20 text-5xl opacity-10 animate-pulse" style={{animationDelay: '1s'}}>🍷</div>
-          <div className="absolute bottom-20 left-20 text-5xl opacity-10 animate-pulse" style={{animationDelay: '2s'}}>❄️</div>
-          <div className="absolute bottom-10 right-10 text-6xl opacity-10 animate-pulse" style={{animationDelay: '3s'}}>🎯</div>
-        </div>
+      <section id="upcoming" className="py-24 bg-gradient-to-b from-black via-[#1a0f0f] to-black text-white relative">
+        {/* Background decorations removed */}
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-16">
@@ -433,7 +362,7 @@ export default function EventsPage() {
                 <p className="text-white/70 text-center mb-4">{event.date}</p>
                 <p className="text-white/80 text-center mb-6 leading-relaxed">{event.description}</p>
                 
-                <button className="w-full bg-white/20 text-white border border-white/30 px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2563EB] transition-all duration-300 transform hover:scale-105">
+                <button className="w-full bg-white/20 text-white border border-white/30 px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition-colors">
                   Get Notified
                 </button>
               </div>
@@ -443,7 +372,7 @@ export default function EventsPage() {
       </section>
 
       {/* Download Section */}
-      <section className="py-20 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] text-white">
+      <section className="py-20 bg-gradient-to-b from-[#fe585f]/85 to-[#d94a51]/85 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-5xl md:text-6xl font-black mb-8">
             DOWNLOAD NOW
@@ -455,7 +384,7 @@ export default function EventsPage() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <button
               onClick={handleDownload}
-              className="download-btn group bg-white text-[#2563EB] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
             >
               <span>🍎</span>
               <span>Download on App Store</span>
@@ -463,7 +392,7 @@ export default function EventsPage() {
 
             <button
               onClick={handleDownload}
-              className="download-btn group bg-white text-[#2563EB] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
             >
               <span>🤖</span>
               <span>Get it on Google Play</span>
