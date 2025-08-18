@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 interface HeaderProps {
   activeSection?: string;
@@ -53,18 +54,23 @@ export default function Header({
   }, []);
 
   const handleNavClick = (item: string) => {
+    // 检查当前路径来决定路由前缀
+    const currentPath = window.location.pathname;
+    const isWebDark = currentPath.startsWith('/web_dark');
+    const basePath = isWebDark ? '/web_dark' : '/web';
+    
     if (item === 'home') {
-      router.push('/web/intro');
+      router.push(`${basePath}/intro`);
       return;
     }
 
     if (item === 'partnership') {
-      router.push('/web/partnership');
+      router.push(`${basePath}/partnership`);
       return;
     }
 
     if (item === 'web3 hub') {
-      router.push('/web/web3hub');
+      router.push(`${basePath}/web3hub`);
       return;
     }
 
@@ -86,24 +92,29 @@ export default function Header({
   };
 
   const getDropdownItems = (item: string): DropdownItem[] => {
+    // 检查当前路径来决定路由前缀
+    const currentPath = window.location.pathname;
+    const isWebDark = currentPath.startsWith('/web_dark');
+    const basePath = isWebDark ? '/web_dark' : '/web';
+    
     if (item === 'how-to') {
       return [
         {
           label: 'Set Up Account',
           action: () => {
-            router.push('/web/setup');
+            router.push(`${basePath}/setup`);
           }
         },
         {
           label: 'Play',
           action: () => {
-            router.push('/web/play');
+            router.push(`${basePath}/play`);
           }
         },
         {
           label: 'Join In Events',
           action: () => {
-            router.push('/web/events');
+            router.push(`${basePath}/events`);
           }
         }
       ];
@@ -119,15 +130,31 @@ export default function Header({
     }
   };
 
+  // 动态切换主题：/web_dark 使用深色，其它使用现有主题（保持不变）
+  const pathname = usePathname();
+  const isWebDark = pathname?.startsWith('/web_dark') ?? false;
+  // Softer coral for /web_dark: semi-transparent gradient to reduce clash with dark hero
+  const navBg = isWebDark ? 'bg-gradient-to-b from-[#fe585f]/85 to-[#d94a51]/85' : 'bg-[#1E3A8A]';
+  const navBorder = isWebDark ? 'border-[#d94a51]' : 'border-[#1E40AF]';
+  const logoBg = isWebDark ? 'bg-white/15' : 'bg-[#fe585f]';
+
   return (
-    <nav className="fixed top-0 w-full bg-[#fe585f] backdrop-blur-md z-50 border-b border-red-200 shadow-lg">
+    <nav className={`fixed top-0 w-full ${navBg} backdrop-blur-md z-50 border-b ${navBorder} shadow-lg`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg animate-pulse">
-              ✈️
+            <div className={`w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg overflow-hidden`}
+            >
+              <Image
+                src="/static/logo-transparent-bg.png"
+                alt="Uniloco Logo"
+                width={24}
+                height={24}
+                className="object-contain"
+                priority
+              />
             </div>
-            <span className="text-2xl font-bold text-[#fe585f]">Uniloco</span>
+            <span className="text-2xl font-bold text-white">Uniloco</span>
           </div>
 
           <div className="hidden md:flex space-x-8">
@@ -136,8 +163,8 @@ export default function Header({
                 <button
                   onClick={() => handleNavClick(item)}
                   className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 flex items-center gap-1 ${activeSection === item
-                    ? 'text-[#fff] border-b-2 border-[#fff]'
-                    : 'text-[#fff] hover:text-[#fff]'
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-white hover:text-white'
                     }`}
                 >
                   {item.split('-').map(word =>

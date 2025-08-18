@@ -29,11 +29,11 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<'profile' | 'journeys' | 'equipment'>('profile');
 
   const handleBackToHome = () => {
-    router.push('/home');
+    router.push('/h5/home');
   };
 
   const handleNavigateToEquipment = () => {
-    router.push('/equipment');
+    router.push('/h5/equipment');
   };
 
   const handleLogout = () => {

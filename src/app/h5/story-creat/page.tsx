@@ -42,7 +42,7 @@ export default function StoryCreatePage() {
   });
 
   const handleBackToHome = () => {
-    router.push('/home');
+    router.push('/h5/home');
   };
 
   const handleBackToMenu = () => {
@@ -110,7 +110,7 @@ export default function StoryCreatePage() {
     console.log('Publishing story:', storyData);
     // Here you would typically send the data to your backend
     alert('Story published successfully!');
-    router.push('/bookshelf');
+    router.push('/h5/bookshelf');
   };
 
   const storyTypes = [
