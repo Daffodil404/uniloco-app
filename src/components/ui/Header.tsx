@@ -54,10 +54,10 @@ export default function Header({
   }, []);
 
   const handleNavClick = (item: string) => {
-    // 检查当前路径来决定路由前缀
-    const currentPath = window.location.pathname;
-    const isWebDark = currentPath.startsWith('/web_dark');
-    const basePath = isWebDark ? '/web_dark' : '/web';
+    // 根据当前路径决定路由前缀
+    const currentPath = pathname ?? '';
+    const isDark = currentPath.startsWith('/web_dark');
+    const basePath = isDark ? '/web_dark' : '/web';
     
     if (item === 'home') {
       router.push(`${basePath}/intro`);
@@ -70,7 +70,16 @@ export default function Header({
     }
 
     if (item === 'web3 hub') {
-      router.push(`${basePath}/web3hub`);
+      if (isDark) {
+        setDropdownOpen(dropdownOpen === 'web3 hub' ? null : 'web3 hub');
+      } else {
+        router.push(`${basePath}/web3hub`);
+      }
+      return;
+    }
+
+    if (item === 'events') {
+      router.push(`${basePath}/events`);
       return;
     }
 
@@ -92,30 +101,47 @@ export default function Header({
   };
 
   const getDropdownItems = (item: string): DropdownItem[] => {
-    // 检查当前路径来决定路由前缀
-    const currentPath = window.location.pathname;
-    const isWebDark = currentPath.startsWith('/web_dark');
-    const basePath = isWebDark ? '/web_dark' : '/web';
-    
+    // 根据当前路径决定路由前缀
+    const currentPath = pathname ?? '';
+    const isDark = currentPath.startsWith('/web_dark');
+    const basePath = isDark ? '/web_dark' : '/web';
+
     if (item === 'how-to') {
+      if (isDark) {
+        // /web_dark: 仅保留 How to Play
+        return [
+          {
+            label: 'How to Play',
+            action: () => router.push(`${basePath}/play`)
+          }
+        ];
+      }
+      // 其它路径保持原有三项
       return [
         {
           label: 'Set Up Account',
-          action: () => {
-            router.push(`${basePath}/setup`);
-          }
+          action: () => router.push(`${basePath}/setup`)
         },
         {
           label: 'Play',
-          action: () => {
-            router.push(`${basePath}/play`);
-          }
+          action: () => router.push(`${basePath}/play`)
         },
         {
           label: 'Join In Events',
-          action: () => {
-            router.push(`${basePath}/events`);
-          }
+          action: () => router.push(`${basePath}/events`)
+        }
+      ];
+    }
+
+    if (item === 'web3 hub' && isDark) {
+      return [
+        {
+          label: 'Travel Band NFTs',
+          action: () => router.push(`${basePath}/web3hub`)
+        },
+        {
+          label: 'Token Econmic',
+          action: () => router.push(`${basePath}/token-economic`)
         }
       ];
     }
@@ -138,6 +164,9 @@ export default function Header({
   const navBorder = isWebDark ? 'border-[#d94a51]' : 'border-[#1E40AF]';
   const logoBg = isWebDark ? 'bg-white/15' : 'bg-[#fe585f]';
 
+  // 根据路径定制导航项：/web_dark 增加独立的 events 入口
+  const effectiveNavItems = isWebDark ? [...(navItems || []).filter(i => i !== 'events'), 'events'] : navItems;
+
   return (
     <nav className={`fixed top-0 w-full ${navBg} backdrop-blur-md z-50 border-b ${navBorder} shadow-lg`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -158,7 +187,7 @@ export default function Header({
           </div>
 
           <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
+            {effectiveNavItems.map((item) => (
               <div key={item} className="relative dropdown-container">
                 <button
                   onClick={() => handleNavClick(item)}
@@ -170,7 +199,7 @@ export default function Header({
                   {item.split('-').map(word =>
                     word.charAt(0).toUpperCase() + word.slice(1)
                   ).join(' ')}
-                  {item === 'how-to' && (
+                  {(item === 'how-to' || item === 'web3 hub') && (
                     <svg
                       className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen === 'how-to' ? 'rotate-180' : ''}`}
                       fill="none"
@@ -183,7 +212,7 @@ export default function Header({
                 </button>
 
                 {/* Dropdown Menu */}
-                {item === 'how-to' && dropdownOpen === 'how-to' && (
+                {((item === 'how-to' && dropdownOpen === 'how-to') || (item === 'web3 hub' && dropdownOpen === 'web3 hub')) && (
                   <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                     {getDropdownItems(item).map((dropdownItem, index) => (
                       <button
