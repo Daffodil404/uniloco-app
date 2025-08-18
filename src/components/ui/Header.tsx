@@ -53,18 +53,23 @@ export default function Header({
   }, []);
 
   const handleNavClick = (item: string) => {
+    // 检查当前路径来决定路由前缀
+    const currentPath = window.location.pathname;
+    const isWebDark = currentPath.startsWith('/web_dark');
+    const basePath = isWebDark ? '/web_dark' : '/web';
+    
     if (item === 'home') {
-      router.push('/web/intro');
+      router.push(`${basePath}/intro`);
       return;
     }
 
     if (item === 'partnership') {
-      router.push('/web/partnership');
+      router.push(`${basePath}/partnership`);
       return;
     }
 
     if (item === 'web3 hub') {
-      router.push('/web/web3hub');
+      router.push(`${basePath}/web3hub`);
       return;
     }
 
@@ -86,24 +91,29 @@ export default function Header({
   };
 
   const getDropdownItems = (item: string): DropdownItem[] => {
+    // 检查当前路径来决定路由前缀
+    const currentPath = window.location.pathname;
+    const isWebDark = currentPath.startsWith('/web_dark');
+    const basePath = isWebDark ? '/web_dark' : '/web';
+    
     if (item === 'how-to') {
       return [
         {
           label: 'Set Up Account',
           action: () => {
-            router.push('/web/setup');
+            router.push(`${basePath}/setup`);
           }
         },
         {
           label: 'Play',
           action: () => {
-            router.push('/web/play');
+            router.push(`${basePath}/play`);
           }
         },
         {
           label: 'Join In Events',
           action: () => {
-            router.push('/web/events');
+            router.push(`${basePath}/events`);
           }
         }
       ];

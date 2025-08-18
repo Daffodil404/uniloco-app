@@ -182,7 +182,7 @@ function TravelPlanContent() {
     params.set('atmosphere', travelPlan?.atmosphere || '');
     params.set('startIndex', questionIndex.toString());
     
-    window.location.href = `/ai-chat?${params.toString()}`;
+          window.location.href = `/h5/ai-chat?${params.toString()}`;
   };
 
   // 显示加载状态

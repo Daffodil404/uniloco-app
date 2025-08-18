@@ -180,7 +180,7 @@ function AIChatContent() {
       params.set('companion', answers.companion || 'Solo travel');
       params.set('atmosphere', answers.atmosphere || 'Cultural');
       
-      window.location.href = `/travel-plan?${params.toString()}`;
+      window.location.href = `/h5/travel-plan?${params.toString()}`;
     }, 3000);
   };
 
