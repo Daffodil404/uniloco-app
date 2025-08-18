@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 interface HeaderProps {
   activeSection?: string;
@@ -130,19 +131,28 @@ export default function Header({
   };
 
   // 动态切换主题：/web_dark 使用深色，其它使用现有主题（保持不变）
-  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
-  const isWebDark = currentPath.startsWith('/web_dark');
-  const navBg = isWebDark ? 'bg-[#0B0B0B]' : 'bg-[#1E3A8A]';
-  const navBorder = isWebDark ? 'border-[#1F2937]' : 'border-[#1E40AF]';
-  const logoBg = isWebDark ? 'bg-[#212743]' : 'bg-[#D97706]';
+  const pathname = usePathname();
+  const isWebDark = pathname?.startsWith('/web_dark') ?? false;
+  // Softer coral for /web_dark: semi-transparent gradient to reduce clash with dark hero
+  const navBg = isWebDark ? 'bg-gradient-to-b from-[#fe585f]/85 to-[#d94a51]/85' : 'bg-[#1E3A8A]';
+  const navBorder = isWebDark ? 'border-[#d94a51]' : 'border-[#1E40AF]';
+  const logoBg = isWebDark ? 'bg-white/15' : 'bg-[#fe585f]';
 
   return (
     <nav className={`fixed top-0 w-full ${navBg} backdrop-blur-md z-50 border-b ${navBorder} shadow-lg`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
-            <div className={`w-10 h-10 ${logoBg} rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg`}>
-              ✈️
+            <div className={`w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg overflow-hidden`}
+            >
+              <Image
+                src="/static/logo-transparent-bg.png"
+                alt="Uniloco Logo"
+                width={24}
+                height={24}
+                className="object-contain"
+                priority
+              />
             </div>
             <span className="text-2xl font-bold text-white">Uniloco</span>
           </div>

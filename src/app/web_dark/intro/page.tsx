@@ -175,7 +175,7 @@ export default function IntroPage() {
 
                 // 显示提示信息
                 const message = document.createElement('div');
-                message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#212743] text-white px-4 py-2 rounded-lg z-50';
+                message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#fe585f] text-white px-4 py-2 rounded-lg z-50';
                 message.textContent = 'Click the play button in video controls to start playback';
                 document.body.appendChild(message);
 
@@ -231,7 +231,7 @@ export default function IntroPage() {
 
             // 显示点赞动画
             const heart = document.createElement('div');
-            heart.className = 'absolute inset-0 flex items-center justify-center text-6xl text-[#212743] pointer-events-none z-10 heart-beat';
+            heart.className = 'absolute inset-0 flex items-center justify-center text-6xl text-[#fe585f] pointer-events-none z-10 heart-beat';
             heart.innerHTML = '❤️';
             const card = document.querySelector(`[data-post-index="${index}"]`);
             if (card) {
@@ -308,15 +308,15 @@ export default function IntroPage() {
                             playsInline
                             className="w-full h-full object-cover"
                         >
-                            <source src="/video/hero_video.webm" type="video/webm" />
+                            <source src="/video/travel_hero_video.webm" type="video/webm" />
                         </video>
                         
                         {/* Overlay with gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/70 via-[#000000]/60 to-[#000000]/70"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-[#1a0f0f]/70 to-black/75"></div>
                         
                         {/* Subtle geometric elements */}
                         <div className="absolute top-20 right-20 w-32 h-32 border border-white/20 rounded-full"></div>
-                        <div className="absolute bottom-20 left-20 w-24 h-24 border border-[#D97706]/30 rounded-full"></div>
+                        <div className="absolute bottom-20 left-20 w-24 h-24 border border-[#fe585f]/30 rounded-full"></div>
                     </div>
 
                     <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -324,57 +324,38 @@ export default function IntroPage() {
                             {/* Main Slogan */}
                             <div className="space-y-3 lg:space-y-6">
                                 <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight">
-                                    <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-white text-5xl md:text-7xl lg:text-8xl xl:text-9xl`}>Own Your Journey</span>
+                                    <span className={`inline ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-white`}>Own Your&nbsp;</span>
+                                    <span className={`inline ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} text-[#fe585f]`}>Journey</span>
                                 </h1>
                             </div>
 
                             {/* Subtitle */}
                             <h2 className={`text-xl md:text-2xl lg:text-3xl text-white font-medium ${heroLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
-                                The World&apos;s First Travel-to-Earn Platform
+                                Your Ultimate Travel App
                             </h2>
 
                             {/* Description */}
-                            <p className={`text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
-                                Experience luxury travel with Dragon Pass benefits, powered by AI-driven personalization and blockchain technology.
+                            <p className={`text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
+                                Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
                             </p>
 
                             {/* Action Buttons */}
-                            <div className={`flex flex-col sm:flex-row gap-6 justify-center ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
+                            <div className={`flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                                 <button
-                                    onClick={() => handleNavigation('how-to')}
-                                    className="px-8 lg:px-12 py-4 lg:py-5 bg-[#212743] text-white font-semibold text-lg lg:text-xl rounded-lg hover:bg-[#2A2F52] transition-all duration-300 shadow-lg hover:shadow-xl"
+                                    className="px-6 lg:px-8 py-3 lg:py-4 bg-[#fe585f] text-white font-semibold text-base lg:text-lg rounded-lg hover:bg-[#e14b52] transition-all duration-300 shadow-lg hover:shadow-xl"
                                 >
-                                    <span className="flex items-center space-x-3">
-                                        <span>✈️</span>
-                                        <span>Explore Platform</span>
-                                    </span>
+                                    Get it on the Google Play
                                 </button>
-
                                 <button
-                                    onClick={handleDownload}
-                                    className="px-8 lg:px-12 py-4 lg:py-5 border-2 border-[#D97706] text-[#D97706] font-semibold text-lg lg:text-xl rounded-lg hover:bg-[#D97706] hover:text-white transition-all duration-300"
+                                    className="px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe585f] text-[#fe585f] font-semibold text-base lg:text-lg rounded-lg hover:bg-[#fe585f] hover:text-white transition-all duration-300"
                                 >
-                                    <span className="flex items-center space-x-3">
-                                        <span>📱</span>
-                                        <span>Get Started</span>
-                                    </span>
+                                    Download the Andrioid AOK
                                 </button>
-                            </div>
-
-                            {/* Stats */}
-                            <div className={`flex gap-8 lg:gap-12 justify-center mt-12 ${heroLoaded ? 'slide-in-right' : 'opacity-0'}`}>
-                                <div className="text-center">
-                                    <div className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2">50K+</div>
-                                    <div className="text-sm lg:text-base text-white/80 font-medium">Global Travelers</div>
-                                </div>
-                                <div className="text-center">
-                                    <div className="text-3xl lg:text-4xl xl:text-5xl font-bold text-[#D97706] mb-2">1M+</div>
-                                    <div className="text-sm lg:text-base text-white/80 font-medium">UNC Tokens Earned</div>
-                                </div>
-                                <div className="text-center">
-                                    <div className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2">100+</div>
-                                    <div className="text-sm lg:text-base text-white/80 font-medium">Countries</div>
-                                </div>
+                                <button
+                                    className="px-6 lg:px-8 py-3 lg:py-4 border-2 border-white text-white font-semibold text-base lg:text-lg rounded-lg hover:bg-white hover:text-black transition-all duration-300"
+                                >
+                                    Download the APP store
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -385,7 +366,7 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="py-20 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#212743] mb-16">
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-16">
                             Premium Travel Experience
                         </h2>
 
@@ -419,11 +400,11 @@ export default function IntroPage() {
                                         }
                                     ].map((feature, index) => (
                                         <div key={index} className="w-full flex-shrink-0">
-                                            <div className="max-w-4xl mx-auto">
+                                            <div className="max-w-6xl mx-auto">
                                                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                                                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                                                         {/* Image Section */}
-                                                        <div className="relative h-64 lg:h-96">
+                                                        <div className="relative h-80 lg:h-[32rem]">
                                                             {feature.image ? (
                                                                 <Image
                                                                     src={feature.image}
@@ -434,7 +415,7 @@ export default function IntroPage() {
                                                                     priority={index === 0}
                                                                 />
                                                             ) : (
-                                                                <div className="w-full h-full bg-gradient-to-br from-[#111827] to-[#1F2937]" />
+                                                                <div className="w-full h-full bg-gradient-to-br from-black to-[#111827]" />
                                                             )}
                                                             <div className="absolute inset-0 bg-black/20"></div>
                                                         </div>
@@ -443,7 +424,7 @@ export default function IntroPage() {
                                                         <div className="p-8 lg:p-12 flex flex-col justify-center">
                                                             <h3 className="text-3xl font-bold mb-4 text-[#1F2937]">{feature.title}</h3>
                                                             <p className="text-lg text-[#6B7280] leading-relaxed">{feature.description}</p>
-                                                            <button className="mt-6 px-6 py-3 bg-[#212743] text-white rounded-lg hover:bg-[#2A2F52] transition-colors duration-300 w-fit">
+                                                            <button className="mt-6 px-6 py-3 bg-[#fe585f] text-white rounded-lg hover:bg-[#e14b52] transition-colors duration-300 w-fit">
                                                                 Learn More
                                                             </button>
                                                         </div>
@@ -463,7 +444,7 @@ export default function IntroPage() {
                                         onClick={() => setCurrentSlide(index)}
                                         className={`w-3 h-3 rounded-full transition-all duration-300 ${
                                             currentSlide === index 
-                                                ? 'bg-[#212743] w-8' 
+                                                ? 'bg-[#fe585f] w-8' 
                                                 : 'bg-gray-300 hover:bg-gray-400'
                                         }`}
                                     />
@@ -475,13 +456,13 @@ export default function IntroPage() {
                                 onClick={() => setCurrentSlide((prev) => (prev - 1 + 4) % 4)}
                                 className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300"
                             >
-                                <span className="text-2xl text-[#212743]">‹</span>
+                                <span className="text-2xl text-[#fe585f]">‹</span>
                             </button>
                             <button
                                 onClick={() => setCurrentSlide((prev) => (prev + 1) % 4)}
                                 className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300"
                             >
-                                <span className="text-2xl text-[#212743]">›</span>
+                                <span className="text-2xl text-[#fe585f]">›</span>
                             </button>
                         </div>
                     </div>
@@ -491,9 +472,9 @@ export default function IntroPage() {
             {/* Video Section */}
             {activeSection === 'home' && (
                 <section className="py-20 bg-gradient-to-br bg-[#fff]">
-                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#212743] mb-8">
-                            See Uniloco in Action
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-8">
+                            Watch How Uniloco Works
                         </h2>
                         <p className="text-xl text-gray-600 mb-12">
                             Discover the revolutionary travel-to-earn ecosystem in action
@@ -501,7 +482,7 @@ export default function IntroPage() {
 
                         <div className="relative group">
                             <div
-                                className="w-full h-96 rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 overflow-hidden bg-transparent cursor-pointer"
+                                className="w-full h-[32rem] lg:h-[40rem] rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 overflow-hidden bg-transparent cursor-pointer"
                                 onClick={handlePlayButtonClick}
                             >
                                 {/* 简化的视频加载状态 - 只在最初显示 */}
@@ -516,7 +497,7 @@ export default function IntroPage() {
                                                     e.stopPropagation();
                                                     setVideoLoaded(true);
                                                 }}
-                                                className="mt-4 px-4 py-2 bg-white text-[#212743] rounded-lg text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
+                                                className="mt-4 px-4 py-2 bg-white text-[#fe585f] rounded-lg text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
                                             >
                                                 Skip Loading
                                             </button>
@@ -533,7 +514,7 @@ export default function IntroPage() {
                                             <p className="text-sm opacity-80 mb-4">Please try again later</p>
                                             <button
                                                 onClick={handleVideoRetry}
-                                                className="px-6 py-2 bg-white text-[#212743] rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300"
+                                                className="px-6 py-2 bg-white text-[#fe585f] rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300"
                                             >
                                                 🔄 Retry
                                             </button>
@@ -591,142 +572,17 @@ export default function IntroPage() {
                                     </div>
                                 )}
                             </div>
-
-
-                            <div className="mt-6 text-center">
-                                <p className="text-gray-600 italic mb-2">
-                                    See AI personalization, 3D travel stories, NFT bands, and UNC earning in action
-                                </p>
-                                <div className="flex items-center justify-center space-x-4 text-sm text-gray-500">
-                                    <span>🎬 HD Quality</span>
-                                    <span>⏱️ 2:30 min</span>
-                                    <span>🔊 With Audio</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </section>
             )}
 
-            {/* Travel Bands Section */}
-            {activeSection === 'home' && (
-                <section className="py-20 bg-white">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#2563EB] mb-4">
-                            Travel Band NFTs
-                        </h2>
-                        <p className="text-xl text-gray-600 text-center mb-16">
-                            Using UNC/ANT, level up your Travel Band and unlock greater rewards
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {[
-                                {
-                                    image: '/static/band1.jpg',
-                                    name: 'Basic Band',
-                                    price: 'Free to Get',
-                                    boost: '+10%',
-                                    action: 'Free Mint',
-                                },
-                                {
-                                    image: '/static/band2.jpg',
-                                    name: 'Rare Band',
-                                    price: '100 UNC',
-                                    boost: '+25%',
-                                    action: 'Mint Now',
-                                    gradient: 'from-blue-400 to-blue-600'
-                                },
-                                {
-                                    image: '/static/band3.jpg',
-                                    name: 'Epic Band',
-                                    price: '500 UNC',
-                                    boost: '+50%',
-                                    action: 'Mint Now',
-                                    gradient: 'from-orange-400 to-orange-600'
-                                },
-                                {
-                                    image: '/static/band4.jpg',
-                                    name: 'Legendary Band',
-                                    price: 'Rare Drop',
-                                    boost: '+100%',
-                                    action: 'Coming Soon',
-                                    gradient: 'from-[#1E3A8A] to-[#3B82F6]'
-                                }
-                            ].map((band, index) => (
-                                <div
-                                    key={index}
-                                    className="group bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#2563EB] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center"
-                                >
-                                    <div
-                                        className="band-image-container mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto relative"
-                                    >
-                                        {/* 加载状态指示器 */}
-                                        {!bandImagesLoaded[index] && (
-                                            <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                            </div>
-                                        )}
-                                        <Image
-                                            src={band.image}
-                                            alt={band.name}
-                                            fill
-                                            className="object-contain p-3"
-                                            priority={index < 2}
-                                            sizes="(max-width: 768px) 96px, 128px"
-                                            onLoad={() => handleBandImageLoad(index)}
-                                            onError={() => console.error(`Failed to load image: ${band.image}`)}
-                                        />
-                                    </div>
-                                    <h3 className="text-2xl font-bold text-gray-800 mb-2">{band.name}</h3>
-                                    <p className="text-[#2563EB] font-semibold mb-2">{band.price}</p>
-                                    <p className="text-gray-600 mb-6">Base UNC Boost {band.boost}</p>
-                                    <button className={`w-full py-3 rounded-full font-bold transition-all duration-300 ${band.action === 'Coming Soon'
-                                        ? 'bg-gray-400 text-white cursor-not-allowed'
-                                        : 'bg-[#2563EB] text-white hover:bg-[#7C3AED] hover:scale-105'
-                                        }`}>
-                                        {band.action}
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="text-center mt-16">
-                            <p className="text-xl text-gray-600 mb-8">
-                                Choose your Travel Band to start earning UNC tokens through your adventures
-                            </p>
-
-                            {/* Stats Section */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                                <div className="bg-gradient-to-br from-[#F8FAFC] to-white rounded-2xl p-6 border border-[#E2E8F0] hover:border-[#1E3A8A] transition-all duration-300 hover:shadow-lg">
-                                    <div className="text-4xl font-bold text-[#1E3A8A] mb-2 animate-glow">50K+</div>
-                                    <div className="text-gray-600">Active Travelers</div>
-                                </div>
-                                <div className="bg-gradient-to-br from-[#F8FAFC] to-white rounded-2xl p-6 border border-[#E2E8F0] hover:border-[#1E3A8A] transition-all duration-300 hover:shadow-lg">
-                                    <div className="text-4xl font-bold text-[#1E3A8A] mb-2 animate-glow">1M+</div>
-                                    <div className="text-gray-600">UNC Tokens Earned</div>
-                                </div>
-                                <div className="bg-gradient-to-br from-[#F8FAFC] to-white rounded-2xl p-6 border border-[#E2E8F0] hover:border-[#1E3A8A] transition-all duration-300 hover:shadow-lg">
-                                    <div className="text-4xl font-bold text-[#1E3A8A] mb-2 animate-glow">200+</div>
-                                    <div className="text-gray-600">Cities Covered</div>
-                                </div>
-                            </div>
-
-                            <button
-                                onClick={() => handleNavigation('marketplace')}
-                                className="game-button px-8 py-4 bg-[#2563EB] text-white font-bold text-lg rounded-full hover:bg-[#7C3AED] transform hover:scale-105 transition-all duration-300"
-                            >
-                                Explore Marketplace
-                            </button>
-                        </div>
-                    </div>
-                </section>
-            )}
 
             {/* Testimonials Section */}
             {activeSection === 'home' && (
                 <section className="py-20 bg-gradient-to-br from-[#F8FAFC] to-[#F1F5F9]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#2563EB] mb-8">
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-8">
                             Real Stories from Our Community
                         </h2>
                         <p className="text-xl text-gray-600 text-center mb-16">
@@ -777,18 +633,18 @@ export default function IntroPage() {
                             ].map((post, index) => (
                                 <div
                                     key={index}
-                                    className="instagram-card group bg-white rounded-xl border border-gray-200 hover:border-[#2563EB] overflow-hidden"
+                                    className="instagram-card group bg-white rounded-xl border border-gray-200 hover:border-[#fe585f] overflow-hidden"
                                 >
                                     {/* Header */}
                                     <div className="flex items-center p-4 border-b border-gray-100">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] rounded-full flex items-center justify-center text-lg mr-3">
+                                        <div className="w-10 h-10 bg-[#fe585f] rounded-full flex items-center justify-center text-lg mr-3 text-white">
                                             {post.avatar}
                                         </div>
                                         <div className="flex-1">
                                             <div className="flex items-center">
                                                 <h4 className="font-semibold text-gray-900 text-sm">{post.name}</h4>
-                                                <span className="ml-1 text-[#2563EB] text-xs">•</span>
-                                                <span className="ml-1 text-[#2563EB] text-xs font-medium">{post.earnings}</span>
+                                                <span className="ml-1 text-[#fe585f] text-xs">•</span>
+                                                <span className="ml-1 text-[#fe585f] text-xs font-medium">{post.earnings}</span>
                                             </div>
                                             <div className="flex items-center text-xs text-gray-500">
                                                 <span>{post.username}</span>
@@ -836,7 +692,7 @@ export default function IntroPage() {
                                             <div className="flex items-center space-x-4">
                                                 <button
                                                     onClick={() => handleLikePost(index)}
-                                                    className={`transition-all duration-300 transform hover:scale-110 ${likedPosts[index] ? 'text-[#2563EB]' : 'text-gray-600 hover:text-[#2563EB]'
+                                                    className={`transition-all duration-300 transform hover:scale-110 ${likedPosts[index] ? 'text-[#fe585f]' : 'text-gray-600 hover:text-[#fe585f]'
                                                         }`}
                                                 >
                                                     <svg className={`w-6 h-6 transition-all duration-300 ${likedPosts[index] ? 'fill-current animate-pulse' : 'fill-none'
@@ -844,18 +700,18 @@ export default function IntroPage() {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                                     </svg>
                                                 </button>
-                                                <button className="text-gray-600 hover:text-[#2563EB] transition-colors">
+                                                <button className="text-gray-600 hover:text-[#fe585f] transition-colors">
                                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                                     </svg>
                                                 </button>
-                                                <button className="text-gray-600 hover:text-[#2563EB] transition-colors">
+                                                <button className="text-gray-600 hover:text-[#fe585f] transition-colors">
                                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                                                     </svg>
                                                 </button>
                                             </div>
-                                            <button className="text-gray-600 hover:text-[#2563EB] transition-colors">
+                                            <button className="text-gray-600 hover:text-[#fe585f] transition-colors">
                                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                                                 </svg>
@@ -886,7 +742,7 @@ export default function IntroPage() {
             )}
 
             {/* Download Section */}
-            <section className="py-20 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] text-white">
+            <section className="py-20 bg-gradient-to-b from-[#fe585f]/85 to-[#d94a51]/85 text-white">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-5xl md:text-6xl font-black mb-8">
                         DOWNLOAD NOW
@@ -898,7 +754,7 @@ export default function IntroPage() {
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
                         <button
                             onClick={handleDownload}
-                            className="download-btn group bg-white text-[#2563EB] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                            className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                         >
                             <span>🍎</span>
                             <span>Download on App Store</span>
@@ -906,7 +762,7 @@ export default function IntroPage() {
 
                         <button
                             onClick={handleDownload}
-                            className="download-btn group bg-white text-[#2563EB] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                            className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                         >
                             <span>🤖</span>
                             <span>Get it on Google Play</span>
