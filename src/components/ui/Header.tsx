@@ -129,12 +129,19 @@ export default function Header({
     }
   };
 
+  // 动态切换主题：/web_dark 使用深色，其它使用现有主题（保持不变）
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const isWebDark = currentPath.startsWith('/web_dark');
+  const navBg = isWebDark ? 'bg-[#0B0B0B]' : 'bg-[#1E3A8A]';
+  const navBorder = isWebDark ? 'border-[#1F2937]' : 'border-[#1E40AF]';
+  const logoBg = isWebDark ? 'bg-[#212743]' : 'bg-[#D97706]';
+
   return (
-    <nav className="fixed top-0 w-full bg-[#1E3A8A] backdrop-blur-md z-50 border-b border-[#1E40AF] shadow-lg">
+    <nav className={`fixed top-0 w-full ${navBg} backdrop-blur-md z-50 border-b ${navBorder} shadow-lg`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-[#D97706] rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+            <div className={`w-10 h-10 ${logoBg} rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg`}>
               ✈️
             </div>
             <span className="text-2xl font-bold text-white">Uniloco</span>
@@ -146,8 +153,8 @@ export default function Header({
                 <button
                   onClick={() => handleNavClick(item)}
                   className={`text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-110 flex items-center gap-1 ${activeSection === item
-                    ? 'text-[#fff] border-b-2 border-[#fff]'
-                    : 'text-[#fff] hover:text-[#fff]'
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-white hover:text-white'
                     }`}
                 >
                   {item.split('-').map(word =>

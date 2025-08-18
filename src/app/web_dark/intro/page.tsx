@@ -175,7 +175,7 @@ export default function IntroPage() {
 
                 // 显示提示信息
                 const message = document.createElement('div');
-                message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#2563EB] text-white px-4 py-2 rounded-lg z-50';
+                message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#212743] text-white px-4 py-2 rounded-lg z-50';
                 message.textContent = 'Click the play button in video controls to start playback';
                 document.body.appendChild(message);
 
@@ -231,7 +231,7 @@ export default function IntroPage() {
 
             // 显示点赞动画
             const heart = document.createElement('div');
-            heart.className = 'absolute inset-0 flex items-center justify-center text-6xl text-[#2563EB] pointer-events-none z-10 heart-beat';
+            heart.className = 'absolute inset-0 flex items-center justify-center text-6xl text-[#212743] pointer-events-none z-10 heart-beat';
             heart.innerHTML = '❤️';
             const card = document.querySelector(`[data-post-index="${index}"]`);
             if (card) {
@@ -280,7 +280,7 @@ export default function IntroPage() {
 
             {/* Loading Screen */}
             {isLoading && (
-                <div className="fixed inset-0 bg-[#1E3A8A] z-[100] flex items-center justify-center">
+                <div className="fixed inset-0 bg-[#0B0B0B] z-[100] flex items-center justify-center">
                     <div className="text-center text-white">
                         <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
                         <h1 className="text-3xl font-bold mb-3">Uniloco</h1>
@@ -312,7 +312,7 @@ export default function IntroPage() {
                         </video>
                         
                         {/* Overlay with gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A8A]/80 via-[#1E3A8A]/60 to-[#1E3A8A]/80"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/70 via-[#000000]/60 to-[#000000]/70"></div>
                         
                         {/* Subtle geometric elements */}
                         <div className="absolute top-20 right-20 w-32 h-32 border border-white/20 rounded-full"></div>
@@ -324,8 +324,7 @@ export default function IntroPage() {
                             {/* Main Slogan */}
                             <div className="space-y-3 lg:space-y-6">
                                 <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight">
-                                    <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-white text-5xl md:text-7xl lg:text-8xl xl:text-9xl`}>Own Your</span>
-                                    <span className={`block ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} text-[#D97706] text-5xl md:text-7xl lg:text-8xl xl:text-9xl`}>Journey</span>
+                                    <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-white text-5xl md:text-7xl lg:text-8xl xl:text-9xl`}>Own Your Journey</span>
                                 </h1>
                             </div>
 
@@ -343,7 +342,7 @@ export default function IntroPage() {
                             <div className={`flex flex-col sm:flex-row gap-6 justify-center ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                                 <button
                                     onClick={() => handleNavigation('how-to')}
-                                    className="px-8 lg:px-12 py-4 lg:py-5 bg-[#1E3A8A] text-white font-semibold text-lg lg:text-xl rounded-lg hover:bg-[#1E40AF] transition-all duration-300 shadow-lg hover:shadow-xl"
+                                    className="px-8 lg:px-12 py-4 lg:py-5 bg-[#212743] text-white font-semibold text-lg lg:text-xl rounded-lg hover:bg-[#2A2F52] transition-all duration-300 shadow-lg hover:shadow-xl"
                                 >
                                     <span className="flex items-center space-x-3">
                                         <span>✈️</span>
@@ -386,7 +385,7 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="py-20 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#1E3A8A] mb-16">
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#212743] mb-16">
                             Premium Travel Experience
                         </h2>
 
@@ -435,7 +434,7 @@ export default function IntroPage() {
                                                                     priority={index === 0}
                                                                 />
                                                             ) : (
-                                                                <div className="w-full h-full bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6]" />
+                                                                <div className="w-full h-full bg-gradient-to-br from-[#111827] to-[#1F2937]" />
                                                             )}
                                                             <div className="absolute inset-0 bg-black/20"></div>
                                                         </div>
@@ -444,7 +443,7 @@ export default function IntroPage() {
                                                         <div className="p-8 lg:p-12 flex flex-col justify-center">
                                                             <h3 className="text-3xl font-bold mb-4 text-[#1F2937]">{feature.title}</h3>
                                                             <p className="text-lg text-[#6B7280] leading-relaxed">{feature.description}</p>
-                                                            <button className="mt-6 px-6 py-3 bg-[#1E3A8A] text-white rounded-lg hover:bg-[#1E40AF] transition-colors duration-300 w-fit">
+                                                            <button className="mt-6 px-6 py-3 bg-[#212743] text-white rounded-lg hover:bg-[#2A2F52] transition-colors duration-300 w-fit">
                                                                 Learn More
                                                             </button>
                                                         </div>
@@ -464,7 +463,7 @@ export default function IntroPage() {
                                         onClick={() => setCurrentSlide(index)}
                                         className={`w-3 h-3 rounded-full transition-all duration-300 ${
                                             currentSlide === index 
-                                                ? 'bg-[#1E3A8A] w-8' 
+                                                ? 'bg-[#212743] w-8' 
                                                 : 'bg-gray-300 hover:bg-gray-400'
                                         }`}
                                     />
@@ -476,13 +475,13 @@ export default function IntroPage() {
                                 onClick={() => setCurrentSlide((prev) => (prev - 1 + 4) % 4)}
                                 className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300"
                             >
-                                <span className="text-2xl text-[#1E3A8A]">‹</span>
+                                <span className="text-2xl text-[#212743]">‹</span>
                             </button>
                             <button
                                 onClick={() => setCurrentSlide((prev) => (prev + 1) % 4)}
                                 className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300"
                             >
-                                <span className="text-2xl text-[#1E3A8A]">›</span>
+                                <span className="text-2xl text-[#212743]">›</span>
                             </button>
                         </div>
                     </div>
@@ -493,7 +492,7 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="py-20 bg-gradient-to-br bg-[#fff]">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#1E3A8A] mb-8">
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#212743] mb-8">
                             See Uniloco in Action
                         </h2>
                         <p className="text-xl text-gray-600 mb-12">
@@ -507,7 +506,7 @@ export default function IntroPage() {
                             >
                                 {/* 简化的视频加载状态 - 只在最初显示 */}
                                 {!videoLoaded && !videoError && (
-                                    <div className="absolute inset-0 flex items-center justify-center bg-[#1E3A8A] z-10">
+                                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B] z-10">
                                         <div className="text-center text-white">
                                             <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                                             <p className="text-lg font-semibold">Loading Video...</p>
@@ -517,7 +516,7 @@ export default function IntroPage() {
                                                     e.stopPropagation();
                                                     setVideoLoaded(true);
                                                 }}
-                                                className="mt-4 px-4 py-2 bg-white text-[#1E3A8A] rounded-lg text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
+                                                className="mt-4 px-4 py-2 bg-white text-[#212743] rounded-lg text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
                                             >
                                                 Skip Loading
                                             </button>
@@ -527,14 +526,14 @@ export default function IntroPage() {
 
                                 {/* 视频错误状态 */}
                                 {videoError && (
-                                    <div className="absolute inset-0 flex items-center justify-center bg-[#1E3A8A] z-10">
+                                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B] z-10">
                                         <div className="text-center text-white">
                                             <div className="text-6xl mb-4">⚠️</div>
                                             <p className="text-lg font-semibold mb-2">Video Unavailable</p>
                                             <p className="text-sm opacity-80 mb-4">Please try again later</p>
                                             <button
                                                 onClick={handleVideoRetry}
-                                                className="px-6 py-2 bg-white text-[#1E3A8A] rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300"
+                                                className="px-6 py-2 bg-white text-[#212743] rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300"
                                             >
                                                 🔄 Retry
                                             </button>
