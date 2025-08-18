@@ -17,6 +17,7 @@ export default function IntroPage() {
     const [bandImagesLoaded, setBandImagesLoaded] = useState<boolean[]>([false, false, false, false]);
     const [likedPosts, setLikedPosts] = useState<boolean[]>([false, false, false]);
     const [heroLoaded, setHeroLoaded] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState(0);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -35,6 +36,15 @@ export default function IntroPage() {
         }, 2000);
 
         return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
+    // Carousel auto-play
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % 4);
+        }, 4000);
+
+        return () => clearInterval(interval);
     }, []);
 
     // 视频加载超时处理
@@ -165,7 +175,7 @@ export default function IntroPage() {
 
                 // 显示提示信息
                 const message = document.createElement('div');
-                message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#fe585f] text-white px-4 py-2 rounded-lg z-50';
+                message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#2563EB] text-white px-4 py-2 rounded-lg z-50';
                 message.textContent = 'Click the play button in video controls to start playback';
                 document.body.appendChild(message);
 
@@ -221,7 +231,7 @@ export default function IntroPage() {
 
             // 显示点赞动画
             const heart = document.createElement('div');
-            heart.className = 'absolute inset-0 flex items-center justify-center text-6xl text-[#fe585f] pointer-events-none z-10 heart-beat';
+            heart.className = 'absolute inset-0 flex items-center justify-center text-6xl text-[#2563EB] pointer-events-none z-10 heart-beat';
             heart.innerHTML = '❤️';
             const card = document.querySelector(`[data-post-index="${index}"]`);
             if (card) {
@@ -266,55 +276,15 @@ export default function IntroPage() {
 
     return (
         <div className="min-h-screen bg-[#fff] overflow-x-hidden relative">
-            {/* Mouse Follow Effect */}
-            <div
-                className="fixed w-4 h-4 bg-[#fe585f]/30 rounded-full pointer-events-none z-50 transition-transform duration-100 ease-out"
-                style={{
-                    left: mousePosition.x - 8,
-                    top: mousePosition.y - 8,
-                    transform: 'translate(-50%, -50%)'
-                }}
-            />
-            <div
-                className="fixed w-8 h-8 bg-[#fe585f]/20 rounded-full pointer-events-none z-50 transition-transform duration-200 ease-out"
-                style={{
-                    left: mousePosition.x - 16,
-                    top: mousePosition.y - 16,
-                    transform: 'translate(-50%, -50%)'
-                }}
-            />
-            <div
-                className="fixed w-16 h-16 bg-[#fe585f]/10 rounded-full pointer-events-none z-50 transition-transform duration-300 ease-out"
-                style={{
-                    left: mousePosition.x - 32,
-                    top: mousePosition.y - 32,
-                    transform: 'translate(-50%, -50%)'
-                }}
-            />
-
-            {/* Light Trail Effect */}
-            <div
-                className="fixed w-2 h-2 bg-[#fe585f]/50 rounded-full pointer-events-none z-40 transition-all duration-500 ease-out"
-                style={{
-                    left: mousePosition.x - 4,
-                    top: mousePosition.y - 4,
-                    transform: 'translate(-50%, -50%)',
-                    filter: 'blur(1px)'
-                }}
-            />
+            {/* Minimal mouse effect - removed for cleaner design */}
 
             {/* Loading Screen */}
             {isLoading && (
-                <div className="fixed inset-0 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] z-[100] flex items-center justify-center">
+                <div className="fixed inset-0 bg-[#1E3A8A] z-[100] flex items-center justify-center">
                     <div className="text-center text-white">
-                        <div className="w-20 h-20 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-8"></div>
-                        <h1 className="text-4xl font-bold mb-4 animate-pulse">Uniloco</h1>
-                        <p className="text-xl opacity-80">Loading your adventure...</p>
-                        <div className="mt-8 flex justify-center space-x-2">
-                            <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
-                            <div className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-3 h-3 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                        </div>
+                        <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
+                        <h1 className="text-3xl font-bold mb-3">Uniloco</h1>
+                        <p className="text-lg opacity-80">Loading your adventure...</p>
                     </div>
                 </div>
             )}
@@ -329,79 +299,82 @@ export default function IntroPage() {
             {/* Hero Section */}
             {activeSection === 'home' && (
                 <section className="hero-section pt-16 min-h-screen flex items-center relative overflow-hidden">
-                    {/* Animated Background */}
-                    <div className="absolute inset-0 bg-[#fff]">
-                        {/* Floating Elements */}
-                        <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe585f]/10 rounded-full animate-bounce animate-float"></div>
-                        <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe585f]/15 rounded-full animate-pulse"></div>
-                        <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#fe585f]/20 rounded-full animate-spin"></div>
-                        <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#fe585f]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-                        <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#fe585f]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-                        <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#fe585f]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
-
-                        {/* Particle Effects (shifted away from right logo area) */}
-                        <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#fe585f]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
-                        <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-[#ff7a80]/40 rounded-full animate-ping" style={{ animationDelay: '1.2s' }}></div>
-                        <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#fe585f]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
-
-                        {/* Geometric Shapes (avoid logo area) */}
-                        <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#fe585f]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-                        <div className="absolute bottom-1/4 left-1/4 w-4 h-4 bg-[#ff7a80]/25 rounded-full animate-bounce" style={{ animationDelay: '0.7s' }}></div>
+                    {/* Video Background */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        <video
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="w-full h-full object-cover"
+                        >
+                            <source src="/video/hero_video.webm" type="video/webm" />
+                        </video>
+                        
+                        {/* Overlay with gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A8A]/80 via-[#1E3A8A]/60 to-[#1E3A8A]/80"></div>
+                        
+                        {/* Subtle geometric elements */}
+                        <div className="absolute top-20 right-20 w-32 h-32 border border-white/20 rounded-full"></div>
+                        <div className="absolute bottom-20 left-20 w-24 h-24 border border-[#D97706]/30 rounded-full"></div>
                     </div>
 
                     <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center space-y-6 lg:space-y-8">
                             {/* Main Slogan */}
-                            <div className="space-y-2 lg:space-y-4">
-                                <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                                    <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe585f] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Own Your</span>
-                                    <span className={`block ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Journey</span>
+                            <div className="space-y-3 lg:space-y-6">
+                                <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight">
+                                    <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-white text-5xl md:text-7xl lg:text-8xl xl:text-9xl`}>Own Your</span>
+                                    <span className={`block ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} text-[#D97706] text-5xl md:text-7xl lg:text-8xl xl:text-9xl`}>Journey</span>
                                 </h1>
                             </div>
 
                             {/* Subtitle */}
-                            <h2 className={`text-lg md:text-xl lg:text-2xl text-gray-700 font-light ${heroLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
-                                Your Ultimate Travel App
+                            <h2 className={`text-xl md:text-2xl lg:text-3xl text-white font-medium ${heroLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
+                                The World&apos;s First Travel-to-Earn Platform
                             </h2>
 
                             {/* Description */}
-                            <p className={`text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
-                                Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
+                            <p className={`text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
+                                Experience luxury travel with Dragon Pass benefits, powered by AI-driven personalization and blockchain technology.
                             </p>
 
                             {/* Action Buttons */}
-                            <div className={`flex flex-col sm:flex-row gap-4 justify-center ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
+                            <div className={`flex flex-col sm:flex-row gap-6 justify-center ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                                 <button
                                     onClick={() => handleNavigation('how-to')}
-                                    className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                                    className="px-8 lg:px-12 py-4 lg:py-5 bg-[#1E3A8A] text-white font-semibold text-lg lg:text-xl rounded-lg hover:bg-[#1E40AF] transition-all duration-300 shadow-lg hover:shadow-xl"
                                 >
-                                    <span className="relative z-10 flex items-center space-x-2">
-                                        <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">✈️</span>
-                                        <span>How to Play</span>
+                                    <span className="flex items-center space-x-3">
+                                        <span>✈️</span>
+                                        <span>Explore Platform</span>
                                     </span>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe585f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </button>
 
                                 <button
                                     onClick={handleDownload}
-                                    className="game-button download-btn group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe585f] text-[#fe585f] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe585f] hover:text-white transform hover:scale-105 transition-all duration-300"
+                                    className="px-8 lg:px-12 py-4 lg:py-5 border-2 border-[#D97706] text-[#D97706] font-semibold text-lg lg:text-xl rounded-lg hover:bg-[#D97706] hover:text-white transition-all duration-300"
                                 >
-                                    <span className="flex items-center space-x-2">
+                                    <span className="flex items-center space-x-3">
                                         <span>📱</span>
-                                        <span>Set up Account</span>
+                                        <span>Get Started</span>
                                     </span>
                                 </button>
                             </div>
 
                             {/* Stats */}
-                            <div className={`flex gap-4 lg:gap-6 justify-center ${heroLoaded ? 'slide-in-right' : 'opacity-0'}`}>
-                                <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-white/20">
-                                    <div className="text-2xl lg:text-3xl xl:text-4xl font-black text-[#fe585f] mb-2 animate-glow">50K+</div>
-                                    <div className="text-sm lg:text-base text-gray-700 font-semibold">Travelers</div>
+                            <div className={`flex gap-8 lg:gap-12 justify-center mt-12 ${heroLoaded ? 'slide-in-right' : 'opacity-0'}`}>
+                                <div className="text-center">
+                                    <div className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2">50K+</div>
+                                    <div className="text-sm lg:text-base text-white/80 font-medium">Global Travelers</div>
                                 </div>
-                                <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-white/20">
-                                    <div className="text-2xl lg:text-3xl xl:text-4xl font-black text-[#fe585f] mb-2 animate-glow">1M+</div>
-                                    <div className="text-sm lg:text-base text-gray-700 font-semibold">UNC Earned</div>
+                                <div className="text-center">
+                                    <div className="text-3xl lg:text-4xl xl:text-5xl font-bold text-[#D97706] mb-2">1M+</div>
+                                    <div className="text-sm lg:text-base text-white/80 font-medium">UNC Tokens Earned</div>
+                                </div>
+                                <div className="text-center">
+                                    <div className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2">100+</div>
+                                    <div className="text-sm lg:text-base text-white/80 font-medium">Countries</div>
                                 </div>
                             </div>
                         </div>
@@ -409,48 +382,108 @@ export default function IntroPage() {
                 </section>
             )}
 
-            {/* Features Section */}
+            {/* Features Carousel Section */}
             {activeSection === 'home' && (
                 <section className="py-20 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-16">
-                            Your Ultimate Travel Experience
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#1E3A8A] mb-16">
+                            Premium Travel Experience
                         </h2>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {[
-                                {
-                                    icon: '🤖',
-                                    title: 'AI-Powered Planning',
-                                    description: 'Intelligent AI creates personalized travel routes and discovers unique travel experiences tailored to your preferences.'
-                                },
-                                {
-                                    icon: '📝',
-                                    title: 'Create Travel Stories',
-                                    description: 'Create your exclusive travel stories, design 3D check-in routes, and earn UNC rewards when others follow your paths.'
-                                },
-                                {
-                                    icon: '👥',
-                                    title: 'Social Travel',
-                                    description: 'Team up for check-ins, collaborate on content creation, and share your exciting journeys with global travelers.'
-                                },
-                                {
-                                    icon: '💰',
-                                    title: 'Earn While Travel',
-                                    description: 'Earn UNC rewards with every check-in. Turn your travel adventures into a rewarding mining experience.'
-                                }
-                            ].map((feature, index) => (
-                                <div
-                                    key={index}
-                                    className="group bg-gradient-to-br bg-[#fff] rounded-2xl p-8 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer"
+                        <div className="relative">
+                            {/* Carousel Container */}
+                            <div className="overflow-hidden">
+                                <div 
+                                    className="flex transition-transform duration-500 ease-in-out"
+                                    style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                                 >
-                                    <div className="w-20 h-20 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        {feature.icon}
-                                    </div>
-                                    <h3 className="text-xl font-bold text-[#fe585f] mb-4">{feature.title}</h3>
-                                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                                    {[
+                                        {
+                                            title: 'AI-Powered Planning',
+                                            description: 'Intelligent AI creates personalized travel routes and discovers unique travel experiences tailored to your preferences.',
+                                            image: '/static/ai_powered.webp'
+                                        },
+                                        {
+                                            title: 'Create Travel Stories',
+                                            description: 'Create your exclusive travel stories, design 3D check-in routes, and earn UNC rewards when others follow your paths.',
+                                            image: '/static/travel_story.webp'
+                                        },
+                                        {
+                                            title: 'Social Travel',
+                                            description: 'Team up for check-ins, collaborate on content creation, and share your exciting journeys with global travelers.',
+                                            image: '/static/social_travel.webp'
+                                        },
+                                        {
+                                            title: 'Earn While Travel',
+                                            description: 'Earn UNC rewards with every check-in. Turn your travel adventures into a rewarding mining experience.',
+                                            image: '/static/earn_euro.webp'
+                                        }
+                                    ].map((feature, index) => (
+                                        <div key={index} className="w-full flex-shrink-0">
+                                            <div className="max-w-4xl mx-auto">
+                                                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                                                        {/* Image Section */}
+                                                        <div className="relative h-64 lg:h-96">
+                                                            {feature.image ? (
+                                                                <Image
+                                                                    src={feature.image}
+                                                                    alt={feature.title}
+                                                                    fill
+                                                                    className="object-cover"
+                                                                    sizes="(min-width: 1024px) 50vw, 100vw"
+                                                                    priority={index === 0}
+                                                                />
+                                                            ) : (
+                                                                <div className="w-full h-full bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6]" />
+                                                            )}
+                                                            <div className="absolute inset-0 bg-black/20"></div>
+                                                        </div>
+                                                        
+                                                        {/* Content Section */}
+                                                        <div className="p-8 lg:p-12 flex flex-col justify-center">
+                                                            <h3 className="text-3xl font-bold mb-4 text-[#1F2937]">{feature.title}</h3>
+                                                            <p className="text-lg text-[#6B7280] leading-relaxed">{feature.description}</p>
+                                                            <button className="mt-6 px-6 py-3 bg-[#1E3A8A] text-white rounded-lg hover:bg-[#1E40AF] transition-colors duration-300 w-fit">
+                                                                Learn More
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
+
+                            {/* Navigation Dots */}
+                            <div className="flex justify-center mt-8 space-x-3">
+                                {[0, 1, 2, 3].map((index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setCurrentSlide(index)}
+                                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                                            currentSlide === index 
+                                                ? 'bg-[#1E3A8A] w-8' 
+                                                : 'bg-gray-300 hover:bg-gray-400'
+                                        }`}
+                                    />
+                                ))}
+                            </div>
+
+                            {/* Navigation Arrows */}
+                            <button
+                                onClick={() => setCurrentSlide((prev) => (prev - 1 + 4) % 4)}
+                                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300"
+                            >
+                                <span className="text-2xl text-[#1E3A8A]">‹</span>
+                            </button>
+                            <button
+                                onClick={() => setCurrentSlide((prev) => (prev + 1) % 4)}
+                                className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300"
+                            >
+                                <span className="text-2xl text-[#1E3A8A]">›</span>
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -460,8 +493,8 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="py-20 bg-gradient-to-br bg-[#fff]">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-8">
-                            Watch How Uniloco Works
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#1E3A8A] mb-8">
+                            See Uniloco in Action
                         </h2>
                         <p className="text-xl text-gray-600 mb-12">
                             Discover the revolutionary travel-to-earn ecosystem in action
@@ -474,7 +507,7 @@ export default function IntroPage() {
                             >
                                 {/* 简化的视频加载状态 - 只在最初显示 */}
                                 {!videoLoaded && !videoError && (
-                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#fe585f] to-[#ff7a80] z-10">
+                                    <div className="absolute inset-0 flex items-center justify-center bg-[#1E3A8A] z-10">
                                         <div className="text-center text-white">
                                             <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                                             <p className="text-lg font-semibold">Loading Video...</p>
@@ -484,7 +517,7 @@ export default function IntroPage() {
                                                     e.stopPropagation();
                                                     setVideoLoaded(true);
                                                 }}
-                                                className="mt-4 px-4 py-2 bg-white text-[#fe585f] rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
+                                                className="mt-4 px-4 py-2 bg-white text-[#1E3A8A] rounded-lg text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
                                             >
                                                 Skip Loading
                                             </button>
@@ -494,14 +527,14 @@ export default function IntroPage() {
 
                                 {/* 视频错误状态 */}
                                 {videoError && (
-                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#fe585f] to-[#ff7a80] z-10">
+                                    <div className="absolute inset-0 flex items-center justify-center bg-[#1E3A8A] z-10">
                                         <div className="text-center text-white">
                                             <div className="text-6xl mb-4">⚠️</div>
                                             <p className="text-lg font-semibold mb-2">Video Unavailable</p>
                                             <p className="text-sm opacity-80 mb-4">Please try again later</p>
                                             <button
                                                 onClick={handleVideoRetry}
-                                                className="px-6 py-2 bg-white text-[#fe585f] rounded-full font-semibold hover:bg-gray-100 transition-all duration-300"
+                                                className="px-6 py-2 bg-white text-[#1E3A8A] rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300"
                                             >
                                                 🔄 Retry
                                             </button>
@@ -548,7 +581,7 @@ export default function IntroPage() {
 
 
                                 {isVideoPlaying && videoLoaded && !videoError && (
-                                    <div className="absolute top-4 right-4 bg-[#fe585f] text-white px-3 py-1 rounded-full text-sm font-semibold z-20">
+                                    <div className="absolute top-4 right-4 bg-[#2563EB] text-white px-3 py-1 rounded-full text-sm font-semibold z-20">
                                         ▶️ Playing
                                     </div>
                                 )}
@@ -580,7 +613,7 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="py-20 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#2563EB] mb-4">
                             Travel Band NFTs
                         </h2>
                         <p className="text-xl text-gray-600 text-center mb-16">
@@ -618,12 +651,12 @@ export default function IntroPage() {
                                     price: 'Rare Drop',
                                     boost: '+100%',
                                     action: 'Coming Soon',
-                                    gradient: 'from-red-500 to-red-700'
+                                    gradient: 'from-[#1E3A8A] to-[#3B82F6]'
                                 }
                             ].map((band, index) => (
                                 <div
                                     key={index}
-                                    className="group bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center"
+                                    className="group bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#2563EB] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center"
                                 >
                                     <div
                                         className="band-image-container mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto relative"
@@ -646,11 +679,11 @@ export default function IntroPage() {
                                         />
                                     </div>
                                     <h3 className="text-2xl font-bold text-gray-800 mb-2">{band.name}</h3>
-                                    <p className="text-[#fe585f] font-semibold mb-2">{band.price}</p>
+                                    <p className="text-[#2563EB] font-semibold mb-2">{band.price}</p>
                                     <p className="text-gray-600 mb-6">Base UNC Boost {band.boost}</p>
                                     <button className={`w-full py-3 rounded-full font-bold transition-all duration-300 ${band.action === 'Coming Soon'
                                         ? 'bg-gray-400 text-white cursor-not-allowed'
-                                        : 'bg-[#fe585f] text-white hover:bg-[#ff7a80] hover:scale-105'
+                                        : 'bg-[#2563EB] text-white hover:bg-[#7C3AED] hover:scale-105'
                                         }`}>
                                         {band.action}
                                     </button>
@@ -665,23 +698,23 @@ export default function IntroPage() {
 
                             {/* Stats Section */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                                <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-lg">
-                                    <div className="text-4xl font-bold text-[#fe585f] mb-2 animate-glow">50K+</div>
+                                <div className="bg-gradient-to-br from-[#F8FAFC] to-white rounded-2xl p-6 border border-[#E2E8F0] hover:border-[#1E3A8A] transition-all duration-300 hover:shadow-lg">
+                                    <div className="text-4xl font-bold text-[#1E3A8A] mb-2 animate-glow">50K+</div>
                                     <div className="text-gray-600">Active Travelers</div>
                                 </div>
-                                <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-lg">
-                                    <div className="text-4xl font-bold text-[#fe585f] mb-2 animate-glow">1M+</div>
+                                <div className="bg-gradient-to-br from-[#F8FAFC] to-white rounded-2xl p-6 border border-[#E2E8F0] hover:border-[#1E3A8A] transition-all duration-300 hover:shadow-lg">
+                                    <div className="text-4xl font-bold text-[#1E3A8A] mb-2 animate-glow">1M+</div>
                                     <div className="text-gray-600">UNC Tokens Earned</div>
                                 </div>
-                                <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-lg">
-                                    <div className="text-4xl font-bold text-[#fe585f] mb-2 animate-glow">200+</div>
+                                <div className="bg-gradient-to-br from-[#F8FAFC] to-white rounded-2xl p-6 border border-[#E2E8F0] hover:border-[#1E3A8A] transition-all duration-300 hover:shadow-lg">
+                                    <div className="text-4xl font-bold text-[#1E3A8A] mb-2 animate-glow">200+</div>
                                     <div className="text-gray-600">Cities Covered</div>
                                 </div>
                             </div>
 
                             <button
                                 onClick={() => handleNavigation('marketplace')}
-                                className="game-button px-8 py-4 bg-[#fe585f] text-white font-bold text-lg rounded-full hover:bg-[#ff7a80] transform hover:scale-105 transition-all duration-300"
+                                className="game-button px-8 py-4 bg-[#2563EB] text-white font-bold text-lg rounded-full hover:bg-[#7C3AED] transform hover:scale-105 transition-all duration-300"
                             >
                                 Explore Marketplace
                             </button>
@@ -692,9 +725,9 @@ export default function IntroPage() {
 
             {/* Testimonials Section */}
             {activeSection === 'home' && (
-                <section className="py-20 bg-gradient-to-br from-red-50 to-red-100">
+                <section className="py-20 bg-gradient-to-br from-[#F8FAFC] to-[#F1F5F9]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-8">
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#2563EB] mb-8">
                             Real Stories from Our Community
                         </h2>
                         <p className="text-xl text-gray-600 text-center mb-16">
@@ -745,18 +778,18 @@ export default function IntroPage() {
                             ].map((post, index) => (
                                 <div
                                     key={index}
-                                    className="instagram-card group bg-white rounded-xl border border-gray-200 hover:border-[#fe585f] overflow-hidden"
+                                    className="instagram-card group bg-white rounded-xl border border-gray-200 hover:border-[#2563EB] overflow-hidden"
                                 >
                                     {/* Header */}
                                     <div className="flex items-center p-4 border-b border-gray-100">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-lg mr-3">
+                                        <div className="w-10 h-10 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] rounded-full flex items-center justify-center text-lg mr-3">
                                             {post.avatar}
                                         </div>
                                         <div className="flex-1">
                                             <div className="flex items-center">
                                                 <h4 className="font-semibold text-gray-900 text-sm">{post.name}</h4>
-                                                <span className="ml-1 text-[#fe585f] text-xs">•</span>
-                                                <span className="ml-1 text-[#fe585f] text-xs font-medium">{post.earnings}</span>
+                                                <span className="ml-1 text-[#2563EB] text-xs">•</span>
+                                                <span className="ml-1 text-[#2563EB] text-xs font-medium">{post.earnings}</span>
                                             </div>
                                             <div className="flex items-center text-xs text-gray-500">
                                                 <span>{post.username}</span>
@@ -804,7 +837,7 @@ export default function IntroPage() {
                                             <div className="flex items-center space-x-4">
                                                 <button
                                                     onClick={() => handleLikePost(index)}
-                                                    className={`transition-all duration-300 transform hover:scale-110 ${likedPosts[index] ? 'text-[#fe585f]' : 'text-gray-600 hover:text-[#fe585f]'
+                                                    className={`transition-all duration-300 transform hover:scale-110 ${likedPosts[index] ? 'text-[#2563EB]' : 'text-gray-600 hover:text-[#2563EB]'
                                                         }`}
                                                 >
                                                     <svg className={`w-6 h-6 transition-all duration-300 ${likedPosts[index] ? 'fill-current animate-pulse' : 'fill-none'
@@ -812,18 +845,18 @@ export default function IntroPage() {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                                     </svg>
                                                 </button>
-                                                <button className="text-gray-600 hover:text-[#fe585f] transition-colors">
+                                                <button className="text-gray-600 hover:text-[#2563EB] transition-colors">
                                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                                     </svg>
                                                 </button>
-                                                <button className="text-gray-600 hover:text-[#fe585f] transition-colors">
+                                                <button className="text-gray-600 hover:text-[#2563EB] transition-colors">
                                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                                                     </svg>
                                                 </button>
                                             </div>
-                                            <button className="text-gray-600 hover:text-[#fe585f] transition-colors">
+                                            <button className="text-gray-600 hover:text-[#2563EB] transition-colors">
                                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                                                 </svg>
@@ -854,7 +887,7 @@ export default function IntroPage() {
             )}
 
             {/* Download Section */}
-            <section className="py-20 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white">
+            <section className="py-20 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] text-white">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-5xl md:text-6xl font-black mb-8">
                         DOWNLOAD NOW
@@ -866,7 +899,7 @@ export default function IntroPage() {
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
                         <button
                             onClick={handleDownload}
-                            className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                            className="download-btn group bg-white text-[#2563EB] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                         >
                             <span>🍎</span>
                             <span>Download on App Store</span>
@@ -874,7 +907,7 @@ export default function IntroPage() {
 
                         <button
                             onClick={handleDownload}
-                            className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                            className="download-btn group bg-white text-[#2563EB] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                         >
                             <span>🤖</span>
                             <span>Get it on Google Play</span>

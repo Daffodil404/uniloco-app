@@ -66,16 +66,16 @@ export default function HowToPlayPage() {
             {/* Hero Section */}
             <section className="pt-16 min-h-screen flex items-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-white">
-                    <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe585f]/10 rounded-full animate-bounce"></div>
-                    <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe585f]/15 rounded-full animate-pulse"></div>
+                    <div className="absolute top-20 left-20 w-32 h-32 bg-[#2563EB]/10 rounded-full animate-bounce"></div>
+                    <div className="absolute top-40 right-32 w-24 h-24 bg-[#2563EB]/15 rounded-full animate-pulse"></div>
                 </div>
 
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col lg:flex-row items-center gap-6">
                         <div className="flex-1 text-left space-y-3">
                             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-tight">
-                                <span className="block text-[#fe585f]">How To Play</span>
-                                <span className="block bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent">
+                                <span className="block text-[#2563EB]">How To Play</span>
+                                <span className="block bg-gradient-to-r from-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent">
                                     Start Your Journey
                                 </span>
                             </h1>
@@ -92,7 +92,7 @@ export default function HowToPlayPage() {
             {/* Travel Band */}
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-4">
+                    <h2 className="text-4xl md:text-5xl font-bold text-center text-[#2563EB] mb-4">
                         Travel Band NFTs
                     </h2>
                     <p className="text-xl text-gray-600 text-center mb-16">
@@ -135,7 +135,7 @@ export default function HowToPlayPage() {
                         ].map((band, index) => (
                             <div
                                 key={index}
-                                className="group bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center"
+                                className="group bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#2563EB] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center"
                             >
                                 <div
                                     className="band-image-container mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto relative"
@@ -158,11 +158,11 @@ export default function HowToPlayPage() {
                                     />
                                 </div>
                                 <h3 className="text-2xl font-bold text-gray-800 mb-2">{band.name}</h3>
-                                <p className="text-[#fe585f] font-semibold mb-2">{band.price}</p>
+                                <p className="text-[#2563EB] font-semibold mb-2">{band.price}</p>
                                 <p className="text-gray-600 mb-6">Base UNC Boost {band.boost}</p>
                                 <button className={`w-full py-3 rounded-full font-bold transition-all duration-300 ${band.action === 'Coming Soon'
                                     ? 'bg-gray-400 text-white cursor-not-allowed'
-                                    : 'bg-[#fe585f] text-white hover:bg-[#ff7a80] hover:scale-105'
+                                    : 'bg-[#2563EB] text-white hover:bg-[#7C3AED] hover:scale-105'
                                     }`}>
                                     {band.action}
                                 </button>
@@ -177,7 +177,7 @@ export default function HowToPlayPage() {
             <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
                 <div className="container mx-auto px-4 md:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-10">
                     <div className="flex-1 order-2 lg:order-1 space-y-4">
-                        <h2 className="text-4xl font-bold text-[#fe585f]">Travel Stories</h2>
+                        <h2 className="text-4xl font-bold text-[#2563EB]">Travel Stories</h2>
                         <p className="text-gray-600 text-lg">
                             Capture your journey and share with the Uniloco community. Post
                             photos, videos, and stories to inspire other travelers and earn

@@ -130,14 +130,14 @@ export default function Header({
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-[#fe585f] backdrop-blur-md z-50 border-b border-red-200 shadow-lg">
+    <nav className="fixed top-0 w-full bg-[#1E3A8A] backdrop-blur-md z-50 border-b border-[#1E40AF] shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg animate-pulse">
+            <div className="w-10 h-10 bg-[#D97706] rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
               ✈️
             </div>
-            <span className="text-2xl font-bold text-[#fe585f]">Uniloco</span>
+            <span className="text-2xl font-bold text-white">Uniloco</span>
           </div>
 
           <div className="hidden md:flex space-x-8">
