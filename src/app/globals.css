@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Ensure Tailwind text utilities can override library defaults when needed */
+:root .text-white { color: #ffffff !important; }
+.btn-white-text { color: #ffffff !important; }
+
 /* 新的浅色主题颜色方案 */
 :root {
   /* 主色调：珊瑚红 */

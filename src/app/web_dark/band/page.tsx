@@ -91,7 +91,7 @@ export default function TravelBandNFTsPage() {
       rarity: 'Uncommon',
       color: 'from-green-400 to-green-600',
       stats: { power: 15, luck: 8, charm: 6 },
-      price: '100 UNC',
+      price: '100 Euro',
       description: 'Enhanced capabilities for experienced travelers'
     },
     {
@@ -100,7 +100,7 @@ export default function TravelBandNFTsPage() {
       rarity: 'Rare',
       color: 'from-purple-400 to-purple-600',
       stats: { power: 20, luck: 12, charm: 10 },
-      price: '500 UNC',
+      price: '500 Euro',
       description: 'Rare band with exceptional travel bonuses'
     },
     {
@@ -109,7 +109,7 @@ export default function TravelBandNFTsPage() {
       rarity: 'Epic',
       color: 'from-orange-400 to-orange-600',
       stats: { power: 25, luck: 15, charm: 12 },
-      price: '1000 UNC',
+      price: '1000 Euro',
       description: 'Epic band with legendary travel powers'
     },
     {
@@ -118,7 +118,7 @@ export default function TravelBandNFTsPage() {
       rarity: 'Legendary',
       color: 'from-red-400 to-red-600',
       stats: { power: 30, luck: 18, charm: 15 },
-      price: '2500 UNC',
+      price: '2500 Euro',
       description: 'The ultimate travel companion with mythical abilities'
     }
   ];
@@ -138,7 +138,7 @@ export default function TravelBandNFTsPage() {
       <section id="travel-stats" className="py-24 bg-white relative">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-10 reveal">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-3">Travel Band NFTs</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-3">Start Game with your Travel Band</h2>
             <p className="text-gray-600 text-lg md:text-xl">Start your Travel to Earn journey, choose your exclusive Travel Band, and upgrade to unlock more rewards.</p>
           </div>
 
@@ -154,14 +154,13 @@ export default function TravelBandNFTsPage() {
               </div>
             </div>
 
-            {/* UNC Tokens Earned */}
             <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-[#fe585f]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative z-10 text-center">
                 <div className="text-5xl font-bold text-[#fe585f] mb-4 leading-none">
                   {tokensEarned.toLocaleString()}+
                 </div>
-                <div className="text-gray-700 font-medium">UNC Tokens Earned</div>
+                <div className="text-gray-700 font-medium">Tokens Earned</div>
               </div>
             </div>
 
