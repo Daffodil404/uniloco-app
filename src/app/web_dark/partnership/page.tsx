@@ -120,13 +120,13 @@ export default function PartnershipPage() {
             Transform your local expertise into sustainable income.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 reveal">
-            <button onClick={() => scrollToSection('cta')} className="px-8 py-4 bg-[#fe585f] text-white rounded-xl shadow-md hover:bg-[#e14b52] transition-colors">
+            <button onClick={() => scrollToSection('cta')} className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Apply Now
             </button>
-            <button onClick={() => scrollToSection('types')} className="px-8 py-4 border-2 border-[#fe585f] text-[#fe585f] rounded-xl hover:bg-[#fe585f] hover:text-white transition-colors">
+            <button onClick={() => scrollToSection('types')} className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Learn More
                 </button>
-            <button onClick={() => scrollToSection('contact')} className="px-8 py-4 border-2 border-white text-white rounded-xl hover:bg-white hover:text-black transition-colors">
+            <button onClick={() => scrollToSection('contact')} className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Contact Us
                 </button>
               </div>

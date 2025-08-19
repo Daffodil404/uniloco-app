@@ -164,8 +164,8 @@ export default function Header({
   const navBorder = isWebDark ? 'border-[#d94a51]' : 'border-[#1E40AF]';
   const logoBg = isWebDark ? 'bg-white/15' : 'bg-[#fe585f]';
 
-  // 根据路径定制导航项：/web_dark 增加独立的 events 入口
-  const effectiveNavItems = isWebDark ? [...(navItems || []).filter(i => i !== 'events'), 'events'] : navItems;
+  // 根据路径定制导航项：/web_dark 使用自定义顺序
+  const effectiveNavItems = isWebDark ? ['home', 'how-to', 'events', 'partnership', 'web3 hub'] : navItems;
 
   return (
     <nav className={`fixed top-0 w-full ${navBg} backdrop-blur-md z-50 border-b ${navBorder} shadow-lg`}>

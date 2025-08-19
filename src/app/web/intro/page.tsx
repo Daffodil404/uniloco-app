@@ -369,8 +369,7 @@ export default function IntroPage() {
 
                                 {/* Description */}
                                 <p className={`text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-lg ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
-                                    Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
-                                </p>
+                                Building the world&apos;s first personality-driven travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.                                </p>
 
                                 {/* Action Buttons */}
                                 <div className={`flex flex-col sm:flex-row gap-4 ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
@@ -454,17 +453,12 @@ export default function IntroPage() {
                                 {
                                     icon: '📝',
                                     title: 'Create Travel Stories',
-                                    description: 'Create your exclusive travel stories, design 3D check-in routes, and earn UNC rewards when others follow your paths.'
+                                    description: 'Create your exclusive travel stories, design 3D check-in routes.'
                                 },
                                 {
                                     icon: '👥',
                                     title: 'Social Travel',
                                     description: 'Team up for check-ins, collaborate on content creation, and share your exciting journeys with global travelers.'
-                                },
-                                {
-                                    icon: '💰',
-                                    title: 'Earn While Travel',
-                                    description: 'Earn UNC rewards with every check-in. Turn your travel adventures into a rewarding mining experience.'
                                 }
                             ].map((feature, index) => (
                                 <div

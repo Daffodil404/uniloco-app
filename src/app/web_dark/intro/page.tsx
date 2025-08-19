@@ -340,24 +340,7 @@ export default function IntroPage() {
                                 Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
                             </p>
 
-                            {/* Action Buttons */}
-                            <div className={`flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
-                                <button
-                                    className="px-6 lg:px-8 py-3 lg:py-4 bg-[#fe585f] text-white font-semibold text-base lg:text-lg rounded-lg hover:bg-[#e14b52] transition-all duration-300 shadow-lg hover:shadow-xl"
-                                >
-                                    Get it on the Google Play
-                                </button>
-                                <button
-                                    className="px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe585f] text-[#fe585f] font-semibold text-base lg:text-lg rounded-lg hover:bg-[#fe585f] hover:text-white transition-all duration-300"
-                                >
-                                    Download the Andrioid AOK
-                                </button>
-                                <button
-                                    className="px-6 lg:px-8 py-3 lg:py-4 border-2 border-white text-white font-semibold text-base lg:text-lg rounded-lg hover:bg-white hover:text-black transition-all duration-300"
-                                >
-                                    Download the APP store
-                                </button>
-                            </div>
+                            <DownloadSection textColor='#ffffff'/>
                         </div>
                     </div>
                 </section>
@@ -386,7 +369,7 @@ export default function IntroPage() {
                                         },
                                         {
                                             title: 'Create Travel Stories',
-                                            description: 'Create your exclusive travel stories, design 3D check-in routes, and earn UNC rewards when others follow your paths.',
+                                            description: 'Create your exclusive travel stories, design 3D check-in routes, and earn rewards when others follow your paths.',
                                             image: '/static/travel_story.webp'
                                         },
                                         {
@@ -396,7 +379,7 @@ export default function IntroPage() {
                                         },
                                         {
                                             title: 'Earn While Travel',
-                                            description: 'Earn UNC rewards with every check-in. Turn your travel adventures into a rewarding mining experience.',
+                                            description: 'Earn rewards with every check-in. Turn your travel adventures into a rewarding mining experience.',
                                             image: '/static/earn_euro.webp'
                                         }
                                     ].map((feature, index) => (
@@ -584,10 +567,9 @@ export default function IntroPage() {
                 <section className="py-20 bg-gradient-to-br from-[#F8FAFC] to-[#F1F5F9]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-8">
-                            Real Stories from Our Community
-                        </h2>
+                        See how travelers are building amazing experiences                        </h2>
                         <p className="text-xl text-gray-600 text-center mb-16">
-                            See how travelers are earning UNC tokens and building amazing experiences
+                            See how travelers are earning tokens and building amazing experiences
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -601,9 +583,9 @@ export default function IntroPage() {
                                     likes: '892',
                                     comments: '45',
                                     shares: '23',
-                                    content: 'My little coffee shop was struggling, almost ready to close after 3 slow months 😢 Then @SoloTraveler_Jake featured us in his Uniloco travel story "Hidden Prague Gems". In just 2 weeks, 180+ travelers found us through his route! Now we\'re busier than ever and I\'m earning UNC from our partnership. Uniloco literally saved my business! 🙏 #Prague #CoffeeShop #TravelToEarn #Uniloco',
+                                    content: 'My little coffee shop was struggling, almost ready to close after 3 slow months 😢 Then @SoloTraveler_Jake featured us in his Uniloco travel story "Hidden Prague Gems". In just 2 weeks, 180+ travelers found us through his route! Now we\'re busier than ever and I\'m earning from our partnership. Uniloco literally saved my business! 🙏 #Prague #CoffeeShop #TravelToEarn #Uniloco',
                                     image: '/static/real_pic1.png',
-                                    earnings: '+2,450 UNC'
+                                    earnings: '+2,450 Euro'
                                 },
                                 {
                                     avatar: '🌍',
@@ -616,7 +598,7 @@ export default function IntroPage() {
                                     shares: '67',
                                     content: 'Just completed my 50th travel story on Uniloco! Started in my hometown Barcelona, now creating routes across Europe. Last month earned 2,800 UNC, met incredible people, and my "Barcelona Secret Spots" story has 1,200+ followers! Never thought my love for exploring could become my side income 💫 #Barcelona #TravelCreator #UNC #Europe',
                                     image: '/static/real_pic2.png',
-                                    earnings: '+2,800 UNC'
+                                    earnings: '+2,800 Euro'
                                 },
                                 {
                                     avatar: '💼',
@@ -629,7 +611,7 @@ export default function IntroPage() {
                                     shares: '89',
                                     content: 'Plot twist: Got hired as UX Designer at a travel startup because of my Uniloco portfolio! 🎉 The CEO saw my 3D travel stories and NFT designs, loved my creativity. Started as a hobby creating routes in Amsterdam, now it\'s my career! #CareerChange #UXDesign #Amsterdam #Uniloco',
                                     image: '/static/real_pic3.png',
-                                    earnings: '+5,200 UNC'
+                                    earnings: '+5,200 Euro'
                                 }
                             ].map((post, index) => (
                                 <div
