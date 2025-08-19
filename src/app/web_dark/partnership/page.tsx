@@ -12,24 +12,24 @@ export default function PartnershipPage() {
     // 模拟下载动画和触觉反馈
     const button = document.querySelector('.download-btn');
     if (button) {
-        button.classList.add('downloading');
+      button.classList.add('downloading');
 
-        // 模拟触觉反馈
-        if ('vibrate' in navigator) {
-            navigator.vibrate(200);
-        }
+      // 模拟触觉反馈
+      if ('vibrate' in navigator) {
+        navigator.vibrate(200);
+      }
 
-        // 添加点击音效（模拟）
-        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
-        audio.volume = 0.1;
-        audio.play().catch(() => { }); // 忽略可能的错误
+      // 添加点击音效（模拟）
+      const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
+      audio.volume = 0.1;
+      audio.play().catch(() => { }); // 忽略可能的错误
 
-        setTimeout(() => {
-            button.classList.remove('downloading');
-            alert('Download started! 🚀');
-        }, 2000);
+      setTimeout(() => {
+        button.classList.remove('downloading');
+        alert('Download started! 🚀');
+      }, 2000);
     }
-};
+  };
   // Handle scroll events for section highlighting
   useEffect(() => {
     const handleScroll = () => {
@@ -144,21 +144,21 @@ export default function PartnershipPage() {
             {[
               {
                 image: '/static/partnership/undraw_mind-map_i9bv.svg',
-                title: 'Faster Growth',
-                old: 'Manual outreach, low conversion',
-                with: 'Performance-based referrals with analytics'
+                title: 'Smart Customer Matching',
+                old: ' Endless scrolling, generic searches, missed connections.',
+                with: 'AI pairs your unique expertise with travelers who truly value it.'
               },
               {
                 image: '/static/partnership/undraw_all-the-data_5lil.svg',
-                title: 'Simplified Tools',
-                old: 'Fragmented platforms, complex setup',
-                with: 'All-in-one dashboard and automation'
+                title: 'All-in-One Business Tools',
+                old: 'Juggling multiple tools, manual processes, no support. ',
+                with: 'One seamless platform—automated payments, real-time analytics, and expert support. '
               },
               {
                 image: '/static/partnership/undraw_investment-data_frxx.svg',
-                title: 'Multiple Revenue Streams',
-                old: 'Single commission channel',
-                with: 'UNC tokens + affiliate + sponsorship'
+                title: 'Keep More, Earn More',
+                old: 'High fees eating into your profits.',
+                with: 'You keep 75-95% of earnings + performance bonuses.'
               }
             ].map((card, i) => (
               <div
@@ -169,7 +169,7 @@ export default function PartnershipPage() {
                   <div className="relative w-28 h-28">
                     <Image src={card.image} alt={card.title} fill className="object-contain" />
                   </div>
-                </div>
+              </div>
                 <h3 className="text-xl font-bold text-gray-900 text-center mb-6">{card.title}</h3>
 
                 {/* Comparison */}
@@ -183,7 +183,7 @@ export default function PartnershipPage() {
                     <p className="text-xs font-semibold uppercase tracking-wide text-[#fe585f] mb-1">With Uniloco</p>
                     <p className="text-gray-800">{card.with}</p>
                   </div>
-              </div>
+                </div>
               </div>
             ))}
           </div>
@@ -204,20 +204,19 @@ export default function PartnershipPage() {
             {/* Content Creators Card */}
             <div className="rounded-2xl border border-[#fe585f]/30 p-8 shadow-sm hover:shadow-md transition-all">
               <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">📱 Content Creators</h3>
-                <p className="text-sm text-gray-500">Create • Share • Earn</p>
+                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">📱 Affiliate Program</h3>
+                <p className="text-sm text-gray-500">Influencers & Digital Creators</p>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6">
-                Turn high quality travel content into sustainable income with performance based rewards, brand partnerships and UNC tokens.
-              </p>
+                Transform your travel content into sustainable income. Earn through our affiliate program, get sponsored travel opportunities, and provide exclusive value to your audience with UNC rewards.              </p>
 
               <div className="mb-6">
                 <p className="text-sm font-semibold text-[#fe585f] mb-3">Perfect for:</p>
                 <ul className="grid grid-cols-2 gap-3 text-sm text-gray-700">
-                  <li className="flex items-center gap-2"><span>📝</span><span>Bloggers</span></li>
-                  <li className="flex items-center gap-2"><span>📣</span><span>Influencers</span></li>
-                  <li className="flex items-center gap-2"><span>🎬</span><span>Creators</span></li>
-                  <li className="flex items-center gap-2"><span>📸</span><span>Photographers</span></li>
+                  <li className="flex items-center gap-2"><span>📝</span><span>Travel bloggers and vloggers</span></li>
+                  <li className="flex items-center gap-2"><span>📣</span><span>Social media influencers</span></li>
+                  <li className="flex items-center gap-2"><span>🎬</span><span>Digital content creators</span></li>
+                  <li className="flex items-center gap-2"><span>📸</span><span>Photography enthusiasts</span></li>
                 </ul>
               </div>
 
@@ -231,27 +230,26 @@ export default function PartnershipPage() {
                     className="object-contain"
                     priority
                   />
-                </div>
+            </div>
               </div>
             </div>
 
             {/* Local Merchants Card */}
             <div className="rounded-2xl border border-[#fe585f]/30 p-8 shadow-sm hover:shadow-md transition-all">
               <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">🏪 Local Merchants</h3>
-                <p className="text-sm text-gray-500">Attract • Delight • Grow</p>
+                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">🏪 Merchant Collobration</h3>
+                <p className="text-sm text-gray-500">Restaurants, Hotels & Experiences</p>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6">
-                Reach targeted travelers nearby, drive in store traffic and grow revenue with measurable performance and UNC token options.
-              </p>
+              Attract travelers to your business with our targeted marketing tools. Increase foot traffic, boost sales, and gain valuable exposure to our community of adventure seekers.              </p>
 
               <div className="mb-6">
                 <p className="text-sm font-semibold text-[#fe585f] mb-3">Perfect for:</p>
                 <ul className="grid grid-cols-2 gap-3 text-sm text-gray-700">
-                  <li className="flex items-center gap-2"><span>🍽️</span><span>Restaurants</span></li>
-                  <li className="flex items-center gap-2"><span>🏨</span><span>Hotels</span></li>
-                  <li className="flex items-center gap-2"><span>🎟️</span><span>Experiences</span></li>
-                  <li className="flex items-center gap-2"><span>🧭</span><span>Tours</span></li>
+                  <li className="flex items-center gap-2"><span>🍽️</span><span>Restaurants and cafes</span></li>
+                  <li className="flex items-center gap-2"><span>🏨</span><span>Hotels and accommodations</span></li>
+                  <li className="flex items-center gap-2"><span>🎟️</span><span> Experience providers</span></li>
+                  <li className="flex items-center gap-2"><span>🧭</span><span> Local tour operators</span></li>
                 </ul>
               </div>
 
@@ -276,36 +274,37 @@ export default function PartnershipPage() {
       <section id="how-it-works" className="py-24 bg-gradient-to-b from-white to-[#fff7f7]">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 reveal">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#fe585f]">How It Works</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#fe585f]">How we Work together</h2>
             <div className="mt-3 flex justify-center">
               <span className="inline-block h-1 w-24 bg-[#fe585f] rounded-full"></span>
         </div>
+            <p className="mt-4 text-lg md:text-xl text-gray-700">You Apply, We Support, You Earn</p>
           </div>
           <ConfigProvider theme={{ token: { colorPrimary: '#fe585f' }, components: { Steps: { iconSize: 36 } } }}>
             {/* Track: Content Creators */}
             <div className="max-w-6xl mx-auto mb-14 reveal">
-              <h3 className="text-lg font-semibold text-[#fe585f] mb-6 flex items-center gap-2">📱 Content Creators</h3>
+              <h3 className="text-lg font-semibold text-[#fe585f] mb-6">For Content Creators</h3>
               <div className="px-1">
                 <Steps
                   current={0}
                   items={[
-                    { status: 'wait', title: 'Apply', description: 'Simple profile & links' },
-                    { status: 'wait', title: 'Amplify', description: 'AI tools & tracking' },
-                    { status: 'wait', title: 'Monetize', description: 'UNC + brand deals' }
+                    { status: 'wait', title: 'You Apply', description: 'Submit your profile and content expertise' },
+                    { status: 'wait', title: 'We Amplify', description: 'AI matches your audience + global exposure + premium brand connections' },
+                    { status: 'wait', title: 'You Monetize', description: 'Transform followers into sustainable income streams' }
                   ]}
                 />
                     </div>
             </div>
             {/* Track: Local Merchants */}
             <div className="max-w-6xl mx-auto reveal">
-              <h3 className="text-lg font-semibold text-[#fe585f] mb-6 flex items-center gap-2">🏪 Local Merchants</h3>
+              <h3 className="text-lg font-semibold text-[#fe585f] mb-6">For Local Merchants</h3>
               <div className="px-1">
                 <Steps
                   current={0}
                   items={[
-                    { status: 'wait', title: 'Apply', description: 'Business profile' },
-                    { status: 'wait', title: 'Connect', description: 'Reach travelers' },
-                    { status: 'wait', title: 'Scale', description: 'Revenue growth' }
+                    { status: 'wait', title: 'You Apply', description: 'Share your business and unique experiences' },
+                    { status: 'wait', title: 'We Connect', description: 'Target international travelers + featured placement + booking automation' },
+                    { status: 'wait', title: 'You Scale', description: 'Convert visitors into loyal customers and recurring revenue' }
                   ]}
                 />
                     </div>
@@ -323,15 +322,38 @@ export default function PartnershipPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto reveal">
             {[
-              { name: 'Emma Rodriguez', role: 'Travel Blogger', quote: 'Uniloco turned my passion into income. Partnerships and UNC rewards made scaling simple.', results: ['+42% conversion', '35K UNC earned', '8 sponsored trips'] },
-              { name: 'Bali Beach Cafe', role: 'Local Restaurant', quote: 'Targeted travelers found us. We saw a big lift in international customers within weeks.', results: ['+65% foreign customers', '+12% revenue', '4.8/5 rating'] },
-              { name: 'James Wilson', role: 'Travel Vlogger', quote: 'Clear analytics + steady brand deals. Engagement and earnings both improved.', results: ['28% commission rate', '120K UNC earned', '15 collaborations'] }
+              {
+                name: 'Emma Rodriguez',
+                role: 'Travel Blogger',
+                meta: '120K Followers',
+                quote: 'Uniloco transformed my hobby into a full-time career. I\'ve doubled my income while creating content about places I love.',
+                resultsTitle: 'Results in 6 months:',
+                results: ['42% Conversion Rate', '35K UNC Earned', '8 Sponsored Trips']
+              },
+              {
+                name: 'Bali Beach Cafe',
+                role: 'Restaurant',
+                meta: 'Seminyak, Bali',
+                quote: 'Since joining Uniloco, we\'ve seen a 65% increase in foreign customers. The platform brings exactly the crowd we want.',
+                resultsTitle: 'Results in 4 months:',
+                results: ['+65% Foreign Customers', '12% Revenue Growth', '4.8/5 Rating']
+              },
+              {
+                name: 'James Wilson',
+                role: 'Travel Vlogger',
+                meta: '350K Subscribers',
+                quote: 'The analytics dashboard helps me understand what my audience loves. My engagement has never been higher.',
+                resultsTitle: 'Results in 8 months:',
+                results: ['28% Commission Rate', '120K UNC Earned', '15 Brand Collaborations']
+              }
             ].map((s, i) => (
               <div key={i} className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all border-t-4 border-[#fe585f] p-8">
                 <div className="w-16 h-16 rounded-full bg-[#fff0f0] border border-[#fe585f]/30 mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-gray-900 text-center">{s.name}</h3>
-                <p className="text-sm text-gray-500 text-center mb-4">{s.role}</p>
-                <p className="italic text-gray-700 text-center mb-6">“{s.quote}”</p>
+                <p className="text-sm text-gray-500 text-center">{s.role}</p>
+                {s.meta && (<p className="text-xs text-gray-500 text-center mb-4">{s.meta}</p>)}
+                <p className="italic text-gray-700 text-center mb-4">“{s.quote}”</p>
+                {s.resultsTitle && (<p className="text-xs text-gray-500 text-center mb-2">{s.resultsTitle}</p>)}
                 <ul className="space-y-2 text-sm text-gray-700 mb-4">
                   {s.results.map((r, idx) => (
                     <li key={idx} className="flex items-center gap-2">
@@ -379,7 +401,7 @@ export default function PartnershipPage() {
       </section>
 
 
-            <DownloadSection />
+      <DownloadSection />
       {/* Custom CSS for animations */}
       <style jsx>{`
         @keyframes fade-in {
