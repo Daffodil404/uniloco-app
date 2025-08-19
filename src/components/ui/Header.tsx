@@ -137,7 +137,7 @@ export default function Header({
       return [
         {
           label: 'Travel Band NFTs',
-          action: () => router.push(`${basePath}/web3hub`)
+          action: () => router.push(`${basePath}/band`)
         },
         {
           label: 'Token Econmic',
