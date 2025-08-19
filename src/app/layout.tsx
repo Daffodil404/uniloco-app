@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "antd/dist/reset.css";
 
 export const metadata: Metadata = {
   title: "Uniloco - Discover Your Adventure",
