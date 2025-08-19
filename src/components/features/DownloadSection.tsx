@@ -17,6 +17,7 @@ export default function DownloadSection({
   gradientTo = '#d94a51',
   className = ''
 }: DownloadSectionProps) {
+  const accentColor = gradientFrom;
   const handleDownload = () => {
     const button = document.querySelector('.download-btn');
     if (button) {
@@ -48,18 +49,24 @@ export default function DownloadSection({
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
           <button
             onClick={handleDownload}
-            className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+            className="download-btn group bg-transparent text-white px-10 py-4 rounded-2xl font-extrabold text-xl border-2 transform transition-all duration-300 skew-x-6 hover:bg-white/10"
+            style={{ borderColor: accentColor }}
           >
-            <span>🍎</span>
-            <span>Download on App Store</span>
+            <span className="-skew-x-6 flex items-center gap-2 tracking-wide italic uppercase">
+              <span>🍎</span>
+              <span>Download on App Store</span>
+            </span>
           </button>
 
           <button
             onClick={handleDownload}
-            className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+            className="download-btn group bg-transparent text-white px-10 py-4 rounded-2xl font-extrabold text-xl border-2 transform transition-all duration-300 skew-x-6 hover:bg-white/10"
+            style={{ borderColor: accentColor }}
           >
-            <span>🤖</span>
-            <span>Get it on Google Play</span>
+            <span className="-skew-x-6 flex items-center gap-2 tracking-wide italic uppercase">
+              <span>🤖</span>
+              <span>Get it on Google Play</span>
+            </span>
           </button>
         </div>
       </div>
