@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/ui/Header';
 import UpcomingAdventuresMarquee from '@/components/features/UpcomingAdventuresMarquee';
+import DownloadSection from '@/components/features/DownloadSection';
 
 export default function EventsPage() {
   const router = useRouter();
@@ -441,35 +442,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      {/* Download Section */}
-      <section className="py-20 bg-gradient-to-b from-[#fe585f]/85 to-[#d94a51]/85 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-5xl md:text-6xl font-black mb-8">
-            DOWNLOAD NOW
-          </h2>
-          <p className="text-2xl mb-12">
-            Start your travel-to-earn adventure today
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button
-              onClick={handleDownload}
-              className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
-            >
-              <span>🍎</span>
-              <span>Download on App Store</span>
-            </button>
-
-            <button
-              onClick={handleDownload}
-              className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
-            >
-              <span>🤖</span>
-              <span>Get it on Google Play</span>
-            </button>
-          </div>
-        </div>
-      </section>
+      <DownloadSection />
 
       {/* Custom CSS for animations */}
       <style jsx>{`
