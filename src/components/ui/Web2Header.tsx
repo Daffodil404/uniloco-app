@@ -25,22 +25,19 @@ export default function Web2Header() {
                 >
                     Uniloco
                 </div>
-                <nav className="hidden md:flex space-x-6">
+                <nav className="hidden md:flex items-center gap-8">
                     {navigationItems.map((item) => (
                         <button
                             key={item.name}
                             onClick={() => router.push(item.path)}
-                            className={`text-gray-600 hover:text-[#fe585f] transition-colors font-medium relative group ${
-                                isActive(item.path) ? 'text-[#fe585f]' : ''
+                            className={`px-4 py-2 rounded-full text-gray-700 hover:text-[#fe585f] hover:bg-[#fe585f]/10 transition-colors font-medium relative ${
+                                isActive(item.path) ? 'text-[#fe585f] bg-[#fe585f]/10' : ''
                             }`}
                         >
                             {item.name}
-                            <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#fe585f] transition-all ${
-                                isActive(item.path) ? 'w-full' : 'w-0 group-hover:w-full'
-                            }`}></span>
                         </button>
                     ))}
-                    <button className="text-gray-600 hover:text-[#fe585f] transition-colors font-medium">
+                    <button className="px-4 py-2 rounded-full text-gray-700 hover:text-[#fe585f] hover:bg-[#fe585f]/10 transition-colors font-medium">
                         Profile
                     </button>
                 </nav>
