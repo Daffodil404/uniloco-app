@@ -1,0 +1,254 @@
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import type { MapPoint } from '@/types/travel';
+
+interface CheckInData {
+  pointId?: string;
+  timestamp?: string;
+  location?: string;
+  notes: string;
+  photos: string[];
+  unc?: string;
+}
+
+interface CheckInModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  selectedPoint: MapPoint | null;
+  onSubmit: (data: CheckInData) => void;
+}
+
+export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit }: CheckInModalProps) {
+  const [checkInData, setCheckInData] = useState<CheckInData>({
+    notes: '',
+    photos: []
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // 获取当前位置
+  const getCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCurrentLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+        }
+      );
+    }
+  };
+
+  // 处理图片上传
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const newPhotos: string[] = [];
+      Array.from(files).forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target?.result) {
+            newPhotos.push(e.target.result as string);
+            if (newPhotos.length === files.length) {
+              setCheckInData(prev => ({
+                ...prev,
+                photos: [...prev.photos, ...newPhotos]
+              }));
+            }
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+
+  // 生成UNC
+  const generateUNC = () => {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2, 8);
+    return `UNC-${timestamp}-${random}`;
+  };
+
+  // 提交打卡
+  const handleSubmitCheckIn = async () => {
+    if (!checkInData.notes.trim()) {
+      alert('Please share your experience');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // 模拟API调用
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      const submitData: CheckInData = {
+        ...checkInData,
+        pointId: selectedPoint?.id,
+        timestamp: new Date().toISOString(),
+        location: selectedPoint?.name || 'Unknown Location',
+        unc: generateUNC()
+      };
+
+      onSubmit(submitData);
+      onClose();
+    } catch (error) {
+      console.error('Check-in failed:', error);
+      alert('Check-in failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // 重置表单
+  useEffect(() => {
+    if (isOpen) {
+      setCheckInData({
+        notes: '',
+        photos: []
+      });
+      setCurrentLocation(null);
+      getCurrentLocation();
+    }
+  }, [isOpen]);
+
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9998] p-6">
+      <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200 max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-bold text-slate-800">Check-in at {selectedPoint?.name}</h3>
+          <button
+            onClick={onClose}
+            className="text-slate-400 hover:text-slate-600"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="space-y-6">
+          {/* 位置信息 */}
+          <div>
+            <label className="block text-slate-600 text-sm mb-2">Location</label>
+            <div className="bg-slate-50 rounded-2xl p-4">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-slate-800 font-semibold">Location Check-in</h4>
+                  <p className="text-slate-500 text-sm">
+                    {currentLocation ? 
+                      `Lat: ${currentLocation.lat.toFixed(4)}, Lng: ${currentLocation.lng.toFixed(4)}` : 
+                      'Getting your location...'
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={getCurrentLocation}
+              className="w-full px-4 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-sm font-medium"
+            >
+              Update Location
+            </button>
+          </div>
+
+          {/* 文字记录 */}
+          <div>
+            <label className="block text-slate-600 text-sm mb-2">Share Your Experience</label>
+            <textarea
+              placeholder="What's your impression of this place? Any tips for other travelers?"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#fe585f] focus:ring-2 focus:ring-[#fe585f]/20"
+              rows={3}
+              value={checkInData.notes}
+              onChange={(e) => setCheckInData(prev => ({
+                ...prev,
+                notes: e.target.value,
+                photos: prev.photos || []
+              }))}
+            />
+          </div>
+          
+          {/* 上传图片 */}
+          <div>
+            <label className="block text-slate-600 text-sm mb-2">Upload Photos</label>
+            <div 
+              className="border-2 border-dashed border-slate-200 rounded-xl p-6 text-center cursor-pointer hover:border-[#fe585f] transition-colors"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <svg className="w-8 h-8 text-slate-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+              <p className="text-slate-500 text-sm">Tap to upload photos</p>
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+            </div>
+            
+            {/* 已上传的图片预览 */}
+            {checkInData.photos && checkInData.photos.length > 0 && (
+              <div className="mt-3 flex gap-2 overflow-x-auto">
+                {checkInData.photos.map((photo, index) => (
+                  <div key={index} className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                    <Image
+                      src={photo}
+                      alt={`Photo ${index + 1}`}
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          {/* 提交按钮 */}
+          <div className="flex gap-3">
+            <button 
+              onClick={handleSubmitCheckIn}
+              disabled={isSubmitting}
+              className="flex-1 px-4 py-3 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? (
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Submitting...
+                </div>
+              ) : (
+                'Submit Check-in'
+              )}
+            </button>
+            <button 
+              onClick={onClose}
+              className="flex-1 px-4 py-3 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-200"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+} 

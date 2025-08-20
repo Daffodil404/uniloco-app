@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNC Token Process Flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        /* Conversion Layer */
+        .conversion-layer {
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .layer-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #fbbf24;
+            text-align: center;
+        }
+
+        .conversion-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .process-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            min-width: 180px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: scan 3s infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .process-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-box {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .bridge-box {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+        }
+
+        .token-box {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .process-arrow {
+            font-size: 2rem;
+            color: #fbbf24;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .invisible-tag {
+            position: absolute;
+            top: -15px;
+            right: 10px;
+            background: rgba(239, 68, 68, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* User Ecosystem */
+        .ecosystem {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .ecosystem-title {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(16, 185, 129, 0.8);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .process-step {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: linear-gradient(45deg, #f59e0b, #d97706);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #60a5fa;
+            margin-top: 10px;
+        }
+
+        .step-desc {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .step-flow {
+            color: #10b981;
+            font-weight: 600;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Platform Fee Box */
+        .fee-box {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .fee-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .fee-desc {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Flowing particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #60a5fa;
+            border-radius: 50%;
+            animation: flow 4s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes flow {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(500px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .conversion-flow {
+                flex-direction: column;
+            }
+            
+            .process-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">UNC Token Process Flow</h1>
+        <p class="subtitle">Complete Ecosystem & Transaction Process</p>
+
+        <!-- Conversion Layer -->
+        <div class="conversion-layer">
+            <h2 class="layer-title">📈 Token Conversion Process</h2>
+            <div class="conversion-flow">
+                <div class="process-box input-box">
+                    <h3>Airline Points / Fiat</h3>
+                    <p>Input Currency</p>
+                </div>
+                <div class="process-arrow">→</div>
+                <div class="process-box bridge-box">
+                    <div class="invisible-tag">Invisible</div>
+                    <h3>USDC Bridge</h3>
+                    <p>Auto Conversion</p>
+                    <small>Seamless Wallet</small>
+                </div>
+                <div class="process-arrow">→</div>
+                <div class="process-box token-box">
+                    <h3>UNC Token</h3>
+                    <p>Governance Token</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Ecosystem -->
+        <div class="ecosystem">
+            <div class="ecosystem-title">🔄 User Ecosystem Cycle</div>
+            
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">User Payment</div>
+                    <div class="step-desc">Users pay UNC tokens for platform services, travel tasks, and exclusive activities</div>
+                    <div class="step-flow">→ Platform Services</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Expert Income</div>
+                    <div class="step-desc">Content creators earn UNC through platform activities and user engagement</div>
+                    <div class="step-flow">→ UNC Rewards</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">User Interaction</div>
+                    <div class="step-desc">Users earn UNC through likes, comments, shares, and content creation</div>
+                    <div class="step-flow">→ Social Rewards</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Merchant Staking</div>
+                    <div class="step-desc">Merchants stake fiat amount to join platform and receive proportional UNC allocation</div>
+                    <div class="step-flow">→ Platform Access</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Payment Processing</div>
+                    <div class="step-desc">Merchants & experts receive USDC payments via Coinpay / Ethereum sidechain</div>
+                    <div class="step-flow">→ USDC Settlement</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Platform Revenue</div>
+                    <div class="step-desc">Platform earns commission to cover transaction costs and ecosystem maintenance</div>
+                    <div class="step-flow">→ Sustainable Growth</div>
+                </div>
+            </div>
+
+            <div class="fee-box">
+                <div class="fee-title">💰 Platform Fee: 3% - 5%</div>
+                <div class="fee-desc">Covers transaction costs, platform maintenance, and ecosystem development</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create flowing particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 4000);
+        }
+
+        // Create particles every 2 seconds
+        setInterval(createParticle, 2000);
+
+        // Add hover effects to process boxes
+        const processBoxes = document.querySelectorAll('.process-box');
+        processBoxes.forEach(box => {
+            box.addEventListener('mouseenter', () => {
+                box.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            box.addEventListener('mouseleave', () => {
+                box.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click animation to process steps
+        const processSteps = document.querySelectorAll('.process-step');
+        processSteps.forEach(step => {
+            step.addEventListener('click', () => {
+                step.style.animation = 'none';
+                step.offsetHeight; // Trigger reflow
+                step.style.animation = 'pulse 0.6s ease';
+                
+                setTimeout(() => {
+                    step.style.animation = '';
+                }, 600);
+            });
+        });
+
+        // Add scanning animation to conversion boxes
+        setInterval(() => {
+            const boxes = document.querySelectorAll('.process-box');
+            boxes.forEach((box, index) => {
+                setTimeout(() => {
+                    const scanner = box.querySelector('::before');
+                    box.style.position = 'relative';
+                }, index * 500);
+            });
+        }, 5000);
+    </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
-  "name": "UniLoco App",
-  "short_name": "UniLoco",
+  "name": "Uniloco App",
+  "short_name": "Uniloco",
   "description": "移动端应用",
   "start_url": "/",
   "display": "standalone",

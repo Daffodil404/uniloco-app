@@ -1,0 +1,1265 @@
+        <!-- Available Sessions -->
+        <section class="content-section">
+            <h3 class="section-title">📅 可预约场次</h3>
+            <div style="margin-bottom: 1.5rem; color: #666; font-size: 0.9rem;">
+                * 每场最多6人，最少4人成团（1-3人可与其他玩家拼团）
+            </div>
+            
+            <div style="display: grid; gap: 1rem;">
+                <!-- Today's Sessions -->
+                <div style="border: 1px solid #eee; border-radius: 12px; padding: 1.5rem;">
+                    <h4 style="margin-bottom: 1rem; color: #333;">今天 (8月16日 星期五)</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="border: 2px solid #dc3545; border-radius: 8px; padding: 1rem; opacity: 0.6;">
+                            <div style="font-weight: 600; color: #dc3545;">14:00 - 18:00</div>
+                            <div style="color: #666; font-size: 0.9rem;">已满 (6/6人)</div>
+                            <div style="color: #666; font-size: 0.8rem;">无候补名额</div>
+                        </div>
+                        <div style="border: 2px solid #dc3545; border-radius: 8px; padding: 1rem; opacity: 0.6;">
+                            <div style="font-weight: 600; color: #dc3545;">19:00 - 23:00</div>
+                            <div style="color: #666; font-size: 0.9rem;">已满 (6/6人)</div>
+                            <div style="color: #666; font-size: 0.8rem;">无候补名额</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tomorrow's Sessions -->
+                <div style="border: 1px solid #eee; border-radius: 12px; padding: 1.5rem;">
+                    <h4 style="margin-bottom: 1rem; color: #333;">明天 (8月17日 星期六)</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="border: 2px solid #ffc107; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='#ff385c'" onmouseout="this.style.borderColor='#ffc107'">
+                            <div style="font-weight: 600; color: #856404;">14:00 - 18:00</div>
+                            <div style="color: #666; font-size: 0.9rem;">名额紧张 (5/6人)</div>
+                            <div style="color: #28a745; font-size: 0.8rem;">🔥 仅剩1个名额</div>
+                        </div>
+                        <div style="border: 2px solid #28a745; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='#ff385c'" onmouseout="this.style.borderColor='#28a745'">
+                            <div style="font-weight: 600; color: #28a745;">19:00 - 23:00</div>
+                            <div style="color: #666; font-size: 0.9rem;">有名额 (3/6人)</div>
+                            <div style="color: #28a745; font-size: 0.8rem;">✅ 可立即预约</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day After Tomorrow -->
+                <div style="border: 1px solid #eee; border-radius: 12px; padding: 1.5rem;">
+                    <h4 style="margin-bottom: 1rem; color: #333;">后天 (8月18日 星期日)</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="border: 2px solid #28a745; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='#ff385c'" onmouseout="this.style.borderColor='#28a745'">
+                            <div style="font-weight: 600; color: #28a745;">14:00 - 18:00</div>
+                            <div style="color: #666; font-size: 0.9rem;">有名额 (2/6人)</div>
+                            <div style="color: #28a745; font-size: 0.8rem;">✅ 可立即预约</div>
+                        </div>
+                        <div style="border: 2px solid #28a745; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='#ff385c'" onmouseout="this.style.borderColor='#28a745'">
+                            <div style="font-weight: 600; color: #28a745;">19:00 - 23:00</div>
+                            <div style="color: #666; font-size: 0.9rem;">有名额 (1/6人)</div>
+                            <div style="color: #28a745; font-size: 0.8rem;">✅ 可立即预约</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Next Week Preview -->
+                <div style="border: 1px solid #eee; border-radius: 12px; padding: 1.5rem;">
+                    <h4 style="margin-bottom: 1rem; color: #333;">下周场次 (8月19日-25日)</h4>
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <p style="color: #666; margin-bottom: 1rem;">下周共14个场次，目前预订率约60%</p>
+                        <button style="background: #ff385c; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer;">查看下周完整档期</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Tips -->
+            <div style="background: linear-gradient(135deg, #fff3cd, #ffeaa7); padding: 1.5rem; border-radius: 12px; margin-top: 2rem;">
+                <h4 style="margin-bottom: 1rem; color: #856404;">💡 预约小贴士</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <div>
+                        <strong>单人预约：</strong>
+                        <p style="color: #666; margin-top: 0.3rem;">系统会自动为您匹配其他玩家，确保游戏体验</p>
+                    </div>
+                    <div>
+                        <strong>拼团优势：</strong>
+                        <p style="color: #666; margin-top: 0.3rem;">与陌生人组队往往会有意想不到的化学反应</p>
+                    </div>
+                    <div>
+                        <strong>节奏调节：</strong>
+                        <p style="color: #666; margin-top: 0.3rem;">导演会根据团队状态适当调整游戏节奏</p>
+                    </div>
+                </div>
+            </div>
+        </section><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《约克幽灵传说》- Uniloco沉浸式剧本体验</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #222;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff385c;
+            text-decoration: none;
+        }
+
+        .journey-badge {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #ff385c;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-left {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .script-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .script-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="fog" patternUnits="userSpaceOnUse" width="100" height="100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="80" r="1.2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23fog)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .script-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .script-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .script-genre {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .script-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .hero-content {
+            padding: 2rem;
+        }
+
+        .script-description {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .story-background {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #ff385c;
+            margin-bottom: 2rem;
+        }
+
+        .story-background h4 {
+            margin-bottom: 1rem;
+            color: #222;
+        }
+
+        .story-background p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .character-roles {
+            margin-bottom: 2rem;
+        }
+
+        .character-roles h4 {
+            margin-bottom: 1rem;
+            color: #222;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .role-card {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .role-card:hover {
+            border-color: #ff385c;
+            transform: translateY(-2px);
+        }
+
+        .role-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .role-description {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Booking Card */
+        .booking-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .availability-status {
+            background: #e8f5e8;
+            color: #2d5a3d;
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hot-status {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .price-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff385c;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-note {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .booking-form {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ff385c;
+        }
+
+        .book-btn {
+            width: 100%;
+            background: #ff385c;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .book-btn:hover {
+            background: #e31c5f;
+        }
+
+        .guarantee {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+
+        /* Location Section */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .location-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #ff385c;
+        }
+
+        .location-card h4 {
+            color: #ff385c;
+            margin-bottom: 1rem;
+        }
+
+        .location-highlights {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .location-highlights li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .location-highlights .icon {
+            color: #ff385c;
+        }
+
+        /* Game Flow */
+        .game-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .flow-step {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #ff385c;
+        }
+
+        .step-number {
+            background: #ff385c;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .step-content p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .step-time {
+            color: #ff385c;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* NPC Section */
+        .npc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .npc-card {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .npc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+
+        .npc-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            border: 3px solid rgba(255,255,255,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .npc-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .npc-role {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .npc-description {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Reviews */
+        .reviews-overview {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .rating-summary {
+            text-align: center;
+        }
+
+        .rating-big {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff385c;
+        }
+
+        .review-item {
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .reviewer-info h5 {
+            margin-bottom: 0.2rem;
+        }
+
+        .review-date {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .review-rating {
+            margin-left: auto;
+        }
+
+        .review-text {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .script-stats {
+                gap: 1rem;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-card {
+                position: static;
+            }
+
+            .roles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <button class="back-btn" onclick="history.back()">← 返回定制旅程</button>
+            <div style="text-align: center;">
+                <a href="#" class="logo">Uniloco</a>
+                <div class="journey-badge">🎭 定制旅程</div>
+            </div>
+            <div></div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-left">
+                <div class="script-header">
+                    <div class="script-icon">🏰</div>
+                    <h1 class="script-title">《约克幽灵传说》</h1>
+                    <p class="script-genre">沉浸式悬疑探险剧本</p>
+                    <div class="script-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">4-6人</div>
+                            <div class="stat-label">参与人数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4小时</div>
+                            <div class="stat-label">游戏时长</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.9分</div>
+                            <div class="stat-label">玩家评分</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <p class="script-description">
+                        踏入有着2000年历史的约克古城，在蜿蜒的中世纪街道中揭开层层神秘面纱。作为历史调查团的一员，你们将深入约克大教堂、The Shambles等标志性地点，通过200多个真实鬼故事线索，解开一桩跨越千年的超自然谜案。
+                    </p>
+
+                    <div class="story-background">
+                        <h4>🔍 故事背景</h4>
+                        <p>
+                            一名神秘的考古学家在约克大教堂发现了一份古老的羊皮纸卷，上面记载着关于城市建造者诡异死亡的真相。然而就在破译关键信息的前夜，考古学家离奇失踪，只留下零散的线索分布在约克的各个角落。你们作为特别调查组，必须在幽灵们苏醒之前，解开这个跨越叛国、酷刑与谋杀的千年谜题。
+                        </p>
+                    </div>
+
+                    <div class="character-roles">
+                        <h4>👥 团队角色</h4>
+                        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                            <p style="font-size: 1.1rem; margin-bottom: 1rem; color: #333;">
+                                <strong>你们是一支历史调查团队</strong>
+                            </p>
+                            <p style="color: #666; line-height: 1.6;">
+                                每位成员都拥有独特的技能和视角，但无需特定角色设定。团队合作是关键 - 
+                                有人擅长观察细节，有人精通历史知识，有人善于逻辑推理，有人具备直觉洞察力。
+                                在探索过程中，你们的不同优势将自然发挥作用。
+                            </p>
+                            <div style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #ff385c;">
+                                <strong style="color: #ff385c;">💡 游戏提示：</strong>
+                                <span style="color: #666;">保持开放的心态，相信你的直觉，团队沟通是解谜的关键！</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Card -->
+            <div class="booking-card">
+                <div class="availability-status hot-status">
+                    🔥 本周最受欢迎剧本！立即预约
+                </div>
+
+                <div class="price-section">
+                    <div class="price">£95</div>
+                    <div class="price-note">每人价格</div>
+                </div>
+
+                <form class="booking-form">
+                    <div class="form-group">
+                        <label class="form-label">首选日期</label>
+                        <input type="date" class="form-input" min="2024-08-16">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">开始时间</label>
+                        <select class="form-input">
+                            <option>14:00 - 18:00 (下午场)</option>
+                            <option>19:00 - 23:00 (夜晚场)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">参与人数</label>
+                        <select class="form-input">
+                            <option>1人 (与其他玩家组队)</option>
+                            <option>2人</option>
+                            <option>3人</option>
+                            <option>4人 (最小团队)</option>
+                            <option>5人</option>
+                            <option>6人 (推荐)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">游戏节奏偏好</label>
+                        <select class="form-input">
+                            <option>标准节奏 (推荐)</option>
+                            <option>轻松节奏 (适合新手)</option>
+                            <option>快速节奏 (适合经验玩家)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">语言偏好</label>
+                        <select class="form-input">
+                            <option>中文 + 英文 (双语)</option>
+                            <option>纯英文体验</option>
+                            <option>纯中文体验</option>
+                        </select>
+                    </div>
+                </form>
+
+                <button class="book-btn">立即预订体验</button>
+                <p class="guarantee">🎭 Uniloco原创剧本 | 专业NPC演出保证</p>
+            </div>
+        </section>
+
+        <!-- Location Information -->
+        <section class="content-section">
+            <h3 class="section-title">🗺️ 游戏地点 & 路线</h3>
+            <div class="location-grid">
+                <div class="location-card">
+                    <h4>📍 集合地点</h4>
+                    <p><strong>地址：</strong>Roman Column, Minster Yard, York</p>
+                    <p><strong>集合时间：</strong>开始前15分钟</p>
+                    <p><strong>交通：</strong>约克火车站步行10分钟</p>
+                    <ul class="location-highlights">
+                        <li><span class="icon">🚗</span>免费接送服务 (市中心酒店)</li>
+                        <li><span class="icon">🎫</span>包含所有景点门票</li>
+                        <li><span class="icon">📱</span>提供专用游戏App</li>
+                    </ul>
+                </div>
+                
+                <div class="location-card">
+                    <h4>🏰 主要场景</h4>
+                    <p><strong>核心区域：</strong>约克历史城区</p>
+                    <p><strong>游戏半径：</strong>步行范围内</p>
+                    <p><strong>地面类型：</strong>古老石板路 (需穿舒适鞋)</p>
+                    <ul class="location-highlights">
+                        <li><span class="icon">⛪</span>约克大教堂 (York Minster)</li>
+                        <li><span class="icon">🏘️</span>肉铺街 (The Shambles)</li>
+                        <li><span class="icon">🏰</span>约克城堡博物馆</li>
+                        <li><span class="icon">👻</span>神秘地下密室</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Map Placeholder -->
+            <div style="height: 300px; background: linear-gradient(45deg, #2c3e50, #34495e); border-radius: 12px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; color: white; margin-top: 2rem;">
+                <div style="text-align: center; position: relative; z-index: 1;">
+                    <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">🗺️ 约克古城游戏地图</p>
+                    <p>点击查看详细游戏路线和隐藏地点</p>
+                </div>
+                <!-- Location Pins -->
+                <div style="position: absolute; top: 40%; left: 45%; width: 25px; height: 25px; background: #ff385c; border-radius: 50%; border: 3px solid white;"></div>
+                <div style="position: absolute; top: 55%; left: 52%; width: 20px; height: 20px; background: #ffc107; border-radius: 50%; border: 2px solid white;"></div>
+                <div style="position: absolute; top: 35%; left: 58%; width: 20px; height: 20px; background: #ffc107; border-radius: 50%; border: 2px solid white;"></div>
+                <div style="position: absolute; top: 65%; left: 48%; width: 20px; height: 20px; background: #ffc107; border-radius: 50%; border: 2px solid white;"></div>
+            </div>
+        </section>
+
+        <!-- Game Flow -->
+        <section class="content-section">
+            <h3 class="section-title">🎮 游戏流程</h3>
+            <div class="game-flow">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-time">14:00 - 14:30</div>
+                        <h4>开场仪式 & 团队集结</h4>
+                        <p><strong>地点：</strong>Roman Column, Minster Yard (约克大教堂前罗马柱)</p>
+                        <p>在历史悠久的罗马柱前集合，接受神秘委托任务。分发线索包、调查工具和游戏手册，了解游戏规则和安全注意事项。团队成员相互认识，制定初步调查策略。</p>
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-time">14:30 - 15:30</div>
+                        <h4>约克大教堂探秘</h4>
+                        <p><strong>地点：</strong>York Minster (约克大教堂内部)</p>
+                        <p>深入千年古教堂，寻找建造者的幽灵线索。与NPC神父Father William互动，破解古老铭文，发现第一个重要证据。探索教堂地下墓室和古老的石雕，解读隐藏的历史信息。</p>
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-time">15:30 - 16:30</div>
+                        <h4>肉铺街谜题挑战</h4>
+                        <p><strong>地点：</strong>The Shambles (中世纪肉铺街)</p>
+                        <p>在保存完好的中世纪街道中追踪失踪考古学家的足迹。与商贩NPC Margaret对话，搜寻散落在古老商铺中的羊皮纸碎片，拼凑历史真相。体验中世纪商业文化，发现隐藏在建筑中的秘密。</p>
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-time">16:30 - 17:30</div>
+                        <h4>地下密室终极对决</h4>
+                        <p><strong>地点：</strong>York Castle Museum地下展厅 (约克城堡博物馆)</p>
+                        <p>进入神秘的地下空间，面对最终挑战 - 千年前的复仇幽灵。团队协作解开终极谜题，通过历史推理和团队合作，完成拯救约克的使命。与建造者幽灵进行最后的"对话"。</p>
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-time">17:30 - 18:00</div>
+                        <h4>复盘总结 & 庆祝</h4>
+                        <p><strong>地点：</strong>The Golden Fleece Inn (金羊毛酒馆 - 约克最古老的酒馆之一)</p>
+                        <p>在有着600年历史的传统英式酒馆进行游戏复盘，颁发完成证书，享用正宗英式下午茶。分享游戏心得和精彩瞬间，与NPC演员合影留念，了解约克真实的历史背景。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NPC Cast -->
+        <section class="content-section">
+            <h3 class="section-title">🎭 专业NPC演员阵容</h3>
+            <div class="npc-grid">
+                <div class="npc-card">
+                    <div class="npc-avatar">⛪</div>
+                    <div class="npc-name">Father William</div>
+                    <div class="npc-role">约克大教堂神父</div>
+                    <div class="npc-description">守护着千年秘密的神父，掌握着古老预言的关键信息。</div>
+                </div>
+                
+                <div class="npc-card">
+                    <div class="npc-avatar">🛒</div>
+                    <div class="npc-name">Margaret the Merchant</div>
+                    <div class="npc-role">肉铺街商贩</div>
+                    <div class="npc-description">世代居住在此的商贩，目睹了考古学家最后的行踪。</div>
+                </div>
+                
+                <div class="npc-card">
+                    <div class="npc-avatar">👻</div>
+                    <div class="npc-name">建造者幽灵</div>
+                    <div class="npc-role">千年复仇者</div>
+                    <div class="npc-description">约克大教堂建造时坠亡的工匠，寻求千年来的正义与安息。</div>
+                </div>
+                
+                <div class="npc-card">
+                    <div class="npc-avatar">🔍</div>
+                    <div class="npc-name">Dr. Emily Harrison</div>
+                    <div class="npc-role">失踪考古学家</div>
+                    <div class="npc-description">神秘失踪的学者，通过录音和日记与玩家远程互动。</div>
+                </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 1.5rem; border-radius: 12px; margin-top: 2rem; text-align: center;">
+                <h4 style="margin-bottom: 1rem; color: #ff385c;">🎭 NPC专业保障</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div>
+                        <strong>专业演员背景</strong>
+                        <p style="color: #666; margin-top: 0.5rem;">平均2年+专业戏剧演出经验</p>
+                    </div>
+                    <div>
+                        <strong>历史知识培训</strong>
+                        <p style="color: #666; margin-top: 0.5rem;">约克当地历史专家指导培训</p>
+                    </div>
+                    <div>
+                        <strong>沉浸式表演</strong>
+                        <p style="color: #666; margin-top: 0.5rem;">专精互动式剧本演出和即兴应变</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Player Reviews -->
+        <section class="content-section">
+            <h3 class="section-title">⭐ 玩家评价 (127条)</h3>
+            
+            <div class="reviews-overview">
+                <div class="rating-summary">
+                    <div class="rating-big">4.9</div>
+                    <div>⭐⭐⭐⭐⭐</div>
+                    <div style="margin-top: 0.5rem; color: #666;">127条评价</div>
+                </div>
+                
+                <div>
+                    <p style="color: #666; margin-bottom: 1rem;">
+                        这是Uniloco最受欢迎的沉浸式剧本体验之一，玩家们称赞其历史真实性和演员专业水准。
+                    </p>
+                    <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                        <div>
+                            <strong>沉浸感</strong>
+                            <div style="color: #ff385c;">4.95/5.0</div>
+                        </div>
+                        <div>
+                            <strong>剧本质量</strong>
+                            <div style="color: #ff385c;">4.92/5.0</div>
+                        </div>
+                        <div>
+                            <strong>NPC演技</strong>
+                            <div style="color: #ff385c;">4.88/5.0</div>
+                        </div>
+                        <div>
+                            <strong>历史真实性</strong>
+                            <div style="color: #ff385c;">4.94/5.0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">L</div>
+                    <div class="reviewer-info">
+                        <h5>Lisa Chen (历史爱好者)</h5>
+                        <div class="review-date">2024年7月 · 6人团队</div>
+                    </div>
+                    <div class="review-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                <p class="review-text">这是我体验过最棒的剧本杀！不仅仅是游戏，更像是一次真正的历史探险。NPC演员的专业程度令人惊叹，Father William的表演让我们完全相信了这个角色的存在。约克大教堂的氛围营造得太到位了，我们真的感觉到了千年历史的厚重感。强烈推荐给所有历史迷！</p>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">M</div>
+                    <div class="reviewer-info">
+                        <h5>Marcus Johnson (剧本杀爱好者)</h5>
+                        <div class="review-date">2024年6月 · 5人团队</div>
+                    </div>
+                    <div class="review-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                <p class="review-text">As someone who's played over 50 murder mystery games, I can confidently say this is world-class! The way they've woven real York history into the narrative is brilliant. The ghost stories are based on actual local legends, which makes everything feel authentic. The underground chamber finale gave me genuine chills. Uniloco has set a new standard for immersive experiences!</p>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">S</div>
+                    <div class="reviewer-info">
+                        <h5>Sophie Martin (旅行博主)</h5>
+                        <div class="review-date">2024年6月 · 4人团队</div>
+                    </div>
+                    <div class="review-rating">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                <p class="review-text">我带着朋友们来约克旅行，想要一些特别的体验，Uniloco的这个剧本完全超出了期待！我们不仅玩了游戏，还深度了解了约克的历史文化。Margaret商贩的角色让我们了解了中世纪的商业文化，建造者幽灵的故事让我们对古代建筑工艺有了新的认识。这是教育和娱乐的完美结合！</p>
+            </div>
+        </section>
+
+        <!-- What's Included -->
+        <section class="content-section">
+            <h3 class="section-title">💼 体验包含内容</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h4 style="margin-bottom: 1rem; color: #28a745;">✅ 费用包含</h4>
+                    <ul style="list-style: none;">
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #28a745; font-weight: bold;">✓</span>
+                            专业NPC演员全程陪同 (3名)
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #28a745; font-weight: bold;">✓</span>
+                            所有景点门票 (约克大教堂+城堡博物馆)
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #28a745; font-weight: bold;">✓</span>
+                            游戏道具包和调查工具
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #28a745; font-weight: bold;">✓</span>
+                            游戏手册和线索系统
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #28a745; font-weight: bold;">✓</span>
+                            Golden Fleece Inn英式下午茶
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #28a745; font-weight: bold;">✓</span>
+                            完成证书和纪念品
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #28a745; font-weight: bold;">✓</span>
+                            专业摄影师跟拍服务
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #28a745; font-weight: bold;">✓</span>
+                            约克市中心酒店免费接送
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem; color: #dc3545;">❌ 费用不包含</h4>
+                    <ul style="list-style: none;">
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #dc3545; font-weight: bold;">✗</span>
+                            往返约克的交通费用
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #dc3545; font-weight: bold;">✗</span>
+                            个人消费和额外饮食
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #dc3545; font-weight: bold;">✗</span>
+                            住宿费用
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <span style="color: #dc3545; font-weight: bold;">✗</span>
+                            小费 (可选)
+                        </li>
+                    </ul>
+                    
+                    <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; margin-top: 1.5rem;">
+                        <h5 style="color: #856404; margin-bottom: 0.5rem;">📅 特别说明</h5>
+                        <p style="color: #856404; font-size: 0.9rem;">
+                            • 夜场体验 (19:00-23:00) 增加 £15/人<br>
+                            • 私人定制版本 (独享) 增加 £200/团队<br>
+                            • 中文导游服务 增加 £50/团队
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Requirements -->
+        <section class="content-section">
+            <h3 class="section-title">📋 参与要求 & 注意事项</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div style="padding: 1.5rem; border-left: 4px solid #ff385c; background: #f8f9fa; border-radius: 0 12px 12px 0;">
+                    <h4 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        👥 人数要求
+                    </h4>
+                    <p style="color: #666;">最少4人成团，最多6人。<strong>1-3人可报名拼团</strong>，我们会与其他玩家为您匹配，确保最佳游戏体验。</p>
+                </div>
+                
+                <div style="padding: 1.5rem; border-left: 4px solid #ff385c; background: #f8f9fa; border-radius: 0 12px 12px 0;">
+                    <h4 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        ⚡ 游戏节奏
+                    </h4>
+                    <p style="color: #666;">导演会根据团队情况调整节奏。新手可选择轻松模式，经验玩家可选择快节奏挑战。遇到卡关会及时提供提示。</p>
+                </div>
+                
+                <div style="padding: 1.5rem; border-left: 4px solid #ff385c; background: #f8f9fa; border-radius: 0 12px 12px 0;">
+                    <h4 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        🏃‍♂️ 体能要求
+                    </h4>
+                    <p style="color: #666;">需要步行约2小时，大部分在石板路面。适合中等体能水平，有轻微行动不便可协调，但不适合轮椅使用者。</p>
+                </div>
+                
+                <div style="padding: 1.5rem; border-left: 4px solid #ff385c; background: #f8f9fa; border-radius: 0 12px 12px 0;">
+                    <h4 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        🧠 难度等级
+                    </h4>
+                    <p style="color: #666;">中等难度，适合12岁以上参与。注重历史知识和逻辑推理，不需要专业知识，有提示系统协助。</p>
+                </div>
+                
+                <div style="padding: 1.5rem; border-left: 4px solid #ff385c; background: #f8f9fa; border-radius: 0 12px 12px 0;">
+                    <h4 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        🌦️ 天气政策
+                    </h4>
+                    <p style="color: #666;">小雨正常进行 (提供雨具)，恶劣天气可免费改期。室内外结合设计，大部分活动有遮蔽。</p>
+                </div>
+                
+                <div style="padding: 1.5rem; border-left: 4px solid #ff385c; background: #f8f9fa; border-radius: 0 12px 12px 0;">
+                    <h4 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        👕 着装建议
+                    </h4>
+                    <p style="color: #666;">舒适的步行鞋是必须的。建议穿着方便活动的服装，可选择符合角色的复古装扮增加沉浸感。</p>
+                </div>
+                
+                <div style="padding: 1.5rem; border-left: 4px solid #ff385c; background: #f8f9fa; border-radius: 0 12px 12px 0;">
+                    <h4 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        💳 取消政策
+                    </h4>
+                    <p style="color: #666;">开始前48小时免费取消，24-48小时内取消收取50%费用，24小时内取消不予退款。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Uniloco Advantage -->
+        <section class="content-section">
+            <div style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border: 2px solid #dee2e6; border-radius: 16px; padding: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; text-align: center;">🎭 Uniloco定制旅程独家优势</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📚</div>
+                        <h5 style="margin-bottom: 0.5rem;">历史真实性</h5>
+                        <p style="color: #666; font-size: 0.9rem;">基于200+真实约克鬼故事改编，与约克大学历史系合作开发</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎭</div>
+                        <h5 style="margin-bottom: 0.5rem;">专业演员</h5>
+                        <p style="color: #666; font-size: 0.9rem;">皇家莎士比亚剧团成员担任NPC，5年+沉浸式体验演出经验</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔧</div>
+                        <h5 style="margin-bottom: 0.5rem;">高科技辅助</h5>
+                        <p style="color: #666; font-size: 0.9rem;">专用App + AR增强现实 + 智能线索系统，科技与历史完美融合</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🛡️</div>
+                        <h5 style="margin-bottom: 0.5rem;">品质保障</h5>
+                        <p style="color: #666; font-size: 0.9rem;">Uniloco独家原创剧本，专属客服全程支持，不满意全额退款</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px;">
+                    <h4 style="margin-bottom: 1rem; color: #ff385c;">🌟 与普通剧本杀的区别</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
+                        <div>
+                            <strong>VS 室内剧本杀：</strong>
+                            <ul style="margin-top: 0.5rem; color: #666; list-style: none;">
+                                <li>✓ 真实历史场景，非虚构背景</li>
+                                <li>✓ 户外+室内结合体验</li>
+                                <li>✓ 专业演员现场互动</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong>VS 城市探索游戏：</strong>
+                            <ul style="margin-top: 0.5rem; color: #666; list-style: none;">
+                                <li>✓ 深度剧情和角色扮演</li>
+                                <li>✓ 专业历史知识融入</li>
+                                <li>✓ 高质量服务保障</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong>VS 传统城市游览：</strong>
+                            <ul style="margin-top: 0.5rem; color: #666; list-style: none;">
+                                <li>✓ 互动式参与，非被动观看</li>
+                                <li>✓ 沉浸式故事体验</li>
+                                <li>✓ 团队协作解谜乐趣</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 预订按钮功能
+        document.querySelector('.book-btn').addEventListener('click', function() {
+            alert('预订《约克幽灵传说》剧本体验\n\n✨ 您将获得：\n• 专属客服2小时内联系确认\n• 详细游戏准备指南\n• 约克历史文化资料包\n• 紧急联系方式和集合详情\n• Golden Fleece Inn预订确认\n• 拼团匹配服务（如需要）\n\n🏰 准备好踏入千年谜团了吗？');
+        });
+
+        // 场次选择功能
+        document.querySelectorAll('[style*="cursor: pointer"]').forEach(session => {
+            if (session.textContent.includes('14:00') || session.textContent.includes('19:00')) {
+                session.addEventListener('click', function() {
+                    if (this.style.borderColor === 'rgb(255, 56, 92)') return; // 已选中
+                    
+                    // 清除其他选中状态
+                    document.querySelectorAll('[style*="cursor: pointer"]').forEach(s => {
+                        if (s.textContent.includes('14:00') || s.textContent.includes('19:00')) {
+                            s.style.borderColor = s.textContent.includes('名额紧张') ? '#ffc107' : '#28a745';
+                        }
+                    });
+                    
+                    // 设置当前选中
+                    this.style.borderColor = '#ff385c';
+                    this.style.background = '#fff5f5';
+                    
+                    alert('已选择场次：' + this.querySelector('div').textContent + '\n点击"立即预订体验"完成预约');
+                });
+            }
+        });
+
+        // 查看下周档期
+        document.querySelector('button').addEventListener('click', function() {
+            alert('下周完整档期 (8月19日-25日)\n\n周一: 14:00(可预约) 19:00(可预约)\n周二: 14:00(名额紧张) 19:00(可预约)\n周三: 14:00(可预约) 19:00(可预约)\n周四: 14:00(已满) 19:00(名额紧张)\n周五: 14:00(可预约) 19:00(可预约)\n周六: 14:00(名额紧张) 19:00(名额紧张)\n周日: 14:00(可预约) 19:00(可预约)\n\n💡 建议提前2-3天预约确保有位置');
+        });
+
+        // NPC卡片交互
+        document.querySelectorAll('.npc-card').forEach(card => {
+            card.addEventListener('click', function() {
+                alert('查看NPC详细信息\n包含角色背景故事、演员简介和互动预览');
+            });
+        });
+
+        // 地图点击功能
+        document.querySelector('.container').addEventListener('click', function(e) {
+            if (e.target.closest('[style*="background: linear-gradient(45deg, #2c3e50, #34495e)"]')) {
+                alert('打开约克游戏地图\n显示详细路线：罗马柱 → 约克大教堂 → The Shambles → 城堡博物馆 → Golden Fleece Inn');
+            }
+        });
+
+        // 表单验证
+        document.querySelector('.booking-form').addEventListener('change', function() {
+            console.log('预订信息已更新');
+        });
+    </script>
+</body>
+</html>
