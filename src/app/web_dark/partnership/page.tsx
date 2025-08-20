@@ -334,7 +334,7 @@ export default function PartnershipPage() {
                 meta: '120K Followers',
                 quote: 'Uniloco transformed my hobby into a full-time career. I\'ve doubled my income while creating content about places I love.',
                 resultsTitle: 'Results in 6 months:',
-                results: ['42% Conversion Rate', '35K UNC Earned', '8 Sponsored Trips']
+                results: ['42% Conversion Rate', '35K EUR Earned', '8 Sponsored Trips']
               },
               {
                 name: 'Bali Beach Cafe',
@@ -350,7 +350,7 @@ export default function PartnershipPage() {
                 meta: '350K Subscribers',
                 quote: 'The analytics dashboard helps me understand what my audience loves. My engagement has never been higher.',
                 resultsTitle: 'Results in 8 months:',
-                results: ['28% Commission Rate', '120K UNC Earned', '15 Brand Collaborations']
+                results: ['28% Commission Rate', '120K EUR Earned', '15 Brand Collaborations']
               }
             ].map((s, i) => (
               <div key={i} className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all border-t-4 border-[#fe585f] p-8">

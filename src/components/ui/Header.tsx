@@ -84,8 +84,15 @@ export default function Header({
     }
 
     if (item === 'how-to') {
-      setDropdownOpen(dropdownOpen === 'how-to' ? null : 'how-to');
-      return;
+      if (isDark) {
+        // /web_dark: 直接跳转到 play 页面
+        router.push(`${basePath}/play`);
+        return;
+      } else {
+        // 其它路径保持下拉菜单
+        setDropdownOpen(dropdownOpen === 'how-to' ? null : 'how-to');
+        return;
+      }
     }
 
     if (onNavigation) {
@@ -107,14 +114,9 @@ export default function Header({
     const basePath = isDark ? '/web_dark' : '/web';
 
     if (item === 'how-to') {
+      // /web_dark 不再需要下拉菜单，直接返回空数组
       if (isDark) {
-        // /web_dark: 仅保留 How to Play
-        return [
-          {
-            label: 'How to Play',
-            action: () => router.push(`${basePath}/play`)
-          }
-        ];
+        return [];
       }
       // 其它路径保持原有三项
       return [
@@ -199,7 +201,7 @@ export default function Header({
                   {item.split('-').map(word =>
                     word.charAt(0).toUpperCase() + word.slice(1)
                   ).join(' ')}
-                  {(item === 'how-to' || item === 'web3 hub') && (
+                  {(item === 'how-to' && !isWebDark) || item === 'web3 hub' ? (
                     <svg
                       className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen === 'how-to' ? 'rotate-180' : ''}`}
                       fill="none"
@@ -208,11 +210,11 @@ export default function Header({
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
-                  )}
+                  ) : null}
                 </button>
 
                 {/* Dropdown Menu */}
-                {((item === 'how-to' && dropdownOpen === 'how-to') || (item === 'web3 hub' && dropdownOpen === 'web3 hub')) && (
+                {((item === 'how-to' && dropdownOpen === 'how-to' && !isWebDark) || (item === 'web3 hub' && dropdownOpen === 'web3 hub')) && (
                   <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                     {getDropdownItems(item).map((dropdownItem, index) => (
                       <button

@@ -87,7 +87,7 @@ export default function UncEconomicPage() {
                         playsInline
                         className="w-full h-full object-cover"
                     >
-                        <source src="/video/travel_hero_video.webm" type="video/webm" />
+                        <source src="/video/network_unc_token.webm" type="video/webm" />
                     </video>
 
                     {/* Overlay with gradient */}
