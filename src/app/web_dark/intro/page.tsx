@@ -591,7 +591,7 @@ export default function IntroPage() {
                                     likes: '1.5K',
                                     comments: '89',
                                     shares: '67',
-                                    content: 'Just completed my 50th travel story on Uniloco! Started in my hometown Barcelona, now creating routes across Europe. Last month earned 2,800 UNC, met incredible people, and my "Barcelona Secret Spots" story has 1,200+ followers! Never thought my love for exploring could become my side income 💫 #Barcelona #TravelCreator #UNC #Europe',
+                                    content: 'Just completed my 50th travel story on Uniloco! Started in my hometown Barcelona, now creating routes across Europe. Last month earned 2,800 EUR, met incredible people, and my "Barcelona Secret Spots" story has 1,200+ followers! Never thought my love for exploring could become my side income 💫 #Barcelona #TravelCreator #EUR #Europe',
                                     image: '/static/real_pic2.png',
                                     earnings: '+2,800 Euro'
                                 },
