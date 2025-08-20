@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Reviews from '@/components/ui/reviews';
 import Calendar from '@/components/ui/calendar';
 import Web2Header from '@/components/ui/Web2Header';
+import NormalMap from '@/components/ui/normalMap';
 
 export default function ExperienceDetailPage() {
     const router = useRouter();
@@ -21,7 +22,7 @@ export default function ExperienceDetailPage() {
         id: "strasbourg-local-experience",
         title: "Experience Strasbourg Like a Local",
         subtitle: "Cycle through Strasbourg's old town, taste local cuisine, and explore hidden spots that tourists don't know about. Follow a local guide to deeply understand the true face of this European capital.",
-        image: "/static/3.png",
+        image: "/static/web2/strasbourg.webp",
         price: 227,
         rating: 4.97,
         reviewCount: 134,
@@ -155,7 +156,6 @@ export default function ExperienceDetailPage() {
                                 }}
                             >
                                 <div className="absolute inset-0 bg-black/10"></div>
-                                <div className="relative z-10">🚴‍♂️</div>
                             </div>
 
                             {/* Content */}
@@ -316,17 +316,12 @@ export default function ExperienceDetailPage() {
                         </div>
                     </div>
                     
-                    <div className="h-80 bg-gradient-to-br from-green-50 to-blue-50 rounded-xl border border-gray-200 flex items-center justify-center relative mb-4 overflow-hidden">
-                        <div className="text-center text-gray-600 z-10">
-                            <p className="text-lg mb-2 font-medium">🗺️ Strasbourg City Center Map</p>
-                            <p className="text-sm">Click to view detailed location and route</p>
-                        </div>
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-[#fe585f] rounded-full border-4 border-white shadow-lg animate-pulse"></div>
-                        
-                        {/* Decorative elements */}
-                        <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-sm rounded-lg px-3 py-2 text-sm font-medium text-gray-700">
-                            📍 You are here
-                        </div>
+                    <div className="rounded-xl overflow-hidden mb-4">
+                        <NormalMap
+                            center={{ lat: 48.573405, lng: 7.752111 }}
+                            zoom={13}
+                            heightClassName="h-80"
+                        />
                     </div>
                     
                     <p className="text-gray-600 text-sm">

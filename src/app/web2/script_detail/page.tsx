@@ -6,6 +6,8 @@ import { Star, Clock, Users, MapPin, Check, X, ChevronRight } from 'lucide-react
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Web2Header from '@/components/ui/Web2Header';
+import Image from 'next/image';
+import NormalMap from '@/components/ui/normalMap';
 
 function ScriptDetailContent() {
     const router = useRouter();
@@ -222,13 +224,16 @@ function ScriptDetailContent() {
                     <div className="lg:col-span-2">
                         <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                             {/* Hero Image */}
-                            <div 
-                                className="h-96 relative flex items-center justify-center text-6xl"
-                                style={{ background: script.bgImage }}
-                            >
+                            <div className="relative h-64 md:h-80 lg:h-96">
+                                <Image
+                                    src="/static/web2/york.webp"
+                                    alt="York"
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                    sizes="(min-width: 1024px) 66vw, 100vw"
+                                />
                                 <div className="absolute inset-0 bg-black/20"></div>
-                                <div className="relative z-10">{script.icon}</div>
-                                
                                 {/* Difficulty Badge */}
                                 <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
                                     <span className="text-sm font-semibold text-gray-700">{script.difficulty}</span>
@@ -681,16 +686,12 @@ function ScriptDetailContent() {
                     </div>
 
                     {/* Interactive Map */}
-                    <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl relative overflow-hidden flex items-center justify-center text-white">
-                        <div className="text-center relative z-10">
-                            <p className="text-xl mb-2 font-medium">🗺️ York Old Town Game Map</p>
-                            <p className="text-sm opacity-80">Click to view detailed game route and hidden locations</p>
-                        </div>
-                        {/* Location Pins */}
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-[#fe585f] rounded-full border-4 border-white shadow-lg animate-pulse"></div>
-                        <div className="absolute top-1/3 left-1/3 w-6 h-6 bg-yellow-400 rounded-full border-2 border-white"></div>
-                        <div className="absolute top-2/3 right-1/3 w-6 h-6 bg-yellow-400 rounded-full border-2 border-white"></div>
-                        <div className="absolute bottom-1/3 left-2/3 w-6 h-6 bg-yellow-400 rounded-full border-2 border-white"></div>
+                    <div className="rounded-xl overflow-hidden">
+                        <NormalMap
+                            center={{ lat: 53.959965, lng: -1.087298 }}
+                            zoom={13}
+                            heightClassName="h-80"
+                        />
                     </div>
                 </section>
 

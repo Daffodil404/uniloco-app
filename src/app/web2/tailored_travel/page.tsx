@@ -26,7 +26,7 @@ export default function TailoredTravelPage() {
     };
 
     const handleScriptClick = (scriptId: string) => {
-        router.push(`/web2/experience_detail?id=${scriptId}&type=script`);
+        router.push(`/web2/script_detail?id=${scriptId}&type=script`);
     };
 
     const filters = [
