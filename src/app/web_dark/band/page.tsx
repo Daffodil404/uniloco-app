@@ -84,7 +84,6 @@ export default function TravelBandNFTsPage() {
       rarity: 'Common',
       color: 'from-blue-400 to-blue-600',
       stats: { power: 10, luck: 5, charm: 3 },
-      price: 'Free',
       description: 'Perfect for beginners starting their travel journey',
       image: '/static/band/band1.jpeg'
     },
@@ -93,9 +92,7 @@ export default function TravelBandNFTsPage() {
       name: 'Adventurer Band',
       rarity: 'Uncommon',
       color: 'from-green-400 to-green-600',
-      stats: { power: 15, luck: 8, charm: 6 },
-      price: '100 Euro',
-      description: 'Enhanced capabilities for experienced travelers',
+      stats: { power: 15, luck: 8, charm: 6 },      description: 'Enhanced capabilities for experienced travelers',
       image: '/static/band/band2.jpeg'
     },
     {
@@ -104,7 +101,6 @@ export default function TravelBandNFTsPage() {
       rarity: 'Rare',
       color: 'from-purple-400 to-purple-600',
       stats: { power: 20, luck: 12, charm: 10 },
-      price: '500 Euro',
       description: 'Rare band with exceptional travel bonuses',
       image: '/static/band/band3.jpeg'
     },
@@ -114,7 +110,6 @@ export default function TravelBandNFTsPage() {
       rarity: 'Epic',
       color: 'from-orange-400 to-orange-600',
       stats: { power: 25, luck: 15, charm: 12 },
-      price: '1000 Euro',
       description: 'Epic band with legendary travel powers',
       image: '/static/band/band4.jpeg'
     }
@@ -226,14 +221,6 @@ export default function TravelBandNFTsPage() {
                         <span className="font-bold text-[#fe585f]">{band.stats.charm}</span>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Price and Action */}
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-[#fe585f] mb-4">{band.price}</div>
-                    <button className="w-full bg-[#fe585f] text-white py-3 rounded-full font-semibold hover:bg-[#e14b52] transition-colors">
-                      {band.price === 'Free' ? 'Claim Now' : 'Purchase'}
-                    </button>
                   </div>
                 </div>
               </div>

@@ -43,14 +43,14 @@ export default function PartnershipPage() {
         }
         return false;
       });
-      
+
       if (currentSection) setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll);
-    
+
     // Initial load placeholder (removed unused state)
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -89,7 +89,7 @@ export default function PartnershipPage() {
   return (
     <main className="font-sans text-gray-800 bg-white overflow-x-hidden">
       {/* Navigation */}
-      <Header 
+      <Header
         activeSection={activeSection}
         onNavigation={handleNavigation}
         navItems={['home', 'how-to', 'web3 hub', 'partnership']}
@@ -115,7 +115,7 @@ export default function PartnershipPage() {
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-28 lg:py-36 text-center reveal">
           <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl tracking-tight text-white mb-6">
             Join the Travel-to-Earn Revolution 🌍
-                </h1>
+          </h1>
           <p className="mx-auto max-w-[700px] text-xl text-white/80 leading-relaxed mb-10">
             Transform your local expertise into sustainable income.
           </p>
@@ -125,12 +125,12 @@ export default function PartnershipPage() {
             </button>
             <button onClick={() => scrollToSection('types')} className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Learn More
-                </button>
+            </button>
             <button onClick={() => scrollToSection('contact')} className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Contact Us
-                </button>
-              </div>
-            </div>
+            </button>
+          </div>
+        </div>
       </section>
 
       {/* Why Partner Section */}
@@ -145,19 +145,25 @@ export default function PartnershipPage() {
               {
                 image: '/static/partnership/undraw_mind-map_i9bv.svg',
                 title: 'Smart Customer Matching',
+                oldTitle: 'The old way',
                 old: ' Endless scrolling, generic searches, missed connections.',
+                withTitle: 'Uniloco’s advantage',
                 with: 'AI pairs your unique expertise with travelers who truly value it.'
               },
               {
                 image: '/static/partnership/undraw_all-the-data_5lil.svg',
                 title: 'All-in-One Business Tools',
+                oldTitle: 'Typical solutions',
                 old: 'Juggling multiple tools, manual processes, no support. ',
+                withTitle: 'Uniloco’s advantage',
                 with: 'One seamless platform—automated payments, real-time analytics, and expert support. '
               },
               {
                 image: '/static/partnership/undraw_investment-data_frxx.svg',
                 title: 'Keep More, Earn More',
+                oldTitle: 'Industry standard',
                 old: 'High fees eating into your profits.',
+                withTitle: 'Uniloco’s model',
                 with: 'You keep 75-95% of earnings + performance bonuses.'
               }
             ].map((card, i) => (
@@ -169,18 +175,18 @@ export default function PartnershipPage() {
                   <div className="relative w-28 h-28">
                     <Image src={card.image} alt={card.title} fill className="object-contain" />
                   </div>
-              </div>
+                </div>
                 <h3 className="text-xl font-bold text-gray-900 text-center mb-6">{card.title}</h3>
 
                 {/* Comparison */}
                 <div className="space-y-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">Old way</p>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">{card.oldTitle}</p>
                     <p className="text-gray-600">{card.old}</p>
                   </div>
                   <div className="h-px bg-gray-200" />
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-[#fe585f] mb-1">With Uniloco</p>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[#fe585f] mb-1">{card.withTitle}</p>
                     <p className="text-gray-800">{card.with}</p>
                   </div>
                 </div>
@@ -197,9 +203,9 @@ export default function PartnershipPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-[#fe585f]">Two Partnership Programs</h2>
             <div className="mt-3 flex justify-center">
               <span className="inline-block h-1 w-24 bg-[#fe585f] rounded-full"></span>
-        </div>
+            </div>
           </div>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto reveal">
             {/* Content Creators Card */}
             <div className="rounded-2xl border border-[#fe585f]/30 p-8 shadow-sm hover:shadow-md transition-all">
@@ -230,7 +236,7 @@ export default function PartnershipPage() {
                     className="object-contain"
                     priority
                   />
-            </div>
+                </div>
               </div>
             </div>
 
@@ -241,7 +247,7 @@ export default function PartnershipPage() {
                 <p className="text-sm text-gray-500">Restaurants, Hotels & Experiences</p>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6">
-              Attract travelers to your business with our targeted marketing tools. Increase foot traffic, boost sales, and gain valuable exposure to our community of adventure seekers.              </p>
+                Attract travelers to your business with our targeted marketing tools. Increase foot traffic, boost sales, and gain valuable exposure to our community of adventure seekers.              </p>
 
               <div className="mb-6">
                 <p className="text-sm font-semibold text-[#fe585f] mb-3">Perfect for:</p>
@@ -277,7 +283,7 @@ export default function PartnershipPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-[#fe585f]">How we Work together</h2>
             <div className="mt-3 flex justify-center">
               <span className="inline-block h-1 w-24 bg-[#fe585f] rounded-full"></span>
-        </div>
+            </div>
             <p className="mt-4 text-lg md:text-xl text-gray-700">You Apply, We Support, You Earn</p>
           </div>
           <ConfigProvider theme={{ token: { colorPrimary: '#fe585f' }, components: { Steps: { iconSize: 36 } } }}>
@@ -293,7 +299,7 @@ export default function PartnershipPage() {
                     { status: 'wait', title: 'You Monetize', description: 'Transform followers into sustainable income streams' }
                   ]}
                 />
-                    </div>
+              </div>
             </div>
             {/* Track: Local Merchants */}
             <div className="max-w-6xl mx-auto reveal">
@@ -307,7 +313,7 @@ export default function PartnershipPage() {
                     { status: 'wait', title: 'You Scale', description: 'Convert visitors into loyal customers and recurring revenue' }
                   ]}
                 />
-                    </div>
+              </div>
             </div>
           </ConfigProvider>
         </div>
@@ -377,10 +383,10 @@ export default function PartnershipPage() {
           <div className="absolute top-24 right-[-60px] w-[28rem] h-[28rem] rounded-full bg-[#fff7f7] blur-3xl" />
           <div className="absolute bottom-[-40px] left-1/3 w-[36rem] h-40 bg-[#fff7f7] rounded-full blur-3xl" />
         </div>
-        
+
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center reveal">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#fe585f] mb-6">Join 10,000+ partners already earning with Uniloco 🚀</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-[#fe585f] mb-6">Join 10,000+ partners already earning with Uniloco </h2>
             <p className="text-lg md:text-xl text-[#444] leading-relaxed mb-10">
               Every encounter is destiny&apos;s arrangement, every journey is the beginning of a legend. Join Uniloco and let&apos;s redefine the meaning of travel together!
             </p>
