@@ -340,7 +340,7 @@ export default function IntroPage() {
                                 Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
                             </p>
 
-                            <DownloadSection textColor='#ffffff'/>
+                            <DownloadSection buttonOnly={true} textColor='#ffffff'/>
                         </div>
                     </div>
                 </section>
@@ -376,11 +376,6 @@ export default function IntroPage() {
                                             title: 'Social Travel',
                                             description: 'Team up for check-ins, collaborate on content creation, and share your exciting journeys with global travelers.',
                                             image: '/static/social_travel.webp'
-                                        },
-                                        {
-                                            title: 'Earn While Travel',
-                                            description: 'Earn rewards with every check-in. Turn your travel adventures into a rewarding mining experience.',
-                                            image: '/static/earn_euro.webp'
                                         }
                                     ].map((feature, index) => (
                                         <div key={index} className="w-full flex-shrink-0">
