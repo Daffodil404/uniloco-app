@@ -38,7 +38,7 @@ export default function EventsPage() {
       title: 'Tailored Journey',
       description: 'Mystery role-play, time-travel themes, or romantic stories brought to life by professional actors.',
       image: '/static/events_ball.webp',
-      target:'/web2/experience_detail'
+      target:'/web2/script_detail'
     }
   ];
 
