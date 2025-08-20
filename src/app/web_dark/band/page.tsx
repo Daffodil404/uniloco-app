@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/ui/Header';
+import { image } from 'framer-motion/client';
+import DownloadSection from '@/components/features/DownloadSection';
 
 export default function TravelBandNFTsPage() {
   const router = useRouter();
@@ -83,7 +85,8 @@ export default function TravelBandNFTsPage() {
       color: 'from-blue-400 to-blue-600',
       stats: { power: 10, luck: 5, charm: 3 },
       price: 'Free',
-      description: 'Perfect for beginners starting their travel journey'
+      description: 'Perfect for beginners starting their travel journey',
+      image: '/static/band/band1.jpeg'
     },
     {
       id: 2,
@@ -92,7 +95,8 @@ export default function TravelBandNFTsPage() {
       color: 'from-green-400 to-green-600',
       stats: { power: 15, luck: 8, charm: 6 },
       price: '100 Euro',
-      description: 'Enhanced capabilities for experienced travelers'
+      description: 'Enhanced capabilities for experienced travelers',
+      image: '/static/band/band2.jpeg'
     },
     {
       id: 3,
@@ -101,7 +105,8 @@ export default function TravelBandNFTsPage() {
       color: 'from-purple-400 to-purple-600',
       stats: { power: 20, luck: 12, charm: 10 },
       price: '500 Euro',
-      description: 'Rare band with exceptional travel bonuses'
+      description: 'Rare band with exceptional travel bonuses',
+      image: '/static/band/band3.jpeg'
     },
     {
       id: 4,
@@ -110,16 +115,8 @@ export default function TravelBandNFTsPage() {
       color: 'from-orange-400 to-orange-600',
       stats: { power: 25, luck: 15, charm: 12 },
       price: '1000 Euro',
-      description: 'Epic band with legendary travel powers'
-    },
-    {
-      id: 5,
-      name: 'Mythic Band',
-      rarity: 'Legendary',
-      color: 'from-red-400 to-red-600',
-      stats: { power: 30, luck: 18, charm: 15 },
-      price: '2500 Euro',
-      description: 'The ultimate travel companion with mythical abilities'
+      description: 'Epic band with legendary travel powers',
+      image: '/static/band/band4.jpeg'
     }
   ];
 
@@ -190,14 +187,18 @@ export default function TravelBandNFTsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {travelBands.map((band, index) => (
               <div key={band.id} className="reveal" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 hover:border-[#fe585f] transition-all duration-500 hover:shadow-2xl hover:-translate-y-4 group">
-                  {/* Band Icon */}
-                  <div className={`w-24 h-24 bg-gradient-to-br ${band.color} rounded-full flex items-center justify-center text-4xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    🎯
-                  </div>
+                  <img
+                    src={band.image}
+                    alt={band.name}
+                    width={100}
+                    height={100}
+                    className="mx-auto mb-4 rounded-full object-cover"
+                    loading="lazy"
+                  />
 
                   {/* Band Info */}
                   <div className="text-center mb-6">
@@ -242,28 +243,7 @@ export default function TravelBandNFTsPage() {
       </section>
 
       {/* Download Section */}
-      <section className="py-20 bg-gradient-to-b from-[#fe585f]/85 to-[#d94a51]/85 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-5xl md:text-6xl font-black mb-8">
-            START YOUR JOURNEY
-          </h2>
-          <p className="text-2xl mb-12">
-            Download the app and choose your first Travel Band
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2">
-              <span>🍎</span>
-              <span>Download on App Store</span>
-            </button>
-
-            <button className="bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2">
-              <span>🤖</span>
-              <span>Get it on Google Play</span>
-            </button>
-          </div>
-        </div>
-      </section>
+      <DownloadSection />
 
       {/* Custom CSS for animations */}
       <style jsx>{`
