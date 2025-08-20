@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Reviews from '@/components/ui/reviews';
 import Calendar from '@/components/ui/calendar';
 import Web2Header from '@/components/ui/Web2Header';
+import Image from 'next/image';
+import TimeLineSteps from '@/components/ui/TimeLineSteps';
 
 export default function ServiceDetailPage() {
     const router = useRouter();
@@ -22,7 +24,7 @@ export default function ServiceDetailPage() {
     const serviceProvider = {
         name: "Laurent Dubois",
         title: "Professional Fashion Photographer",
-        avatar: "📸",
+        avatarImg: "/static/web2/photographer.webp",
         description: "I'm Laurent, a professional fashion photographer with over 12 years of experience in Paris. I've worked with Vogue, Elle, Marie Claire and other prestigious magazines. I specialize in capturing beautiful moments in natural light. I believe every photo should tell a story, and every shoot is a unique artistic creation.",
         stats: {
             completed: 342,
@@ -31,7 +33,7 @@ export default function ServiceDetailPage() {
         },
         specialties: [
             "Portrait Photography",
-            "Fashion Photography", 
+            "Fashion Photography",
             "Wedding Photography",
             "Travel Photography",
             "Commercial Photography",
@@ -191,12 +193,12 @@ export default function ServiceDetailPage() {
                         <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                             {/* Service Provider Header */}
                             <div className="bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white p-8 text-center">
-                                <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 border-4 border-white/30">
-                                    {serviceProvider.avatar}
+                                <div className="w-32 h-32 bg-white/20 rounded-full mx-auto mb-4 border-4 border-white/30 relative overflow-hidden">
+                                    <Image src={serviceProvider.avatarImg} alt={serviceProvider.name} fill className="object-cover" />
                                 </div>
                                 <h1 className="text-3xl font-bold mb-2">{serviceProvider.name}</h1>
                                 <p className="text-xl opacity-90 mb-6">{serviceProvider.title}</p>
-                                
+
                                 <div className="flex justify-center gap-8">
                                     <div className="text-center">
                                         <div className="text-2xl font-bold">{serviceProvider.stats.completed}</div>
@@ -290,11 +292,10 @@ export default function ServiceDetailPage() {
                                         <div
                                             key={pkg.id}
                                             onClick={() => setSelectedPackage(pkg.id)}
-                                            className={`border-2 rounded-xl p-4 cursor-pointer transition-all ${
-                                                selectedPackage === pkg.id
+                                            className={`border-2 rounded-xl p-4 cursor-pointer transition-all ${selectedPackage === pkg.id
                                                     ? 'border-[#fe585f] bg-[#fe585f]/5'
                                                     : 'border-gray-200 hover:border-[#fe585f]/50'
-                                            }`}
+                                                }`}
                                         >
                                             <div className="font-semibold text-gray-900">{pkg.name}</div>
                                             <div className="text-2xl font-bold text-[#fe585f]">€{pkg.price}</div>
@@ -369,13 +370,13 @@ export default function ServiceDetailPage() {
                                 </div>
                             </form>
 
-                            <Button 
+                            <Button
                                 onClick={handleBooking}
                                 className="w-full bg-[#fe585f] hover:bg-[#e04a50] text-white py-4 text-lg font-semibold mb-4 rounded-xl"
                             >
                                 Submit Booking Request
                             </Button>
-                            
+
                             <p className="text-center text-sm text-gray-600">
                                 💎 Uniloco exclusive customer service will contact you within 2 hours
                             </p>
@@ -387,17 +388,25 @@ export default function ServiceDetailPage() {
                 <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">📷 Portfolio Showcase</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                        {portfolio.map(item => (
-                            <div key={item.id} className="aspect-square bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl relative overflow-hidden cursor-pointer group">
-                                <div className="absolute inset-0 flex items-center justify-center text-3xl opacity-80 group-hover:opacity-100 transition-opacity">
-                                    {item.icon}
+                        {portfolio.map(item => {
+                            const imagePath = `/static/web2/${item.type.toLowerCase()}.webp`;
+                            return (
+                                <div key={item.id} className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group bg-gray-100">
+                                    <Image
+                                        src={imagePath}
+                                        alt={item.type}
+                                        fill
+                                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                        sizes="(min-width: 1024px) 16.66vw, (min-width: 768px) 33.33vw, 50vw"
+                                        priority={item.id <= 2}
+                                    />
+                                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 transform translate-y-full group-hover:translate-y-0 transition-transform">
+                                        <h4 className="text-white text-sm font-semibold">{item.type}</h4>
+                                        <p className="text-white/80 text-xs">{item.description}</p>
+                                    </div>
                                 </div>
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 transform translate-y-full group-hover:translate-y-0 transition-transform">
-                                    <h4 className="text-white text-sm font-semibold">{item.type}</h4>
-                                    <p className="text-white/80 text-xs">{item.description}</p>
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                     <p className="text-center text-gray-600 mt-4">
                         💡 Click to view complete portfolio or contact me for more case studies
@@ -419,19 +428,13 @@ export default function ServiceDetailPage() {
                 {/* Service Process */}
                 <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">📋 Service Process</h3>
-                    <div className="space-y-6">
-                        {processSteps.map((step, index) => (
-                            <div key={index} className="flex gap-4 p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe585f]">
-                                <div className="w-10 h-10 bg-[#fe585f] text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">
-                                    {step.step}
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-lg mb-2 text-gray-900">{step.title}</h4>
-                                    <p className="text-gray-600 leading-relaxed">{step.description}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    <TimeLineSteps
+                        steps={processSteps.map(s => ({
+                            title: `${s.step}. ${s.title}`,
+                            description: s.description,
+                            bottom: null
+                        }))}
+                    />
                 </section>
 
                 {/* Enhanced Reviews */}
@@ -447,7 +450,7 @@ export default function ServiceDetailPage() {
                 {/* Uniloco Guarantee */}
                 <section className="bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">🛡️ Uniloco Exclusive Service Guarantee</h3>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                         <div className="bg-white rounded-xl p-6 text-center shadow-sm">
                             <div className="text-3xl mb-3">🎯</div>

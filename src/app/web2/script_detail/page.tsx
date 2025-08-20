@@ -6,6 +6,7 @@ import { Star, Clock, Users, MapPin, Check, X, ChevronRight } from 'lucide-react
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Web2Header from '@/components/ui/Web2Header';
+import Image from 'next/image';
 
 function ScriptDetailContent() {
     const router = useRouter();
@@ -222,13 +223,16 @@ function ScriptDetailContent() {
                     <div className="lg:col-span-2">
                         <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                             {/* Hero Image */}
-                            <div 
-                                className="h-96 relative flex items-center justify-center text-6xl"
-                                style={{ background: script.bgImage }}
-                            >
+                            <div className="relative h-64 md:h-80 lg:h-96">
+                                <Image
+                                    src="/static/web2/york.webp"
+                                    alt="York"
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                    sizes="(min-width: 1024px) 66vw, 100vw"
+                                />
                                 <div className="absolute inset-0 bg-black/20"></div>
-                                <div className="relative z-10">{script.icon}</div>
-                                
                                 {/* Difficulty Badge */}
                                 <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
                                     <span className="text-sm font-semibold text-gray-700">{script.difficulty}</span>
