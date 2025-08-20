@@ -417,7 +417,7 @@ export default function IntroPage() {
 
                             {/* Navigation Dots */}
                             <div className="flex justify-center mt-8 space-x-3">
-                                {[0, 1, 2, 3].map((index) => (
+                                {[0, 1, 2].map((index) => (
                                     <button
                                         key={index}
                                         onClick={() => setCurrentSlide(index)}
@@ -432,13 +432,13 @@ export default function IntroPage() {
 
                             {/* Navigation Arrows */}
                             <button
-                                onClick={() => setCurrentSlide((prev) => (prev - 1 + 4) % 4)}
+                                onClick={() => setCurrentSlide((prev) => (prev - 1 + 3) % 3)}
                                 className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300"
                             >
                                 <span className="text-2xl text-[#fe585f]">‹</span>
                             </button>
                             <button
-                                onClick={() => setCurrentSlide((prev) => (prev + 1) % 4)}
+                                onClick={() => setCurrentSlide((prev) => (prev + 1) % 3)}
                                 className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-300"
                             >
                                 <span className="text-2xl text-[#fe585f]">›</span>
