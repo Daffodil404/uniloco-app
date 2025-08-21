@@ -250,7 +250,7 @@ Use the right panel to choose an experience type and tell me what you'd like to 
     addMessage('ai', responses[category] || 'Please choose an experience type.');
   };
 
-  // Generate itinerary
+  // Generate itinerary (3 days)
   const generateAIItinerary = () => {
     setShowSearchResults(true);
     setShowMapDayControls(true);
@@ -264,32 +264,35 @@ Use the right panel to choose an experience type and tell me what you'd like to 
         totalDuration: 'About 8 hours',
         walkingDistance: '2.5 km',
         activities: [
-          {
-            time: '09:00-11:15',
-            activity: 'Colosseum Fast Track',
-            emoji: '🏛️',
-            id: 'colosseum1',
-            selected: true,
-            location: 'Piazza del Colosseo, 1',
-            duration: '2h15m',
-            phone: '+39 06 3996 7700',
-            details: 'Skip-the-line + audio, arena and underground',
-            price: '€35',
-            website: 'https://coopculture.it'
-          },
-          {
-            time: '11:30-12:45',
-            activity: 'Roman Forum Walk',
-            emoji: '🚶‍♂️',
-            id: 'forum_walk',
-            selected: true,
-            location: 'Via della Salaria Vecchia, 5/6',
-            duration: '1h15m',
-            phone: '+39 06 3996 7700',
-            details: 'Core sites around the Forum',
-            price: 'Included in combo',
-            website: 'https://coopculture.it'
-          }
+          { time: '09:00-11:15', activity: 'Colosseum Fast Track', emoji: '🏛️', id: 'colosseum1', selected: true, location: 'Piazza del Colosseo, 1', duration: '2h15m', price: '€35', website: 'https://coopculture.it' },
+          { time: '11:30-12:45', activity: 'Roman Forum Walk', emoji: '🚶‍♂️', id: 'forum_walk', selected: true, location: 'Forum', duration: '1h15m' },
+          { time: '15:00-16:30', activity: 'SPA Relax Session', emoji: '🧖‍♀️', id: 'spa1', selected: true, location: 'Via dei Cappuccini, 9', duration: '1h30m' }
+        ]
+      },
+      {
+        day: 2,
+        title: 'Day 2 - Culture & Food',
+        startLocation: 'Trastevere Market',
+        endLocation: 'Private Chef Studio',
+        totalDuration: 'About 9 hours',
+        walkingDistance: '3.2 km',
+        activities: [
+          { time: '10:00-13:00', activity: 'Italian Cooking Class', emoji: '🍝', id: 'cooking1', selected: true, location: 'Trastevere', duration: '3h' },
+          { time: '15:30-17:30', activity: 'Caesar Mystery Role-play', emoji: '🔍', id: 'mystery1', selected: true, location: 'Forum Area', duration: '2h' },
+          { time: '19:30-21:00', activity: 'Private Chef Tasting Menu', emoji: '👨‍🍳', id: 'chef1', selected: true, location: 'Via del Corso', duration: '1h30m' }
+        ]
+      },
+      {
+        day: 3,
+        title: 'Day 3 - Vatican & Opera',
+        startLocation: 'Vatican Museums',
+        endLocation: 'Rome Opera House',
+        totalDuration: 'About 8 hours',
+        walkingDistance: '2.1 km',
+        activities: [
+          { time: '09:30-12:00', activity: 'Vatican Museums Highlights', emoji: '🎨', id: 'vatican_museum', selected: true, location: 'Viale Vaticano', duration: '2h30m' },
+          { time: '12:15-13:15', activity: 'St. Peter’s Basilica', emoji: '⛪', id: 'st_peter', selected: true, location: 'Piazza San Pietro', duration: '1h' },
+          { time: '20:00-22:30', activity: 'Opera Night', emoji: '🎭', id: 'opera1', selected: true, location: "Teatro dell'Opera di Roma", duration: '2h30m' }
         ]
       }
     ];
@@ -300,6 +303,12 @@ Use the right panel to choose an experience type and tell me what you'd like to 
 
   const toggleMap = () => setCurrentMapView(prev => prev === '3D' ? '2D' : '3D');
   const showDayRoute = (day: number) => setCurrentDayView(day);
+
+  // Confirm selection: reveal results panel
+  const handleConfirmSelection = () => {
+    setShowSearchResults(true);
+    addMessage('ai', 'Great! I have prepared some results for you on the right panel.');
+  };
 
   const sendMessage = () => {
     if (!chatInputRef.current) return;
@@ -370,6 +379,9 @@ Use the right panel to choose an experience type and tell me what you'd like to 
           onSelectCategory={selectCategory}
           onSetDay={(d) => setSelectedDay(d)}
           onSetTimeSlot={(s) => setSelectedTimeSlot(s)}
+          aiItineraryGenerated={aiItineraryGenerated}
+          suggestedItinerary={suggestedItinerary}
+          onConfirmSelection={handleConfirmSelection}
         />
       </div>
     </div>

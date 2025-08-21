@@ -1,6 +1,7 @@
 "use client";
 
-import type { ExperienceItem } from './types';
+import type { ExperienceItem, DayRoute } from './types';
+import { mockSearchResults } from './constants';
 
 interface SelectionPanelProps {
   selectedCategory: string | null;
@@ -12,6 +13,10 @@ interface SelectionPanelProps {
   onSelectCategory: (c: string) => void;
   onSetDay: (day: number | null) => void;
   onSetTimeSlot: (slot: string | null) => void;
+  // new props
+  aiItineraryGenerated?: boolean;
+  suggestedItinerary?: DayRoute[] | null;
+  onConfirmSelection?: () => void;
 }
 
 export default function SelectionPanel({
@@ -23,8 +28,15 @@ export default function SelectionPanel({
   allData,
   onSelectCategory,
   onSetDay,
-  onSetTimeSlot
+  onSetTimeSlot,
+  aiItineraryGenerated,
+  suggestedItinerary,
+  onConfirmSelection
 }: SelectionPanelProps) {
+  const currentResults: ExperienceItem[] = selectedCategory
+    ? (mockSearchResults[selectedCategory] || allData[selectedCategory] || [])
+    : [];
+
   return (
     <div className="hidden md:block w-[380px] h-full bg-white/80 backdrop-blur-xl border-l border-gray-200 p-6 overflow-y-auto shadow-lg">
       <div className="bg-gray-50 rounded-2xl p-5 mb-5 border border-gray-200">
@@ -77,11 +89,33 @@ export default function SelectionPanel({
               <option value="evening">🌆 Evening (18:00–21:00)</option>
             </select>
           </div>
-          {selectedDay && selectedTimeSlot && (
-            <button className="w-full bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white p-4 rounded-xl font-bold transition-all hover:-translate-y-0.5 shadow-lg">
-              Confirm Selection
-            </button>
-          )}
+          <button
+            className={`w-full bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white p-4 rounded-xl font-bold transition-all hover:-translate-y-0.5 shadow-lg ${selectedDay && selectedTimeSlot ? '' : 'opacity-60 cursor-not-allowed'}`}
+            onClick={onConfirmSelection}
+            disabled={!selectedDay || !selectedTimeSlot}
+          >
+            Confirm Selection
+          </button>
+        </div>
+      )}
+
+      {aiItineraryGenerated && suggestedItinerary && (
+        <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200 mb-5">
+          <div className="text-[#fe585f] font-bold mb-3">🗺️ AI 3-Day Itinerary</div>
+          <div className="space-y-3">
+            {suggestedItinerary.map(day => (
+              <div key={day.day} className="bg-white rounded-xl border border-gray-200 p-3">
+                <div className="font-semibold text-gray-800 mb-2">{day.title}</div>
+                <div className="text-xs text-gray-600 mb-2">Start: {day.startLocation} · End: {day.endLocation}</div>
+                <div className="text-xs text-gray-500 mb-2">Duration: {day.totalDuration} · Walk: {day.walkingDistance}</div>
+                <ul className="space-y-1">
+                  {day.activities.map((act, idx) => (
+                    <li key={idx} className="text-xs text-gray-700">{act.time} · {act.emoji} {act.activity}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
@@ -89,7 +123,7 @@ export default function SelectionPanel({
         <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
           <div className="text-[#fe585f] font-bold mb-4">🔍 Results</div>
           <div className="space-y-3">
-            {selectedCategory && allData[selectedCategory]?.map((item) => (
+            {currentResults.map((item) => (
               <div key={item.id} className="bg-white rounded-xl p-4 border border-gray-200 transition-all hover:bg-gray-50 hover:-translate-y-0.5 shadow-sm">
                 <div className="flex items-center mb-2">
                   <span className="text-lg mr-3">{item.emoji}</span>
