@@ -28,13 +28,13 @@ export default function SelectionPanel({
   return (
     <div className="hidden md:block w-[380px] h-full bg-white/80 backdrop-blur-xl border-l border-gray-200 p-6 overflow-y-auto shadow-lg">
       <div className="bg-gray-50 rounded-2xl p-5 mb-5 border border-gray-200">
-        <div className="text-[#fe585f] font-bold mb-4">🎯 体验类型选择</div>
+        <div className="text-[#fe585f] font-bold mb-4">🎯 Experience Type</div>
         <div className="grid grid-cols-2 gap-3">
           {[
-            { category: 'activity', emoji: '🎪', title: '活动体验', desc: '运动、户外、文化' },
-            { category: 'script', emoji: '🎭', title: '剧本体验', desc: '密室、角色扮演' },
-            { category: 'service', emoji: '💼', title: '服务体验', desc: 'SPA、私厨、摄影' },
-            { category: 'itinerary', emoji: '🗺️', title: 'AI行程', desc: '完整规划方案' }
+            { category: 'activity', emoji: '🎪', title: 'Activities', desc: 'Sports, Outdoor, Culture' },
+            { category: 'script', emoji: '🎭', title: 'Scripted', desc: 'Escape room, Role-play' },
+            { category: 'service', emoji: '💼', title: 'Services', desc: 'SPA, Private Chef, Photography' },
+            { category: 'itinerary', emoji: '🗺️', title: 'AI Itinerary', desc: 'Full planning' }
           ].map((item) => (
             <button
               key={item.category}
@@ -54,32 +54,32 @@ export default function SelectionPanel({
 
       {showTimeSelection && (
         <div className="bg-gray-50 rounded-2xl p-5 mb-5 border border-gray-200">
-          <div className="text-[#fe585f] font-bold mb-4">📅 选择体验天数</div>
+          <div className="text-[#fe585f] font-bold mb-4">📅 Select Day & Time</div>
           <div className="grid grid-cols-2 gap-3 mb-4">
             <select
               className="bg-white border border-gray-300 text-gray-700 p-3 rounded-xl text-sm outline-none focus:border-[#fe585f] focus:ring-2 focus:ring-[#fe585f]/20"
               value={selectedDay || ''}
               onChange={(e) => onSetDay(e.target.value ? Number(e.target.value) : null)}
             >
-              <option value="">请选择天数</option>
-              <option value="1">第1天</option>
-              <option value="2">第2天</option>
-              <option value="3">第3天</option>
+              <option value="">Choose Day</option>
+              <option value="1">Day 1</option>
+              <option value="2">Day 2</option>
+              <option value="3">Day 3</option>
             </select>
             <select
               className="bg-white border border-gray-300 text-gray-700 p-3 rounded-xl text-sm outline-none focus:border-[#fe585f] focus:ring-2 focus:ring-[#fe585f]/20"
               value={selectedTimeSlot || ''}
               onChange={(e) => onSetTimeSlot(e.target.value || null)}
             >
-              <option value="">请选择时间段</option>
-              <option value="morning">🌅 上午 (9:00-12:00)</option>
-              <option value="afternoon">☀️ 下午 (14:00-17:00)</option>
-              <option value="evening">🌆 傍晚 (18:00-21:00)</option>
+              <option value="">Choose Time Slot</option>
+              <option value="morning">🌅 Morning (9:00–12:00)</option>
+              <option value="afternoon">☀️ Afternoon (14:00–17:00)</option>
+              <option value="evening">🌆 Evening (18:00–21:00)</option>
             </select>
           </div>
           {selectedDay && selectedTimeSlot && (
             <button className="w-full bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white p-4 rounded-xl font-bold transition-all hover:-translate-y-0.5 shadow-lg">
-              确认天数安排
+              Confirm Selection
             </button>
           )}
         </div>
@@ -87,7 +87,7 @@ export default function SelectionPanel({
 
       {showSearchResults && (
         <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
-          <div className="text-[#fe585f] font-bold mb-4">🔍 搜索结果</div>
+          <div className="text-[#fe585f] font-bold mb-4">🔍 Results</div>
           <div className="space-y-3">
             {selectedCategory && allData[selectedCategory]?.map((item) => (
               <div key={item.id} className="bg-white rounded-xl p-4 border border-gray-200 transition-all hover:bg-gray-50 hover:-translate-y-0.5 shadow-sm">
@@ -108,9 +108,9 @@ export default function SelectionPanel({
                 </div>
                 <div className="flex gap-2">
                   {item.website && (
-                    <button className="bg-gray-600 text-white px-3 py-1 rounded text-xs hover:bg-gray-700 transition-colors">官网</button>
+                    <button className="bg-gray-600 text-white px-3 py-1 rounded text-xs hover:bg-gray-700 transition-colors">Website</button>
                   )}
-                  <button className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white px-3 py-1 rounded text-xs font-bold hover:shadow-lg transition-all">选择时间</button>
+                  <button className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white px-3 py-1 rounded text-xs font-bold hover:shadow-lg transition-all">Pick a time</button>
                 </div>
               </div>
             ))}

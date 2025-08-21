@@ -25,13 +25,13 @@ export default function RomePlanner() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
       type: 'ai',
-      content: `🎯 欢迎来到罗马！我是你的专属AI旅行规划师。
-      
-      我看到你是独自旅行1-3天，喜欢街头美食和文化体验。作为单人旅行者应该更喜欢高质量的个人体验。
-      
-      右侧有四种体验类型供你选择，告诉我你想尝试什么吧！
-      
-      💡 选择体验后可直接加入你的行程安排`,
+      content: `🎯 Welcome to Rome! I'm your AI travel planner.
+
+I see you're traveling solo for 1–3 days and enjoy street food and cultural experiences.
+
+Use the right panel to choose an experience type and tell me what you'd like to try!
+
+💡 After choosing, you can add it directly to your itinerary.`,
       timestamp: Date.now()
     }
   ]);
@@ -39,136 +39,136 @@ export default function RomePlanner() {
   const chatInputRef = useRef<HTMLInputElement>(null);
   const chatMessagesRef = useRef<HTMLDivElement>(null);
 
-  // 数据定义
+  // Data
   const allData: Record<string, ExperienceItem[]> = {
     service: [
       {
         id: 'spa1',
-        name: '罗马古典SPA中心',
+        name: 'Roman Classic SPA',
         type: 'service',
         emoji: '💆‍♀️',
-        description: '正宗罗马式温泉浴，私密包间，古典音乐伴奏',
+        description: 'Authentic Roman thermal bath, private rooms, classical music ambience',
         location: 'Via dei Cappuccini, 9',
         price: 120,
-        duration: '90分钟',
+        duration: '90 mins',
         rating: 4.9,
-        tags: ['私密', '放松', '古典'],
+        tags: ['Private', 'Relax', 'Classical'],
         x: 45, y: 35,
         color: '#ff7675',
         unilocoInfo: {
-          highlights: ['古罗马风格装潢', '私人按摩师', '草药精油', '热石疗法'],
-          bestTime: '下午2-4点人流较少',
-          tips: '提前预约可享受9折优惠',
-          nearby: ['万神殿(步行5分钟)', '纳沃纳广场(步行8分钟)']
+          highlights: ['Roman interior', 'Private therapist', 'Herbal essential oils', 'Hot stone therapy'],
+          bestTime: '2–4 PM less crowded',
+          tips: 'Book in advance for 10% off',
+          nearby: ['Pantheon (5 min walk)', 'Piazza Navona (8 min walk)']
         }
       },
       {
         id: 'chef1',
-        name: '马里奥私厨工作室',
+        name: 'Chef Mario’s Studio',
         type: 'service',
         emoji: '👨‍🍳',
-        description: '学习制作正宗意大利面，一对一教学',
+        description: 'Learn authentic pasta with 1-on-1 guidance',
         location: 'Via del Corso, 123',
         price: 85,
-        duration: '120分钟',
+        duration: '120 mins',
         rating: 4.8,
-        tags: ['一对一', '教学', '美食'],
+        tags: ['1-on-1', 'Workshop', 'Food'],
         x: 60, y: 25,
         color: '#fdcb6e',
         unilocoInfo: {
-          highlights: ['米其林主厨亲授', '意式家庭秘方', '可带走食谱', '小班授课'],
-          bestTime: '上午10-12点体验最佳',
-          tips: '穿着围裙和舒适鞋子',
-          nearby: ['西班牙阶(步行3分钟)', '特莱维喷泉(步行7分钟)']
+          highlights: ['Michelin chef', 'Family recipes', 'Take-home recipe', 'Small group'],
+          bestTime: '10–12 AM best experience',
+          tips: 'Wear apron and comfy shoes',
+          nearby: ['Spanish Steps (3 min walk)', 'Trevi Fountain (7 min walk)']
         }
       }
     ],
     script: [
       {
         id: 'escape1',
-        name: '古罗马密室逃脱',
+        name: 'Roman Gladiator Escape',
         type: 'script',
         emoji: '🗝️',
-        description: '角斗士主题沉浸式密室，还原古罗马竞技场',
+        description: 'Immersive gladiator-themed escape room near the arena',
         location: 'Via del Teatro, 12',
         price: 45,
-        duration: '90分钟',
+        duration: '90 mins',
         rating: 4.4,
-        tags: ['角斗士', '历史', '解谜'],
+        tags: ['Gladiator', 'History', 'Puzzle'],
         x: 75, y: 60,
         color: '#6c5ce7',
         website: 'https://rome-escape.com',
         unilocoInfo: {
-          highlights: ['沉浸式角斗士体验', '专业演员互动', '多重结局设计', '团队合作挑战'],
-          bestTime: '傍晚时段氛围最佳',
-          tips: '建议2-4人组队，穿着舒适运动装',
-          nearby: ['斗兽场(步行10分钟)', '古罗马遗址(步行12分钟)']
+          highlights: ['Immersive role-play', 'Actor interaction', 'Multiple endings', 'Teamwork'],
+          bestTime: 'Evening ambience is best',
+          tips: '2–4 people recommended; wear comfy clothes',
+          nearby: ['Colosseum (10 min walk)', 'Roman Forum (12 min walk)']
         }
       },
       {
         id: 'mystery1',
-        name: '凯撒谋杀案调查',
+        name: 'The Caesar Case',
         type: 'script',
         emoji: '🔍',
-        description: '扮演古罗马侦探，调查凯撒遇刺真相',
+        description: 'Play detective and investigate Caesar’s assassination',
         location: 'Forum Romanum',
         price: 55,
-        duration: '120分钟',
+        duration: '120 mins',
         rating: 4.6,
-        tags: ['角色扮演', '推理', '历史'],
+        tags: ['Role-play', 'Mystery', 'History'],
         x: 50, y: 45,
         color: '#a29bfe',
         website: 'https://rome-escape.com',
         unilocoInfo: {
-          highlights: ['实地古罗马遗址探索', '历史学家导游', '多条调查线索', '互动推理环节'],
-          bestTime: '上午9-11点光线最佳',
-          tips: '建议了解一些古罗马历史背景',
-          nearby: ['古罗马广场(现场)', '帕拉蒂尼山(步行5分钟)']
+          highlights: ['On-site exploration', 'Historian guide', 'Multiple clues', 'Interactive deduction'],
+          bestTime: '9–11 AM lighting is best',
+          tips: 'Knowing Roman history helps',
+          nearby: ['Roman Forum (on-site)', 'Palatine Hill (5 min walk)']
         }
       }
     ],
     activity: [
       {
         id: 'cooking1',
-        name: '意大利烹饪课',
+        name: 'Italian Cooking Class',
         type: 'activity',
         emoji: '🍝',
-        description: '学习制作传统罗马菜肴，包含市场采购体验',
-        location: 'Trastevere区',
+        description: 'Learn to cook classic Roman dishes with market shopping',
+        location: 'Trastevere',
         price: 75,
-        duration: '180分钟',
+        duration: '180 mins',
         rating: 4.8,
-        tags: ['文化', '美食', '体验'],
+        tags: ['Culture', 'Food', 'Hands-on'],
         x: 30, y: 55,
         color: '#ffeaa7',
         unilocoInfo: {
-          highlights: ['当地市场采购', '传统家庭食谱', '品尝自制美食', '结识当地人'],
-          bestTime: '上午9点开始，含午餐',
-          tips: '空腹参加，会有丰盛午餐',
-          nearby: ['圣玛丽教堂(步行2分钟)', '台伯河(步行8分钟)']
+          highlights: ['Local market shopping', 'Home recipes', 'Taste your own dishes', 'Meet locals'],
+          bestTime: 'Starts 9 AM incl. lunch',
+          tips: 'Come hungry',
+          nearby: ['Santa Maria Church (2 min walk)', 'Tiber River (8 min walk)']
         }
       },
       {
         id: 'opera1',
-        name: '罗马歌剧院经典演出',
+        name: 'Rome Opera House Classics',
         type: 'activity',
         emoji: '🎭',
-        description: '在历史悠久的罗马歌剧院欣赏意大利经典歌剧或芭蕾舞剧',
+        description: 'Enjoy Verdi and Puccini in a historic opera house',
         location: "Teatro dell'Opera di Roma",
         price: 85,
-        duration: '150分钟',
+        duration: '150 mins',
         rating: 4.9,
-        tags: ['歌剧', '舞剧', '文化', '艺术'],
+        tags: ['Opera', 'Ballet', 'Culture', 'Art'],
         x: 65, y: 35,
         color: '#a29bfe',
         phone: '+39 06 481 601',
-        details: '意大利顶级歌剧院，威尔第、普契尼经典剧目，世界级歌唱家演出',
+        details: 'World-class singers and productions in a 19th-century theater',
         website: 'https://operaroma.it',
         unilocoInfo: {
-          highlights: ['19世纪历史剧院', '世界级歌唱家', '意大利经典剧目', '华丽服装道具'],
-          bestTime: '晚上8点演出，提前30分钟入场',
-          tips: '建议正装出席，可租用歌剧望远镜',
-          nearby: ['共和国广场(步行5分钟)', '戴克里先浴场(步行8分钟)']
+          highlights: ['Historic theater', 'World-class singers', 'Classic repertoire', 'Lavish costumes'],
+          bestTime: '8 PM start, arrive 30 mins early',
+          tips: 'Smart casual recommended',
+          nearby: ['Piazza della Repubblica (5 min walk)', 'Diocletian Baths (8 min walk)']
         }
       }
     ],
@@ -178,58 +178,58 @@ export default function RomePlanner() {
         name: 'Da Armando al Pantheon',
         type: 'dining',
         emoji: '🍽️',
-        description: '百年家族餐厅，传统罗马菜，万神殿旁',
+        description: 'Since 1961. Traditional Roman dishes next to Pantheon',
         location: 'Via degli Orfani, 114',
         price: 45,
-        duration: '90分钟',
+        duration: '90 mins',
         rating: 4.7,
-        tags: ['传统', '家族', '历史'],
+        tags: ['Traditional', 'Family', 'Local'],
         x: 55, y: 40,
         color: '#ff6b9d',
         unilocoInfo: {
-          highlights: ['1961年开业至今', '传统罗马菜肴', '本地人聚集地', '万神殿最佳观景'],
-          bestTime: '午餐12:30-14:00，晚餐19:30-21:30',
-          tips: '强烈建议预约，尝试Cacio e Pepe',
-          nearby: ['万神殿(步行1分钟)', '纳沃纳广场(步行5分钟)']
+          highlights: ['Since 1961', 'Classic Roman dishes', 'Local favorite', 'Best Pantheon view'],
+          bestTime: 'Lunch 12:30–14:00; Dinner 19:30–21:30',
+          tips: 'Reservation strongly recommended',
+          nearby: ['Pantheon (1 min walk)', 'Piazza Navona (5 min walk)']
         }
       }
     ],
     attractions: [
       {
         id: 'colosseum1',
-        name: '斗兽场快速通道票',
+        name: 'Colosseum Fast Track',
         type: 'attraction',
         emoji: '🏛️',
-        description: '免排队门票，含语音导览，地下层参观',
+        description: 'Skip-the-line ticket incl. audio guide and underground access',
         location: 'Piazza del Colosseo',
         price: 35,
-        duration: '120分钟',
+        duration: '120 mins',
         rating: 4.9,
-        tags: ['免排队', '导览', '历史'],
+        tags: ['Fast track', 'Guide', 'History'],
         x: 70, y: 50,
         color: '#74b9ff',
         booking: 'https://coopculture.it',
         unilocoInfo: {
-          highlights: ['跳过长队直接入场', '地下层和竞技场层', '多语言音频导览', '古罗马遗址联票'],
-          bestTime: '早上8:30开门时人最少',
-          tips: '建议购买包含古罗马遗址的联票',
-          nearby: ['古罗马遗址(步行3分钟)', '君士坦丁凯旋门(步行2分钟)']
+          highlights: ['Skip the line', 'Arena + underground', 'Multi-language audio', 'Forum combo ticket'],
+          bestTime: '8:30 AM opening hours',
+          tips: 'Consider combo ticket with Forum',
+          nearby: ['Roman Forum (3 min walk)', 'Arch of Constantine (2 min walk)']
         }
       }
     ]
   };
 
-  // 计算总费用
+  // Calculate total
   const calculateTotalCost = () => {
     return itineraryItems.reduce((total, item) => total + item.price, 0);
   };
 
-  // 添加消息
+  // Add message
   const addMessage = (type: 'ai' | 'user' | 'uniloco', content: string) => {
     setChatMessages(prev => [...prev, { type, content, timestamp: Date.now() }]);
   };
 
-  // 选择类别
+  // Select category
   const selectCategory = (category: string) => {
     setSelectedCategory(category);
     
@@ -241,16 +241,16 @@ export default function RomePlanner() {
     }
 
     const responses: Record<string, string> = {
-      'activity': '🎪 活动体验！很好的选择。罗马有丰富的文化活动，请选择想要参加活动的具体天数？',
-      'script': '🎭 剧本体验！太棒了，沉浸式的历史体验会很精彩。请选择想要体验剧本的天数？',
-      'service': '💼 服务体验！享受高品质的个人服务会让旅行更特别。请选择想要享受服务的天数？',
-      'itinerary': '🗺️ 让我为你制定一个完整的3天罗马行程！我会根据你的I人特质，安排一些深度而不拥挤的体验...'
+      'activity': 'Activities selected. Which day would you like to plan?',
+      'script': 'Scripted experiences selected. Which day would you like?',
+      'service': 'Service selected. Which day would you like to book?',
+      'itinerary': 'Let me generate a 3-day plan tailored to you...'
     };
 
-    addMessage('ai', responses[category] || '请选择体验类型');
+    addMessage('ai', responses[category] || 'Please choose an experience type.');
   };
 
-  // 生成AI行程
+  // Generate itinerary
   const generateAIItinerary = () => {
     setShowSearchResults(true);
     setShowMapDayControls(true);
@@ -258,36 +258,36 @@ export default function RomePlanner() {
     const itinerary: DayRoute[] = [
       {
         day: 1,
-        title: '第一天 - 古典罗马',
-        startLocation: 'Colosseo地铁站',
-        endLocation: 'Via dei Cappuccini SPA中心',
-        totalDuration: '约8小时',
-        walkingDistance: '2.5公里',
+        title: 'Day 1 - Classic Rome',
+        startLocation: 'Colosseo Metro Station',
+        endLocation: 'Via dei Cappuccini SPA',
+        totalDuration: 'About 8 hours',
+        walkingDistance: '2.5 km',
         activities: [
           {
             time: '09:00-11:15',
-            activity: '斗兽场快速通道参观',
+            activity: 'Colosseum Fast Track',
             emoji: '🏛️',
             id: 'colosseum1',
             selected: true,
             location: 'Piazza del Colosseo, 1',
-            duration: '2小时15分钟',
+            duration: '2h15m',
             phone: '+39 06 3996 7700',
-            details: '免排队门票，含中文语音导览，地下层和竞技场层参观',
+            details: 'Skip-the-line + audio, arena and underground',
             price: '€35',
             website: 'https://coopculture.it'
           },
           {
             time: '11:30-12:45',
-            activity: '古罗马遗址漫步',
+            activity: 'Roman Forum Walk',
             emoji: '🚶‍♂️',
             id: 'forum_walk',
             selected: true,
             location: 'Via della Salaria Vecchia, 5/6',
-            duration: '1小时15分钟',
+            duration: '1h15m',
             phone: '+39 06 3996 7700',
-            details: '帝国广场核心区域，凯撒神庙、维斯塔神庙等重要遗址',
-            price: '包含在斗兽场联票中',
+            details: 'Core sites around the Forum',
+            price: 'Included in combo',
             website: 'https://coopculture.it'
           }
         ]
@@ -298,61 +298,42 @@ export default function RomePlanner() {
     setAiItineraryGenerated(true);
   };
 
-  // 切换地图视图
-  const toggleMap = () => {
-    setCurrentMapView(prev => prev === '3D' ? '2D' : '3D');
-  };
+  const toggleMap = () => setCurrentMapView(prev => prev === '3D' ? '2D' : '3D');
+  const showDayRoute = (day: number) => setCurrentDayView(day);
 
-  // 显示天数路线
-  const showDayRoute = (day: number) => {
-    setCurrentDayView(day);
-  };
-
-  // 发送消息
   const sendMessage = () => {
     if (!chatInputRef.current) return;
-    
     const message = chatInputRef.current.value.trim();
     if (message === '') return;
-
     addMessage('user', message);
     chatInputRef.current.value = '';
-
-    // 模拟AI回复
     setTimeout(() => {
       const aiResponse = generateAIResponse(message);
       addMessage('ai', aiResponse);
     }, 1000);
   };
 
-  // 生成AI回复
   const generateAIResponse = (userMessage: string): string => {
     const message = userMessage.toLowerCase();
-    
-    if (message.includes('spa') || message.includes('按摩') || message.includes('放松')) {
+    if (message.includes('spa') || message.includes('relax')) {
       selectCategory('service');
-      return '🛀 我理解你想要放松！罗马的SPA体验非常棒，特别推荐古典罗马式温泉浴。请先选择想要体验的时间。';
-    } else if (message.includes('美食') || message.includes('餐厅') || message.includes('吃')) {
-      return '🍝 罗马的美食文化太丰富了！除了传统餐厅，我特别推荐私厨体验和烹饪课程，这样你可以学会制作正宗的意大利面。想试试哪种？';
-    } else if (message.includes('密室') || message.includes('游戏') || message.includes('剧本')) {
+      return '🛀 Got it! SPA is great here. Please choose a day and time.';
+    } else if (message.includes('food') || message.includes('restaurant') || message.includes('eat')) {
+      return '🍝 Rome food is amazing! Private chef and cooking class are highly recommended. Which would you like?';
+    } else if (message.includes('escape') || message.includes('game') || message.includes('script')) {
       selectCategory('script');
-      return '🎭 太有趣了！罗马有一些独特的历史主题剧本体验，可以让你穿越回古罗马时代。请选择想要体验的时间。';
-    } else if (message.includes('行程') || message.includes('规划') || message.includes('安排')) {
+      return '🎭 Nice choice! Pick a day to experience a themed role-play or escape room.';
+    } else if (message.includes('itinerary') || message.includes('plan') || message.includes('arrangement')) {
       selectCategory('itinerary');
-      return '📋 让我为你制定一个完美的3天行程！我会结合历史文化、美食体验和放松时光，确保每一天都充实而不匆忙。';
-    } else {
-      return '🤔 听起来很有趣！你可以从右侧选择体验类型，或者告诉我更具体的需求，比如：想要放松、美食体验、文化活动等。我会为你推荐最合适的选择！';
+      return '📋 I will generate a 3-day plan balancing culture, food and rest.';
     }
+    return 'Tell me more about your preference. You can pick from the right panel as well!';
   };
 
-  // 处理回车键
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      sendMessage();
-    }
+    if (e.key === 'Enter') sendMessage();
   };
 
-  // 滚动到底部
   useEffect(() => {
     if (chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
