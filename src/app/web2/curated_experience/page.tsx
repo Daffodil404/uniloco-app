@@ -189,7 +189,7 @@ export default function CuratedExperiencePage() {
             <Web2Header />
 
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white py-16">
+            <section className="bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] text-white py-16">
                 <div className="container mx-auto px-4 text-center">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4">
                         Curated Experience
@@ -229,7 +229,7 @@ export default function CuratedExperiencePage() {
                                         Discover the best of {city.name}, {city.country}
                                     </p>
                                 </div>
-                                <Button variant="outline" className="text-[#fe585f] border-[#fe585f] hover:bg-[#fe585f] hover:text-white">
+                                <Button variant="outline" className="text-[#fe5a5e] border-[#fe5a5e] hover:bg-[#fe5a5e] hover:text-white">
                                     View All →
                                 </Button>
                             </div>
@@ -270,7 +270,7 @@ export default function CuratedExperiencePage() {
                                                     <Heart
                                                         className={`h-4 w-4 transition-all duration-200 ${
                                                             likedExperiences.has(experience.id)
-                                                                ? 'text-[#fe585f] fill-current'
+                                                                ? 'text-[#fe5a5e] fill-current'
                                                                 : 'text-gray-600'
                                                         }`}
                                                     />
@@ -283,7 +283,7 @@ export default function CuratedExperiencePage() {
 
                                         {/* Content */}
                                         <div className="p-4">
-                                            <h4 className="font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#fe585f] transition-colors">
+                                            <h4 className="font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#fe5a5e] transition-colors">
                                                 {experience.title}
                                             </h4>
                                             
@@ -306,7 +306,7 @@ export default function CuratedExperiencePage() {
                                             {/* Price and Rating */}
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center space-x-2">
-                                                    <span className="text-lg font-bold text-[#fe585f]">
+                                                    <span className="text-lg font-bold text-[#fe5a5e]">
                                                         ¥{experience.price}
                                                     </span>
                                                     <span className="text-sm text-gray-500">per person</span>
@@ -320,7 +320,7 @@ export default function CuratedExperiencePage() {
                                             </div>
 
                                             {/* Book Button */}
-                                            <Button className="w-full mt-3 bg-[#fe585f] hover:bg-[#e04a50] text-white">
+                                            <Button className="w-full mt-3 bg-[#fe5a5e] hover:bg-[#e04a50] text-white">
                                                 Book Now
                                             </Button>
                                         </div>
@@ -342,10 +342,10 @@ export default function CuratedExperiencePage() {
                         Join thousands of travelers who have discovered unique experiences through our curated selection.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button size="lg" className="bg-[#fe585f] hover:bg-[#e04a50] text-white">
+                        <Button size="lg" className="bg-[#fe5a5e] hover:bg-[#e04a50] text-white">
                             Explore More Experiences
                         </Button>
-                        <Button size="lg" variant="outline" className="border-[#fe585f] text-[#fe585f] hover:bg-[#fe585f] hover:text-white">
+                        <Button size="lg" variant="outline" className="border-[#fe5a5e] text-[#fe5a5e] hover:bg-[#fe5a5e] hover:text-white">
                             Create Your Own Experience
                         </Button>
                     </div>

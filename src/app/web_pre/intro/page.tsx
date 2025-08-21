@@ -165,7 +165,7 @@ export default function IntroPage() {
 
                 // 显示提示信息
                 const message = document.createElement('div');
-                message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#fe585f] text-white px-4 py-2 rounded-lg z-50';
+                message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#fe5a5e] text-white px-4 py-2 rounded-lg z-50';
                 message.textContent = 'Click the play button in video controls to start playback';
                 document.body.appendChild(message);
 
@@ -221,7 +221,7 @@ export default function IntroPage() {
 
             // 显示点赞动画
             const heart = document.createElement('div');
-            heart.className = 'absolute inset-0 flex items-center justify-center text-6xl text-[#fe585f] pointer-events-none z-10 heart-beat';
+            heart.className = 'absolute inset-0 flex items-center justify-center text-6xl text-[#fe5a5e] pointer-events-none z-10 heart-beat';
             heart.innerHTML = '❤️';
             const card = document.querySelector(`[data-post-index="${index}"]`);
             if (card) {
@@ -268,7 +268,7 @@ export default function IntroPage() {
         <div className="min-h-screen bg-[#fff] overflow-x-hidden relative">
             {/* Mouse Follow Effect */}
             <div
-                className="fixed w-4 h-4 bg-[#fe585f]/30 rounded-full pointer-events-none z-50 transition-transform duration-100 ease-out"
+                className="fixed w-4 h-4 bg-[#fe5a5e]/30 rounded-full pointer-events-none z-50 transition-transform duration-100 ease-out"
                 style={{
                     left: mousePosition.x - 8,
                     top: mousePosition.y - 8,
@@ -276,7 +276,7 @@ export default function IntroPage() {
                 }}
             />
             <div
-                className="fixed w-8 h-8 bg-[#fe585f]/20 rounded-full pointer-events-none z-50 transition-transform duration-200 ease-out"
+                className="fixed w-8 h-8 bg-[#fe5a5e]/20 rounded-full pointer-events-none z-50 transition-transform duration-200 ease-out"
                 style={{
                     left: mousePosition.x - 16,
                     top: mousePosition.y - 16,
@@ -284,7 +284,7 @@ export default function IntroPage() {
                 }}
             />
             <div
-                className="fixed w-16 h-16 bg-[#fe585f]/10 rounded-full pointer-events-none z-50 transition-transform duration-300 ease-out"
+                className="fixed w-16 h-16 bg-[#fe5a5e]/10 rounded-full pointer-events-none z-50 transition-transform duration-300 ease-out"
                 style={{
                     left: mousePosition.x - 32,
                     top: mousePosition.y - 32,
@@ -294,7 +294,7 @@ export default function IntroPage() {
 
             {/* Light Trail Effect */}
             <div
-                className="fixed w-2 h-2 bg-[#fe585f]/50 rounded-full pointer-events-none z-40 transition-all duration-500 ease-out"
+                className="fixed w-2 h-2 bg-[#fe5a5e]/50 rounded-full pointer-events-none z-40 transition-all duration-500 ease-out"
                 style={{
                     left: mousePosition.x - 4,
                     top: mousePosition.y - 4,
@@ -305,7 +305,7 @@ export default function IntroPage() {
 
             {/* Loading Screen */}
             {isLoading && (
-                <div className="fixed inset-0 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] z-[100] flex items-center justify-center">
+                <div className="fixed inset-0 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] z-[100] flex items-center justify-center">
                     <div className="text-center text-white">
                         <div className="w-20 h-20 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-8"></div>
                         <h1 className="text-4xl font-bold mb-4 animate-pulse">Uniloco</h1>
@@ -332,20 +332,20 @@ export default function IntroPage() {
                     {/* Animated Background */}
                     <div className="absolute inset-0 bg-[#fff]">
                         {/* Floating Elements */}
-                        <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe585f]/10 rounded-full animate-bounce animate-float"></div>
-                        <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe585f]/15 rounded-full animate-pulse"></div>
-                        <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#fe585f]/20 rounded-full animate-spin"></div>
-                        <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#fe585f]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-                        <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#fe585f]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-                        <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#fe585f]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
+                        <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe5a5e]/10 rounded-full animate-bounce animate-float"></div>
+                        <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe5a5e]/15 rounded-full animate-pulse"></div>
+                        <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#fe5a5e]/20 rounded-full animate-spin"></div>
+                        <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#fe5a5e]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+                        <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#fe5a5e]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+                        <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#fe5a5e]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
 
                         {/* Particle Effects (shifted away from right logo area) */}
-                        <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#fe585f]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
+                        <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#fe5a5e]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
                         <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-[#ff7a80]/40 rounded-full animate-ping" style={{ animationDelay: '1.2s' }}></div>
-                        <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#fe585f]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
+                        <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#fe5a5e]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
 
                         {/* Geometric Shapes (avoid logo area) */}
-                        <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#fe585f]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+                        <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#fe5a5e]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
                         <div className="absolute bottom-1/4 left-1/4 w-4 h-4 bg-[#ff7a80]/25 rounded-full animate-bounce" style={{ animationDelay: '0.7s' }}></div>
                     </div>
 
@@ -356,8 +356,8 @@ export default function IntroPage() {
                                 {/* Main Slogan */}
                                 <div className="space-y-1 lg:space-y-2">
                                     <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                                        <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe585f] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Own Your</span>
-                                        <span className={`block ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>&nbsp; &nbsp;{`Journey`}</span>
+                                        <span className={`block ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe5a5e] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Own Your</span>
+                                        <span className={`block ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>&nbsp; &nbsp;{`Journey`}</span>
                                        
                                     </h1>
                                 </div>
@@ -375,18 +375,18 @@ export default function IntroPage() {
                                 <div className={`flex flex-col sm:flex-row gap-4 ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                                     <button
                                         onClick={() => handleNavigation('how-to')}
-                                        className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                                        className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
                                     >
                                         <span className="relative z-10 flex items-center space-x-2">
                                             <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">✈️</span>
                                             <span>How to Play</span>
                                         </span>
-                                        <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe585f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe5a5e] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     </button>
 
                                     <button
                                         onClick={handleDownload}
-                                        className="game-button download-btn group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe585f] text-[#fe585f] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe585f] hover:text-white transform hover:scale-105 transition-all duration-300"
+                                        className="game-button download-btn group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe5a5e] text-[#fe5a5e] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe5a5e] hover:text-white transform hover:scale-105 transition-all duration-300"
                                     >
                                         <span className="flex items-center space-x-2">
                                             <span>📱</span>
@@ -409,24 +409,24 @@ export default function IntroPage() {
                                         priority
                                     />
                                     {/* Subtle glow effect */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-[#fe585f]/10 to-[#ff7a80]/10 rounded-full blur-lg group-hover:blur-xl transition-all duration-500 -z-10"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-[#fe5a5e]/10 to-[#ff7a80]/10 rounded-full blur-lg group-hover:blur-xl transition-all duration-500 -z-10"></div>
                                 </div>
 
                                 {/* Stats in a more prominent layout */}
                                 <div className="flex gap-4 lg:gap-6">
                                     <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-white/20">
-                                        <div className="text-2xl lg:text-3xl xl:text-4xl font-black text-[#fe585f] mb-2 animate-glow">50K+</div>
+                                        <div className="text-2xl lg:text-3xl xl:text-4xl font-black text-[#fe5a5e] mb-2 animate-glow">50K+</div>
                                         <div className="text-sm lg:text-base text-gray-700 font-semibold">Travelers</div>
                                     </div>
                                     <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-white/20">
-                                        <div className="text-2xl lg:text-3xl xl:text-4xl font-black text-[#fe585f] mb-2 animate-glow">1M+</div>
+                                        <div className="text-2xl lg:text-3xl xl:text-4xl font-black text-[#fe5a5e] mb-2 animate-glow">1M+</div>
                                         <div className="text-sm lg:text-base text-gray-700 font-semibold">UNC Earned</div>
                                     </div>
                                 </div>
 
                                 {/* Small floating elements */}
                                 <div className="relative">
-                                    <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#fe585f] rounded-full animate-bounce"></div>
+                                    <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#fe5a5e] rounded-full animate-bounce"></div>
                                     <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#ff7a80] rounded-full animate-pulse"></div>
                                 </div>
                             </div>
@@ -439,7 +439,7 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="py-20 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-16">
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe5a5e] mb-16">
                             Your Ultimate Travel Experience
                         </h2>
 
@@ -463,12 +463,12 @@ export default function IntroPage() {
                             ].map((feature, index) => (
                                 <div
                                     key={index}
-                                    className="group bg-gradient-to-br bg-[#fff] rounded-2xl p-8 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer"
+                                    className="group bg-gradient-to-br bg-[#fff] rounded-2xl p-8 border border-red-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer"
                                 >
-                                    <div className="w-20 h-20 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <div className="w-20 h-20 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300">
                                         {feature.icon}
                                     </div>
-                                    <h3 className="text-xl font-bold text-[#fe585f] mb-4">{feature.title}</h3>
+                                    <h3 className="text-xl font-bold text-[#fe5a5e] mb-4">{feature.title}</h3>
                                     <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                                 </div>
                             ))}
@@ -481,7 +481,7 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="py-20 bg-gradient-to-br bg-[#fff]">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-8">
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-8">
                             Watch How Uniloco Works
                         </h2>
                         <p className="text-xl text-gray-600 mb-12">
@@ -495,7 +495,7 @@ export default function IntroPage() {
                             >
                                 {/* 简化的视频加载状态 - 只在最初显示 */}
                                 {!videoLoaded && !videoError && (
-                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#fe585f] to-[#ff7a80] z-10">
+                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] z-10">
                                         <div className="text-center text-white">
                                             <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                                             <p className="text-lg font-semibold">Loading Video...</p>
@@ -505,7 +505,7 @@ export default function IntroPage() {
                                                     e.stopPropagation();
                                                     setVideoLoaded(true);
                                                 }}
-                                                className="mt-4 px-4 py-2 bg-white text-[#fe585f] rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
+                                                className="mt-4 px-4 py-2 bg-white text-[#fe5a5e] rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
                                             >
                                                 Skip Loading
                                             </button>
@@ -515,14 +515,14 @@ export default function IntroPage() {
 
                                 {/* 视频错误状态 */}
                                 {videoError && (
-                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#fe585f] to-[#ff7a80] z-10">
+                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] z-10">
                                         <div className="text-center text-white">
                                             <div className="text-6xl mb-4">⚠️</div>
                                             <p className="text-lg font-semibold mb-2">Video Unavailable</p>
                                             <p className="text-sm opacity-80 mb-4">Please try again later</p>
                                             <button
                                                 onClick={handleVideoRetry}
-                                                className="px-6 py-2 bg-white text-[#fe585f] rounded-full font-semibold hover:bg-gray-100 transition-all duration-300"
+                                                className="px-6 py-2 bg-white text-[#fe5a5e] rounded-full font-semibold hover:bg-gray-100 transition-all duration-300"
                                             >
                                                 🔄 Retry
                                             </button>
@@ -569,7 +569,7 @@ export default function IntroPage() {
 
 
                                 {isVideoPlaying && videoLoaded && !videoError && (
-                                    <div className="absolute top-4 right-4 bg-[#fe585f] text-white px-3 py-1 rounded-full text-sm font-semibold z-20">
+                                    <div className="absolute top-4 right-4 bg-[#fe5a5e] text-white px-3 py-1 rounded-full text-sm font-semibold z-20">
                                         ▶️ Playing
                                     </div>
                                 )}
@@ -601,7 +601,7 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="py-20 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe5a5e] mb-4">
                             Travel Band NFTs
                         </h2>
                         <p className="text-xl text-gray-600 text-center mb-16">
@@ -644,7 +644,7 @@ export default function IntroPage() {
                             ].map((band, index) => (
                                 <div
                                     key={index}
-                                    className="group bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center"
+                                    className="group bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center"
                                 >
                                     <div
                                         className="band-image-container mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto relative"
@@ -667,11 +667,11 @@ export default function IntroPage() {
                                         />
                                     </div>
                                     <h3 className="text-2xl font-bold text-gray-800 mb-2">{band.name}</h3>
-                                    <p className="text-[#fe585f] font-semibold mb-2">{band.price}</p>
+                                    <p className="text-[#fe5a5e] font-semibold mb-2">{band.price}</p>
                                     <p className="text-gray-600 mb-6">Base UNC Boost {band.boost}</p>
                                     <button className={`w-full py-3 rounded-full font-bold transition-all duration-300 ${band.action === 'Coming Soon'
                                         ? 'bg-gray-400 text-white cursor-not-allowed'
-                                        : 'bg-[#fe585f] text-white hover:bg-[#ff7a80] hover:scale-105'
+                                        : 'bg-[#fe5a5e] text-white hover:bg-[#ff7a80] hover:scale-105'
                                         }`}>
                                         {band.action}
                                     </button>
@@ -686,23 +686,23 @@ export default function IntroPage() {
 
                             {/* Stats Section */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                                <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-lg">
-                                    <div className="text-4xl font-bold text-[#fe585f] mb-2 animate-glow">50K+</div>
+                                <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-lg">
+                                    <div className="text-4xl font-bold text-[#fe5a5e] mb-2 animate-glow">50K+</div>
                                     <div className="text-gray-600">Active Travelers</div>
                                 </div>
-                                <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-lg">
-                                    <div className="text-4xl font-bold text-[#fe585f] mb-2 animate-glow">1M+</div>
+                                <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-lg">
+                                    <div className="text-4xl font-bold text-[#fe5a5e] mb-2 animate-glow">1M+</div>
                                     <div className="text-gray-600">UNC Tokens Earned</div>
                                 </div>
-                                <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-lg">
-                                    <div className="text-4xl font-bold text-[#fe585f] mb-2 animate-glow">200+</div>
+                                <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-lg">
+                                    <div className="text-4xl font-bold text-[#fe5a5e] mb-2 animate-glow">200+</div>
                                     <div className="text-gray-600">Cities Covered</div>
                                 </div>
                             </div>
 
                             <button
                                 onClick={() => handleNavigation('marketplace')}
-                                className="game-button px-8 py-4 bg-[#fe585f] text-white font-bold text-lg rounded-full hover:bg-[#ff7a80] transform hover:scale-105 transition-all duration-300"
+                                className="game-button px-8 py-4 bg-[#fe5a5e] text-white font-bold text-lg rounded-full hover:bg-[#ff7a80] transform hover:scale-105 transition-all duration-300"
                             >
                                 Explore Marketplace
                             </button>
@@ -715,7 +715,7 @@ export default function IntroPage() {
             {activeSection === 'home' && (
                 <section className="py-20 bg-gradient-to-br from-red-50 to-red-100">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-8">
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe5a5e] mb-8">
                             Real Stories from Our Community
                         </h2>
                         <p className="text-xl text-gray-600 text-center mb-16">
@@ -766,18 +766,18 @@ export default function IntroPage() {
                             ].map((post, index) => (
                                 <div
                                     key={index}
-                                    className="instagram-card group bg-white rounded-xl border border-gray-200 hover:border-[#fe585f] overflow-hidden"
+                                    className="instagram-card group bg-white rounded-xl border border-gray-200 hover:border-[#fe5a5e] overflow-hidden"
                                 >
                                     {/* Header */}
                                     <div className="flex items-center p-4 border-b border-gray-100">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-lg mr-3">
+                                        <div className="w-10 h-10 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-lg mr-3">
                                             {post.avatar}
                                         </div>
                                         <div className="flex-1">
                                             <div className="flex items-center">
                                                 <h4 className="font-semibold text-gray-900 text-sm">{post.name}</h4>
-                                                <span className="ml-1 text-[#fe585f] text-xs">•</span>
-                                                <span className="ml-1 text-[#fe585f] text-xs font-medium">{post.earnings}</span>
+                                                <span className="ml-1 text-[#fe5a5e] text-xs">•</span>
+                                                <span className="ml-1 text-[#fe5a5e] text-xs font-medium">{post.earnings}</span>
                                             </div>
                                             <div className="flex items-center text-xs text-gray-500">
                                                 <span>{post.username}</span>
@@ -825,7 +825,7 @@ export default function IntroPage() {
                                             <div className="flex items-center space-x-4">
                                                 <button
                                                     onClick={() => handleLikePost(index)}
-                                                    className={`transition-all duration-300 transform hover:scale-110 ${likedPosts[index] ? 'text-[#fe585f]' : 'text-gray-600 hover:text-[#fe585f]'
+                                                    className={`transition-all duration-300 transform hover:scale-110 ${likedPosts[index] ? 'text-[#fe5a5e]' : 'text-gray-600 hover:text-[#fe5a5e]'
                                                         }`}
                                                 >
                                                     <svg className={`w-6 h-6 transition-all duration-300 ${likedPosts[index] ? 'fill-current animate-pulse' : 'fill-none'
@@ -833,18 +833,18 @@ export default function IntroPage() {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                                     </svg>
                                                 </button>
-                                                <button className="text-gray-600 hover:text-[#fe585f] transition-colors">
+                                                <button className="text-gray-600 hover:text-[#fe5a5e] transition-colors">
                                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                                     </svg>
                                                 </button>
-                                                <button className="text-gray-600 hover:text-[#fe585f] transition-colors">
+                                                <button className="text-gray-600 hover:text-[#fe5a5e] transition-colors">
                                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                                                     </svg>
                                                 </button>
                                             </div>
-                                            <button className="text-gray-600 hover:text-[#fe585f] transition-colors">
+                                            <button className="text-gray-600 hover:text-[#fe5a5e] transition-colors">
                                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                                                 </svg>
@@ -875,7 +875,7 @@ export default function IntroPage() {
             )}
 
             {/* Download Section */}
-            <section className="py-20 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white">
+            <section className="py-20 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] text-white">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-5xl md:text-6xl font-black mb-8">
                         DOWNLOAD NOW
@@ -887,7 +887,7 @@ export default function IntroPage() {
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
                         <button
                             onClick={handleDownload}
-                            className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                            className="download-btn group bg-white text-[#fe5a5e] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                         >
                             <span>🍎</span>
                             <span>Download on App Store</span>
@@ -895,7 +895,7 @@ export default function IntroPage() {
 
                         <button
                             onClick={handleDownload}
-                            className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                            className="download-btn group bg-white text-[#fe5a5e] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                         >
                             <span>🤖</span>
                             <span>Get it on Google Play</span>

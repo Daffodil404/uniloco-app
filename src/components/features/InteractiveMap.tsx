@@ -103,7 +103,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
                 display: none;
               }
               .leaflet-popup-content-wrapper {
-                background: linear-gradient(135deg, #fe585f 0%, #ff7a80 100%);
+                background: linear-gradient(135deg, #fe5a5e 0%, #ff7a80 100%);
                 color: white;
                 border-radius: 16px;
                 border: 3px solid #ffffff;
@@ -112,7 +112,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
               }
               .leaflet-popup-tip {
-                background: linear-gradient(135deg, #fe585f 0%, #ff7a80 100%);
+                background: linear-gradient(135deg, #fe5a5e 0%, #ff7a80 100%);
                 border: 2px solid #ffffff;
               }
               .leaflet-popup {
@@ -212,7 +212,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
           <div style="
             width: 40px; 
             height: 40px; 
-            background: #fe585f; 
+            background: #fe5a5e; 
             border: 3px solid #FFFFFF; 
             border-radius: 50%; 
             display: flex; 
@@ -295,7 +295,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
       <div className="absolute top-4 right-4 flex flex-col gap-3">
         <button
           onClick={handleZoomIn}
-          className="w-12 h-12 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
+          className="w-12 h-12 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -303,7 +303,7 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
         </button>
         <button
           onClick={handleZoomOut}
-          className="w-12 h-12 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
+          className="w-12 h-12 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />

@@ -80,7 +80,7 @@ export default function TripPlannerPage() {
   return (
     <main className="min-h-screen bg-white flex flex-col">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] px-4 py-6">
+      <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] px-4 py-6">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => window.history.back()}
@@ -123,7 +123,7 @@ export default function TripPlannerPage() {
               <div
                 className={`px-4 py-2 rounded-lg max-w-[80%] text-sm ${
                   msg.role === "user"
-                    ? "bg-[#fe585f] text-white rounded-br-none"
+                    ? "bg-[#fe5a5e] text-white rounded-br-none"
                     : "bg-white border border-gray-200 text-gray-800 rounded-bl-none"
                 }`}
               >
@@ -139,14 +139,14 @@ export default function TripPlannerPage() {
         <input
           type="text"
           placeholder="Type your message..."
-          className="flex-1 border border-gray-300 rounded-l-lg px-3 py-2 focus:outline-none focus:border-[#fe585f]"
+          className="flex-1 border border-gray-300 rounded-l-lg px-3 py-2 focus:outline-none focus:border-[#fe5a5e]"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
         />
         <button
           onClick={handleSend}
-          className="bg-[#fe585f] text-white px-4 py-2 rounded-r-lg hover:opacity-90"
+          className="bg-[#fe5a5e] text-white px-4 py-2 rounded-r-lg hover:opacity-90"
         >
           Send
         </button>

@@ -81,12 +81,12 @@ export default function MapWIthRoute({
               .leaflet-control-zoom { display: none; }
               .leaflet-control-attribution { display: none; }
               .leaflet-popup-content-wrapper {
-                background: linear-gradient(135deg, #fe585f 0%, #ff7a80 100%);
+                background: linear-gradient(135deg, #fe5a5e 0%, #ff7a80 100%);
                 color: white; border-radius: 16px; border: 3px solid #ffffff;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); z-index: 1000 !important;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
               }
-              .leaflet-popup-tip { background: linear-gradient(135deg, #fe585f 0%, #ff7a80 100%); border: 2px solid #ffffff; }
+              .leaflet-popup-tip { background: linear-gradient(135deg, #fe5a5e 0%, #ff7a80 100%); border: 2px solid #ffffff; }
               .leaflet-popup { z-index: 1000 !important; }
               .leaflet-popup-content { margin: 12px 16px; font-weight: 500; }
               .custom-number-marker { z-index: 100 !important; transition: all .3s cubic-bezier(.4,0,.2,1); }
@@ -134,7 +134,7 @@ export default function MapWIthRoute({
       L.divIcon({
         className: 'custom-number-marker',
         html: `
-          <div style="width:44px;height:44px;background:#fe585f;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:12px;font-family:Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer;">
+          <div style="width:44px;height:44px;background:#fe5a5e;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:12px;font-family:Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer;">
             ${label}
           </div>
         `,
@@ -164,7 +164,7 @@ export default function MapWIthRoute({
         const icon = L.divIcon({
           className: 'custom-number-marker',
           html: `
-            <div style="width:28px;height:28px;background:#ffffff;border:2px solid rgba(0,0,0,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fe585f;font-weight:bold;font-size:12px;font-family:Arial,sans-serif;box-shadow:0 2px 6px rgba(0,0,0,.15);opacity:${opacity};">
+            <div style="width:28px;height:28px;background:#ffffff;border:2px solid rgba(0,0,0,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fe5a5e;font-weight:bold;font-size:12px;font-family:Arial,sans-serif;box-shadow:0 2px 6px rgba(0,0,0,.15);opacity:${opacity};">
               •
             </div>
           `,
@@ -189,7 +189,7 @@ export default function MapWIthRoute({
       {/* Top-left view toggle (kept for consistency) */}
       <button
         onClick={onToggleMap}
-        className="absolute top-3 md:top-5 left-3 md:left-5 z-50 bg-white/90 backdrop-blur-lg border border-gray-200 text-gray-700 px-3 md:px-5 py-2 md:py-3 rounded-full hover:bg-[#fe585f] hover:text-white transition-all text-xs md:text-sm shadow-lg"
+        className="absolute top-3 md:top-5 left-3 md:left-5 z-50 bg-white/90 backdrop-blur-lg border border-gray-200 text-gray-700 px-3 md:px-5 py-2 md:py-3 rounded-full hover:bg-[#fe5a5e] hover:text-white transition-all text-xs md:text-sm shadow-lg"
       >
         {currentMapView === '3D' ? '🌍 2D' : '🌍 3D'}
       </button>
@@ -201,7 +201,7 @@ export default function MapWIthRoute({
             <button
               key={d}
               className={`block w-full border border-gray-200 text-gray-700 p-1.5 md:p-2 ${d !== 3 ? 'mb-1.5 md:mb-2' : ''} rounded-lg text-xs transition-all ${
-                currentDayView === d ? 'bg-[#fe585f] text-white border-[#fe585f]' : 'bg-white hover:bg-gray-50'
+                currentDayView === d ? 'bg-[#fe5a5e] text-white border-[#fe5a5e]' : 'bg-white hover:bg-gray-50'
               }`}
               onClick={() => onShowDayRoute(d)}
             >

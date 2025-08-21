@@ -80,7 +80,7 @@ People: ${searchParams.people || 'Any Number'}`);
             <Web2Header />
 
             {/* Hero Section */}
-            <section className="pt-16 pb-24 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white relative overflow-hidden">
+            <section className="pt-16 pb-24 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] text-white relative overflow-hidden">
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full animate-bounce animate-float"></div>
@@ -133,7 +133,7 @@ People: ${searchParams.people || 'Any Number'}`);
                                     name="date"
                                     value={searchParams.date}
                                     onChange={handleInputChange}
-                                    className="w-full h-12 pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#fe585f] focus:ring-offset-2 text-gray-800 placeholder:text-gray-400"
+                                    className="w-full h-12 pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#fe5a5e] focus:ring-offset-2 text-gray-800 placeholder:text-gray-400"
                                     placeholder="Select Date"
                                 />
                             </div>
@@ -185,7 +185,7 @@ People: ${searchParams.people || 'Any Number'}`);
                                     <span className="text-6xl group-hover:scale-110 transition-transform duration-300">{category.icon}</span>
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-[#fe585f] transition-colors">{category.title}</h3>
+                                    <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-[#fe5a5e] transition-colors">{category.title}</h3>
                                     <p className="text-gray-600">{category.description}</p>
                                 </div>
                             </div>

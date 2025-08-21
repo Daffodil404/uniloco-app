@@ -53,20 +53,20 @@ export default function Web3HubPage() {
         {/* Animated Background */}
         <div className="absolute inset-0 bg-[#fff]">
           {/* Floating Elements */}
-          <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe585f]/10 rounded-full animate-bounce animate-float"></div>
-          <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe585f]/15 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#fe585f]/20 rounded-full animate-spin"></div>
-          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#fe585f]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#fe585f]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#fe585f]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe5a5e]/10 rounded-full animate-bounce animate-float"></div>
+          <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe5a5e]/15 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#fe5a5e]/20 rounded-full animate-spin"></div>
+          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#fe5a5e]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#fe5a5e]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#fe5a5e]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
 
           {/* Particle Effects */}
-          <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#fe585f]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
+          <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#fe5a5e]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
           <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-[#ff7a80]/40 rounded-full animate-ping" style={{ animationDelay: '1.2s' }}></div>
-          <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#fe585f]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
+          <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#fe5a5e]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
 
           {/* Geometric Shapes */}
-          <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#fe585f]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#fe5a5e]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
           <div className="absolute bottom-1/4 left-1/4 w-4 h-4 bg-[#ff7a80]/25 rounded-full animate-bounce" style={{ animationDelay: '0.7s' }}></div>
         </div>
 
@@ -77,8 +77,8 @@ export default function Web3HubPage() {
               {/* Main Slogan */}
               <div className="space-y-1 lg:space-y-2">
                 <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                  <span className={`block ${isLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe585f] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Web3</span>
-                  <span className={`block ${isLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Token Hub</span>
+                  <span className={`block ${isLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe5a5e] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Web3</span>
+                  <span className={`block ${isLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Token Hub</span>
                 </h1>
               </div>
 
@@ -97,18 +97,18 @@ export default function Web3HubPage() {
               <div className={`flex flex-col sm:flex-row gap-4 ${isLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                 <button
                   onClick={() => document.getElementById('tokens')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center space-x-2">
                     <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">🪙</span>
                     <span>Explore Tokens</span>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe585f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe5a5e] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
 
                 <button
                   onClick={() => document.getElementById('marketplace')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe585f] text-[#fe585f] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe585f] hover:text-white transform hover:scale-105 transition-all duration-300"
+                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe5a5e] text-[#fe5a5e] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe5a5e] hover:text-white transform hover:scale-105 transition-all duration-300"
                 >
                   <span className="flex items-center space-x-2">
                     <span>🏪</span>
@@ -138,19 +138,19 @@ export default function Web3HubPage() {
                 ].map((item, index) => (
                   <div 
                     key={index}
-                    className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group"
+                    className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group"
                   >
                     <div className="text-4xl mb-3 text-center animate-bounce group-hover:animate-pulse">{item.icon}</div>
-                    <h3 className="text-lg font-bold mb-2 text-[#fe585f] text-center">{item.title}</h3>
+                    <h3 className="text-lg font-bold mb-2 text-[#fe5a5e] text-center">{item.title}</h3>
                     <p className="text-gray-600 text-sm text-center leading-relaxed mb-2">{item.desc}</p>
-                    <p className="text-[#fe585f] text-xs text-center font-semibold">{item.value}</p>
+                    <p className="text-[#fe5a5e] text-xs text-center font-semibold">{item.value}</p>
                   </div>
                 ))}
               </div>
 
               {/* Small floating elements */}
               <div className="relative">
-                <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#fe585f] rounded-full animate-bounce"></div>
+                <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#fe5a5e] rounded-full animate-bounce"></div>
                 <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#ff7a80] rounded-full animate-pulse"></div>
               </div>
             </div>
@@ -170,7 +170,7 @@ export default function Web3HubPage() {
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-6 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-6 animate-fade-in">
               🪙 Token Economics
             </h2>
             <p className="text-gray-600 text-xl leading-relaxed">
@@ -180,15 +180,15 @@ export default function Web3HubPage() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             {/* UNC Token Card */}
-            <div className="bg-white rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-[#fe585f] group transform hover:-translate-y-2">
+            <div className="bg-white rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-[#fe5a5e] group transform hover:-translate-y-2">
               <div className="text-center mb-8">
                 <div className="text-8xl mb-6 animate-bounce group-hover:animate-pulse">🪙</div>
-                <h3 className="text-3xl font-bold text-[#fe585f] mb-3">UNC Token</h3>
+                <h3 className="text-3xl font-bold text-[#fe5a5e] mb-3">UNC Token</h3>
                 <p className="text-gray-500 text-lg">Utility & Rewards Token</p>
               </div>
               
               <div className="mb-8">
-                <h4 className="text-xl font-bold text-[#fe585f] mb-6 text-center">💎 Primary Functions</h4>
+                <h4 className="text-xl font-bold text-[#fe5a5e] mb-6 text-center">💎 Primary Functions</h4>
                 <div className="grid grid-cols-1 gap-4">
                   {[
                     '🎯 Earned through travel check-ins',
@@ -200,48 +200,48 @@ export default function Web3HubPage() {
                   ].map((function_, index) => (
                     <div 
                       key={index}
-                      className="flex items-start p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 border border-transparent hover:border-[#fe585f]/30"
+                      className="flex items-start p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 border border-transparent hover:border-[#fe5a5e]/30"
                     >
-                      <span className="text-[#fe585f] mr-3 text-lg">•</span>
+                      <span className="text-[#fe5a5e] mr-3 text-lg">•</span>
                       <p className="text-sm text-gray-600 font-medium">{function_}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-[#fe585f]">
-                <h4 className="font-bold text-[#fe585f] mb-4 text-lg">📊 Token Details</h4>
+              <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-[#fe5a5e]">
+                <h4 className="font-bold text-[#fe5a5e] mb-4 text-lg">📊 Token Details</h4>
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex justify-between">
                     <span>Supply:</span>
-                    <span className="font-semibold text-[#fe585f]">Unlimited</span>
+                    <span className="font-semibold text-[#fe5a5e]">Unlimited</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Type:</span>
-                    <span className="font-semibold text-[#fe585f]">Utility/Rewards Token</span>
+                    <span className="font-semibold text-[#fe5a5e]">Utility/Rewards Token</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Distribution:</span>
-                    <span className="font-semibold text-[#fe585f]">Travel-to-Earn</span>
+                    <span className="font-semibold text-[#fe5a5e]">Travel-to-Earn</span>
                   </div>
                   <div className="flex justify-between">
                     <span>ICO:</span>
-                    <span className="font-semibold text-[#fe585f]">No ICO</span>
+                    <span className="font-semibold text-[#fe5a5e]">No ICO</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* ANT Token Card */}
-            <div className="bg-white rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-[#fe585f] group transform hover:-translate-y-2">
+            <div className="bg-white rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-[#fe5a5e] group transform hover:-translate-y-2">
               <div className="text-center mb-8">
                 <div className="text-8xl mb-6 animate-bounce group-hover:animate-pulse">🏛️</div>
-                <h3 className="text-3xl font-bold text-[#fe585f] mb-3">ANT Token</h3>
+                <h3 className="text-3xl font-bold text-[#fe5a5e] mb-3">ANT Token</h3>
                 <p className="text-gray-500 text-lg">Governance & Staking Token</p>
               </div>
               
               <div className="mb-8">
-                <h4 className="text-xl font-bold text-[#fe585f] mb-6 text-center">💎 Governance Rights</h4>
+                <h4 className="text-xl font-bold text-[#fe5a5e] mb-6 text-center">💎 Governance Rights</h4>
                 <div className="grid grid-cols-1 gap-4">
                   {[
                     '🗳️ Vote on platform updates',
@@ -253,33 +253,33 @@ export default function Web3HubPage() {
                   ].map((right, index) => (
                     <div 
                       key={index}
-                      className="flex items-start p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 border border-transparent hover:border-[#fe585f]/30"
+                      className="flex items-start p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 border border-transparent hover:border-[#fe5a5e]/30"
                     >
-                      <span className="text-[#fe585f] mr-3 text-lg">•</span>
+                      <span className="text-[#fe5a5e] mr-3 text-lg">•</span>
                       <p className="text-sm text-gray-600 font-medium">{right}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-[#fe585f]">
-                <h4 className="font-bold text-[#fe585f] mb-4 text-lg">📊 Token Details</h4>
+              <div className="bg-gray-50 p-6 rounded-2xl border-l-4 border-[#fe5a5e]">
+                <h4 className="font-bold text-[#fe5a5e] mb-4 text-lg">📊 Token Details</h4>
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex justify-between">
                     <span>Max Supply:</span>
-                    <span className="font-semibold text-[#fe585f]">1,000,000 ANT</span>
+                    <span className="font-semibold text-[#fe5a5e]">1,000,000 ANT</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Type:</span>
-                    <span className="font-semibold text-[#fe585f]">Governance/Staking Token</span>
+                    <span className="font-semibold text-[#fe5a5e]">Governance/Staking Token</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Staking Rewards:</span>
-                    <span className="font-semibold text-[#fe585f]">5-15% APY</span>
+                    <span className="font-semibold text-[#fe5a5e]">5-15% APY</span>
                   </div>
                   <div className="flex justify-between">
                     <span>ICO:</span>
-                    <span className="font-semibold text-[#fe585f]">Available</span>
+                    <span className="font-semibold text-[#fe5a5e]">Available</span>
                   </div>
                 </div>
               </div>
@@ -287,9 +287,9 @@ export default function Web3HubPage() {
           </div>
 
           {/* Token Conversion Ecosystem */}
-          <div className="bg-gray-50 rounded-3xl p-10 border-2 border-[#fe585f]/20">
+          <div className="bg-gray-50 rounded-3xl p-10 border-2 border-[#fe5a5e]/20">
             <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-[#fe585f] mb-4">🔄 Token Conversion Ecosystem</h3>
+              <h3 className="text-3xl font-bold text-[#fe5a5e] mb-4">🔄 Token Conversion Ecosystem</h3>
               <div className="text-2xl font-bold text-gray-700 mb-4">
                 UNC ↔ ANT ↔ USDC
               </div>
@@ -300,50 +300,50 @@ export default function Web3HubPage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white p-6 rounded-2xl border border-[#fe585f]/20 hover:border-[#fe585f] transition-all duration-300 hover:-translate-y-2">
-                <h4 className="text-xl font-bold text-[#fe585f] mb-3 text-center">🪙 UNC → ANT</h4>
+              <div className="bg-white p-6 rounded-2xl border border-[#fe5a5e]/20 hover:border-[#fe5a5e] transition-all duration-300 hover:-translate-y-2">
+                <h4 className="text-xl font-bold text-[#fe5a5e] mb-3 text-center">🪙 UNC → ANT</h4>
                 <p className="text-center text-gray-600 mb-2"><strong>1000 UNC = 1 ANT</strong></p>
                 <p className="text-center text-gray-500 text-sm">Convert utility tokens to governance power</p>
               </div>
-              <div className="bg-white p-6 rounded-2xl border border-[#fe585f]/20 hover:border-[#fe585f] transition-all duration-300 hover:-translate-y-2">
-                <h4 className="text-xl font-bold text-[#fe585f] mb-3 text-center">🏛️ ANT → USDC</h4>
+              <div className="bg-white p-6 rounded-2xl border border-[#fe5a5e]/20 hover:border-[#fe5a5e] transition-all duration-300 hover:-translate-y-2">
+                <h4 className="text-xl font-bold text-[#fe5a5e] mb-3 text-center">🏛️ ANT → USDC</h4>
                 <p className="text-center text-gray-600 mb-2"><strong>Market Rate</strong></p>
                 <p className="text-center text-gray-500 text-sm">Trade governance tokens for stable value</p>
               </div>
-              <div className="bg-white p-6 rounded-2xl border border-[#fe585f]/20 hover:border-[#fe585f] transition-all duration-300 hover:-translate-y-2">
-                <h4 className="text-xl font-bold text-[#fe585f] mb-3 text-center">💱 UNC → USDC</h4>
+              <div className="bg-white p-6 rounded-2xl border border-[#fe5a5e]/20 hover:border-[#fe5a5e] transition-all duration-300 hover:-translate-y-2">
+                <h4 className="text-xl font-bold text-[#fe5a5e] mb-3 text-center">💱 UNC → USDC</h4>
                 <p className="text-center text-gray-600 mb-2"><strong>Direct Swap</strong></p>
                 <p className="text-center text-gray-500 text-sm">Convert travel rewards to stable currency</p>
               </div>
             </div>
 
             {/* ANT Token ICO Information */}
-            <div className="bg-gradient-to-r from-[#fe585f]/10 to-[#ff7a80]/10 rounded-2xl p-8 border-2 border-[#fe585f]/30">
-              <h4 className="text-2xl font-bold text-[#fe585f] mb-6 text-center">🚀 ANT Token ICO Information</h4>
+            <div className="bg-gradient-to-r from-[#fe5a5e]/10 to-[#ff7a80]/10 rounded-2xl p-8 border-2 border-[#fe5a5e]/30">
+              <h4 className="text-2xl font-bold text-[#fe5a5e] mb-6 text-center">🚀 ANT Token ICO Information</h4>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
                 <div className="text-center">
                   <p className="text-gray-600 text-sm mb-2">ICO Price</p>
-                  <p className="text-[#fe585f] font-bold text-xl">$0.10 per ANT</p>
+                  <p className="text-[#fe5a5e] font-bold text-xl">$0.10 per ANT</p>
                 </div>
                 <div className="text-center">
                   <p className="text-gray-600 text-sm mb-2">Total Supply</p>
-                  <p className="text-[#fe585f] font-bold text-xl">1,000,000 ANT</p>
+                  <p className="text-[#fe5a5e] font-bold text-xl">1,000,000 ANT</p>
                 </div>
                 <div className="text-center">
                   <p className="text-gray-600 text-sm mb-2">ICO Allocation</p>
-                  <p className="text-[#fe585f] font-bold text-xl">40% (400,000 ANT)</p>
+                  <p className="text-[#fe5a5e] font-bold text-xl">40% (400,000 ANT)</p>
                 </div>
                 <div className="text-center">
                   <p className="text-gray-600 text-sm mb-2">Min Staking</p>
-                  <p className="text-[#fe585f] font-bold text-xl">100 ANT</p>
+                  <p className="text-[#fe5a5e] font-bold text-xl">100 ANT</p>
                 </div>
               </div>
               
               <div className="text-center">
-                <button className="bg-[#fe585f] text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-[#ff7a80] transition-all duration-300 transform hover:scale-105 mr-4">
+                <button className="bg-[#fe5a5e] text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-[#ff7a80] transition-all duration-300 transform hover:scale-105 mr-4">
                   🎯 Join ANT ICO
                 </button>
-                <button className="bg-transparent border-2 border-[#fe585f] text-[#fe585f] px-8 py-4 rounded-full text-lg font-bold hover:bg-[#fe585f] hover:text-white transition-all duration-300 transform hover:scale-105">
+                <button className="bg-transparent border-2 border-[#fe5a5e] text-[#fe5a5e] px-8 py-4 rounded-full text-lg font-bold hover:bg-[#fe5a5e] hover:text-white transition-all duration-300 transform hover:scale-105">
                   📊 View Tokenomics
                 </button>
               </div>
@@ -354,7 +354,7 @@ export default function Web3HubPage() {
 
 
       {/* Download Section */}
-      <section className="py-20 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white">
+      <section className="py-20 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-5xl md:text-6xl font-black mb-8">
             DOWNLOAD NOW
@@ -366,7 +366,7 @@ export default function Web3HubPage() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <button
               onClick={handleDownload}
-              className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              className="download-btn group bg-white text-[#fe5a5e] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
             >
               <span>🍎</span>
               <span>Download on App Store</span>
@@ -374,7 +374,7 @@ export default function Web3HubPage() {
 
             <button
               onClick={handleDownload}
-              className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              className="download-btn group bg-white text-[#fe5a5e] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
             >
               <span>🤖</span>
               <span>Get it on Google Play</span>

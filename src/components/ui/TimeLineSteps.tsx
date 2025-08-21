@@ -32,7 +32,7 @@ export default function TimeLineSteps({ steps, className = '' }: TimeLineStepsPr
                 style={{ gridTemplateRows: 'auto 40px auto', gridTemplateColumns: `repeat(${totalCols}, minmax(0,1fr))` }}
             >
                 {/* Horizontal line */}
-                <div className="col-span-full h-0.5 bg-[#fe585f]/40 self-center" style={{ gridRow: 2 }} />
+                <div className="col-span-full h-0.5 bg-[#fe5a5e]/40 self-center" style={{ gridRow: 2 }} />
 
                 {(() => {
                     let topPos = 0;
@@ -50,7 +50,7 @@ export default function TimeLineSteps({ steps, className = '' }: TimeLineStepsPr
                             <div
                                 key={`card-${index}`}
                                 style={{ gridRow: isTop ? 1 : 3, gridColumn: `${startCol} / ${endCol}` }}
-                                className="bg-white rounded-2xl border border-[#fe585f]/20 shadow-sm p-6"
+                                className="bg-white rounded-2xl border border-[#fe5a5e]/20 shadow-sm p-6"
                             >
                                 <div className="text-base font-semibold text-gray-900 mb-2">{step.title}</div>
                                 {step.description && (
@@ -64,7 +64,7 @@ export default function TimeLineSteps({ steps, className = '' }: TimeLineStepsPr
                             <div
                                 key={`conn-${index}`}
                                 style={{ gridRow: isTop ? 1 : 3, gridColumn: nodeCol }}
-                                className={`w-0.5 bg-[#fe585f]/50 justify-self-center ${isTop ? 'self-end h-6' : 'self-start h-6'}`}
+                                className={`w-0.5 bg-[#fe5a5e]/50 justify-self-center ${isTop ? 'self-end h-6' : 'self-start h-6'}`}
                             />
                         );
 
@@ -73,7 +73,7 @@ export default function TimeLineSteps({ steps, className = '' }: TimeLineStepsPr
                             <div
                                 key={`node-${index}`}
                                 style={{ gridRow: 2, gridColumn: nodeCol }}
-                                className="w-3 h-3 rounded-full bg-[#fe585f] justify-self-center self-center"
+                                className="w-3 h-3 rounded-full bg-[#fe5a5e] justify-self-center self-center"
                             />
                         );
 

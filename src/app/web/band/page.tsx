@@ -130,26 +130,26 @@ export default function TravelBandNFTsPage() {
       <section id="travel-stats" className="py-24 bg-white relative">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-10 reveal">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-3">Start Game with your Travel Band</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-3">Start Game with your Travel Band</h2>
             <p className="text-gray-600 text-lg md:text-xl">Start your Travel to Earn journey, choose your exclusive Travel Band, and upgrade to unlock more rewards.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto reveal">
             {/* Active Travelers */}
-            <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#fe585f]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#fe5a5e]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative z-10 text-center">
-                <div className="text-5xl font-bold text-[#fe585f] mb-4 leading-none">
+                <div className="text-5xl font-bold text-[#fe5a5e] mb-4 leading-none">
                   {activeTravelers.toLocaleString()}+
                 </div>
                 <div className="text-gray-700 font-medium">Active Travelers</div>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#fe585f]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#fe5a5e]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative z-10 text-center">
-                <div className="text-5xl font-bold text-[#fe585f] mb-4 leading-none">
+                <div className="text-5xl font-bold text-[#fe5a5e] mb-4 leading-none">
                   {tokensEarned.toLocaleString()}+
                 </div>
                 <div className="text-gray-700 font-medium">Tokens Earned</div>
@@ -157,10 +157,10 @@ export default function TravelBandNFTsPage() {
             </div>
 
             {/* Cities Covered */}
-            <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#fe585f]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#fe5a5e]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative z-10 text-center">
-                <div className="text-5xl font-bold text-[#fe585f] mb-4 leading-none">
+                <div className="text-5xl font-bold text-[#fe5a5e] mb-4 leading-none">
                   {citiesCovered}+
                 </div>
                 <div className="text-gray-700 font-medium">Cities Covered</div>
@@ -174,7 +174,7 @@ export default function TravelBandNFTsPage() {
       <section id="mechanism" className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center mb-8 reveal">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f]">Travel Band Mechanism</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e]">Travel Band Mechanism</h2>
           </div>
           <div className="max-w-3xl mx-auto bg-white border border-gray-200 rounded-2xl p-8 shadow-sm reveal">
             <ul className="space-y-3 text-gray-700 text-lg">
@@ -196,7 +196,7 @@ export default function TravelBandNFTsPage() {
       <section id="bands" className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-4xl mx-auto mb-16 reveal">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-6">
               Choose Your Travel Band
             </h2>
             <p className="text-gray-600 text-xl leading-relaxed">
@@ -207,7 +207,7 @@ export default function TravelBandNFTsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {travelBands.map((band, index) => (
               <div key={band.id} className="reveal" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 hover:border-[#fe585f] transition-all duration-500 hover:shadow-2xl hover:-translate-y-4 group">
+                <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 hover:border-[#fe5a5e] transition-all duration-500 hover:shadow-2xl hover:-translate-y-4 group">
                   <img
                     src={band.image}
                     alt={band.name}
@@ -220,7 +220,7 @@ export default function TravelBandNFTsPage() {
                   {/* Band Info */}
                   <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">{band.name}</h3>
-                    <div className="inline-block px-3 py-1 bg-[#fe585f] text-white text-sm font-semibold rounded-full mb-3">
+                    <div className="inline-block px-3 py-1 bg-[#fe5a5e] text-white text-sm font-semibold rounded-full mb-3">
                       {band.rarity}
                     </div>
                     <p className="text-gray-600 text-sm leading-relaxed">{band.description}</p>
@@ -228,19 +228,19 @@ export default function TravelBandNFTsPage() {
 
                   {/* Stats */}
                   <div className="mb-6">
-                    <h4 className="text-lg font-bold text-[#fe585f] mb-4 text-center">Stats</h4>
+                    <h4 className="text-lg font-bold text-[#fe5a5e] mb-4 text-center">Stats</h4>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">Power:</span>
-                        <span className="font-bold text-[#fe585f]">{band.stats.power}</span>
+                        <span className="font-bold text-[#fe5a5e]">{band.stats.power}</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">Luck:</span>
-                        <span className="font-bold text-[#fe585f]">{band.stats.luck}</span>
+                        <span className="font-bold text-[#fe5a5e]">{band.stats.luck}</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">Charm:</span>
-                        <span className="font-bold text-[#fe585f]">{band.stats.charm}</span>
+                        <span className="font-bold text-[#fe5a5e]">{band.stats.charm}</span>
                       </div>
                     </div>
                   </div>

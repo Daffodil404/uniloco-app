@@ -67,7 +67,7 @@ export default function Page() {
     return (
         <main className="min-h-screen bg-white flex flex-col">
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] px-4 py-6">
+            <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] px-4 py-6">
                 <div className="flex items-center gap-4">
                     <button 
                         onClick={() => window.history.back()}
@@ -99,21 +99,21 @@ export default function Page() {
                                 <p className="text-sm text-gray-500">{m.description}</p>
                             </div>
                             <div className="text-right">
-                                <span className="text-[#fe585f] font-bold text-lg block">{m.price}</span>
+                                <span className="text-[#fe5a5e] font-bold text-lg block">{m.price}</span>
                                 <span className="text-xs text-gray-500">Commission: {m.commission}</span>
                             </div>
                         </div>
 
                         {/* Middle Row: Location */}
                         <div className="flex items-center text-sm text-gray-600 mt-2">
-                            <MapPin className="text-[#fe585f] w-4 h-4 mr-1" />
+                            <MapPin className="text-[#fe5a5e] w-4 h-4 mr-1" />
                             {m.location}
                         </div>
 
                         {/* Bottom Row: Phone + Rating */}
                         <div className="flex justify-between items-center mt-3 text-sm">
                             <div className="flex items-center text-gray-600">
-                                <Phone className="text-[#fe585f] w-4 h-4 mr-1" />
+                                <Phone className="text-[#fe5a5e] w-4 h-4 mr-1" />
                                 {m.phone}
                             </div>
                             <div className="flex items-center text-yellow-500">

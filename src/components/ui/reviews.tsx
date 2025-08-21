@@ -31,7 +31,7 @@ export default function Reviews({ reviews, totalReviews, averageRating, showStat
             {showStats && (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
                     <div className="text-center">
-                        <div className="text-4xl font-bold text-[#fe585f] mb-2">{averageRating}</div>
+                        <div className="text-4xl font-bold text-[#fe5a5e] mb-2">{averageRating}</div>
                         <div className="flex justify-center mb-2">
                             {[...Array(5)].map((_, i) => (
                                 <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
@@ -93,7 +93,7 @@ export default function Reviews({ reviews, totalReviews, averageRating, showStat
                         {/* Review Type Badge */}
                         {review.type && (
                             <div className="mb-3">
-                                <span className="inline-block bg-[#fe585f]/10 text-[#fe585f] px-3 py-1 rounded-full text-xs font-medium">
+                                <span className="inline-block bg-[#fe5a5e]/10 text-[#fe5a5e] px-3 py-1 rounded-full text-xs font-medium">
                                     {review.type}
                                 </span>
                             </div>
@@ -114,7 +114,7 @@ export default function Reviews({ reviews, totalReviews, averageRating, showStat
 
                         {/* Decorative Elements */}
                         <div className="absolute top-4 right-4 opacity-10">
-                            <div className="w-8 h-8 bg-[#fe585f] rounded-full"></div>
+                            <div className="w-8 h-8 bg-[#fe5a5e] rounded-full"></div>
                         </div>
                     </div>
                 ))}
@@ -122,7 +122,7 @@ export default function Reviews({ reviews, totalReviews, averageRating, showStat
 
             {/* View More Button */}
             <div className="text-center mt-8">
-                <button className="bg-[#fe585f] hover:bg-[#e04a50] text-white px-6 py-3 rounded-xl font-medium transition-colors">
+                <button className="bg-[#fe5a5e] hover:bg-[#e04a50] text-white px-6 py-3 rounded-xl font-medium transition-colors">
                     View All Reviews
                 </button>
             </div>

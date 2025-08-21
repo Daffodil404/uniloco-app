@@ -184,7 +184,7 @@ export default function BookshelfPage() {
     return (
       <div className="mobile-screen bg-gradient-to-b from-white to-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-slate-200 border-t-[#fe585f] rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-slate-200 border-t-[#fe5a5e] rounded-full animate-spin mx-auto mb-4"></div>
           <h3 className="text-xl font-semibold text-slate-800 mb-2">Loading...</h3>
           <p className="text-slate-600">Checking login status</p>
         </div>
@@ -206,7 +206,7 @@ export default function BookshelfPage() {
           <p className="text-slate-600 mb-4">This feature requires login to access</p>
           <button
                             onClick={() => router.push('/h5/login?redirect=/h5/bookshelf')}
-            className="px-6 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl font-medium"
+            className="px-6 py-2 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white rounded-xl font-medium"
           >
             Sign In
           </button>
@@ -242,7 +242,7 @@ export default function BookshelfPage() {
             placeholder="🔍 Search adventures..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 bg-white shadow-sm rounded-2xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fe585f]/20 focus:border-[#fe585f]"
+            className="w-full px-4 py-3 bg-white shadow-sm rounded-2xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fe5a5e]/20 focus:border-[#fe5a5e]"
           />
         </div>
 
@@ -254,7 +254,7 @@ export default function BookshelfPage() {
               onClick={() => setSelectedTag(tag)}
               className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                 selectedTag === tag
-                  ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
+                  ? 'bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white'
                   : 'bg-white text-slate-600 hover:bg-slate-50 shadow-sm border border-slate-200'
               }`}
             >
@@ -272,12 +272,12 @@ export default function BookshelfPage() {
               <div className="flex items-start gap-4">
                 {/* Story Cover with Price */}
                 <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
                     {story.emoji}
                   </div>
                   <div className="text-center">
                     <span className={`text-sm font-bold ${
-                      story.price === 0 ? 'text-emerald-600' : 'text-[#fe585f]'
+                      story.price === 0 ? 'text-emerald-600' : 'text-[#fe5a5e]'
                     }`}>
                       {story.price === 0 ? 'FREE' : `${story.price} UNC`}
                     </span>
@@ -365,7 +365,7 @@ export default function BookshelfPage() {
             </button>
             <button
               onClick={handleNavigateToAIChat}
-              className="px-4 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
+              className="px-4 py-2 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all"
             >
               🤖 AI Chat
             </button>

@@ -310,6 +310,104 @@ Use the right panel to choose an experience type and tell me what you'd like to 
     addMessage('ai', 'Great! I have prepared some results for you on the right panel.');
   };
 
+  // Handle Ask Uniloco button click
+  const handleAskUniloco = (item: ExperienceItem) => {
+    if (!item.unilocoInfo) {
+      addMessage('ai', 'Sorry, there is no detailed information about this item available.');
+      return;
+    }
+
+    const info = item.unilocoInfo;
+    const response = `
+🌟 **Uniloco Professional Review - ${item.name}**
+
+**Highlights:**
+${info.highlights.map(h => '• ' + h).join('\n')}
+
+**Best Time:** ${info.bestTime}
+
+**Professional Tips:** ${info.tips}
+
+**Nearby Attractions:**
+${info.nearby.map(n => '• ' + n).join('\n')}
+
+💎 *Uniloco Certified - Based on local experts and real user experiences*
+    `;
+    
+    addMessage('uniloco', response);
+  };
+
+  // Handle Detail button click
+  const handleShowDetail = (item: ExperienceItem) => {
+    const details = `
+📋 **Detail Page - ${item.name}**
+
+**Detailed Description:**
+${item.description}
+
+**Location:** ${item.location}
+**Price:** €${item.price}
+**Duration:** ${item.duration}
+**Rating:** ${item.rating}/5.0
+
+${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
+
+💡 *This will jump to a detailed booking page in the future*
+    `;
+    
+    addMessage('ai', details);
+  };
+
+  // Handle Pick a time button click
+  const handlePickTime = (item: ExperienceItem) => {
+    setPendingExperience(item);
+    
+    const timeOptions = [
+      '🌅 Morning (9:00-12:00)',
+      '☀️ Afternoon (14:00-17:00)', 
+      '🌆 Evening (18:00-21:00)'
+    ];
+    
+    const message = `⏰ Please choose a time for "${item.name}":\n\n${timeOptions.join('\n')}\n\nWhich time slot do you prefer?`;
+    
+    addMessage('ai', message);
+  };
+
+  // Add to itinerary with time information
+  const addToItineraryWithTime = (itemId: string, timeSlot: string, day: number) => {
+    // Find the item
+    let item: ExperienceItem | null = null;
+    for (const category in allData) {
+      const found = allData[category].find(i => i.id === itemId);
+      if (found) {
+        item = found;
+        break;
+      }
+    }
+    
+    if (!item) return;
+    
+    // Check if already added
+    const existingIndex = itineraryItems.findIndex(i => i.id === itemId);
+    if (existingIndex !== -1) {
+      addMessage('ai', '📋 This item is already in your itinerary!');
+      return;
+    }
+    
+    // Add time information
+    const itemWithTime: ItineraryItem = {
+      ...item,
+      scheduledDay: day,
+      scheduledTimeSlot: timeSlot
+    };
+    
+    // Add to itinerary
+    setItineraryItems(prev => [...prev, itemWithTime]);
+    
+    const timeText = timeSlot;
+    addMessage('ai', `✅ Added "${item.name}" to Day ${day} ${timeText}! Total cost: €${calculateTotalCost()}`);
+  };
+
   const sendMessage = () => {
     if (!chatInputRef.current) return;
     const message = chatInputRef.current.value.trim();
@@ -324,6 +422,26 @@ Use the right panel to choose an experience type and tell me what you'd like to 
 
   const generateAIResponse = (userMessage: string): string => {
     const message = userMessage.toLowerCase();
+    
+    // Handle time selection for pending experience
+    if (pendingExperience && (message.includes('morning') || message.includes('afternoon') || message.includes('evening'))) {
+      let timeSlot = 'morning';
+      let timeText = 'morning';
+      
+      if (message.includes('afternoon')) {
+        timeSlot = 'afternoon';
+        timeText = 'afternoon';
+      } else if (message.includes('evening')) {
+        timeSlot = 'evening';
+        timeText = 'evening';
+      }
+      
+      const experienceName = pendingExperience.name;
+      addToItineraryWithTime(pendingExperience.id, timeSlot, selectedDay || 1);
+      setPendingExperience(null);
+      return `Perfect! I've scheduled "${experienceName}" for ${timeText}. Would you like to add other experiences?`;
+    }
+    
     if (message.includes('spa') || message.includes('relax')) {
       selectCategory('service');
       return '🛀 Got it! SPA is great here. Please choose a day and time.';
@@ -382,6 +500,9 @@ Use the right panel to choose an experience type and tell me what you'd like to 
           aiItineraryGenerated={aiItineraryGenerated}
           suggestedItinerary={suggestedItinerary}
           onConfirmSelection={handleConfirmSelection}
+          onAskUniloco={handleAskUniloco}
+          onShowDetail={handleShowDetail}
+          onPickTime={handlePickTime}
         />
       </div>
     </div>
