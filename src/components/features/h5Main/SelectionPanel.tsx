@@ -151,7 +151,7 @@ export default function SelectionPanel({
                                         </div>
                                         <div className="text-xs text-gray-500 mt-1">
                                             Total €{suggestedItinerary.reduce((sum, day) => 
-                                                sum + day.activities.reduce((daySum, act) => daySum + (Number(act.price) || 0), 0), 0
+                                                sum + day.activities.reduce((daySum, act) => daySum + (Number(act.price) || 0), 0), 35
                                             )}
                                         </div>
                                     </div>
