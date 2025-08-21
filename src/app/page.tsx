@@ -33,7 +33,7 @@ export default function SplashPage() {
         if (prev <= 1) {
           clearInterval(countdownTimer);
           // 跳转到主页
-          router.push('/home');
+          router.push('/h5/home');
           return 0;
         }
         return prev - 1;

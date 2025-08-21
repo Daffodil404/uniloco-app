@@ -210,7 +210,7 @@ function TravelPlanContent() {
           <h3 className="text-xl font-semibold text-slate-800 mb-2">Login Required</h3>
           <p className="text-slate-600 mb-4">This feature requires login to access</p>
           <button
-            onClick={() => router.push('/login?redirect=/travel-plan')}
+            onClick={() => router.push('/h5/login?redirect=/travel-plan')}
             className="px-6 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl font-medium"
           >
             Sign In

@@ -56,14 +56,14 @@ export function useAuth() {
     sessionStorage.removeItem('userLogin');
     setIsLoggedIn(false);
     setUserData(null);
-    router.push('/login');
+    router.push('/h5/login');
   }, [router]);
 
   // 检查是否需要登录
   const requireLogin = useCallback((redirectUrl?: string) => {
     if (!isLoggedIn) {
       const currentUrl = window.location.pathname + window.location.search;
-      const loginUrl = `/login?redirect=${encodeURIComponent(redirectUrl || currentUrl)}`;
+      const loginUrl = `/h5/login?redirect=${encodeURIComponent(redirectUrl || currentUrl)}`;
       router.push(loginUrl);
       return false;
     }
