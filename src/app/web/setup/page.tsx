@@ -113,21 +113,21 @@ export default function SetupPage() {
         {/* Animated Background */}
         <div className="absolute inset-0 bg-[#fff]">
           {/* Floating Elements */}
-          <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe5a5e]/10 rounded-full animate-bounce animate-float"></div>
-          <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe5a5e]/15 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#fe5a5e]/20 rounded-full animate-spin"></div>
-          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#fe5a5e]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#fe5a5e]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#fe5a5e]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute top-20 left-20 w-32 h-32 bg-[#2563EB]/10 rounded-full animate-bounce animate-float"></div>
+          <div className="absolute top-40 right-32 w-24 h-24 bg-[#2563EB]/15 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#2563EB]/20 rounded-full animate-spin"></div>
+          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#2563EB]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#2563EB]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#2563EB]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
 
           {/* Particle Effects */}
-          <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#fe5a5e]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
-          <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-[#ff7a80]/40 rounded-full animate-ping" style={{ animationDelay: '1.2s' }}></div>
-          <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#fe5a5e]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
+          <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#2563EB]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
+          <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-[#7C3AED]/40 rounded-full animate-ping" style={{ animationDelay: '1.2s' }}></div>
+          <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#2563EB]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
 
           {/* Geometric Shapes */}
-          <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#fe5a5e]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-          <div className="absolute bottom-1/4 left-1/4 w-4 h-4 bg-[#ff7a80]/25 rounded-full animate-bounce" style={{ animationDelay: '0.7s' }}></div>
+          <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#2563EB]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute bottom-1/4 left-1/4 w-4 h-4 bg-[#7C3AED]/25 rounded-full animate-bounce" style={{ animationDelay: '0.7s' }}></div>
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -137,8 +137,8 @@ export default function SetupPage() {
               {/* Main Title */}
               <div className="space-y-1 lg:space-y-2">
                 <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                  <span className={`block ${isLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe5a5e] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Set Up</span>
-                  <span className={`block ${isLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Your Account</span>
+                  <span className={`block ${isLoaded ? 'slide-in-left' : 'opacity-100'} text-[#2563EB] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Set Up</span>
+                  <span className={`block ${isLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Your Account</span>
                 </h1>
               </div>
 
@@ -157,18 +157,18 @@ export default function SetupPage() {
               <div className={`flex flex-col sm:flex-row gap-4 ${isLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                 <button
                   onClick={() => document.getElementById('setup-steps')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center space-x-2">
                     <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">🚀</span>
                     <span>Start Setup</span>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe5a5e] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#7C3AED] to-[#2563EB] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
 
                 <button
                   onClick={handleDownload}
-                  className="game-button download-btn group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe5a5e] text-[#fe5a5e] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe5a5e] hover:text-white transform hover:scale-105 transition-all duration-300"
+                  className="game-button download-btn group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#2563EB] text-[#2563EB] font-bold text-base lg:text-lg rounded-full hover:bg-[#2563EB] hover:text-white transform hover:scale-105 transition-all duration-300"
                 >
                   <span className="flex items-center space-x-2">
                     <span>📱</span>
@@ -192,7 +192,7 @@ export default function SetupPage() {
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#2563EB] mb-6">
               Complete Setup Overview
             </h2>
             <p className="text-gray-600 text-xl leading-relaxed">
@@ -204,17 +204,17 @@ export default function SetupPage() {
             {setupSteps.map((step, index) => (
               <div
                 key={step.number}
-                className="bg-white rounded-2xl p-6 border-2 border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer"
+                className="bg-white rounded-2xl p-6 border-2 border-gray-200 hover:border-[#2563EB] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer"
                 onClick={() => handleStepClick(step.number)}
               >
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-4">
                     {step.icon}
                   </div>
-                  <div className="w-8 h-8 bg-[#fe5a5e] text-white rounded-full flex items-center justify-center text-sm font-bold mx-auto mb-4">
+                  <div className="w-8 h-8 bg-[#2563EB] text-white rounded-full flex items-center justify-center text-sm font-bold mx-auto mb-4">
                     {step.number}
                   </div>
-                  <h3 className="text-xl font-bold text-[#fe5a5e] mb-3">{step.title}</h3>
+                  <h3 className="text-xl font-bold text-[#2563EB] mb-3">{step.title}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
                 </div>
               </div>
@@ -224,7 +224,7 @@ export default function SetupPage() {
       </section>
 
       {/* Download Section */}
-      <section className="py-20 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] text-white">
+      <section className="py-20 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-5xl md:text-6xl font-black mb-8">
             READY TO START?
@@ -236,7 +236,7 @@ export default function SetupPage() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <button
               onClick={handleDownload}
-              className="download-btn group bg-white text-[#fe5a5e] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              className="download-btn group bg-white text-[#2563EB] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
             >
               <span>🍎</span>
               <span>Download on App Store</span>
@@ -244,7 +244,7 @@ export default function SetupPage() {
 
             <button
               onClick={handleDownload}
-              className="download-btn group bg-white text-[#fe5a5e] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              className="download-btn group bg-white text-[#2563EB] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
             >
               <span>🤖</span>
               <span>Get it on Google Play</span>
