@@ -159,7 +159,7 @@ export default function QuestCityLanding() {
                         <h1 className="main-title">
                             Transform Your
                             <br />
-                            European City
+                             City
                             <br />
                             Into an RPG
                         </h1>

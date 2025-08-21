@@ -27,10 +27,10 @@ function HomePageContent() {
     };
 
     const handleNavigateToAIPlan = () => {
-        if (!requireLogin('/h5/travel-plan')) {
+        if (!requireLogin('/h5/ai-chat')) {
             return; // 如果未登录，requireLogin 会自动重定向
         }
-        router.push('/h5/travel-plan');
+        router.push('/h5/ai-chat');
     };
 
     const handleNavigateToStoryLibrary = () => {

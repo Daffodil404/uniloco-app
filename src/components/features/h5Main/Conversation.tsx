@@ -31,12 +31,12 @@ export default function Conversation({
   return (
     <div className="w-full md:w-[420px] h-full bg-white/80 backdrop-blur-xl border-r border-gray-200 flex flex-col shadow-lg relative">
       <div className="p-4 md:p-6 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] border-b border-[#fe5a5e]/20">
-        <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-white">🤖 Uniloco Travel Planner</h2>
+        <h2 className="text-md md:text-xl font-bold mb-3 md:mb-4 text-white">🤖 Uniloco Travel Planner</h2>
         <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-white/20 rounded-2xl">
           <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl text-[#fe5a5e]">🧳</div>
           <div className="flex-1 cursor-pointer" onClick={() => router.push('/h5/ai-chat')}>
             <div className="font-bold mb-1 text-sm md:text-base text-white">Solo Traveler</div>
-            <div className="text-xs md:text-sm text-white/90">📍 Rome | 🗓️ 1–3 Days | 🍜 Street Food | 👤 Single | 🎭 Cultural</div>
+            <div className="text-xs md:text-sm text-white/90">Rome |  1–3 Days |  Street Food | Single | Cultural</div>
           </div>
         </div>
       </div>
@@ -104,18 +104,40 @@ export default function Conversation({
                   <small>Select a service and click &quot;Add to itinerary&quot;</small>
                 </div>
               ) : (
-                <div className="space-y-2">
-                  {itineraryItems.map((item, index) => (
-                    <div key={index} className="bg-white border border-[#fe5a5e]/20 rounded-lg p-2 text-xs flex justify-between items-center shadow-sm">
-                      <span className="text-gray-700">{item.emoji} {item.name} - €{item.price}</span>
-                      <button 
-                        className="bg-[#fe5a5e] border-none rounded text-white text-xs px-2 py-1 hover:bg-[#e54d55] transition-colors" 
-                        onClick={() => onRemoveItineraryItem(index)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  ))}
+                <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-[#fe5a5e] scrollbar-track-gray-100 pr-2">
+                  <div className="space-y-3">
+                    {itineraryItems.map((item, index) => (
+                      <div key={index} className="bg-white border border-[#fe5a5e]/20 rounded-lg p-3 text-xs shadow-sm">
+                        {/* Day indicator */}
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="bg-[#fe5a5e] text-white text-xs px-2 py-1 rounded-full font-medium">
+                              {item.scheduledDay === 0 ? 'All Days' : `Day ${item.scheduledDay || 1}`}
+                            </span>
+                            {item.scheduledTime && (
+                              <span className="text-gray-500 text-xs">
+                                {item.scheduledTime}
+                              </span>
+                            )}
+                          </div>
+                          <button 
+                            className="bg-[#fe5a5e] border-none rounded text-white text-xs px-2 py-1 hover:bg-[#e54d55] transition-colors" 
+                            onClick={() => onRemoveItineraryItem(index)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                        {/* Activity details */}
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">{item.emoji}</span>
+                          <div className="flex-1">
+                            <div className="text-gray-800 font-medium">{item.name}</div>
+                            <div className="text-gray-500 text-xs">€{item.price} • {item.duration}</div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

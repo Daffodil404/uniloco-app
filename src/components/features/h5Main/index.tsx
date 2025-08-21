@@ -303,7 +303,8 @@ ${info.nearby.map(n => '• ' + n).join('\n')}
 
     // Handle Detail button click
     const handleShowDetail = (item: ExperienceItem) => {
-        router.push(`/web2/${item.key}_detail`);
+        window.open(`/web2/${item.key}_detail`, '_blank');
+        // router.push(`/web2/${item.key}_detail`);
         const details = `
 📋 **Detail Page - ${item.name}**
 

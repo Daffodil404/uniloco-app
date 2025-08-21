@@ -8,7 +8,7 @@ interface SelectionPanelProps {
     selectedCategory: string | null;
     showTimeSelection: boolean;
     showSearchResults: boolean;
-    selectedDay: number | null;
+    selectedDay: number | null; // 0 = All, 1-3 = Day 1-3
     selectedTimeSlot: string | null;
     allData: Record<string, ExperienceItem[]>;
     itineraryItems: ItineraryItem[];
@@ -78,16 +78,17 @@ export default function SelectionPanel({
 
             </div>
 
-            {showTimeSelection && (
+            {(showTimeSelection || isItineraryTab) && (
                 <div className="bg-gray-50 rounded-2xl p-5 mb-5 border border-gray-200">
                     <div className="text-[#fe5a5e] font-bold mb-4">📅 Select Day & Time</div>
                     <div className="grid grid-cols-2 gap-3 mb-4">
                         <select
                             className="bg-white border border-gray-300 text-gray-700 p-3 rounded-xl text-sm outline-none focus:border-[#fe5a5e] focus:ring-2 focus:ring-[#fe5a5e]/20"
-                            value={selectedDay || ''}
+                            value={selectedDay !== null ? selectedDay : ''}
                             onChange={(e) => onSetDay(e.target.value ? Number(e.target.value) : null)}
                         >
                             <option value="">Choose Day</option>
+                            <option value="999">All</option>
                             <option value="1">Day 1</option>
                             <option value="2">Day 2</option>
                             <option value="3">Day 3</option>
