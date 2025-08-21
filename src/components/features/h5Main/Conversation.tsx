@@ -112,7 +112,7 @@ export default function Conversation({
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
                             <span className="bg-[#fe5a5e] text-white text-xs px-2 py-1 rounded-full font-medium">
-                              {item.scheduledDay === 0 ? 'All Days' : `Day ${item.scheduledDay || 1}`}
+                              {item.scheduledDay === 999 ? 'All Days' : `Day ${item.scheduledDay || 1}`}
                             </span>
                             {item.scheduledTime && (
                               <span className="text-gray-500 text-xs">

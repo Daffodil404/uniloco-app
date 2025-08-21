@@ -8,7 +8,7 @@ interface SelectionPanelProps {
     selectedCategory: string | null;
     showTimeSelection: boolean;
     showSearchResults: boolean;
-    selectedDay: number | null; // 0 = All, 1-3 = Day 1-3
+    selectedDay: number | null; // 999 = All, 1-3 = Day 1-3
     selectedTimeSlot: string | null;
     allData: Record<string, ExperienceItem[]>;
     itineraryItems: ItineraryItem[];
@@ -227,7 +227,30 @@ export default function SelectionPanel({
 
                                     <button
                                         className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white px-3 py-1 rounded text-xs font-bold hover:shadow-lg transition-all"
-                                        onClick={() => onPickTime?.(item)}
+                                        onClick={() => {
+                                            // Convert ExperienceItem to DayRoute activity format and add to itinerary
+                                            const activity = {
+                                                id: item.id,
+                                                time: selectedTimeSlot || 'morning',
+                                                activity: item.name,
+                                                emoji: item.emoji,
+                                                selected: true,
+                                                location: item.location,
+                                                duration: item.duration,
+                                                phone: item.phone,
+                                                details: item.details,
+                                                price: `€${item.price}`,
+                                                website: item.website
+                                            };
+                                            
+                                            if (onAddActivityToItinerary) {
+                                                onAddActivityToItinerary(activity);
+                                            }
+                                            
+                                            // Also call the original onPickTime if it exists
+                                            onPickTime?.(item);
+                                        }}
+                                        disabled={!selectedDay && !selectedTimeSlot}
                                     >
                                         Pick a time
                                     </button>
