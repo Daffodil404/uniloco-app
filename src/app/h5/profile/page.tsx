@@ -175,7 +175,7 @@ export default function ProfilePage() {
           <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-2xl p-4 mb-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-white/90 text-sm">UNC Balance</p>
+                <p className="text-white/90 text-sm">EUR Balance</p>
                 <p className="text-white text-2xl font-bold">{userProfile.uncBalance.toLocaleString()}</p>
               </div>
               <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">

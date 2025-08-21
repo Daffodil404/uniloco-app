@@ -9,7 +9,11 @@ import { useRouter } from 'next/navigation';
 import { defaultItinerary } from './constants';
 
 
-export default function RomePlanner() {
+interface RomePlannerProps {
+  showChatAndSelection?: boolean;
+}
+
+export default function RomePlanner({ showChatAndSelection = true }: RomePlannerProps) {
     const router = useRouter();
     const [currentMapView, setCurrentMapView] = useState<'3D' | '2D'>('3D');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -462,16 +466,18 @@ ${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
     return (
         <div className="h-full bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-800 overflow-hidden">
             <div className="flex w-full h-full">
-                <Conversation
-                    chatMessages={chatMessages}
-                    chatMessagesRef={chatMessagesRef}
-                    chatInputRef={chatInputRef}
-                    itineraryItems={itineraryItems}
-                    onRemoveItineraryItem={(index) => setItineraryItems(prev => prev.filter((_, i) => i !== index))}
-                    onKeyPress={handleKeyPress}
-                    onAddActivityToItinerary={handleAddActivityToItinerary}
-                    onRemoveActivityFromItinerary={handleRemoveActivityFromItinerary}
-                />
+                {showChatAndSelection && (
+                    <Conversation
+                        chatMessages={chatMessages}
+                        chatMessagesRef={chatMessagesRef}
+                        chatInputRef={chatInputRef}
+                        itineraryItems={itineraryItems}
+                        onRemoveItineraryItem={(index) => setItineraryItems(prev => prev.filter((_, i) => i !== index))}
+                        onKeyPress={handleKeyPress}
+                        onAddActivityToItinerary={handleAddActivityToItinerary}
+                        onRemoveActivityFromItinerary={handleRemoveActivityFromItinerary}
+                    />
+                )}
                 <MapWIthRoute
                     currentMapView={currentMapView}
                     selectedCategory={selectedCategory}
@@ -481,26 +487,28 @@ ${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
                     onToggleMap={toggleMap}
                     onShowDayRoute={showDayRoute}
                 />
-                <SelectionPanel
-                    selectedCategory={selectedCategory}
-                    showTimeSelection={showTimeSelection}
-                    showSearchResults={showSearchResults}
-                    selectedDay={selectedDay}
-                    selectedTimeSlot={selectedTimeSlot}
-                    allData={allData}
-                    itineraryItems={itineraryItems}
-                    onSelectCategory={selectCategory}
-                    onSetDay={(d) => setSelectedDay(d)}
-                    onSetTimeSlot={(s) => setSelectedTimeSlot(s)}
-                    aiItineraryGenerated={aiItineraryGenerated}
-                    suggestedItinerary={suggestedItinerary}
-                    onConfirmSelection={handleConfirmSelection}
-                    onAskUniloco={handleAskUniloco}
-                    onShowDetail={handleShowDetail}
-                    onPickTime={handlePickTime}
-                    onAddActivityToItinerary={handleAddActivityToItinerary}
-                    onRemoveActivityFromItinerary={handleRemoveActivityFromItinerary}
-                />
+                {showChatAndSelection && (
+                    <SelectionPanel
+                        selectedCategory={selectedCategory}
+                        showTimeSelection={showTimeSelection}
+                        showSearchResults={showSearchResults}
+                        selectedDay={selectedDay}
+                        selectedTimeSlot={selectedTimeSlot}
+                        allData={allData}
+                        itineraryItems={itineraryItems}
+                        onSelectCategory={selectCategory}
+                        onSetDay={(d) => setSelectedDay(d)}
+                        onSetTimeSlot={(s) => setSelectedTimeSlot(s)}
+                        aiItineraryGenerated={aiItineraryGenerated}
+                        suggestedItinerary={suggestedItinerary}
+                        onConfirmSelection={handleConfirmSelection}
+                        onAskUniloco={handleAskUniloco}
+                        onShowDetail={handleShowDetail}
+                        onPickTime={handlePickTime}
+                        onAddActivityToItinerary={handleAddActivityToItinerary}
+                        onRemoveActivityFromItinerary={handleRemoveActivityFromItinerary}
+                    />
+                )}
             </div>
         </div>
     );
