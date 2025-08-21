@@ -24,7 +24,7 @@ export default function ServiceDetailPage() {
     const serviceProvider = {
         name: "Laurent Dubois",
         title: "Professional Fashion Photographer",
-        avatarImg: "/static/web2/photographer.webp",
+        avatarImg: "/static/webp/photographer.webp",
         description: "I'm Laurent, a professional fashion photographer with over 12 years of experience in Paris. I've worked with Vogue, Elle, Marie Claire and other prestigious magazines. I specialize in capturing beautiful moments in natural light. I believe every photo should tell a story, and every shoot is a unique artistic creation.",
         stats: {
             completed: 342,

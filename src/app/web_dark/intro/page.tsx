@@ -365,17 +365,17 @@ export default function IntroPage() {
                                         {
                                             title: 'AI-Powered Planning',
                                             description: 'Intelligent AI creates personalized travel routes and discovers unique travel experiences tailored to your preferences.',
-                                            image: '/static/ai_powered.webp'
+                                            image: '/static/webp/ai_powered.webp'
                                         },
                                         {
                                             title: 'Create Travel Stories',
                                             description: 'Create your exclusive travel stories, design 3D check-in routes, and earn rewards when others follow your paths.',
-                                            image: '/static/travel_story.webp'
+                                            image: '/static/webp/travel_story.webp'
                                         },
                                         {
                                             title: 'Social Travel',
                                             description: 'Team up for check-ins, collaborate on content creation, and share your exciting journeys with global travelers.',
-                                            image: '/static/social_travel.webp'
+                                            image: '/static/webp/social_travel.webp'
                                         }
                                     ].map((feature, index) => (
                                         <div key={index} className="w-full flex-shrink-0">
