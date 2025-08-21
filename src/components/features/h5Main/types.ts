@@ -1,6 +1,7 @@
 export interface ExperienceItem {
   id: string;
   name: string;
+  key?: string;
   type: string;
   emoji: string;
   description: string;
