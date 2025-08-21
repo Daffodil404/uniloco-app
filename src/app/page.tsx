@@ -42,8 +42,8 @@ export default function IntroPage() {
     // Carousel auto-play
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % 4);
-        }, 4000);
+            setCurrentSlide((prev) => (prev + 1) % 3);
+        }, 3000);
 
         return () => clearInterval(interval);
     }, []);
