@@ -171,7 +171,7 @@ export default function CheckInModal({ isOpen, onClose, selectedPoint, onSubmit 
 
           {/* 文字记录 */}
           <div>
-            <label className="block text-slate-600 text-sm mb-2">Share Your Experience</label>
+            <label className="block text-slate-600 text-sm mb-2">Share Your Comments</label>
             <textarea
               placeholder="What's your impression of this place? Any tips for other travelers?"
               className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#fe5a5e] focus:ring-2 focus:ring-[#fe5a5e]/20"

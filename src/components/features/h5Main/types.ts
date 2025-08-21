@@ -26,7 +26,7 @@ export interface ExperienceItem {
 }
 
 export interface ItineraryItem extends ExperienceItem {
-  scheduledDay?: number;
+  scheduledDay?: number; // 999 = All days, 1-3 = specific day
   scheduledTime?: string;
   scheduledTimeSlot?: string;
 }

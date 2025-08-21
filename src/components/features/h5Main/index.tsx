@@ -303,7 +303,8 @@ ${info.nearby.map(n => '• ' + n).join('\n')}
 
     // Handle Detail button click
     const handleShowDetail = (item: ExperienceItem) => {
-        router.push(`/web2/${item.key}_detail`);
+        window.open(`/web2/${item.key}_detail`, '_blank');
+        // router.push(`/web2/${item.key}_detail`);
         const details = `
 📋 **Detail Page - ${item.name}**
 
@@ -428,6 +429,23 @@ ${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
 
     // Handle adding activity to itinerary
     const handleAddActivityToItinerary = (activity: DayRoute['activities'][0]) => {
+        // Determine the correct day for the activity
+        let scheduledDay = 1; // default
+        
+        // If the activity comes from AI Itinerary, find its day from the suggestedItinerary
+        if (suggestedItinerary) {
+            for (const day of suggestedItinerary) {
+                if (day.activities.some(act => act.id === activity.id)) {
+                    scheduledDay = day.day;
+                    break;
+                }
+            }
+        }
+        // If not from AI Itinerary, use the selected day from UI
+        else if (selectedDay !== null) {
+            scheduledDay = selectedDay;
+        }
+        
         const newItem: ItineraryItem = {
             id: activity.id,
             name: activity.activity,
@@ -442,13 +460,13 @@ ${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
             x: 0,
             y: 0,
             color: '#fe5a5e',
-            scheduledDay: 1,
+            scheduledDay: scheduledDay,
             scheduledTime: activity.time,
             website: activity.website
         };
         
         setItineraryItems(prev => [...prev, newItem]);
-        addMessage('ai', `✅ Added "${activity.activity}" to your itinerary!`);
+        addMessage('ai', `✅ Added "${activity.activity}" to Day ${scheduledDay === 999 ? 'All' : scheduledDay}!`);
     };
 
     // Handle removing activity from itinerary
