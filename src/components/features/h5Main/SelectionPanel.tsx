@@ -138,6 +138,41 @@ export default function SelectionPanel({
                                 </div>
                             </div>
                         ))}
+                        
+                        {/* Add complete 3-day itinerary */}
+                        <div className="bg-gradient-to-r from-[#fe5a5e]/10 to-[#ff7a80]/10 rounded-xl p-4 border border-[#fe5a5e]/20">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div>
+                                        <div className="text-md font-bold text-gray-800">Complete 3-Day Itinerary</div>
+                                        <div className="text-sm text-gray-600">
+                                            {suggestedItinerary.reduce((sum, day) => sum + day.activities.length, 0)} activities
+                                        </div>
+                                        <div className="text-xs text-gray-500 mt-1">
+                                            Total €{suggestedItinerary.reduce((sum, day) => 
+                                                sum + day.activities.reduce((daySum, act) => daySum + (Number(act.price) || 0), 0), 0
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        // Add all unadded activities
+                                        suggestedItinerary.forEach(day => {
+                                            day.activities.forEach(activity => {
+                                                const isInItinerary = itineraryItems.some(item => item.id === activity.id);
+                                                if (!isInItinerary && onAddActivityToItinerary) {
+                                                    onAddActivityToItinerary(activity);
+                                                }
+                                            });
+                                        });
+                                    }}
+                                    className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white px-6 py-3 rounded-xl text-sm font-bold hover:shadow-lg transition-all duration-200 hover:-translate-y-1 hover:scale-105"
+                                >
+                                    Confirm
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}

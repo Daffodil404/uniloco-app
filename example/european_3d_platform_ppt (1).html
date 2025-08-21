@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuestCity - Transform Your European City</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .slide {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            position: relative;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 80px;
+            max-width: 1400px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .left-content {
+            z-index: 10;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 14px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .main-title {
+            font-size: 54px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #fff, #e8f4fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 22px;
+            margin-bottom: 50px;
+            opacity: 0.9;
+            line-height: 1.4;
+            font-weight: 300;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        .cta-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .cta-button {
+            padding: 18px 35px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .demo-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-item {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .stat-number {
+            color: #4ecdc4;
+            font-weight: 600;
+        }
+
+        .right-content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .europe-map {
+            width: 450px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-background {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            position: relative;
+        }
+
+        .city-marker {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            animation: pulse 2s infinite;
+            cursor: pointer;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .city-marker::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: ripple 2s infinite;
+        }
+
+        /* European Cities Positioning */
+        .marker-london { top: 120px; left: 80px; }
+        .marker-paris { top: 180px; left: 120px; }
+        .marker-berlin { top: 140px; left: 220px; }
+        .marker-luxembourg { top: 170px; left: 160px; background: #4ecdc4; }
+        .marker-amsterdam { top: 100px; left: 170px; }
+        .marker-zurich { top: 220px; left: 180px; }
+
+        .search-bar {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 18px 25px;
+            border-radius: 30px;
+            color: #333;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .search-bar::before {
+            content: '🔍';
+            font-size: 18px;
+        }
+
+        .activity-popup {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 16px;
+            color: #333;
+            font-size: 13px;
+            max-width: 200px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideInUp 0.5s ease;
+        }
+
+        .popup-header {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2a5298;
+        }
+
+        .popup-details {
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .popup-participants {
+            background: #4ecdc4;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            display: inline-block;
+        }
+
+        .background-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .bg-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -50px;
+            right: -50px;
+            animation-delay: 0s;
+        }
+
+        .bg-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -30px;
+            left: -30px;
+            animation-delay: 3s;
+        }
+
+        .bg-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 40%;
+            right: 15%;
+            animation-delay: 6s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes ripple {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                text-align: center;
+            }
+            
+            .main-title {
+                font-size: 42px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .europe-map {
+                width: 350px;
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-elements">
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+    </div>
+
+    <div class="slide">
+        <div class="content-grid">
+            <div class="left-content">
+                <div class="logo-section">
+                    <div class="logo">🏰 QuestCity</div>
+                    <div class="tagline">European Edition</div>
+                </div>
+                
+                <h1 class="main-title">Transform Your<br>European City<br>Into an RPG</h1>
+                
+                <p class="subtitle">Discover real-world quests on a 3D map.<br>Connect with locals through location-based activities.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">🗺️</span>
+                        <div class="feature-title">3D City Maps</div>
+                        <div class="feature-desc">Explore European cities in stunning 3D with real-time activity markers</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">🔍</span>
+                        <div class="feature-title">Smart Search</div>
+                        <div class="feature-desc">"Tennis Luxembourg tomorrow" - Natural language quest discovery</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">💬</span>
+                        <div class="feature-title">Instant Chat</div>
+                        <div class="feature-desc">Join quest creators' group chats with one tap</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">⏰</span>
+                        <div class="feature-title">Auto-Cleanup</div>
+                        <div class="feature-desc">Quests disappear after completion - no digital clutter</div>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <button class="cta-button" onclick="showDemo()">Join the Beta</button>
+                    <div class="demo-stats">
+                        <div class="stat-item"><span class="stat-number">12+</span> European Cities</div>
+                        <div class="stat-item"><span class="stat-number">2.5K+</span> Active Questers</div>
+                        <div class="stat-item"><span class="stat-number">850+</span> Daily Quests</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-content">
+                <div class="europe-map">
+                    <div class="map-background">
+                        <div class="search-bar">
+                            Badminton Luxembourg tonight
+                        </div>
+                        
+                        <div class="city-marker marker-london" onclick="showQuest('London')">🇬🇧</div>
+                        <div class="city-marker marker-paris" onclick="showQuest('Paris')">🇫🇷</div>
+                        <div class="city-marker marker-berlin" onclick="showQuest('Berlin')">🇩🇪</div>
+                        <div class="city-marker marker-luxembourg" onclick="showQuest('Luxembourg')">🇱🇺</div>
+                        <div class="city-marker marker-amsterdam" onclick="showQuest('Amsterdam')">🇳🇱</div>
+                        <div class="city-marker marker-zurich" onclick="showQuest('Zurich')">🇨🇭</div>
+                        
+                        <div class="activity-popup">
+                            <div class="popup-header">🏸 Badminton Night</div>
+                            <div class="popup-details">
+                                📍 Kirchberg Sports Center<br>
+                                🕒 Tonight 7:00 PM<br>
+                                👤 Posted by: Marie_Lux
+                            </div>
+                            <div class="popup-participants">2/4 players</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quests = {
+            'London': {
+                activity: '⚽ Football Match',
+                location: 'Hyde Park',
+                time: 'Saturday 3:00 PM',
+                organizer: 'James_UK',
+                participants: '6/11 players'
+            },
+            'Paris': {
+                activity: '🎨 Art Walk',
+                location: 'Montmartre District',
+                time: 'Sunday 10:00 AM',
+                organizer: 'Sophie_Paris',
+                participants: '8/12 people'
+            },
+            'Berlin': {
+                activity: '🏃 Morning Run',
+                location: 'Tiergarten',
+                time: 'Tomorrow 7:00 AM',
+                organizer: 'Klaus_Berlin',
+                participants: '5/8 runners'
+            },
+            'Luxembourg': {
+                activity: '🏸 Badminton Night',
+                location: 'Kirchberg Sports Center',
+                time: 'Tonight 7:00 PM',
+                organizer: 'Marie_Lux',
+                participants: '2/4 players'
+            },
+            'Amsterdam': {
+                activity: '🚲 Bike Tour',
+                location: 'Vondelpark',
+                time: 'Friday 2:00 PM',
+                organizer: 'Anna_NL',
+                participants: '4/6 cyclists'
+            },
+            'Zurich': {
+                activity: '⛷️ Ski Planning',
+                location: 'Central Café',
+                time: 'Thursday 6:00 PM',
+                organizer: 'Hans_CH',
+                participants: '3/8 people'
+            }
+        };
+
+        function showQuest(city) {
+            const quest = quests[city];
+            const popup = document.querySelector('.activity-popup');
+            
+            popup.innerHTML = `
+                <div class="popup-header">${quest.activity}</div>
+                <div class="popup-details">
+                    📍 ${quest.location}<br>
+                    🕒 ${quest.time}<br>
+                    👤 Posted by: ${quest.organizer}
+                </div>
+                <div class="popup-participants">${quest.participants}</div>
+            `;
+            
+            // Add animation
+            popup.style.animation = 'none';
+            setTimeout(() => {
+                popup.style.animation = 'slideInUp 0.5s ease';
+            }, 10);
+        }
+
+        function showDemo() {
+            alert('🎉 Welcome to QuestCity Beta!\n\n🌍 Available in 12 European cities\n🎮 Join 2,500+ active questers\n🚀 850+ daily quests created\n\n👥 Connect with locals through real activities\n📍 From badminton in Luxembourg to art walks in Paris\n⚡ Real-time, location-based social gaming');
+        }
+
+        // Add some interactive effects
+        document.querySelectorAll('.city-marker').forEach(marker => {
+            marker.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.2)';
+                this.style.boxShadow = '0 12px 35px rgba(255, 107, 107, 0.6)';
+            });
+            
+            marker.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '0 8px 25px rgba(255, 107, 107, 0.4)';
+            });
+        });
+
+        // Rotate through different search examples
+        const searches = [
+            "Badminton Luxembourg tonight",
+            "Tennis Paris tomorrow",
+            "Football Berlin weekend",
+            "Art walk Amsterdam Sunday",
+            "Ski trip Zurich planning"
+        ];
+        
+        let currentSearch = 0;
+        setInterval(() => {
+            currentSearch = (currentSearch + 1) % searches.length;
+            document.querySelector('.search-bar').innerHTML = `🔍 ${searches[currentSearch]}`;
+        }, 3000);
+    </script>
+</body>
+</html>
