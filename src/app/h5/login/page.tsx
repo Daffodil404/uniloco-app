@@ -13,7 +13,7 @@ function LoginContent() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const redirectUrl = searchParams.get('redirect') || '/home';
+  const redirectUrl = searchParams.get('redirect') || '/h5/home';
 
   // 如果已经登录，自动重定向
   useEffect(() => {
