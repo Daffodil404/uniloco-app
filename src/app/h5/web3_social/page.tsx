@@ -132,7 +132,10 @@ export default function QuestCityLanding() {
             {/* 固定在顶部的Header */}
             <header className="fixed-header">
                 <div className="header-content">
-                    <div className="header-logo">🏰 QuestCity</div>
+                    <div className="header-logo flex items-center gap-2">
+                        <img src="/static/logo-transparent-bg.png" alt="Uniloco" className="w-12 h-12" />
+                        Uniloco
+                    </div>
                     <div className="header-nav">
                         <span className="nav-item">Home</span>
                         <span className="nav-item">Explore</span>
@@ -151,11 +154,6 @@ export default function QuestCityLanding() {
             <div className="slide">
                 <div className="content-grid">
                     <div className="left-content">
-                        <div className="logo-section">
-                            <div className="logo">🏰 QuestCity</div>
-                            <div className="tagline">European Edition</div>
-                        </div>
-
                         <h1 className="main-title">
                             Transform Your
                             <br />
@@ -212,7 +210,7 @@ export default function QuestCityLanding() {
                             </button>
                             <div className="demo-stats">
                                 <div className="stat-item">
-                                    <span className="stat-number">12+</span> European Cities
+                                    <span className="stat-number">12+</span>  Cities
                                 </div>
                                 <div className="stat-item">
                                     <span className="stat-number">2.5K+</span> Active Questers
