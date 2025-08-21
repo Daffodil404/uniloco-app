@@ -19,7 +19,7 @@ const questions: Question[] = [
     id: 'destination',
     title: 'Where do you want to go?',
     subtitle: 'Choose a destination that excites you',
-    options: ['Luxembourg', 'Brussels', 'Amsterdam', 'Strasbourg', 'Trier', 'Metz', 'Nancy', 'Frankfurt'],
+    options: ['Luxembourg', 'Roma', 'Amsterdam', 'Strasbourg', 'Trier', 'Metz', 'Nancy', 'Frankfurt'],
     key: 'destination',
     type: 'city-search'
   },

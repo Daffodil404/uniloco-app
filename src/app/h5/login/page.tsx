@@ -24,7 +24,7 @@ function LoginContent() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!username.trim() || !password.trim()) {
       setError('Please enter both username and password');
       return;
@@ -36,10 +36,10 @@ function LoginContent() {
     try {
       // 模拟登录延迟
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // 调用登录方法
       login(username.trim());
-      
+
       // 登录成功后会通过 useEffect 自动重定向
     } catch {
       setError('Login failed. Please try again.');
@@ -68,19 +68,19 @@ function LoginContent() {
   return (
     <>
       {/* 顶部导航 */}
-      <header className="px-6 py-4 flex-shrink-0">
+      <header className="px-6 py-4 flex-shrink-0 bg-gradient-to-r from-[#fe5a5e] to-[#fe5a5e] shadow-lg">
         <div className="flex items-center">
           <button
             onClick={handleBack}
-            className="text-slate-600 hover:text-slate-800 transition-colors"
+            className="text-white hover:text-white/80 transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <div className="flex-1 text-center">
-            <h1 className="text-lg font-semibold text-slate-800">Login</h1>
-            <p className="text-xs text-slate-600">Access your travel journey</p>
+            <h1 className="text-lg font-semibold text-white">Login</h1>
+            <p className="text-xs text-white/90">Access your travel journey</p>
           </div>
         </div>
       </header>
@@ -90,10 +90,15 @@ function LoginContent() {
         <div className="w-full max-w-sm">
           {/* Logo 和标题 */}
           <div className="text-center mb-8">
-            <div className="w-20 h-20 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-3xl flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div className="w-20 h-20 bg-gradient-to-r rounded-3xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+              <img
+                src="/static/logo.jpeg"
+                alt="Uniloco"
+                width={80}
+                height={80}
+                className="object-contain w-16 h-16"
+                draggable={false}
+              />
             </div>
             <h1 className="text-2xl font-bold text-slate-800 mb-2">Welcome to Uniloco</h1>
             <p className="text-slate-600 text-sm">Start your travel exploration journey</p>

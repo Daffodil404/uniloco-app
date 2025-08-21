@@ -16,7 +16,7 @@ interface CitySearchProps {
 
 // 热门城市数据
 const popularCities: City[] = [
-  { id: '1', name: 'Tokyo', country: 'Japan', region: 'Asia' },
+  { id: '1', name: 'Rome', country: 'Italy', region: 'Europe' },
   { id: '2', name: 'Paris', country: 'France', region: 'Europe' },
   { id: '3', name: 'New York', country: 'USA', region: 'North America' },
   { id: '4', name: 'London', country: 'UK', region: 'Europe' },
