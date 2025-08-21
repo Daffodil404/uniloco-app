@@ -57,7 +57,7 @@ export default function MapWIthRoute({
         if (mapRef.current && !mapInstanceRef.current) {
           const mapInstance = L.map(mapRef.current, {
             center: [41.9028, 12.4964], // Rome center
-            zoom: 13,
+            zoom: 14, // 放大zoom，展示更小的区域
             zoomControl: false,
             attributionControl: false,
             dragging: true,
@@ -130,11 +130,18 @@ export default function MapWIthRoute({
     markersRef.current.forEach(m => m.remove());
     markersRef.current = [];
 
-    const createBadgeIcon = (label: string) =>
-      L.divIcon({
+    const createBadgeIcon = (label: string, day?: number) => {
+      const colors = {
+        1: '#fe5a5e', // Day 1 - 珊瑚红
+        2: '#4A90E2', // Day 2 - 探索蓝
+        3: '#66D2A0'  // Day 3 - 自然绿
+      };
+      const color = day ? colors[day as keyof typeof colors] : '#fe5a5e';
+      
+      return L.divIcon({
         className: 'custom-number-marker',
         html: `
-          <div style="width:44px;height:44px;background:#fe5a5e;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:12px;font-family:Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer;">
+          <div style="width:44px;height:44px;background:${color};border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:12px;font-family:Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer;">
             ${label}
           </div>
         `,
@@ -142,20 +149,67 @@ export default function MapWIthRoute({
         iconAnchor: [22, 44],
         popupAnchor: [0, -44]
       });
+    };
 
-    // Rome highlights
-    const highlights = [
-      { name: 'Colosseum', lat: 41.8902, lng: 12.4922, label: '1' },
-      { name: 'Palatine Hill', lat: 41.8894, lng: 12.4882, label: '2' },
-      { name: 'Vatican City', lat: 41.9022, lng: 12.4539, label: '3' }
+    // Day 1 - 罗马古迹路线
+    const day1Points = [
+      { name: 'Colosseum', lat: 41.8902, lng: 12.4922, label: '1', day: 1 },
+      { name: 'Roman Forum', lat: 41.8925, lng: 12.4858, label: '2', day: 1 },
+      { name: 'Palatine Hill', lat: 41.8894, lng: 12.4882, label: '3', day: 1 }
     ];
 
-    highlights.forEach(h => {
-      const marker = L.marker([h.lat, h.lng], { icon: createBadgeIcon(h.label) })
-        .bindPopup(`<strong>${h.name}</strong>`)
+    // Day 2 - 梵蒂冈路线
+    const day2Points = [
+      { name: 'Vatican Museums', lat: 41.9069, lng: 12.4533, label: '1', day: 2 },
+      { name: 'St. Peter\'s Basilica', lat: 41.9022, lng: 12.4539, label: '2', day: 2 },
+      { name: 'Castel Sant\'Angelo', lat: 41.9031, lng: 12.4663, label: '3', day: 2 }
+    ];
+
+    // Day 3 - 市中心路线
+    const day3Points = [
+      { name: 'Trevi Fountain', lat: 41.9009, lng: 12.4833, label: '1', day: 3 },
+      { name: 'Piazza Navona', lat: 41.8989, lng: 12.4731, label: '2', day: 3 },
+      { name: 'Pantheon', lat: 41.8986, lng: 12.4768, label: '3', day: 3 }
+    ];
+
+    // 根据当前显示的天数选择要显示的点
+    let pointsToShow: typeof day1Points = [];
+    if (currentDayView === 1) {
+      pointsToShow = day1Points;
+    } else if (currentDayView === 2) {
+      pointsToShow = day2Points;
+    } else if (currentDayView === 3) {
+      pointsToShow = day3Points;
+    } else {
+      // 默认显示Day 1
+      pointsToShow = day1Points;
+    }
+
+    // 创建标记点
+    pointsToShow.forEach(point => {
+      const marker = L.marker([point.lat, point.lng], { 
+        icon: createBadgeIcon(point.label, point.day) 
+      })
+        .bindPopup(`<strong>Day ${point.day} - ${point.name}</strong>`)
         .addTo(map);
       markersRef.current.push(marker);
     });
+
+    // 创建连线
+    if (pointsToShow.length > 1) {
+      const routeCoordinates = pointsToShow.map(point => [point.lat, point.lng]);
+      const routeColor = currentDayView === 1 ? '#fe5a5e' : 
+                        currentDayView === 2 ? '#4A90E2' : '#66D2A0';
+      
+      const routeLine = L.polyline(routeCoordinates as [number, number][], {
+        color: routeColor,
+        weight: 4,
+        opacity: 0.8,
+        dashArray: '10, 5'
+      }).addTo(map);
+      
+      markersRef.current.push(routeLine);
+    }
 
     // Optionally render category markers from allData (faded to avoid clutter)
     Object.entries(allData).forEach(([category, items]) => {
@@ -179,7 +233,7 @@ export default function MapWIthRoute({
         // m.addTo(map); markersRef.current.push(m);
       });
     });
-  }, [map, isMapLoaded, allData, selectedCategory]);
+  }, [map, isMapLoaded, allData, selectedCategory, currentDayView]);
 
   return (
     <div className="flex-1 relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
@@ -197,17 +251,50 @@ export default function MapWIthRoute({
       {/* Day controls */}
       {showMapDayControls && (
         <div className="absolute top-16 md:top-20 right-3 md:right-5 bg-white/95 backdrop-blur-lg border border-gray-200 p-3 md:p-4 rounded-xl z-40 shadow-lg">
-          {[1, 2, 3].map((d) => (
-            <button
-              key={d}
-              className={`block w-full border border-gray-200 text-gray-700 p-1.5 md:p-2 ${d !== 3 ? 'mb-1.5 md:mb-2' : ''} rounded-lg text-xs transition-all ${
-                currentDayView === d ? 'bg-[#fe5a5e] text-white border-[#fe5a5e]' : 'bg-white hover:bg-gray-50'
-              }`}
-              onClick={() => onShowDayRoute(d)}
-            >
-              Day {d}
-            </button>
-          ))}
+          <div className="text-xs font-medium text-gray-600 mb-2 text-center">Route View</div>
+          {[1, 2, 3].map((d) => {
+            const colors = {
+              1: '#fe5a5e', // 珊瑚红
+              2: '#4A90E2', // 探索蓝
+              3: '#66D2A0'  // 自然绿
+            };
+            const color = colors[d as keyof typeof colors];
+            const isSelected = currentDayView === d;
+            
+            return (
+              <button
+                key={d}
+                className={`block w-full border p-1.5 md:p-2 ${d !== 3 ? 'mb-1.5 md:mb-2' : ''} rounded-lg text-xs transition-all font-medium ${
+                  isSelected 
+                    ? 'text-white shadow-lg' 
+                    : 'bg-white text-gray-700 border-gray-200 hover:text-white'
+                }`}
+                style={{
+                  backgroundColor: isSelected ? color : 'white',
+                  borderColor: isSelected ? color : '#e5e7eb',
+                  ...(isSelected ? {} : {
+                    '--tw-hover-bg-opacity': '1',
+                    '--tw-hover-text-opacity': '1'
+                  })
+                }}
+                onMouseEnter={(e) => {
+                  if (!isSelected) {
+                    e.currentTarget.style.backgroundColor = color;
+                    e.currentTarget.style.borderColor = color;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSelected) {
+                    e.currentTarget.style.backgroundColor = 'white';
+                    e.currentTarget.style.borderColor = '#e5e7eb';
+                  }
+                }}
+                onClick={() => onShowDayRoute(d)}
+              >
+                Day {d}
+              </button>
+            );
+          })}
         </div>
       )}
     </div>

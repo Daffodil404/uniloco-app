@@ -1,7 +1,8 @@
 "use client";
 
 import { RefObject, useState } from 'react';
-import type { ChatMessage, ItineraryItem } from './types';
+import type { ChatMessage, ItineraryItem, DayRoute } from './types';
+import { useRouter } from 'next/navigation';
 
 interface ConversationProps {
   chatMessages: ChatMessage[];
@@ -10,6 +11,8 @@ interface ConversationProps {
   itineraryItems: ItineraryItem[];
   onRemoveItineraryItem: (index: number) => void;
   onKeyPress: (e: React.KeyboardEvent) => void;
+  onAddActivityToItinerary?: (activity: DayRoute['activities'][0]) => void;
+  onRemoveActivityFromItinerary?: (activityId: string) => void;
 }
 
 export default function Conversation({
@@ -18,9 +21,12 @@ export default function Conversation({
   chatInputRef,
   itineraryItems,
   onRemoveItineraryItem,
-  onKeyPress
+  onKeyPress,
+  onAddActivityToItinerary,
+  onRemoveActivityFromItinerary
 }: ConversationProps) {
   const [isItineraryExpanded, setIsItineraryExpanded] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="w-full md:w-[420px] h-full bg-white/80 backdrop-blur-xl border-r border-gray-200 flex flex-col shadow-lg relative">
@@ -28,7 +34,7 @@ export default function Conversation({
         <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-white">🤖 Uniloco Travel Planner</h2>
         <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-white/20 rounded-2xl">
           <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl text-[#fe5a5e]">🧳</div>
-          <div className="flex-1">
+          <div className="flex-1 cursor-pointer" onClick={() => router.push('/h5/ai-chat')}>
             <div className="font-bold mb-1 text-sm md:text-base text-white">Solo Traveler</div>
             <div className="text-xs md:text-sm text-white/90">📍 Rome | 🗓️ 1–3 Days | 🍜 Street Food | 👤 Single | 🎭 Cultural</div>
           </div>
