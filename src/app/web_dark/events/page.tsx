@@ -25,19 +25,19 @@ export default function EventsPage() {
     {
       title: 'Signature Experience',
       description: 'Handpicked culture, cuisine, art, and adventure, guided by local experts.',
-              image: '/static/webp/events_handpicked.webp',
+              image: '/static/online_resource/events_handpicked.png',
       target:'/web2/experience_detail'
     },
     {
       title: 'Exclusive Services',
       description: 'Private chefs, photographers, spa and fitness coaches for a truly premium experience.',
-              image: '/static/webp/events_customized_service.webp',
+              image: '/static/online_resource/events_customized_service.png',
       target:'/web2/service_detail'
     },
     {
       title: 'Tailored Journey',
       description: 'Mystery role-play, time-travel themes, or romantic stories brought to life by professional actors.',
-              image: '/static/webp/events_ball.webp',
+              image: '/static/online_resource/events_ball.png',
       target:'/web2/script_detail'
     }
   ];
@@ -291,7 +291,7 @@ export default function EventsPage() {
             {/* Left: Image */}
             <div className="relative h-72 sm:h-96 lg:h-[34rem] rounded-2xl overflow-hidden reveal">
               <Image
-                src="/static/webp/mushroom_pick.webp"
+                src="/static/online_resource/mushroom_pick.png"
                 alt="Luxembourg Forest Mushroom Hunt"
                 fill
                 className="object-cover"
@@ -328,7 +328,7 @@ export default function EventsPage() {
         <div className="fixed inset-0 z-[100] bg-black/60 flex items-center justify-center px-4 py-8" role="dialog" aria-modal="true">
           <div className="w-full max-w-5xl bg-white rounded-2xl overflow-hidden shadow-2xl">
             <div className="relative h-56 sm:h-72 md:h-80">
-                              <Image src="/static/webp/mushroom.webp" alt="Luxembourg Forest Mushroom Hunt" fill className="object-cover" sizes="100vw" priority />
+                              <Image src="/static/online_resource/mushroom.png" alt="Luxembourg Forest Mushroom Hunt" fill className="object-cover" sizes="100vw" priority />
               <div className="absolute inset-0 bg-black/20" />
               <button onClick={() => setShowEventDetailModal(false)} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 hover:bg-white text-black flex items-center justify-center shadow" aria-label="Close">✕</button>
             </div>

@@ -252,7 +252,7 @@ Use the right panel to choose an experience type and tell me what you'd like to 
 
   // Generate itinerary (3 days)
   const generateAIItinerary = () => {
-    setShowSearchResults(true);
+    // Do not reveal results until user confirms selection under AI Itinerary tab
     setShowMapDayControls(true);
     
     const itinerary: DayRoute[] = [

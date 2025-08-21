@@ -226,7 +226,7 @@ function ScriptDetailContent() {
                             {/* Hero Image */}
                             <div className="relative h-64 md:h-80 lg:h-96">
                                 <Image
-                                    src="/static/webp/york.webp"
+                                    src="/static/online_resource/york.png"
                                     alt="York"
                                     fill
                                     className="object-cover"

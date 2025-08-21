@@ -40,7 +40,7 @@ export default function Conversation({
           {itineraryItems.length === 0 ? (
             <div className="text-center text-gray-500 text-xs py-5">
               No items yet<br />
-              <small>Select a service and click "Add to itinerary"</small>
+              <small>Select a service and click &quot;Add to itinerary&quot;</small>
             </div>
           ) : (
             <div className="space-y-2">

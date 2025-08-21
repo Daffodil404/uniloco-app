@@ -37,6 +37,8 @@ export default function SelectionPanel({
     ? (mockSearchResults[selectedCategory] || allData[selectedCategory] || [])
     : [];
 
+  const isItineraryTab = selectedCategory === 'itinerary';
+
   return (
     <div className="hidden md:block w-[380px] h-full bg-white/80 backdrop-blur-xl border-l border-gray-200 p-6 overflow-y-auto shadow-lg">
       <div className="bg-gray-50 rounded-2xl p-5 mb-5 border border-gray-200">
@@ -64,7 +66,7 @@ export default function SelectionPanel({
         </div>
       </div>
 
-      {showTimeSelection && (
+      {showTimeSelection &&  (
         <div className="bg-gray-50 rounded-2xl p-5 mb-5 border border-gray-200">
           <div className="text-[#fe585f] font-bold mb-4">📅 Select Day & Time</div>
           <div className="grid grid-cols-2 gap-3 mb-4">
@@ -99,7 +101,8 @@ export default function SelectionPanel({
         </div>
       )}
 
-      {aiItineraryGenerated && suggestedItinerary && (
+      {/* AI 3-day itinerary only when itinerary tab selected AND user confirmed (showSearchResults used as confirmation flag) */}
+      {isItineraryTab && showSearchResults && aiItineraryGenerated && suggestedItinerary && (
         <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200 mb-5">
           <div className="text-[#fe585f] font-bold mb-3">🗺️ AI 3-Day Itinerary</div>
           <div className="space-y-3">
@@ -119,7 +122,8 @@ export default function SelectionPanel({
         </div>
       )}
 
-      {showSearchResults && (
+      {/* Generic results visible only for non-itinerary tabs once confirmed */}
+      {!isItineraryTab && showSearchResults && (
         <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
           <div className="text-[#fe585f] font-bold mb-4">🔍 Results</div>
           <div className="space-y-3">

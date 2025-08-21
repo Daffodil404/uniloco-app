@@ -24,7 +24,7 @@ export default function ServiceDetailPage() {
     const serviceProvider = {
         name: "Laurent Dubois",
         title: "Professional Fashion Photographer",
-        avatarImg: "/static/webp/photographer.webp",
+        avatarImg: "/static/online_resource/photographer.png",
         description: "I'm Laurent, a professional fashion photographer with over 12 years of experience in Paris. I've worked with Vogue, Elle, Marie Claire and other prestigious magazines. I specialize in capturing beautiful moments in natural light. I believe every photo should tell a story, and every shoot is a unique artistic creation.",
         stats: {
             completed: 342,
@@ -389,7 +389,7 @@ export default function ServiceDetailPage() {
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">📷 Portfolio Showcase</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                         {portfolio.map(item => {
-                            const imagePath = `/static/web2/${item.type.toLowerCase()}.webp`;
+                            const imagePath = `/static/web2/${item.type.toLowerCase()}.png`;
                             return (
                                 <div key={item.id} className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group bg-gray-100">
                                     <Image
