@@ -1,4 +1,4 @@
-import type { ExperienceItem } from './types';
+import type { ExperienceItem, DayRoute } from './types';
 
 type Category = 'activity' | 'script' | 'service' | 'dining' | 'attractions';
 
@@ -193,4 +193,46 @@ export const mockSearchResults: Record<string, ExperienceItem[]> = {
   ]
 };
 
+// 默认行程数据
+export const defaultItinerary: DayRoute[] = [
+  {
+    day: 1,
+    title: 'Day 1 - Classic Rome',
+    startLocation: 'Colosseo Metro Station',
+    endLocation: 'Via dei Cappuccini SPA',
+    totalDuration: 'About 8 hours',
+    walkingDistance: '2.5 km',
+    activities: [
+      { time: '09:00-11:15', activity: 'Colosseum Fast Track', emoji: '🏛️', id: 'colosseum1', selected: true, location: 'Piazza del Colosseo, 1', duration: '2h15m', price: '€35', website: 'https://coopculture.it' },
+      { time: '11:30-12:45', activity: 'Roman Forum Walk', emoji: '🚶‍♂️', id: 'forum_walk', selected: true, location: 'Forum', duration: '1h15m' },
+      { time: '15:00-16:30', activity: 'SPA Relax Session', emoji: '🧖‍♀️', id: 'spa1', selected: true, location: 'Via dei Cappuccini, 9', duration: '1h30m' }
+    ]
+  },
+  {
+    day: 2,
+    title: 'Day 2 - Culture & Food',
+    startLocation: 'Trastevere Market',
+    endLocation: 'Private Chef Studio',
+    totalDuration: 'About 9 hours',
+    walkingDistance: '3.2 km',
+    activities: [
+      { time: '10:00-13:00', activity: 'Italian Cooking Class', emoji: '🍝', id: 'cooking1', selected: true, location: 'Trastevere', duration: '3h' },
+      { time: '15:30-17:30', activity: 'Caesar Mystery Role-play', emoji: '🔍', id: 'mystery1', selected: true, location: 'Forum Area', duration: '2h' },
+      { time: '19:30-21:00', activity: 'Private Chef Tasting Menu', emoji: '👨‍🍳', id: 'chef1', selected: true, location: 'Via del Corso', duration: '1h30m' }
+    ]
+  },
+  {
+    day: 3,
+    title: 'Day 3 - Vatican & Opera',
+    startLocation: 'Vatican Museums',
+    endLocation: 'Rome Opera House',
+    totalDuration: 'About 8 hours',
+    walkingDistance: '2.1 km',
+    activities: [
+      { time: '09:30-12:00', activity: 'Vatican Museums Highlights', emoji: '🎨', id: 'vatican_museum', selected: true, location: 'Viale Vaticano', duration: '2h30m' },
+      { time: '12:15-13:15', activity: 'St. Peter\'s Basilica', emoji: '⛪', id: 'st_peter', selected: true, location: 'Piazza San Pietro', duration: '1h' },
+      { time: '20:00-22:30', activity: 'Opera Night', emoji: '🎭', id: 'opera1', selected: true, location: "Teatro dell'Opera di Roma", duration: '2h30m' }
+    ]
+  }
+];
 

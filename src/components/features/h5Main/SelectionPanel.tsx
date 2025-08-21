@@ -1,7 +1,8 @@
 "use client";
 
-import type { ExperienceItem, DayRoute } from './types';
+import type { ExperienceItem, DayRoute, ItineraryItem } from './types';
 import { mockSearchResults } from './constants';
+import ActivityItem from './ActivityItem';
 
 interface SelectionPanelProps {
     selectedCategory: string | null;
@@ -10,6 +11,7 @@ interface SelectionPanelProps {
     selectedDay: number | null;
     selectedTimeSlot: string | null;
     allData: Record<string, ExperienceItem[]>;
+    itineraryItems: ItineraryItem[];
     onSelectCategory: (c: string) => void;
     onSetDay: (day: number | null) => void;
     onSetTimeSlot: (slot: string | null) => void;
@@ -19,6 +21,8 @@ interface SelectionPanelProps {
     onAskUniloco?: (item: ExperienceItem) => void;
     onShowDetail?: (item: ExperienceItem) => void;
     onPickTime?: (item: ExperienceItem) => void;
+    onAddActivityToItinerary?: (activity: any) => void;
+    onRemoveActivityFromItinerary?: (activityId: string) => void;
 }
 
 export default function SelectionPanel({
@@ -28,6 +32,7 @@ export default function SelectionPanel({
     selectedDay,
     selectedTimeSlot,
     allData,
+    itineraryItems,
     onSelectCategory,
     onSetDay,
     onSetTimeSlot,
@@ -36,7 +41,9 @@ export default function SelectionPanel({
     onConfirmSelection,
     onAskUniloco,
     onShowDetail,
-    onPickTime
+    onPickTime,
+    onAddActivityToItinerary,
+    onRemoveActivityFromItinerary
 }: SelectionPanelProps) {
     const currentResults: ExperienceItem[] = selectedCategory
         ? (mockSearchResults[selectedCategory] || allData[selectedCategory] || [])
@@ -57,7 +64,7 @@ export default function SelectionPanel({
                     ].map((item, index) => (
                         <button
                             key={item.category}
-                            className={`p-3 rounded-xl text-center transition-all ${selectedCategory === item.category
+                            className={`cursor-pointer p-3 rounded-xl text-center transition-all ${selectedCategory === item.category
                                     ? 'bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] border-[#fe5a5e] text-white'
                                     : 'bg-white border border-gray-200 hover:bg-[#fe5a5e] hover:text-white hover:-translate-y-0.5'
                                 } border text-gray-700 text-sm font-medium shadow-sm ${index === 3 ? 'col-span-3' : ''
@@ -115,11 +122,20 @@ export default function SelectionPanel({
                                 <div className="font-semibold text-gray-800 mb-2">{day.title}</div>
                                 <div className="text-xs text-gray-600 mb-2">Start: {day.startLocation} · End: {day.endLocation}</div>
                                 <div className="text-xs text-gray-500 mb-2">Duration: {day.totalDuration} · Walk: {day.walkingDistance}</div>
-                                <ul className="space-y-1">
-                                    {day.activities.map((act, idx) => (
-                                        <li key={idx} className="text-xs text-gray-700">{act.time} · {act.emoji} {act.activity}</li>
-                                    ))}
-                                </ul>
+                                <div className="space-y-1">
+                                    {day.activities.map((act, idx) => {
+                                        const isInItinerary = itineraryItems.some(item => item.id === act.id);
+                                        return (
+                                            <ActivityItem
+                                                key={idx}
+                                                activity={act}
+                                                isInItinerary={isInItinerary}
+                                                onAddToItinerary={onAddActivityToItinerary || (() => {})}
+                                                onRemoveFromItinerary={onRemoveActivityFromItinerary || (() => {})}
+                                            />
+                                        );
+                                    })}
+                                </div>
                             </div>
                         ))}
                     </div>

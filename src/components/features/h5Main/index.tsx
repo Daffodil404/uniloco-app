@@ -6,6 +6,7 @@ import MapWIthRoute from './MapWIthRoute';
 import SelectionPanel from './SelectionPanel';
 import type { ExperienceItem, ItineraryItem, DayRoute, ChatMessage } from './types';
 import { useRouter } from 'next/navigation';
+import { defaultItinerary } from './constants';
 
 
 export default function RomePlanner() {
@@ -256,50 +257,7 @@ Use the right panel to choose an experience type and tell me what you'd like to 
     const generateAIItinerary = () => {
         // Do not reveal results until user confirms selection under AI Itinerary tab
         setShowMapDayControls(true);
-
-        const itinerary: DayRoute[] = [
-            {
-                day: 1,
-                title: 'Day 1 - Classic Rome',
-                startLocation: 'Colosseo Metro Station',
-                endLocation: 'Via dei Cappuccini SPA',
-                totalDuration: 'About 8 hours',
-                walkingDistance: '2.5 km',
-                activities: [
-                    { time: '09:00-11:15', activity: 'Colosseum Fast Track', emoji: '🏛️', id: 'colosseum1', selected: true, location: 'Piazza del Colosseo, 1', duration: '2h15m', price: '€35', website: 'https://coopculture.it' },
-                    { time: '11:30-12:45', activity: 'Roman Forum Walk', emoji: '🚶‍♂️', id: 'forum_walk', selected: true, location: 'Forum', duration: '1h15m' },
-                    { time: '15:00-16:30', activity: 'SPA Relax Session', emoji: '🧖‍♀️', id: 'spa1', selected: true, location: 'Via dei Cappuccini, 9', duration: '1h30m' }
-                ]
-            },
-            {
-                day: 2,
-                title: 'Day 2 - Culture & Food',
-                startLocation: 'Trastevere Market',
-                endLocation: 'Private Chef Studio',
-                totalDuration: 'About 9 hours',
-                walkingDistance: '3.2 km',
-                activities: [
-                    { time: '10:00-13:00', activity: 'Italian Cooking Class', emoji: '🍝', id: 'cooking1', selected: true, location: 'Trastevere', duration: '3h' },
-                    { time: '15:30-17:30', activity: 'Caesar Mystery Role-play', emoji: '🔍', id: 'mystery1', selected: true, location: 'Forum Area', duration: '2h' },
-                    { time: '19:30-21:00', activity: 'Private Chef Tasting Menu', emoji: '👨‍🍳', id: 'chef1', selected: true, location: 'Via del Corso', duration: '1h30m' }
-                ]
-            },
-            {
-                day: 3,
-                title: 'Day 3 - Vatican & Opera',
-                startLocation: 'Vatican Museums',
-                endLocation: 'Rome Opera House',
-                totalDuration: 'About 8 hours',
-                walkingDistance: '2.1 km',
-                activities: [
-                    { time: '09:30-12:00', activity: 'Vatican Museums Highlights', emoji: '🎨', id: 'vatican_museum', selected: true, location: 'Viale Vaticano', duration: '2h30m' },
-                    { time: '12:15-13:15', activity: 'St. Peter’s Basilica', emoji: '⛪', id: 'st_peter', selected: true, location: 'Piazza San Pietro', duration: '1h' },
-                    { time: '20:00-22:30', activity: 'Opera Night', emoji: '🎭', id: 'opera1', selected: true, location: "Teatro dell'Opera di Roma", duration: '2h30m' }
-                ]
-            }
-        ];
-
-        setSuggestedItinerary(itinerary);
+        setSuggestedItinerary(defaultItinerary);
         setAiItineraryGenerated(true);
     };
 
@@ -464,6 +422,37 @@ ${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
         if (e.key === 'Enter') sendMessage();
     };
 
+    // Handle adding activity to itinerary
+    const handleAddActivityToItinerary = (activity: any) => {
+        const newItem: ItineraryItem = {
+            id: activity.id,
+            name: activity.activity,
+            type: 'activity',
+            emoji: activity.emoji,
+            description: `${activity.activity} at ${activity.location}`,
+            location: activity.location,
+            price: parseInt(activity.price?.replace('€', '') || '0'),
+            duration: activity.duration,
+            rating: 4.5,
+            tags: ['Scheduled'],
+            x: 0,
+            y: 0,
+            color: '#fe5a5e',
+            scheduledDay: 1,
+            scheduledTime: activity.time,
+            website: activity.website
+        };
+        
+        setItineraryItems(prev => [...prev, newItem]);
+        addMessage('ai', `✅ Added "${activity.activity}" to your itinerary!`);
+    };
+
+    // Handle removing activity from itinerary
+    const handleRemoveActivityFromItinerary = (activityId: string) => {
+        setItineraryItems(prev => prev.filter(item => item.id !== activityId));
+        addMessage('ai', `🗑️ Removed activity from your itinerary.`);
+    };
+
     useEffect(() => {
         if (chatMessagesRef.current) {
             chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
@@ -480,6 +469,8 @@ ${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
                     itineraryItems={itineraryItems}
                     onRemoveItineraryItem={(index) => setItineraryItems(prev => prev.filter((_, i) => i !== index))}
                     onKeyPress={handleKeyPress}
+                    onAddActivityToItinerary={handleAddActivityToItinerary}
+                    onRemoveActivityFromItinerary={handleRemoveActivityFromItinerary}
                 />
                 <MapWIthRoute
                     currentMapView={currentMapView}
@@ -497,6 +488,7 @@ ${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
                     selectedDay={selectedDay}
                     selectedTimeSlot={selectedTimeSlot}
                     allData={allData}
+                    itineraryItems={itineraryItems}
                     onSelectCategory={selectCategory}
                     onSetDay={(d) => setSelectedDay(d)}
                     onSetTimeSlot={(s) => setSelectedTimeSlot(s)}
@@ -506,6 +498,8 @@ ${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
                     onAskUniloco={handleAskUniloco}
                     onShowDetail={handleShowDetail}
                     onPickTime={handlePickTime}
+                    onAddActivityToItinerary={handleAddActivityToItinerary}
+                    onRemoveActivityFromItinerary={handleRemoveActivityFromItinerary}
                 />
             </div>
         </div>
