@@ -13,10 +13,12 @@ interface SelectionPanelProps {
   onSelectCategory: (c: string) => void;
   onSetDay: (day: number | null) => void;
   onSetTimeSlot: (slot: string | null) => void;
-  // new props
   aiItineraryGenerated?: boolean;
   suggestedItinerary?: DayRoute[] | null;
   onConfirmSelection?: () => void;
+  onAskUniloco?: (item: ExperienceItem) => void;
+  onShowDetail?: (item: ExperienceItem) => void;
+  onPickTime?: (item: ExperienceItem) => void;
 }
 
 export default function SelectionPanel({
@@ -31,7 +33,10 @@ export default function SelectionPanel({
   onSetTimeSlot,
   aiItineraryGenerated,
   suggestedItinerary,
-  onConfirmSelection
+  onConfirmSelection,
+  onAskUniloco,
+  onShowDetail,
+  onPickTime
 }: SelectionPanelProps) {
   const currentResults: ExperienceItem[] = selectedCategory
     ? (mockSearchResults[selectedCategory] || allData[selectedCategory] || [])
@@ -66,7 +71,7 @@ export default function SelectionPanel({
         </div>
       </div>
 
-      {showTimeSelection &&  (
+      {showTimeSelection && (
         <div className="bg-gray-50 rounded-2xl p-5 mb-5 border border-gray-200">
           <div className="text-[#fe585f] font-bold mb-4">📅 Select Day & Time</div>
           <div className="grid grid-cols-2 gap-3 mb-4">
@@ -101,7 +106,6 @@ export default function SelectionPanel({
         </div>
       )}
 
-      {/* AI 3-day itinerary only when itinerary tab selected AND user confirmed (showSearchResults used as confirmation flag) */}
       {isItineraryTab && showSearchResults && aiItineraryGenerated && suggestedItinerary && (
         <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200 mb-5">
           <div className="text-[#fe585f] font-bold mb-3">🗺️ AI 3-Day Itinerary</div>
@@ -122,7 +126,6 @@ export default function SelectionPanel({
         </div>
       )}
 
-      {/* Generic results visible only for non-itinerary tabs once confirmed */}
       {!isItineraryTab && showSearchResults && (
         <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
           <div className="text-[#fe585f] font-bold mb-4">🔍 Results</div>
@@ -144,11 +147,38 @@ export default function SelectionPanel({
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-2">
-                  {item.website && (
-                    <button className="bg-gray-600 text-white px-3 py-1 rounded text-xs hover:bg-gray-700 transition-colors">Website</button>
+                <div className="flex gap-2 flex-wrap">
+                  {(item.website || item.booking) && (
+                    <button 
+                      className="bg-gray-600 text-white px-3 py-1 rounded text-xs hover:bg-gray-700 transition-colors"
+                      onClick={() => window.open(item.website || item.booking, '_blank')}
+                    >
+                      {item.website ? 'Website' : 'Booking'}
+                    </button>
                   )}
-                  <button className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white px-3 py-1 rounded text-xs font-bold hover:shadow-lg transition-all">Pick a time</button>
+                  
+                  {item.unilocoInfo && (
+                    <button 
+                      className="bg-gradient-to-r from-[#e74c3c] to-[#c0392b] text-white px-3 py-1 rounded text-xs font-bold hover:shadow-lg transition-all"
+                      onClick={() => onAskUniloco?.(item)}
+                    >
+                      Ask Uniloco
+                    </button>
+                  )}
+                  
+                  <button 
+                    className="bg-gradient-to-r from-[#f39c12] to-[#e67e22] text-white px-3 py-1 rounded text-xs font-bold hover:shadow-lg transition-all"
+                    onClick={() => onShowDetail?.(item)}
+                  >
+                    Detail
+                  </button>
+                  
+                  <button 
+                    className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white px-3 py-1 rounded text-xs font-bold hover:shadow-lg transition-all"
+                    onClick={() => onPickTime?.(item)}
+                  >
+                    Pick a time
+                  </button>
                 </div>
               </div>
             ))}
