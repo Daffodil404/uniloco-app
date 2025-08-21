@@ -174,13 +174,15 @@ function AIChatContent() {
       setIsGenerating(false);
       // 跳转到结果页面，并传递用户选择
       const params = new URLSearchParams();
-      params.set('destination', answers.destination || 'Luxembourg');
-      params.set('duration', answers.duration || '4-7 days');
-      params.set('food', answers.food || 'Local specialties');
+      params.set('destination', answers.destination || 'Rome');
+      params.set('duration', answers.duration || '1-3 days');
+      params.set('food', answers.food || 'Street food');
       params.set('companion', answers.companion || 'Solo travel');
       params.set('atmosphere', answers.atmosphere || 'Cultural');
       
-      window.location.href = `/h5/travel-plan?${params.toString()}`;
+      // window.location.href = `/h5/travel-plan?${params.toString()}`;
+      // 跳转到home 页面进行演示
+      window.location.href = `/h5/home?${params.toString()}`;
     }, 3000);
   };
 
