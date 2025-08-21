@@ -9,9 +9,17 @@ interface InteractiveMapProps {
   mapPoints: MapPoint[];
   onPointClick: (point: MapPoint) => void;
   onCheckInRequest?: (point: MapPoint) => void;
+  center?: [number, number]; // 地图中心点 [纬度, 经度]
+  zoom?: number; // 缩放级别
 }
 
-export default function InteractiveMap({ mapPoints, onPointClick, onCheckInRequest }: InteractiveMapProps) {
+export default function InteractiveMap({ 
+  mapPoints, 
+  onPointClick, 
+  onCheckInRequest,
+  center = [49.6117, 6.1319], // 默认卢森堡中心
+  zoom = 12 // 默认缩放级别
+}: InteractiveMapProps) {
   
   // 本地状态管理
   const [isCheckInModalOpen, setIsCheckInModalOpen] = useState(false);
@@ -67,8 +75,8 @@ export default function InteractiveMap({ mapPoints, onPointClick, onCheckInReque
 
           // 创建地图实例
           const mapInstance = L.map(mapRef.current, {
-            center: [49.6117, 6.1319], // 卢森堡中心
-            zoom: 12,
+            center: center, // 使用传入的中心点
+            zoom: zoom, // 使用传入的缩放级别
             zoomControl: false,
             attributionControl: false,
             dragging: true,

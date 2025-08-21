@@ -423,7 +423,7 @@ ${item.tags ? `**Tags:** ${item.tags.join(', ')}` : ''}
     };
 
     // Handle adding activity to itinerary
-    const handleAddActivityToItinerary = (activity: any) => {
+    const handleAddActivityToItinerary = (activity: DayRoute['activities'][0]) => {
         const newItem: ItineraryItem = {
             id: activity.id,
             name: activity.activity,

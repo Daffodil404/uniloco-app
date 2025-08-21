@@ -21,7 +21,7 @@ interface SelectionPanelProps {
     onAskUniloco?: (item: ExperienceItem) => void;
     onShowDetail?: (item: ExperienceItem) => void;
     onPickTime?: (item: ExperienceItem) => void;
-    onAddActivityToItinerary?: (activity: any) => void;
+    onAddActivityToItinerary?: (activity: DayRoute['activities'][0]) => void;
     onRemoveActivityFromItinerary?: (activityId: string) => void;
 }
 

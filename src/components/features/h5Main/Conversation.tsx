@@ -1,7 +1,7 @@
 "use client";
 
 import { RefObject, useState } from 'react';
-import type { ChatMessage, ItineraryItem } from './types';
+import type { ChatMessage, ItineraryItem, DayRoute } from './types';
 import { useRouter } from 'next/navigation';
 
 interface ConversationProps {
@@ -11,7 +11,7 @@ interface ConversationProps {
   itineraryItems: ItineraryItem[];
   onRemoveItineraryItem: (index: number) => void;
   onKeyPress: (e: React.KeyboardEvent) => void;
-  onAddActivityToItinerary?: (activity: any) => void;
+  onAddActivityToItinerary?: (activity: DayRoute['activities'][0]) => void;
   onRemoveActivityFromItinerary?: (activityId: string) => void;
 }
 

@@ -2,21 +2,15 @@
 
 import { useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
+import type { DayRoute } from './types';
+
+// 使用 DayRoute 中定义的活动类型
+type Activity = DayRoute['activities'][0];
 
 interface ActivityItemProps {
-  activity: {
-    time: string;
-    activity: string;
-    emoji: string;
-    id: string;
-    selected: boolean;
-    location: string;
-    duration: string;
-    price?: string;
-    website?: string;
-  };
+  activity: Activity;
   isInItinerary: boolean;
-  onAddToItinerary: (activity: any) => void;
+  onAddToItinerary: (activity: Activity) => void;
   onRemoveFromItinerary: (activityId: string) => void;
 }
 
