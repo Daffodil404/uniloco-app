@@ -413,174 +413,174 @@ export default function RomePlanner() {
     }
   }, [chatMessages]);
 
-  return (
-    <div className="h-full bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] text-white overflow-hidden">
+    return (
+    <div className="h-full bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-800 overflow-hidden">
       <div className="flex w-full h-full">
-                 {/* 左侧聊天面板 */}
-         <div className="w-full md:w-[420px] h-full bg-black/20 backdrop-blur-xl border-r border-white/10 flex flex-col">
-                     <div className="p-4 md:p-6 bg-gradient-to-r from-[#667eea] to-[#764ba2] border-b border-white/10">
-             <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4">🤖 Uniloco旅行规划师</h2>
-             <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-white/10 rounded-2xl">
-               <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#ff6b6b] to-[#feca57] rounded-full flex items-center justify-center text-xl md:text-2xl">
+        {/* 左侧聊天面板 */}
+        <div className="w-full md:w-[420px] h-full bg-white/80 backdrop-blur-xl border-r border-gray-200 flex flex-col shadow-lg">
+          <div className="p-4 md:p-6 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] border-b border-[#fe585f]/20">
+             <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-white">🤖 Uniloco旅行规划师</h2>
+             <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-white/20 rounded-2xl">
+               <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-xl md:text-2xl text-[#fe585f]">
                  🧳
                </div>
                <div className="flex-1">
-                 <div className="font-bold mb-1 text-sm md:text-base">独行旅人</div>
-                 <div className="text-xs md:text-sm opacity-90">📍 Rome | 🗓️ 1-3Day | 🍜 Street Food | 👤 Single | 🎭 Cultural</div>
+                 <div className="font-bold mb-1 text-sm md:text-base text-white">独行旅人</div>
+                 <div className="text-xs md:text-sm text-white/90">📍 Rome | 🗓️ 1-3Day | 🍜 Street Food | 👤 Single | 🎭 Cultural</div>
                </div>
              </div>
            </div>
 
-                     {/* 行程编码区域 */}
-           <div className="p-3 md:p-5 border-b border-white/10 bg-white/5">
-             <div className="text-xs md:text-sm font-bold mb-2 md:mb-3 text-[#4ecdc4]">🗓️ 我的行程安排</div>
-             <div className="bg-black/30 p-2 md:p-3 rounded-lg font-mono text-xs text-[#00ff88] border border-[#00ff88]/30 mb-2 md:mb-3">
+                                {/* 行程编码区域 */}
+           <div className="p-3 md:p-5 border-b border-gray-200 bg-gray-50">
+             <div className="text-xs md:text-sm font-bold mb-2 md:mb-3 text-[#fe585f]">🗓️ 我的行程安排</div>
+             <div className="bg-white p-2 md:p-3 rounded-lg font-mono text-xs text-[#fe585f] border border-[#fe585f]/30 mb-2 md:mb-3 shadow-sm">
                IT-ROME-2025-001
              </div>
              <div className="max-h-28 md:max-h-36 overflow-y-auto">
-              {itineraryItems.length === 0 ? (
-                <div className="text-center text-white/50 text-xs py-5">
-                  暂无安排项目<br />
-                  <small>选择服务并点击"加入行程"</small>
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  {itineraryItems.map((item, index) => (
-                    <div key={index} className="bg-[#667eea]/10 border border-[#667eea]/30 rounded-lg p-2 text-xs flex justify-between items-center">
-                      <span>{item.emoji} {item.name} - €{item.price}</span>
-                      <button 
-                        className="bg-[#ff4757]/70 border-none rounded text-white text-xs px-2 py-1"
-                        onClick={() => {
-                          setItineraryItems(prev => prev.filter((_, i) => i !== index));
-                        }}
-                      >
-                        移除
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+               {itineraryItems.length === 0 ? (
+                 <div className="text-center text-gray-500 text-xs py-5">
+                   暂无安排项目<br />
+                   <small>选择服务并点击"加入行程"</small>
+                 </div>
+               ) : (
+                 <div className="space-y-2">
+                   {itineraryItems.map((item, index) => (
+                     <div key={index} className="bg-white border border-[#fe585f]/20 rounded-lg p-2 text-xs flex justify-between items-center shadow-sm">
+                       <span className="text-gray-700">{item.emoji} {item.name} - €{item.price}</span>
+                       <button 
+                         className="bg-[#fe585f] border-none rounded text-white text-xs px-2 py-1 hover:bg-[#e54d55] transition-colors"
+                         onClick={() => {
+                           setItineraryItems(prev => prev.filter((_, i) => i !== index));
+                         }}
+                       >
+                         移除
+                       </button>
+                     </div>
+                   ))}
+                 </div>
+               )}
+             </div>
+           </div>
 
-                     {/* 聊天消息区域 */}
-           <div className="flex-1 overflow-y-auto p-3 md:p-5" ref={chatMessagesRef}>
-            {chatMessages.map((message, index) => (
-              <div
-                key={index}
-                                 className={`mb-3 md:mb-4 p-3 md:p-4 rounded-2xl max-w-[90%] ${
-                  message.type === 'ai' 
-                    ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2] mr-auto' 
-                    : message.type === 'user'
-                    ? 'bg-gradient-to-r from-[#43cea2] to-[#185a9d] ml-auto text-right'
-                    : 'bg-gradient-to-r from-[#9b59b6] to-[#8e44ad] mr-auto border-l-4 border-[#e74c3c]'
-                }`}
-              >
-                <div dangerouslySetInnerHTML={{ __html: message.content.replace(/\n/g, '<br/>') }} />
-              </div>
-            ))}
-          </div>
+                                {/* 聊天消息区域 */}
+           <div className="flex-1 overflow-y-auto p-3 md:p-5 bg-white" ref={chatMessagesRef}>
+             {chatMessages.map((message, index) => (
+               <div
+                 key={index}
+                 className={`mb-3 md:mb-4 p-3 md:p-4 rounded-2xl max-w-[90%] ${
+                   message.type === 'ai' 
+                     ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] mr-auto text-white' 
+                     : message.type === 'user'
+                     ? 'bg-gray-200 ml-auto text-right text-gray-800'
+                     : 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] mr-auto text-white border-l-4 border-white'
+                 }`}
+               >
+                 <div dangerouslySetInnerHTML={{ __html: message.content.replace(/\n/g, '<br/>') }} />
+               </div>
+             ))}
+           </div>
 
                      {/* 聊天输入区域 */}
-           <div className="p-3 md:p-5 border-t border-white/10">
+           <div className="p-3 md:p-5 border-t border-gray-200 bg-white">
              <input
                ref={chatInputRef}
                type="text"
                placeholder="告诉我你想要什么体验..."
-               className="w-full p-3 md:p-4 bg-white/10 border border-white/20 rounded-full text-white outline-none focus:border-[#667eea] focus:bg-white/15 transition-all text-sm md:text-base"
+               className="w-full p-3 md:p-4 bg-gray-50 border border-gray-300 rounded-full text-gray-800 outline-none focus:border-[#fe585f] focus:bg-white focus:ring-2 focus:ring-[#fe585f]/20 transition-all text-sm md:text-base"
                onKeyPress={handleKeyPress}
              />
            </div>
         </div>
 
-        {/* 中间地图区域 */}
-        <div className="flex-1 relative overflow-hidden">
-                     <button
+                 {/* 中间地图区域 */}
+         <div className="flex-1 relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+           <button
              onClick={toggleMap}
-             className="absolute top-3 md:top-5 left-3 md:left-5 z-50 bg-black/20 backdrop-blur-lg border border-white/20 text-white px-3 md:px-5 py-2 md:py-3 rounded-full hover:bg-gradient-to-r hover:from-[#667eea] hover:to-[#764ba2] transition-all text-xs md:text-sm"
+             className="absolute top-3 md:top-5 left-3 md:left-5 z-50 bg-white/90 backdrop-blur-lg border border-gray-200 text-gray-700 px-3 md:px-5 py-2 md:py-3 rounded-full hover:bg-[#fe585f] hover:text-white transition-all text-xs md:text-sm shadow-lg"
            >
              {currentMapView === '3D' ? '🌍 2D' : '🌍 3D'}
            </button>
 
-                     {/* 地图信息面板 */}
-           <div className="absolute top-16 md:top-20 left-3 md:left-5 bg-black/20 backdrop-blur-lg border border-white/20 p-3 md:p-4 rounded-xl z-40 min-w-[160px] md:min-w-[200px]">
-             <h4 className="text-[#4ecdc4] mb-2 text-xs md:text-sm font-bold">📍 罗马历史中心区</h4>
-             <p className="text-xs mb-1 opacity-80">🗺️ 总面积: 约3.2公里²</p>
-             <p className="text-xs mb-1 opacity-80">⏱️ 步行穿越: 45-60分钟</p>
-             <p className="text-xs mb-1 opacity-80">🚇 地铁覆盖: A线、B线</p>
-             <p className="text-xs opacity-80">📌 已标记: {Object.values(allData).flat().length} 个推荐地点</p>
+           {/* 地图信息面板 */}
+           <div className="absolute top-16 md:top-20 left-3 md:left-5 bg-white/95 backdrop-blur-lg border border-gray-200 p-3 md:p-4 rounded-xl z-40 min-w-[160px] md:min-w-[200px] shadow-lg">
+             <h4 className="text-[#fe585f] mb-2 text-xs md:text-sm font-bold">📍 罗马历史中心区</h4>
+             <p className="text-xs mb-1 text-gray-600">🗺️ 总面积: 约3.2公里²</p>
+             <p className="text-xs mb-1 text-gray-600">⏱️ 步行穿越: 45-60分钟</p>
+             <p className="text-xs mb-1 text-gray-600">🚇 地铁覆盖: A线、B线</p>
+             <p className="text-xs text-gray-600">📌 已标记: {Object.values(allData).flat().length} 个推荐地点</p>
            </div>
 
-          {/* 3D地图 */}
-          <div 
-            className={`absolute inset-0 transition-opacity duration-800 ${
-              currentMapView === '3D' ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{
-              background: 'radial-gradient(circle at center, #2c3e50 0%, #1a252f 100%)'
-            }}
-          >
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center text-white/60">
-                🌍 3D罗马城市视图<br />
-                <small>浮动的光点代表各种体验服务</small>
-              </div>
-            </div>
-          </div>
+                     {/* 3D地图 */}
+           <div 
+             className={`absolute inset-0 transition-opacity duration-800 ${
+               currentMapView === '3D' ? 'opacity-100' : 'opacity-0'
+             }`}
+             style={{
+               background: 'radial-gradient(circle at center, #f8f9fa 0%, #e9ecef 100%)'
+             }}
+           >
+             <div className="flex items-center justify-center h-full">
+               <div className="text-center text-gray-600">
+                 🌍 3D罗马城市视图<br />
+                 <small>浮动的光点代表各种体验服务</small>
+               </div>
+             </div>
+           </div>
 
-          {/* 2D地图 */}
-          <div 
-            className={`absolute inset-0 transition-opacity duration-800 ${
-              currentMapView === '2D' ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{
-              background: 'linear-gradient(135deg, #2d5a3d 0%, #1a3d2e 50%, #0f2419 100%)'
-            }}
-          >
-            {/* 用户位置标记 */}
-            <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-[#ff4757] border-3 border-white rounded-full transform -translate-x-1/2 -translate-y-1/2 z-40 animate-pulse" />
-            
-            {/* 活动标记 */}
-            {Object.entries(allData).map(([category, items]) =>
-              items.map((item) => (
-                <div
-                  key={item.id}
-                  className="absolute w-6 h-6 rounded-full border-2 border-white flex items-center justify-center text-xs cursor-pointer transition-all hover:scale-125 z-30"
-                  style={{
-                    backgroundColor: item.color,
-                    left: `${item.x}%`,
-                    top: `${item.y}%`,
-                    opacity: selectedCategory === category || !selectedCategory ? 0.7 : 0.3
-                  }}
-                  title={item.name}
-                >
-                  {item.emoji}
-                </div>
-              ))
-            )}
+           {/* 2D地图 */}
+           <div 
+             className={`absolute inset-0 transition-opacity duration-800 ${
+               currentMapView === '2D' ? 'opacity-100' : 'opacity-0'
+             }`}
+             style={{
+               background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%)'
+             }}
+           >
+                         {/* 用户位置标记 */}
+             <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-[#fe585f] border-3 border-white rounded-full transform -translate-x-1/2 -translate-y-1/2 z-40 animate-pulse shadow-lg" />
+             
+             {/* 活动标记 */}
+             {Object.entries(allData).map(([category, items]) =>
+               items.map((item) => (
+                 <div
+                   key={item.id}
+                   className="absolute w-6 h-6 rounded-full border-2 border-white flex items-center justify-center text-xs cursor-pointer transition-all hover:scale-125 z-30 shadow-lg"
+                   style={{
+                     backgroundColor: item.color,
+                     left: `${item.x}%`,
+                     top: `${item.y}%`,
+                     opacity: selectedCategory === category || !selectedCategory ? 0.8 : 0.4
+                   }}
+                   title={item.name}
+                 >
+                   {item.emoji}
+                 </div>
+               ))
+             )}
 
                          {/* 天数控制面板 */}
              {showMapDayControls && (
-               <div className="absolute top-16 md:top-20 right-3 md:right-5 bg-black/20 backdrop-blur-lg border border-white/20 p-3 md:p-4 rounded-xl z-40">
+               <div className="absolute top-16 md:top-20 right-3 md:right-5 bg-white/95 backdrop-blur-lg border border-gray-200 p-3 md:p-4 rounded-xl z-40 shadow-lg">
                  <button
-                   className={`block w-full bg-white/10 border border-white/20 text-white p-1.5 md:p-2 mb-1.5 md:mb-2 rounded-lg text-xs transition-all ${
-                     currentDayView === 1 ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2]' : 'hover:bg-white/20'
+                   className={`block w-full border border-gray-200 text-gray-700 p-1.5 md:p-2 mb-1.5 md:mb-2 rounded-lg text-xs transition-all ${
+                     currentDayView === 1 ? 'bg-[#fe585f] text-white border-[#fe585f]' : 'bg-white hover:bg-gray-50'
                    }`}
                    onClick={() => showDayRoute(1)}
                  >
                    第1天
                  </button>
                  <button
-                   className={`block w-full bg-white/10 border border-white/20 text-white p-1.5 md:p-2 mb-1.5 md:mb-2 rounded-lg text-xs transition-all ${
-                     currentDayView === 2 ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2]' : 'hover:bg-white/20'
+                   className={`block w-full border border-gray-200 text-gray-700 p-1.5 md:p-2 mb-1.5 md:mb-2 rounded-lg text-xs transition-all ${
+                     currentDayView === 2 ? 'bg-[#fe585f] text-white border-[#fe585f]' : 'bg-white hover:bg-gray-50'
                    }`}
                    onClick={() => showDayRoute(2)}
                  >
                    第2天
                  </button>
                  <button
-                   className={`block w-full bg-white/10 border border-white/20 text-white p-1.5 md:p-2 rounded-lg text-xs transition-all ${
-                     currentDayView === 3 ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2]' : 'hover:bg-white/20'
+                   className={`block w-full border border-gray-200 text-gray-700 p-1.5 md:p-2 rounded-lg text-xs transition-all ${
+                     currentDayView === 3 ? 'bg-[#fe585f] text-white border-[#fe585f]' : 'bg-white hover:bg-gray-50'
                    }`}
                    onClick={() => showDayRoute(3)}
                  >
@@ -591,105 +591,105 @@ export default function RomePlanner() {
           </div>
         </div>
 
-                 {/* 右侧控制面板 */}
-         <div className="hidden md:block w-[380px] h-full bg-black/20 backdrop-blur-xl border-l border-white/10 p-6 overflow-y-auto">
-          {/* 体验类型选择 */}
-          <div className="bg-white/5 rounded-2xl p-5 mb-5 border border-white/10">
-            <div className="text-[#4ecdc4] font-bold mb-4">🎯 体验类型选择</div>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { category: 'activity', emoji: '🎪', title: '活动体验', desc: '运动、户外、文化' },
-                { category: 'script', emoji: '🎭', title: '剧本体验', desc: '密室、角色扮演' },
-                { category: 'service', emoji: '💼', title: '服务体验', desc: 'SPA、私厨、摄影' },
-                { category: 'itinerary', emoji: '🗺️', title: 'AI行程', desc: '完整规划方案' }
-              ].map((item) => (
-                <button
-                  key={item.category}
-                  className={`p-4 rounded-xl text-center transition-all ${
-                    selectedCategory === item.category
-                      ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2] border-[#667eea]'
-                      : 'bg-gradient-to-r from-white/10 to-white/5 border border-white/20 hover:bg-gradient-to-r hover:from-[#667eea] hover:to-[#764ba2] hover:-translate-y-0.5'
-                  } border text-white text-sm font-medium`}
-                  onClick={() => selectCategory(item.category)}
-                >
-                  {item.emoji} {item.title}<br />
-                  <small className="text-xs opacity-80">{item.desc}</small>
-                </button>
-              ))}
-            </div>
-          </div>
+                          {/* 右侧控制面板 */}
+         <div className="hidden md:block w-[380px] h-full bg-white/80 backdrop-blur-xl border-l border-gray-200 p-6 overflow-y-auto shadow-lg">
+           {/* 体验类型选择 */}
+           <div className="bg-gray-50 rounded-2xl p-5 mb-5 border border-gray-200">
+             <div className="text-[#fe585f] font-bold mb-4">🎯 体验类型选择</div>
+             <div className="grid grid-cols-2 gap-3">
+               {[
+                 { category: 'activity', emoji: '🎪', title: '活动体验', desc: '运动、户外、文化' },
+                 { category: 'script', emoji: '🎭', title: '剧本体验', desc: '密室、角色扮演' },
+                 { category: 'service', emoji: '💼', title: '服务体验', desc: 'SPA、私厨、摄影' },
+                 { category: 'itinerary', emoji: '🗺️', title: 'AI行程', desc: '完整规划方案' }
+               ].map((item) => (
+                 <button
+                   key={item.category}
+                   className={`p-4 rounded-xl text-center transition-all ${
+                     selectedCategory === item.category
+                       ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] border-[#fe585f] text-white'
+                       : 'bg-white border border-gray-200 hover:bg-[#fe585f] hover:text-white hover:-translate-y-0.5'
+                   } border text-gray-700 text-sm font-medium shadow-sm`}
+                   onClick={() => selectCategory(item.category)}
+                 >
+                   {item.emoji} {item.title}<br />
+                   <small className="text-xs opacity-80">{item.desc}</small>
+                 </button>
+               ))}
+             </div>
+           </div>
 
-          {/* 时间选择 */}
-          {showTimeSelection && (
-            <div className="bg-white/5 rounded-2xl p-5 mb-5 border border-white/10">
-              <div className="text-[#4ecdc4] font-bold mb-4">📅 选择体验天数</div>
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                <select 
-                  className="bg-white/10 border border-white/20 text-white p-3 rounded-xl text-sm outline-none focus:border-[#667eea]"
-                  value={selectedDay || ''}
-                  onChange={(e) => setSelectedDay(Number(e.target.value))}
-                >
-                  <option value="">请选择天数</option>
-                  <option value="1">第1天</option>
-                  <option value="2">第2天</option>
-                  <option value="3">第3天</option>
-                </select>
-                <select 
-                  className="bg-white/10 border border-white/20 text-white p-3 rounded-xl text-sm outline-none focus:border-[#667eea]"
-                  value={selectedTimeSlot || ''}
-                  onChange={(e) => setSelectedTimeSlot(e.target.value)}
-                >
-                  <option value="">请选择时间段</option>
-                  <option value="morning">🌅 上午 (9:00-12:00)</option>
-                  <option value="afternoon">☀️ 下午 (14:00-17:00)</option>
-                  <option value="evening">🌆 傍晚 (18:00-21:00)</option>
-                </select>
-              </div>
-              {selectedDay && selectedTimeSlot && (
-                <button className="w-full bg-gradient-to-r from-[#00ff88] to-[#00cc6a] text-black p-4 rounded-xl font-bold transition-all hover:-translate-y-0.5">
-                  确认天数安排
-                </button>
-              )}
-            </div>
-          )}
+                     {/* 时间选择 */}
+           {showTimeSelection && (
+             <div className="bg-gray-50 rounded-2xl p-5 mb-5 border border-gray-200">
+               <div className="text-[#fe585f] font-bold mb-4">📅 选择体验天数</div>
+               <div className="grid grid-cols-2 gap-3 mb-4">
+                 <select 
+                   className="bg-white border border-gray-300 text-gray-700 p-3 rounded-xl text-sm outline-none focus:border-[#fe585f] focus:ring-2 focus:ring-[#fe585f]/20"
+                   value={selectedDay || ''}
+                   onChange={(e) => setSelectedDay(Number(e.target.value))}
+                 >
+                   <option value="">请选择天数</option>
+                   <option value="1">第1天</option>
+                   <option value="2">第2天</option>
+                   <option value="3">第3天</option>
+                 </select>
+                 <select 
+                   className="bg-white border border-gray-300 text-gray-700 p-3 rounded-xl text-sm outline-none focus:border-[#fe585f] focus:ring-2 focus:ring-[#fe585f]/20"
+                   value={selectedTimeSlot || ''}
+                   onChange={(e) => setSelectedTimeSlot(e.target.value)}
+                 >
+                   <option value="">请选择时间段</option>
+                   <option value="morning">🌅 上午 (9:00-12:00)</option>
+                   <option value="afternoon">☀️ 下午 (14:00-17:00)</option>
+                   <option value="evening">🌆 傍晚 (18:00-21:00)</option>
+                 </select>
+               </div>
+               {selectedDay && selectedTimeSlot && (
+                 <button className="w-full bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white p-4 rounded-xl font-bold transition-all hover:-translate-y-0.5 shadow-lg">
+                   确认天数安排
+                 </button>
+               )}
+             </div>
+           )}
 
-          {/* 搜索结果 */}
-          {showSearchResults && (
-            <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
-              <div className="text-[#4ecdc4] font-bold mb-4">🔍 搜索结果</div>
-              <div className="space-y-3">
-                {selectedCategory && allData[selectedCategory]?.map((item) => (
-                  <div key={item.id} className="bg-white/5 rounded-xl p-4 border border-white/10 transition-all hover:bg-white/10 hover:-translate-y-0.5">
-                    <div className="flex items-center mb-2">
-                      <span className="text-lg mr-3">{item.emoji}</span>
-                      <span className="font-bold text-sm flex-1">{item.name}</span>
-                    </div>
-                    <div className="text-xs opacity-80 mb-3">
-                      {item.description}<br />
-                      📍 {item.location} | 💰 €{item.price} | ⏰ {item.duration} | ⭐ {item.rating}
-                    </div>
-                    <div className="flex gap-2 mb-3">
-                      {item.tags?.map((tag, index) => (
-                        <span key={index} className="bg-[#667eea]/20 text-[#667eea] px-2 py-1 rounded-full text-xs border border-[#667eea]/30">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex gap-2">
-                      {item.website && (
-                        <button className="bg-gradient-to-r from-[#9b59b6] to-[#8e44ad] text-white px-3 py-1 rounded text-xs">
-                          官网
-                        </button>
-                      )}
-                      <button className="bg-gradient-to-r from-[#00ff88] to-[#00cc6a] text-black px-3 py-1 rounded text-xs font-bold">
-                        选择时间
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+                     {/* 搜索结果 */}
+           {showSearchResults && (
+             <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
+               <div className="text-[#fe585f] font-bold mb-4">🔍 搜索结果</div>
+               <div className="space-y-3">
+                 {selectedCategory && allData[selectedCategory]?.map((item) => (
+                   <div key={item.id} className="bg-white rounded-xl p-4 border border-gray-200 transition-all hover:bg-gray-50 hover:-translate-y-0.5 shadow-sm">
+                     <div className="flex items-center mb-2">
+                       <span className="text-lg mr-3">{item.emoji}</span>
+                       <span className="font-bold text-sm flex-1 text-gray-800">{item.name}</span>
+                     </div>
+                     <div className="text-xs text-gray-600 mb-3">
+                       {item.description}<br />
+                       📍 {item.location} | 💰 €{item.price} | ⏰ {item.duration} | ⭐ {item.rating}
+                     </div>
+                     <div className="flex gap-2 mb-3">
+                       {item.tags?.map((tag, index) => (
+                         <span key={index} className="bg-[#fe585f]/10 text-[#fe585f] px-2 py-1 rounded-full text-xs border border-[#fe585f]/30">
+                           {tag}
+                         </span>
+                       ))}
+                     </div>
+                     <div className="flex gap-2">
+                       {item.website && (
+                         <button className="bg-gray-600 text-white px-3 py-1 rounded text-xs hover:bg-gray-700 transition-colors">
+                           官网
+                         </button>
+                       )}
+                       <button className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white px-3 py-1 rounded text-xs font-bold hover:shadow-lg transition-all">
+                         选择时间
+                       </button>
+                     </div>
+                   </div>
+                 ))}
+               </div>
+             </div>
+           )}
         </div>
       </div>
     </div>
