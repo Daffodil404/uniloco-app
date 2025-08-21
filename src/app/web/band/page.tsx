@@ -171,22 +171,124 @@ export default function TravelBandNFTsPage() {
       </section>
 
       {/* Travel Band Mechanism Section */}
-      <section id="mechanism" className="py-20 bg-white">
+      <section id="mechanism" className="py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-3xl mx-auto text-center mb-8 reveal">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e]">Travel Band Mechanism</h2>
-          </div>
-          <div className="max-w-3xl mx-auto bg-white border border-gray-200 rounded-2xl p-8 shadow-sm reveal">
-            <ul className="space-y-3 text-gray-700 text-lg">
-              <li>Get Basic Band for free</li>
-              <li>Purchase other Bands through timed sales</li>
-            </ul>
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Ways to obtain Premium Bands</h3>
-              <ul className="space-y-3 text-gray-700">
-                <li>Stake UNC → Guaranteed to get corresponding Band</li>
-                <li>Hold more UNC → Chance to obtain (not guaranteed)</li>
-              </ul>
+          <div className="max-w-4xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-12 reveal">
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] bg-clip-text text-transparent mb-4">
+                Travel Band Mechanism
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Discover how to unlock and obtain different Travel Bands to enhance your journey
+              </p>
+            </div>
+
+            {/* Main Content Grid */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              {/* Basic Band Card */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 reveal">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mr-4">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800">Basic Band</h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-center text-gray-700">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span className="text-lg">Free for all users</span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span className="text-lg">Essential travel features</span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span className="text-lg">Basic community access</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Premium Bands Card */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 reveal">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full flex items-center justify-center mr-4">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800">Premium Bands</h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-center text-gray-700">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <span className="text-lg">Timed sales events</span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <span className="text-lg">Exclusive features</span>
+                  </div>
+                  <div className="flex items-center text-gray-700">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <span className="text-lg">Enhanced benefits</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Premium Band Acquisition Methods */}
+            <div className="bg-gradient-to-r from-[#fe5a5e]/5 to-[#ff7a80]/5 rounded-2xl p-8 border border-[#fe5a5e]/20 reveal">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">How to Obtain Premium Bands</h3>
+              
+              <div className="space-y-6">
+                {/* Staking Method */}
+                <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+                  <div className="flex items-center mb-4">
+                    <div className="w-10 h-10 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center mr-3">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-xl font-semibold text-gray-800">Stake UNC</h4>
+                  </div>
+                  <p className="text-gray-600 mb-3">Stake your UNC tokens to earn guaranteed access to corresponding Travel Bands.</p>
+                  <div className="flex items-center text-[#fe5a5e] font-medium">
+                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Guaranteed Band Access
+                  </div>
+                </div>
+
+                {/* Holding Method */}
+                <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+                  <div className="flex items-center mb-4">
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full flex items-center justify-center mr-3">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                      </svg>
+                    </div>
+                    <h4 className="text-xl font-semibold text-gray-800">Hold More UNC</h4>
+                  </div>
+                  <p className="text-gray-600 mb-3">Increase your UNC holdings to improve your chances of obtaining premium bands.</p>
+                  <div className="flex items-center text-blue-500 font-medium">
+                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Chance-based Access
+                  </div>
+                </div>
+              </div>
+
+              {/* Call to Action */}
+              <div className="text-center mt-8">
+                <button className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                  Start Your Journey
+                </button>
+              </div>
             </div>
           </div>
         </div>
