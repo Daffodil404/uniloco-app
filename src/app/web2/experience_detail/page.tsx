@@ -22,7 +22,7 @@ export default function ExperienceDetailPage() {
         id: "strasbourg-local-experience",
         title: "Experience Strasbourg Like a Local",
         subtitle: "Cycle through Strasbourg's old town, taste local cuisine, and explore hidden spots that tourists don't know about. Follow a local guide to deeply understand the true face of this European capital.",
-        image: "/static/web2/strasbourg.webp",
+        image: "/static/online_resource/strasbourg.png",
         price: 227,
         rating: 4.97,
         reviewCount: 134,

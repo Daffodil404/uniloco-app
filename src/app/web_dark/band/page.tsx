@@ -170,6 +170,28 @@ export default function TravelBandNFTsPage() {
         </div>
       </section>
 
+      {/* Travel Band Mechanism Section */}
+      <section id="mechanism" className="py-20 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-3xl mx-auto text-center mb-8 reveal">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f]">Travel Band Mechanism</h2>
+          </div>
+          <div className="max-w-3xl mx-auto bg-white border border-gray-200 rounded-2xl p-8 shadow-sm reveal">
+            <ul className="space-y-3 text-gray-700 text-lg">
+              <li>Get Basic Band for free</li>
+              <li>Purchase other Bands through timed sales</li>
+            </ul>
+            <div className="mt-6">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Ways to obtain Premium Bands</h3>
+              <ul className="space-y-3 text-gray-700">
+                <li>Stake UNC → Guaranteed to get corresponding Band</li>
+                <li>Hold more UNC → Chance to obtain (not guaranteed)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Travel Bands Section */}
       <section id="bands" className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 md:px-6">

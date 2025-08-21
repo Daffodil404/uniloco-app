@@ -1,11 +1,58 @@
+// 原有的home 页面，为了展示暂时修改路由
 'use client';
 import { useRouter } from 'next/navigation';
-import RomePlanner from '@/components/features/h5Main';
+import InteractiveMap from '@/components/features/InteractiveMap';
+import type { MapPoint } from '@/types/travel';
 import { useAuth } from '@/hooks/useAuth';
+
+// Mock数据
+const mockMapPoints: MapPoint[] = [
+  {
+    id: '1',
+    name: 'Notre-Dame Cathedral',
+    lat: 49.6106,
+    lng: 6.1319,
+    type: 'attraction',
+    rating: 4.6,
+    openingHours: '8:00-18:00'
+  },
+  {
+    id: '2',
+    name: 'Palais Grand-Ducal',
+    lat: 49.6119,
+    lng: 6.1319,
+    type: 'attraction',
+    rating: 4.7,
+    openingHours: '10:00-17:00'
+  },
+  {
+    id: '3',
+    name: 'Casemates du Bock',
+    lat: 49.6125,
+    lng: 6.1358,
+    type: 'attraction',
+    rating: 4.5,
+    openingHours: '10:00-17:30'
+  },
+  {
+    id: '4',
+    name: 'Place d\'Armes',
+    lat: 49.6111,
+    lng: 6.1306,
+    type: 'attraction',
+    rating: 4.4,
+    openingHours: '24/7'
+  }
+];
 
 export default function HomePage() {
   const router = useRouter();
   const { isLoggedIn, userData, requireLogin } = useAuth();
+
+  const handlePointClick = (point: MapPoint) => {
+    console.log('Point clicked:', point.name);
+    // 这里可以添加点击处理逻辑
+  };
 
   const handleNavigateToProfile = () => {
     if (!requireLogin()) {
@@ -30,9 +77,12 @@ export default function HomePage() {
 
   return (
     <div className="mobile-screen bg-gradient-to-b from-white to-slate-50 flex flex-col">
-      {/* 罗马旅行规划器区域 */}
-      <div className="flex-1" style={{ minHeight: 0 }}>
-        <RomePlanner />
+      {/* 地图区域 - 占据更多空间但有限制 */}
+      <div className="flex-1 p-3 flex" style={{ minHeight: 0 }}>
+        <InteractiveMap
+          mapPoints={mockMapPoints}
+          onPointClick={handlePointClick}
+        />
       </div>
 
       {/* 底部导航卡片 - 确保不被压住 */}
