@@ -16,10 +16,10 @@ interface DownloadSectionProps {
 export default function DownloadSection({
   title = 'DOWNLOAD NOW',
   subtitle = 'Start your travel-to-earn adventure today',
-  gradientFrom = '#fe585f',
+  gradientFrom = '#fe5a5e',
   gradientTo = '#d94a51',
   className = '',
-  textColor = '#fe585f',
+  textColor = '#fe5a5e',
   buttonOnly = false
 }: DownloadSectionProps) {
   const accentColor = gradientFrom;

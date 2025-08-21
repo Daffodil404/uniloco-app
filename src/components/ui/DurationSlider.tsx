@@ -55,7 +55,7 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
             className={`
               relative p-4 rounded-2xl text-left transition-all duration-200
               ${range.min === currentRange.min && range.max === currentRange.max
-                ? 'bg-gradient-to-r from-[#fe585f]/10 to-[#ff7a80]/10 border-2 border-[#fe585f] text-slate-800 shadow-lg'
+                ? 'bg-gradient-to-r from-[#fe5a5e]/10 to-[#ff7a80]/10 border-2 border-[#fe5a5e] text-slate-800 shadow-lg'
                 : 'bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100'
               }
             `}
@@ -71,7 +71,7 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
                 </div>
               </div>
               {range.min === currentRange.min && range.max === currentRange.max && (
-                <div className="w-5 h-5 bg-[#fe585f] rounded-full flex items-center justify-center shadow-lg">
+                <div className="w-5 h-5 bg-[#fe5a5e] rounded-full flex items-center justify-center shadow-lg">
                   <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
                 </div>
               )}
@@ -82,8 +82,8 @@ export default function DurationSlider({ onSelect, selectedRange }: DurationSlid
 
       {/* 当前选择显示 */}
       <div className="text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#fe585f]/10 to-[#ff7a80]/10 rounded-xl border border-[#fe585f]/30">
-          <svg className="w-4 h-4 text-[#fe585f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#fe5a5e]/10 to-[#ff7a80]/10 rounded-xl border border-[#fe5a5e]/30">
+          <svg className="w-4 h-4 text-[#fe5a5e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <span className="text-slate-800 font-medium">{currentRange.label}</span>

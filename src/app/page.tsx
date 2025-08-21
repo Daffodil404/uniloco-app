@@ -73,7 +73,7 @@ export default function SplashPage() {
 
           {/* 主标题 "Uniloco" */}
           <div className={`mb-8 transition-all duration-1000 delay-200 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="text-[3rem] leading-tight font-[900] text-[#fe585f] tracking-wide drop-shadow-lg">
+            <div className="text-[3rem] leading-tight font-[900] text-[#fe5a5e] tracking-wide drop-shadow-lg">
               Uniloco+
             </div>
           </div>

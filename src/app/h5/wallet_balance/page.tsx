@@ -10,7 +10,7 @@ export default function WalletPage() {
   return (
     <main className="min-h-screen bg-white text-gray-900 flex flex-col">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] px-4 py-6">
+      <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] px-4 py-6">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => window.history.back()}
@@ -32,7 +32,7 @@ export default function WalletPage() {
         <div className="mb-4">
           <label className="block text-sm text-gray-500 mb-1">From</label>
           <div className="flex items-center border border-gray-300 rounded-lg p-3">
-            <select className="bg-transparent focus:outline-none text-[#fe585f] font-bold">
+            <select className="bg-transparent focus:outline-none text-[#fe5a5e] font-bold">
               <option>UNC</option>
               <option>USDC</option>
               <option>ANT</option>
@@ -59,7 +59,7 @@ export default function WalletPage() {
         <div className="mb-4">
           <label className="block text-sm text-gray-500 mb-1">To</label>
           <div className="flex items-center border border-gray-300 rounded-lg p-3">
-            <select className="bg-transparent focus:outline-none text-[#fe585f] font-bold">
+            <select className="bg-transparent focus:outline-none text-[#fe5a5e] font-bold">
               <option>USDC</option>
               <option>UNC</option>
               <option>ANT</option>
@@ -76,7 +76,7 @@ export default function WalletPage() {
         </div>
 
         {/* Button */}
-        <button className="w-full bg-[#fe585f] text-white py-3 rounded-lg font-bold hover:opacity-90">
+        <button className="w-full bg-[#fe5a5e] text-white py-3 rounded-lg font-bold hover:opacity-90">
           Enter Amount
         </button>
       </div>
@@ -84,21 +84,21 @@ export default function WalletPage() {
       {/* Token Prices */}
       <div className="w-full max-w-lg grid grid-cols-3 gap-3 mb-8">
         <div className="p-4 border border-gray-200 rounded-xl text-center">
-          <p className="font-bold text-[#fe585f]">UNC</p>
+          <p className="font-bold text-[#fe5a5e]">UNC</p>
           <p className="text-lg font-bold">$8.92</p>
           <p className="text-green-500 flex items-center justify-center text-sm">
             <TrendingUp className="w-4 h-4 mr-1" /> 12.5%
           </p>
         </div>
         <div className="p-4 border border-gray-200 rounded-xl text-center">
-          <p className="font-bold text-[#fe585f]">ANT</p>
+          <p className="font-bold text-[#fe5a5e]">ANT</p>
           <p className="text-lg font-bold">$4.67</p>
           <p className="text-red-500 flex items-center justify-center text-sm">
             <TrendingDown className="w-4 h-4 mr-1" /> 3.2%
           </p>
         </div>
         <div className="p-4 border border-gray-200 rounded-xl text-center">
-          <p className="font-bold text-[#fe585f]">USDC</p>
+          <p className="font-bold text-[#fe5a5e]">USDC</p>
           <p className="text-lg font-bold">$1</p>
           <p className="text-green-500 flex items-center justify-center text-sm">
             <TrendingUp className="w-4 h-4 mr-1" /> 0.01%
@@ -108,7 +108,7 @@ export default function WalletPage() {
 
       {/* Recent Transactions */}
       <div className="w-full max-w-lg bg-white border border-gray-200 rounded-2xl shadow-lg p-6">
-        <h2 className="text-lg font-bold mb-4 text-[#fe585f]">Recent Exchanges</h2>
+        <h2 className="text-lg font-bold mb-4 text-[#fe5a5e]">Recent Exchanges</h2>
         <div className="space-y-4 text-sm">
           <div className="flex justify-between items-center">
             <span>250 UNC → 478.5 ANT</span>

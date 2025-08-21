@@ -190,7 +190,7 @@ function TravelPlanContent() {
     return (
       <div className="mobile-screen bg-gradient-to-b from-white to-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-slate-200 border-t-[#fe585f] rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-slate-200 border-t-[#fe5a5e] rounded-full animate-spin mx-auto mb-4"></div>
           <h3 className="text-xl font-semibold text-slate-800 mb-2">Loading...</h3>
           <p className="text-slate-600">Checking login status</p>
         </div>
@@ -211,7 +211,7 @@ function TravelPlanContent() {
           <p className="text-slate-600 mb-4">This feature requires login to access</p>
           <button
             onClick={() => router.push('/h5/login?redirect=/travel-plan')}
-            className="px-6 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl font-medium"
+            className="px-6 py-2 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white rounded-xl font-medium"
           >
             Sign In
           </button>
@@ -337,7 +337,7 @@ function TravelPlanContent() {
       {/* AI助手按钮 */}
       <button
         onClick={() => setIsAIChatOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 z-50"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 z-50"
       >
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -387,13 +387,13 @@ function TravelPlanContent() {
                 <label className="block text-slate-700 text-sm mb-2">Ask me anything</label>
                 <textarea
                   placeholder="e.g., Can you suggest more restaurants? What's the best time to visit temples?"
-                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#fe585f] focus:ring-2 focus:ring-[#fe585f]/20"
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#fe5a5e] focus:ring-2 focus:ring-[#fe5a5e]/20"
                   rows={3}
                 />
               </div>
               
               <div className="flex gap-3">
-                <button className="flex-1 px-4 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-sm font-medium">
+                <button className="flex-1 px-4 py-2 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white rounded-xl text-sm font-medium">
                   Send
                 </button>
                 <button 
@@ -416,7 +416,7 @@ export default function TravelPlanPage() {
     <Suspense fallback={
       <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-slate-200 border-t-[#fe585f] rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-slate-200 border-t-[#fe5a5e] rounded-full animate-spin mx-auto mb-4"></div>
           <h3 className="text-xl font-semibold text-slate-800 mb-2">Loading...</h3>
           <p className="text-slate-600">Preparing your travel plan</p>
         </div>

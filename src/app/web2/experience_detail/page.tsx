@@ -160,7 +160,7 @@ export default function ExperienceDetailPage() {
 
                             {/* Content */}
                             <div className="p-8">
-                                <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white px-3 py-1 rounded-full text-xs font-medium inline-block mb-4">
+                                <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white px-3 py-1 rounded-full text-xs font-medium inline-block mb-4">
                                     🌟 Uniloco Curated Experience
                                 </div>
                                 
@@ -227,7 +227,7 @@ export default function ExperienceDetailPage() {
                                         value={selectedDate}
                                         onChange={(e) => setSelectedDate(e.target.value)}
                                         min="2024-08-16"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fe585f] focus:border-transparent text-gray-900"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fe5a5e] focus:border-transparent text-gray-900"
                                     />
                                 </div>
 
@@ -270,7 +270,7 @@ export default function ExperienceDetailPage() {
 
                             <Button 
                                 onClick={handleBooking}
-                                className="w-full bg-[#fe585f] hover:bg-[#e04a50] text-white py-4 text-lg font-semibold mb-4 rounded-xl"
+                                className="w-full bg-[#fe5a5e] hover:bg-[#e04a50] text-white py-4 text-lg font-semibold mb-4 rounded-xl"
                             >
                                 Book Now
                             </Button>
@@ -334,12 +334,12 @@ export default function ExperienceDetailPage() {
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">🗓️ What you&apos;ll do</h3>
                     <div className="space-y-6">
                         {itinerary.map((step, index) => (
-                            <div key={index} className="flex gap-4 p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe585f] hover:bg-gray-100 transition-colors">
-                                <div className="w-10 h-10 bg-[#fe585f] text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">
+                            <div key={index} className="flex gap-4 p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe5a5e] hover:bg-gray-100 transition-colors">
+                                <div className="w-10 h-10 bg-[#fe5a5e] text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">
                                     {index + 1}
                                 </div>
                                 <div>
-                                    <div className="text-[#fe585f] font-medium text-sm mb-2">{step.time}</div>
+                                    <div className="text-[#fe5a5e] font-medium text-sm mb-2">{step.time}</div>
                                     <h4 className="font-semibold text-lg mb-2 text-gray-900">{step.title}</h4>
                                     <p className="text-gray-600 leading-relaxed">{step.description}</p>
                                 </div>
@@ -387,25 +387,25 @@ export default function ExperienceDetailPage() {
                 <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">📋 Important information</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="p-6 border-l-4 border-[#fe585f] bg-gray-50 rounded-r-xl hover:bg-gray-100 transition-colors">
+                        <div className="p-6 border-l-4 border-[#fe5a5e] bg-gray-50 rounded-r-xl hover:bg-gray-100 transition-colors">
                             <h4 className="font-semibold text-lg mb-3 flex items-center">
                                 ⏰ Booking Time
                             </h4>
                             <p className="text-gray-600">Book 24 hours in advance, 3 days for holidays. Instant confirmation available, detailed meeting information will be sent after booking.</p>
                         </div>
-                        <div className="p-6 border-l-4 border-[#fe585f] bg-gray-50 rounded-r-xl hover:bg-gray-100 transition-colors">
+                        <div className="p-6 border-l-4 border-[#fe5a5e] bg-gray-50 rounded-r-xl hover:bg-gray-100 transition-colors">
                             <h4 className="font-semibold text-lg mb-3 flex items-center">
                                 🌦️ Weather Policy
                             </h4>
                             <p className="text-gray-600">In case of severe weather, we will notify you in advance to reschedule or provide indoor alternatives. Safety first is our principle.</p>
                         </div>
-                        <div className="p-6 border-l-4 border-[#fe585f] bg-gray-50 rounded-r-xl hover:bg-gray-100 transition-colors">
+                        <div className="p-6 border-l-4 border-[#fe5a5e] bg-gray-50 rounded-r-xl hover:bg-gray-100 transition-colors">
                             <h4 className="font-semibold text-lg mb-3 flex items-center">
                                 💳 Cancellation Policy
                             </h4>
                             <p className="text-gray-600">Free cancellation 24 hours before the experience, 50% fee for cancellation within 24 hours. Special circumstances can be negotiated.</p>
                         </div>
-                        <div className="p-6 border-l-4 border-[#fe585f] bg-gray-50 rounded-r-xl hover:bg-gray-100 transition-colors">
+                        <div className="p-6 border-l-4 border-[#fe5a5e] bg-gray-50 rounded-r-xl hover:bg-gray-100 transition-colors">
                             <h4 className="font-semibold text-lg mb-3 flex items-center">
                                 🚴‍♂️ Fitness Requirements
                             </h4>
@@ -436,15 +436,15 @@ export default function ExperienceDetailPage() {
                             <p className="text-gray-600 leading-relaxed mb-4">{host.description}</p>
                             <div className="flex gap-6">
                                 <div className="text-center">
-                                    <div className="text-xl font-bold text-[#fe585f]">{host.stats.experiences}</div>
+                                    <div className="text-xl font-bold text-[#fe5a5e]">{host.stats.experiences}</div>
                                     <div className="text-sm text-gray-600">Experiences</div>
                                 </div>
                                 <div className="text-center">
-                                    <div className="text-xl font-bold text-[#fe585f]">{host.stats.rating}</div>
+                                    <div className="text-xl font-bold text-[#fe5a5e]">{host.stats.rating}</div>
                                     <div className="text-sm text-gray-600">Average Rating</div>
                                 </div>
                                 <div className="text-center">
-                                    <div className="text-xl font-bold text-[#fe585f]">{host.stats.years} years</div>
+                                    <div className="text-xl font-bold text-[#fe5a5e]">{host.stats.years} years</div>
                                     <div className="text-sm text-gray-600">Guide Experience</div>
                                 </div>
                             </div>
@@ -455,7 +455,7 @@ export default function ExperienceDetailPage() {
                 {/* Company Information */}
                 <section className="bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-8">
                     <div className="flex flex-col md:flex-row items-center gap-6 mb-6">
-                        <div className="w-20 h-20 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-2xl flex items-center justify-center text-3xl text-white">
+                        <div className="w-20 h-20 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] rounded-2xl flex items-center justify-center text-3xl text-white">
                             🌟
                         </div>
                         <div>
@@ -466,19 +466,19 @@ export default function ExperienceDetailPage() {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                         <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-                            <div className="text-2xl font-bold text-[#fe585f]">2,847</div>
+                            <div className="text-2xl font-bold text-[#fe5a5e]">2,847</div>
                             <div className="text-sm text-gray-600">Curated Experiences</div>
                         </div>
                         <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-                            <div className="text-2xl font-bold text-[#fe585f]">4.94</div>
+                            <div className="text-2xl font-bold text-[#fe5a5e]">4.94</div>
                             <div className="text-sm text-gray-600">Average Rating</div>
                         </div>
                         <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-                            <div className="text-2xl font-bold text-[#fe585f]">15,634</div>
+                            <div className="text-2xl font-bold text-[#fe5a5e]">15,634</div>
                             <div className="text-sm text-gray-600">Satisfied Customers</div>
                         </div>
                         <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-                            <div className="text-2xl font-bold text-[#fe585f]">267</div>
+                            <div className="text-2xl font-bold text-[#fe5a5e]">267</div>
                             <div className="text-sm text-gray-600">Professional Guides</div>
                         </div>
                     </div>

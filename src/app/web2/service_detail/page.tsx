@@ -222,22 +222,22 @@ export default function ServiceDetailPage() {
                                 </p>
 
                                 {/* Location Info */}
-                                <div className="bg-gray-50 p-6 rounded-xl mb-8 border-l-4 border-[#fe585f]">
+                                <div className="bg-gray-50 p-6 rounded-xl mb-8 border-l-4 border-[#fe5a5e]">
                                     <h4 className="font-semibold text-gray-900 mb-4">📍 Service Location</h4>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div>
-                                            <strong className="text-[#fe585f]">Main Studio</strong>
+                                            <strong className="text-[#fe5a5e]">Main Studio</strong>
                                             <p className="text-gray-600 mt-1">Paris 9th District - Pigalle Studio</p>
                                             <p className="text-gray-600 text-sm">Professional lighting equipment and backgrounds</p>
                                         </div>
                                         <div>
-                                            <strong className="text-[#fe585f]">Service Range</strong>
+                                            <strong className="text-[#fe5a5e]">Service Range</strong>
                                             <p className="text-gray-600 mt-1">Paris and surrounding 50km</p>
                                             <p className="text-gray-600 text-sm">On-location shooting available upon request</p>
                                         </div>
                                     </div>
                                     <div className="mt-4">
-                                        <strong className="text-[#fe585f]">Popular Shooting Locations:</strong>
+                                        <strong className="text-[#fe5a5e]">Popular Shooting Locations:</strong>
                                         <div className="flex flex-wrap gap-2 mt-2">
                                             {['Eiffel Tower', 'Louvre Museum', 'Montmartre', 'Seine River', 'Champs-Élysées', 'Versailles Palace'].map(location => (
                                                 <span key={location} className="bg-white px-3 py-1 rounded-full text-sm text-gray-600">
@@ -261,7 +261,7 @@ export default function ServiceDetailPage() {
                                 </div>
 
                                 {/* Credentials */}
-                                <div className="bg-gray-50 p-6 rounded-xl border-l-4 border-[#fe585f]">
+                                <div className="bg-gray-50 p-6 rounded-xl border-l-4 border-[#fe5a5e]">
                                     <h4 className="font-semibold text-gray-900 mb-4">🏆 Professional Certifications</h4>
                                     <ul className="space-y-2">
                                         {serviceProvider.credentials.map(credential => (
@@ -293,12 +293,12 @@ export default function ServiceDetailPage() {
                                             key={pkg.id}
                                             onClick={() => setSelectedPackage(pkg.id)}
                                             className={`border-2 rounded-xl p-4 cursor-pointer transition-all ${selectedPackage === pkg.id
-                                                    ? 'border-[#fe585f] bg-[#fe585f]/5'
-                                                    : 'border-gray-200 hover:border-[#fe585f]/50'
+                                                    ? 'border-[#fe5a5e] bg-[#fe5a5e]/5'
+                                                    : 'border-gray-200 hover:border-[#fe5a5e]/50'
                                                 }`}
                                         >
                                             <div className="font-semibold text-gray-900">{pkg.name}</div>
-                                            <div className="text-2xl font-bold text-[#fe585f]">€{pkg.price}</div>
+                                            <div className="text-2xl font-bold text-[#fe5a5e]">€{pkg.price}</div>
                                             <div className="text-sm text-gray-600">{pkg.description}</div>
                                         </div>
                                     ))}
@@ -316,7 +316,7 @@ export default function ServiceDetailPage() {
                                         value={selectedDate}
                                         onChange={(e) => setSelectedDate(e.target.value)}
                                         min="2024-08-16"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fe585f] focus:border-transparent"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fe5a5e] focus:border-transparent"
                                     />
                                 </div>
 
@@ -365,14 +365,14 @@ export default function ServiceDetailPage() {
                                     </label>
                                     <textarea
                                         placeholder="Describe your photography needs, style preferences, special requirements..."
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fe585f] focus:border-transparent h-24 resize-none"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fe5a5e] focus:border-transparent h-24 resize-none"
                                     />
                                 </div>
                             </form>
 
                             <Button
                                 onClick={handleBooking}
-                                className="w-full bg-[#fe585f] hover:bg-[#e04a50] text-white py-4 text-lg font-semibold mb-4 rounded-xl"
+                                className="w-full bg-[#fe5a5e] hover:bg-[#e04a50] text-white py-4 text-lg font-semibold mb-4 rounded-xl"
                             >
                                 Submit Booking Request
                             </Button>
@@ -475,7 +475,7 @@ export default function ServiceDetailPage() {
                     </div>
 
                     <div className="bg-white rounded-xl p-6 text-center">
-                        <h4 className="text-xl font-bold text-[#fe585f] mb-4">🌟 Why Choose Uniloco Exclusive Services?</h4>
+                        <h4 className="text-xl font-bold text-[#fe5a5e] mb-4">🌟 Why Choose Uniloco Exclusive Services?</h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
                             <div>
                                 <strong>VS Freelance Platforms:</strong>

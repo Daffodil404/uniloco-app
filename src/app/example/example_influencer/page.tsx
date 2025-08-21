@@ -22,7 +22,7 @@ import {
   FileText,
 } from 'lucide-react';
 
-const themeColor = '#fe585f';
+const themeColor = '#fe5a5e';
 
 const influencer = {
   name: 'Fabrice.Jason',
@@ -154,7 +154,7 @@ export default function TravelInfluencerProfile() {
             </div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-[#fe585f]">{influencer.name}</h1>
+            <h1 className="text-3xl font-bold text-[#fe5a5e]">{influencer.name}</h1>
             <p className="text-gray-600 mt-1">{influencer.title}</p>
             <p className="mt-2 max-w-sm">{influencer.bio}</p>
           </div>
@@ -162,7 +162,7 @@ export default function TravelInfluencerProfile() {
 
         {/* Middle: Stats */}
         <div className="flex-1 flex flex-wrap justify-center md:justify-start gap-8">
-          <StatItem label="Rating" value={`${influencer.rating.toFixed(1)} / 5`} icon={<Star className="text-[#fe585f]" size={24} />} />
+          <StatItem label="Rating" value={`${influencer.rating.toFixed(1)} / 5`} icon={<Star className="text-[#fe5a5e]" size={24} />} />
           <StatItem label="Followers" value={influencer.followers.toLocaleString()} icon={<Users size={24} />} />
           <StatItem label="Trips Completed" value={influencer.totalTrips} icon={<MapPin size={24} />} />
           <StatItem label="Response Rate" value={`${influencer.responseRate}%`} icon={<MessageSquare size={24} />} />
@@ -233,7 +233,7 @@ export default function TravelInfluencerProfile() {
                 </div>
                 <div className="p-4 flex flex-col flex-grow">
                   <h3 className="font-semibold text-lg mb-1 line-clamp-2">{it.title}</h3>
-                  <p className="text-[#fe585f] font-semibold mb-2">{it.price}</p>
+                  <p className="text-[#fe5a5e] font-semibold mb-2">{it.price}</p>
                   <p className="text-gray-600 text-sm mb-3 flex-grow">{it.highlight}</p>
 
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -249,13 +249,13 @@ export default function TravelInfluencerProfile() {
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1 text-gray-700 text-sm select-none">
-                      <Star className="text-[#fe585f] fill-current" size={16} />
+                      <Star className="text-[#fe5a5e] fill-current" size={16} />
                       <span>
                         {it.rating.toFixed(1)} ({it.reviews})
                       </span>
                     </div>
                     <button
-                      className="text-[#fe585f] font-medium flex items-center gap-1 hover:underline"
+                      className="text-[#fe5a5e] font-medium flex items-center gap-1 hover:underline"
                       aria-label={`View details for ${it.title}`}
                     >
                       View Details <ChevronRight size={16} />
@@ -341,7 +341,7 @@ export default function TravelInfluencerProfile() {
                       <Star
                         key={i}
                         size={16}
-                        className={i < review.rating ? 'text-[#fe585f] fill-current' : 'text-gray-300'}
+                        className={i < review.rating ? 'text-[#fe5a5e] fill-current' : 'text-gray-300'}
                       />
                     ))}
                   </div>
@@ -389,7 +389,7 @@ function TabButton({
     <button
       onClick={onClick}
       className={`pb-3 font-semibold transition-colors border-b-4 ${
-        active ? 'border-[#fe585f] text-[#fe585f]' : 'border-transparent hover:text-gray-800'
+        active ? 'border-[#fe5a5e] text-[#fe5a5e]' : 'border-transparent hover:text-gray-800'
       }`}
       type="button"
     >

@@ -120,13 +120,13 @@ export default function PartnershipPage() {
             Transform your local expertise into sustainable income.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 reveal">
-            <button onClick={() => scrollToSection('cta')} className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
+            <button onClick={() => scrollToSection('cta')} className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Apply Now
             </button>
-            <button onClick={() => scrollToSection('types')} className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
+            <button onClick={() => scrollToSection('types')} className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Learn More
             </button>
-            <button onClick={() => scrollToSection('contact')} className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
+            <button onClick={() => scrollToSection('contact')} className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Contact Us
             </button>
           </div>
@@ -136,7 +136,7 @@ export default function PartnershipPage() {
       {/* Why Partner Section */}
       <section id="why" className="py-24 bg-[#f9f9f9]">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-[#fe585f] mb-12 reveal">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-[#fe5a5e] mb-12 reveal">
             Why Partner with Uniloco?
           </h2>
 
@@ -169,7 +169,7 @@ export default function PartnershipPage() {
             ].map((card, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border-t-4 border-transparent hover:border-[#fe585f] p-8"
+                className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border-t-4 border-transparent hover:border-[#fe5a5e] p-8"
               >
                 <div className="mb-6 flex justify-center">
                   <div className="relative w-28 h-28">
@@ -186,7 +186,7 @@ export default function PartnershipPage() {
                   </div>
                   <div className="h-px bg-gray-200" />
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-[#fe585f] mb-1">{card.withTitle}</p>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[#fe5a5e] mb-1">{card.withTitle}</p>
                     <p className="text-gray-800">{card.with}</p>
                   </div>
                 </div>
@@ -200,15 +200,15 @@ export default function PartnershipPage() {
       <section id="programs" className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 reveal">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#fe585f]">Two Partnership Programs</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#fe5a5e]">Two Partnership Programs</h2>
             <div className="mt-3 flex justify-center">
-              <span className="inline-block h-1 w-24 bg-[#fe585f] rounded-full"></span>
+              <span className="inline-block h-1 w-24 bg-[#fe5a5e] rounded-full"></span>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto reveal">
             {/* Content Creators Card */}
-            <div className="rounded-2xl border border-[#fe585f]/30 p-8 shadow-sm hover:shadow-md transition-all">
+            <div className="rounded-2xl border border-[#fe5a5e]/30 p-8 shadow-sm hover:shadow-md transition-all">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">📱 Affiliate Program</h3>
                 <p className="text-sm text-gray-500">Influencers & Digital Creators</p>
@@ -217,7 +217,7 @@ export default function PartnershipPage() {
                 Transform your travel content into sustainable income. Earn through our affiliate program, get sponsored travel opportunities, and provide exclusive value to your audience with UNC rewards.              </p>
 
               <div className="mb-6">
-                <p className="text-sm font-semibold text-[#fe585f] mb-3">Perfect for:</p>
+                <p className="text-sm font-semibold text-[#fe5a5e] mb-3">Perfect for:</p>
                 <ul className="grid grid-cols-2 gap-3 text-sm text-gray-700">
                   <li className="flex items-center gap-2"><span>📝</span><span>Travel bloggers and vloggers</span></li>
                   <li className="flex items-center gap-2"><span>📣</span><span>Social media influencers</span></li>
@@ -227,7 +227,7 @@ export default function PartnershipPage() {
               </div>
 
               {/* Illustration */}
-              <div className="mt-6 rounded-xl border border-[#fe585f]/30 bg-[#fff0f0]/50 flex items-center justify-center p-4">
+              <div className="mt-6 rounded-xl border border-[#fe5a5e]/30 bg-[#fff0f0]/50 flex items-center justify-center p-4">
                 <div className="relative w-full h-40 md:h-56">
                   <Image
                     src="/static/partnership/content-creation-91.svg"
@@ -241,7 +241,7 @@ export default function PartnershipPage() {
             </div>
 
             {/* Local Merchants Card */}
-            <div className="rounded-2xl border border-[#fe585f]/30 p-8 shadow-sm hover:shadow-md transition-all">
+            <div className="rounded-2xl border border-[#fe5a5e]/30 p-8 shadow-sm hover:shadow-md transition-all">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">🏪 Merchant Collobration</h3>
                 <p className="text-sm text-gray-500">Restaurants, Hotels & Experiences</p>
@@ -250,7 +250,7 @@ export default function PartnershipPage() {
                 Attract travelers to your business with our targeted marketing tools. Increase foot traffic, boost sales, and gain valuable exposure to our community of adventure seekers.              </p>
 
               <div className="mb-6">
-                <p className="text-sm font-semibold text-[#fe585f] mb-3">Perfect for:</p>
+                <p className="text-sm font-semibold text-[#fe5a5e] mb-3">Perfect for:</p>
                 <ul className="grid grid-cols-2 gap-3 text-sm text-gray-700">
                   <li className="flex items-center gap-2"><span>🍽️</span><span>Restaurants and cafes</span></li>
                   <li className="flex items-center gap-2"><span>🏨</span><span>Hotels and accommodations</span></li>
@@ -260,7 +260,7 @@ export default function PartnershipPage() {
               </div>
 
               {/* Illustration */}
-              <div className="mt-6 rounded-xl border border-[#fe585f]/30 bg-[#fff0f0]/50 flex items-center justify-center p-4">
+              <div className="mt-6 rounded-xl border border-[#fe5a5e]/30 bg-[#fff0f0]/50 flex items-center justify-center p-4">
                 <div className="relative w-full h-40 md:h-56">
                   <Image
                     src="/static/partnership/online-store-10.svg"
@@ -280,16 +280,16 @@ export default function PartnershipPage() {
       <section id="how-it-works" className="py-24 bg-gradient-to-b from-white to-[#fff7f7]">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 reveal">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#fe585f]">How we Work together</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#fe5a5e]">How we Work together</h2>
             <div className="mt-3 flex justify-center">
-              <span className="inline-block h-1 w-24 bg-[#fe585f] rounded-full"></span>
+              <span className="inline-block h-1 w-24 bg-[#fe5a5e] rounded-full"></span>
             </div>
             <p className="mt-4 text-lg md:text-xl text-gray-700">You Apply, We Support, You Earn</p>
           </div>
-          <ConfigProvider theme={{ token: { colorPrimary: '#fe585f' }, components: { Steps: { iconSize: 36 } } }}>
+          <ConfigProvider theme={{ token: { colorPrimary: '#fe5a5e' }, components: { Steps: { iconSize: 36 } } }}>
             {/* Track: Content Creators */}
             <div className="max-w-6xl mx-auto mb-14 reveal">
-              <h3 className="text-lg font-semibold text-[#fe585f] mb-6">For Content Creators</h3>
+              <h3 className="text-lg font-semibold text-[#fe5a5e] mb-6">For Content Creators</h3>
               <div className="px-1">
                 <Steps
                   current={0}
@@ -303,7 +303,7 @@ export default function PartnershipPage() {
             </div>
             {/* Track: Local Merchants */}
             <div className="max-w-6xl mx-auto reveal">
-              <h3 className="text-lg font-semibold text-[#fe585f] mb-6">For Local Merchants</h3>
+              <h3 className="text-lg font-semibold text-[#fe5a5e] mb-6">For Local Merchants</h3>
               <div className="px-1">
                 <Steps
                   current={0}
@@ -323,8 +323,8 @@ export default function PartnershipPage() {
       <section id="stories" className="py-24 bg-[#f9f9f9]">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 reveal">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#fe585f]">Success Stories</h2>
-            <div className="mt-3 flex justify-center"><span className="inline-block h-1 w-16 bg-[#fe585f] rounded-full"></span></div>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#fe5a5e]">Success Stories</h2>
+            <div className="mt-3 flex justify-center"><span className="inline-block h-1 w-16 bg-[#fe5a5e] rounded-full"></span></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto reveal">
             {[
@@ -353,8 +353,8 @@ export default function PartnershipPage() {
                 results: ['28% Commission Rate', '120K EUR Earned', '15 Brand Collaborations']
               }
             ].map((s, i) => (
-              <div key={i} className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all border-t-4 border-[#fe585f] p-8">
-                <div className="w-16 h-16 rounded-full bg-[#fff0f0] border border-[#fe585f]/30 mx-auto mb-4" />
+              <div key={i} className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all border-t-4 border-[#fe5a5e] p-8">
+                <div className="w-16 h-16 rounded-full bg-[#fff0f0] border border-[#fe5a5e]/30 mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-gray-900 text-center">{s.name}</h3>
                 <p className="text-sm text-gray-500 text-center">{s.role}</p>
                 {s.meta && (<p className="text-xs text-gray-500 text-center mb-4">{s.meta}</p>)}
@@ -363,7 +363,7 @@ export default function PartnershipPage() {
                 <ul className="space-y-2 text-sm text-gray-700 mb-4">
                   {s.results.map((r, idx) => (
                     <li key={idx} className="flex items-center gap-2">
-                      <span className="text-[#fe585f]">✓</span>
+                      <span className="text-[#fe5a5e]">✓</span>
                       <span>{r}</span>
                     </li>
                   ))}
@@ -386,19 +386,19 @@ export default function PartnershipPage() {
 
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center reveal">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#fe585f] mb-6">Join 10,000+ partners already earning with Uniloco </h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-[#fe5a5e] mb-6">Join 10,000+ partners already earning with Uniloco </h2>
             <p className="text-lg md:text-xl text-[#444] leading-relaxed mb-10">
               Every encounter is destiny&apos;s arrangement, every journey is the beginning of a legend. Join Uniloco and let&apos;s redefine the meaning of travel together!
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <button className="px-10 py-5 bg-[#fe585f] text-white rounded-xl text-lg md:text-xl font-bold shadow-xl hover:bg-[#e14b52] transition-colors">
+              <button className="px-10 py-5 bg-[#fe5a5e] text-white rounded-xl text-lg md:text-xl font-bold shadow-xl hover:bg-[#e14b52] transition-colors">
                 Apply Now
               </button>
-              <button className="px-8 py-4 border-2 border-[#fe585f] text-[#fe585f] rounded-xl font-semibold hover:bg-[#fe585f] hover:text-white transition-colors">
+              <button className="px-8 py-4 border-2 border-[#fe5a5e] text-[#fe5a5e] rounded-xl font-semibold hover:bg-[#fe5a5e] hover:text-white transition-colors">
                 Learn More
               </button>
-              <button className="px-8 py-4 border-2 border-[#fe585f] text-[#fe585f] rounded-xl font-semibold hover:bg-[#fe585f] hover:text-white transition-colors">
+              <button className="px-8 py-4 border-2 border-[#fe5a5e] text-[#fe5a5e] rounded-xl font-semibold hover:bg-[#fe5a5e] hover:text-white transition-colors">
                 Contact Us
               </button>
             </div>

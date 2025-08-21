@@ -47,7 +47,7 @@ export default function StoryDetailPage() {
             <div className="flex-1 overflow-y-auto p-4">
                 <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
                     {/* Story Cover */}
-                    <div className="w-full h-48 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] flex items-center justify-center text-6xl">
+                    <div className="w-full h-48 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] flex items-center justify-center text-6xl">
                         {story.emoji}
                     </div>
 
@@ -92,7 +92,7 @@ export default function StoryDetailPage() {
                             <ul className="space-y-2">
                                 {story.highlights.map((highlight, index) => (
                                     <li key={index} className="flex items-start">
-                                        <span className="text-[#fe585f] mr-2">•</span>
+                                        <span className="text-[#fe5a5e] mr-2">•</span>
                                         <span className="text-slate-700">{highlight}</span>
                                     </li>
                                 ))}
@@ -116,7 +116,7 @@ export default function StoryDetailPage() {
 
                         {/* Action Button */}
                         <button
-                            className="w-full py-4 rounded-xl font-bold text-white flex items-center justify-center bg-[#fe585f]"
+                            className="w-full py-4 rounded-xl font-bold text-white flex items-center justify-center bg-[#fe5a5e]"
                         >
                             {story.price === 0 ? (
                                 'Start Adventure for FREE'

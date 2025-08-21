@@ -157,7 +157,7 @@ export default function ProfilePage() {
         <div className="bg-white shadow-lg rounded-3xl p-6 border border-slate-200 mb-6">
           <div className="flex items-center gap-4 mb-6">
             {/* Avatar */}
-            <div className="w-16 h-16 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
@@ -172,7 +172,7 @@ export default function ProfilePage() {
           </div>
 
           {/* UNC Balance */}
-          <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl p-4 mb-4">
+          <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-2xl p-4 mb-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/90 text-sm">UNC Balance</p>
@@ -209,7 +209,7 @@ export default function ProfilePage() {
             onClick={() => setActiveTab('journeys')}
             className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
               activeTab === 'journeys'
-                ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
+                ? 'bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white'
                 : 'bg-slate-100 text-slate-600'
             }`}
           >
@@ -219,7 +219,7 @@ export default function ProfilePage() {
             onClick={handleNavigateToEquipment}
             className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
               activeTab === 'equipment'
-                ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
+                ? 'bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white'
                 : 'bg-slate-100 text-slate-600'
             }`}
           >
@@ -267,7 +267,7 @@ export default function ProfilePage() {
                     item.isOwned ? 'border-emerald-500' : 'border-slate-200'
                   }`}>
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="w-8 h-8 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center">
                         <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                         </svg>
@@ -278,14 +278,14 @@ export default function ProfilePage() {
                     </div>
                     <p className="text-slate-800 text-sm font-medium">{item.name}</p>
                     {!item.isOwned && item.price && (
-                      <p className="text-[#fe585f] text-xs mt-1">{item.price} UNC</p>
+                      <p className="text-[#fe5a5e] text-xs mt-1">{item.price} UNC</p>
                     )}
                   </div>
                 ))}
               </div>
               <button
                 onClick={handleNavigateToEquipment}
-                className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl text-sm font-medium"
+                className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white rounded-xl text-sm font-medium"
               >
                 View All Equipment
               </button>

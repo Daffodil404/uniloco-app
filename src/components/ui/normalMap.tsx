@@ -89,12 +89,12 @@ export default function NormalMap({
               .leaflet-control-zoom { display: none; }
               .leaflet-control-attribution { display: none; }
               .leaflet-popup-content-wrapper {
-                background: linear-gradient(135deg, #fe585f 0%, #ff7a80 100%);
+                background: linear-gradient(135deg, #fe5a5e 0%, #ff7a80 100%);
                 color: white; border-radius: 16px; border: 3px solid #ffffff;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); z-index: 1000 !important;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
               }
-              .leaflet-popup-tip { background: linear-gradient(135deg, #fe585f 0%, #ff7a80 100%); border: 2px solid #ffffff; }
+              .leaflet-popup-tip { background: linear-gradient(135deg, #fe5a5e 0%, #ff7a80 100%); border: 2px solid #ffffff; }
               .leaflet-popup { z-index: 1000 !important; }
               .leaflet-popup-content { margin: 12px 16px; font-weight: 500; }
               .custom-number-marker { z-index: 100 !important; transition: all .3s cubic-bezier(.4,0,.2,1); }
@@ -151,7 +151,7 @@ export default function NormalMap({
       L.divIcon({
         className: 'custom-number-marker',
         html: `
-          <div style="width:40px;height:40px;background:#fe585f;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:14px;font-family:Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer;">${text}</div>
+          <div style="width:40px;height:40px;background:#fe5a5e;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:14px;font-family:Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer;">${text}</div>
         `,
         iconSize: [40, 40],
         iconAnchor: [20, 40],
@@ -178,7 +178,7 @@ export default function NormalMap({
         <div className="absolute top-4 right-4 flex flex-col gap-3">
           <button
             onClick={handleZoomIn}
-            className="w-12 h-12 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
+            className="w-12 h-12 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 6v12M6 12h12" />
@@ -186,7 +186,7 @@ export default function NormalMap({
           </button>
           <button
             onClick={handleZoomOut}
-            className="w-12 h-12 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
+            className="w-12 h-12 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-2xl flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/20"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 12h12" />

@@ -53,20 +53,20 @@ export default function EventsPage() {
         {/* Animated Background */}
         <div className="absolute inset-0 bg-[#fff]">
           {/* Floating Elements */}
-          <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe585f]/10 rounded-full animate-bounce animate-float"></div>
-          <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe585f]/15 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#fe585f]/20 rounded-full animate-spin"></div>
-          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#fe585f]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#fe585f]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#fe585f]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe5a5e]/10 rounded-full animate-bounce animate-float"></div>
+          <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe5a5e]/15 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-32 left-1/3 w-20 h-20 bg-[#fe5a5e]/20 rounded-full animate-spin"></div>
+          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-[#fe5a5e]/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-1/4 right-1/4 w-12 h-12 bg-[#fe5a5e]/8 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 right-1/3 w-8 h-8 bg-[#fe5a5e]/12 rounded-full animate-spin" style={{ animationDelay: '0.5s' }}></div>
 
           {/* Particle Effects */}
-          <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#fe585f]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
+          <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-[#fe5a5e]/30 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
           <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-[#ff7a80]/40 rounded-full animate-ping" style={{ animationDelay: '1.2s' }}></div>
-          <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#fe585f]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
+          <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-[#fe5a5e]/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
 
           {/* Geometric Shapes */}
-          <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#fe585f]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-1/3 left-1/6 w-6 h-6 bg-[#fe5a5e]/20 rotate-45 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
           <div className="absolute bottom-1/4 left-1/4 w-4 h-4 bg-[#ff7a80]/25 rounded-full animate-bounce" style={{ animationDelay: '0.7s' }}></div>
         </div>
 
@@ -77,8 +77,8 @@ export default function EventsPage() {
               {/* Main Slogan */}
               <div className="space-y-1 lg:space-y-2">
                 <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                  <span className={`block ${isLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe585f] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Featured</span>
-                  <span className={`block ${isLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Events</span>
+                  <span className={`block ${isLoaded ? 'slide-in-left' : 'opacity-100'} text-[#fe5a5e] text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Featured</span>
+                  <span className={`block ${isLoaded ? 'slide-in-left-delay' : 'opacity-100'} bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] bg-clip-text text-transparent text-4xl md:text-6xl lg:text-7xl xl:text-8xl`}>Events</span>
                 </h1>
               </div>
 
@@ -97,18 +97,18 @@ export default function EventsPage() {
               <div className={`flex flex-col sm:flex-row gap-4 ${isLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                 <button
                   onClick={() => document.getElementById('main-event')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white font-bold text-base lg:text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center space-x-2">
                     <span className="w-5 h-5 lg:w-6 lg:h-6 bg-white/20 rounded-full flex items-center justify-center text-sm lg:text-base">🍄</span>
                     <span>Join Adventure</span>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe585f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#ff7a80] to-[#fe5a5e] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
 
                 <button
                   onClick={() => document.getElementById('upcoming')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe585f] text-[#fe585f] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe585f] hover:text-white transform hover:scale-105 transition-all duration-300"
+                  className="game-button group relative px-6 lg:px-8 py-3 lg:py-4 border-2 border-[#fe5a5e] text-[#fe5a5e] font-bold text-base lg:text-lg rounded-full hover:bg-[#fe5a5e] hover:text-white transform hover:scale-105 transition-all duration-300"
                 >
                   <span className="flex items-center space-x-2">
                     <span>📅</span>
@@ -138,19 +138,19 @@ export default function EventsPage() {
                 ].map((item, index) => (
                   <div 
                     key={index}
-                    className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group"
+                    className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group"
                   >
                     <div className="text-4xl mb-3 text-center animate-bounce group-hover:animate-pulse">{item.icon}</div>
-                    <h3 className="text-lg font-bold mb-2 text-[#fe585f] text-center">{item.title}</h3>
+                    <h3 className="text-lg font-bold mb-2 text-[#fe5a5e] text-center">{item.title}</h3>
                     <p className="text-gray-600 text-sm text-center leading-relaxed mb-2">{item.desc}</p>
-                    <p className="text-[#fe585f] text-xs text-center font-semibold">{item.value}</p>
+                    <p className="text-[#fe5a5e] text-xs text-center font-semibold">{item.value}</p>
                   </div>
                 ))}
               </div>
 
               {/* Small floating elements */}
               <div className="relative">
-                <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#fe585f] rounded-full animate-bounce"></div>
+                <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#fe5a5e] rounded-full animate-bounce"></div>
                 <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#ff7a80] rounded-full animate-pulse"></div>
               </div>
             </div>
@@ -170,7 +170,7 @@ export default function EventsPage() {
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-6 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-6 animate-fade-in">
               🍄 Luxembourg Forest Mushroom Hunt 2025
             </h2>
             <p className="text-gray-600 text-xl leading-relaxed">
@@ -210,10 +210,10 @@ export default function EventsPage() {
              ].map((detail, index) => (
                <div 
                  key={index}
-                 className="bg-gray-50 rounded-2xl p-6 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                 className="bg-gray-50 rounded-2xl p-6 border border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
                >
                  <div className="text-3xl mb-4">{detail.icon}</div>
-                 <h3 className="text-xl font-bold mb-3 text-[#fe585f]">{detail.title}</h3>
+                 <h3 className="text-xl font-bold mb-3 text-[#fe5a5e]">{detail.title}</h3>
                  <p className="text-lg mb-2 text-gray-800">{detail.main}</p>
                  <p className="text-gray-600 text-sm">{detail.sub}</p>
                </div>
@@ -222,7 +222,7 @@ export default function EventsPage() {
 
                      {/* Detailed Route Information */}
            <div className="bg-gray-50 rounded-3xl p-8 border border-gray-200 mb-16">
-             <h3 className="text-2xl font-bold mb-8 text-center text-[#fe585f]">🗺️ Detailed Route: Mullerthal Trail & Grünewald Forest</h3>
+             <h3 className="text-2xl font-bold mb-8 text-center text-[#fe5a5e]">🗺️ Detailed Route: Mullerthal Trail & Grünewald Forest</h3>
              
              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                {[
@@ -257,12 +257,12 @@ export default function EventsPage() {
                    ]
                  }
                ].map((day, index) => (
-                 <div key={index} className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-lg">
-                   <h4 className="text-xl font-bold mb-4 text-[#fe585f]">{day.day}</h4>
+                 <div key={index} className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-lg">
+                   <h4 className="text-xl font-bold mb-4 text-[#fe5a5e]">{day.day}</h4>
                    <ul className="space-y-3">
                      {day.items.map((item, i) => (
                        <li key={i} className="text-gray-700 text-sm flex items-start">
-                         <span className="text-[#fe585f] mr-2 mt-1">•</span>
+                         <span className="text-[#fe5a5e] mr-2 mt-1">•</span>
                          {item}
                        </li>
                      ))}
@@ -274,7 +274,7 @@ export default function EventsPage() {
 
                      {/* Event Highlights */}
            <div className="bg-gray-50 rounded-3xl p-8 border border-gray-200 mb-16">
-             <h3 className="text-2xl font-bold mb-8 text-center text-[#fe585f]">🌟 Event Highlights</h3>
+             <h3 className="text-2xl font-bold mb-8 text-center text-[#fe5a5e]">🌟 Event Highlights</h3>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {[
                  { icon: '🗺️', text: '3D AR Mushroom Navigation' },
@@ -284,8 +284,8 @@ export default function EventsPage() {
                  { icon: '🏕️', text: 'Eco-friendly Accommodation' },
                  { icon: '🎁', text: 'Daily Surprise Rewards' }
                ].map((highlight, index) => (
-                 <div key={index} className="flex items-center gap-4 bg-white rounded-xl p-4 border border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-md">
-                   <div className="w-12 h-12 bg-[#fe585f]/10 rounded-full flex items-center justify-center text-xl">
+                 <div key={index} className="flex items-center gap-4 bg-white rounded-xl p-4 border border-gray-200 hover:border-[#fe5a5e] transition-all duration-300 hover:shadow-md">
+                   <div className="w-12 h-12 bg-[#fe5a5e]/10 rounded-full flex items-center justify-center text-xl">
                      {highlight.icon}
                    </div>
                    <span className="font-medium text-gray-800">{highlight.text}</span>
@@ -297,10 +297,10 @@ export default function EventsPage() {
                      {/* Registration Section */}
            <div className="text-center">
              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
-               <button className="bg-[#fe585f] text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-[#ff7a80] transform hover:scale-105 transition-all duration-300 flex items-center gap-3">
+               <button className="bg-[#fe5a5e] text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-[#ff7a80] transform hover:scale-105 transition-all duration-300 flex items-center gap-3">
                  🚀 Join Adventure
                </button>
-               <button className="bg-transparent border-2 border-[#fe585f] text-[#fe585f] px-8 py-4 rounded-full text-xl font-bold hover:bg-[#fe585f] hover:text-white transition-all duration-300 flex items-center gap-3">
+               <button className="bg-transparent border-2 border-[#fe5a5e] text-[#fe5a5e] px-8 py-4 rounded-full text-xl font-bold hover:bg-[#fe5a5e] hover:text-white transition-all duration-300 flex items-center gap-3">
                  📋 View Details
                </button>
              </div>
@@ -329,17 +329,17 @@ export default function EventsPage() {
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gray-50 rounded-3xl p-8 border-2 border-[#fe585f]/20">
-              <h3 className="text-2xl font-bold text-[#fe585f] mb-8 text-center">Event Statistics</h3>
+            <div className="bg-gray-50 rounded-3xl p-8 border-2 border-[#fe5a5e]/20">
+              <h3 className="text-2xl font-bold text-[#fe5a5e] mb-8 text-center">Event Statistics</h3>
               
               {/* Progress Bar */}
               <div className="mb-8">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-gray-600 font-semibold">Registration Progress</span>
-                  <span className="text-[#fe585f] font-bold text-xl">77%</span>
+                  <span className="text-[#fe5a5e] font-bold text-xl">77%</span>
                 </div>
                 <div className="bg-gray-200 h-3 rounded-full overflow-hidden">
-                  <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] h-full rounded-full transition-all duration-1000" style={{width: '77%'}}></div>
+                  <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] h-full rounded-full transition-all duration-1000" style={{width: '77%'}}></div>
                 </div>
               </div>
 
@@ -350,8 +350,8 @@ export default function EventsPage() {
                   { number: '15', label: 'Countries Represented' },
                   { number: '12', label: 'Days Countdown' }
                 ].map((stat, index) => (
-                  <div key={index} className="text-center p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#fe585f] transition-all duration-300">
-                    <p className="text-3xl font-bold text-[#fe585f] mb-2">{stat.number}</p>
+                  <div key={index} className="text-center p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#fe5a5e] transition-all duration-300">
+                    <p className="text-3xl font-bold text-[#fe5a5e] mb-2">{stat.number}</p>
                     <p className="text-gray-600 text-sm">{stat.label}</p>
                   </div>
                 ))}
@@ -359,10 +359,10 @@ export default function EventsPage() {
 
               {/* Recent Participants */}
               <div className="border-t border-gray-200 pt-8">
-                <h4 className="text-lg font-bold text-[#fe585f] mb-4 text-center">Recent Participants</h4>
+                <h4 className="text-lg font-bold text-[#fe5a5e] mb-4 text-center">Recent Participants</h4>
                 <div className="flex justify-center gap-2 mb-4">
                   {['🌍', '🗺️', '🎯', '⭐'].map((emoji, index) => (
-                    <div key={index} className="w-12 h-12 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-full flex items-center justify-center text-lg text-white">
+                    <div key={index} className="w-12 h-12 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-lg text-white">
                       {emoji}
                     </div>
                   ))}
@@ -378,7 +378,7 @@ export default function EventsPage() {
       </section>
 
       {/* Upcoming Adventures Section */}
-      <section id="upcoming" className="py-24 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white relative">
+      <section id="upcoming" className="py-24 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] text-white relative">
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-10 left-10 text-6xl opacity-10 animate-pulse">🏰</div>
@@ -433,7 +433,7 @@ export default function EventsPage() {
                 <p className="text-white/70 text-center mb-4">{event.date}</p>
                 <p className="text-white/80 text-center mb-6 leading-relaxed">{event.description}</p>
                 
-                <button className="w-full bg-white/20 text-white border border-white/30 px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-[#fe585f] transition-all duration-300 transform hover:scale-105">
+                <button className="w-full bg-white/20 text-white border border-white/30 px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-[#fe5a5e] transition-all duration-300 transform hover:scale-105">
                   Get Notified
                 </button>
               </div>
@@ -443,7 +443,7 @@ export default function EventsPage() {
       </section>
 
       {/* Download Section */}
-      <section className="py-20 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white">
+      <section className="py-20 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-5xl md:text-6xl font-black mb-8">
             DOWNLOAD NOW
@@ -455,7 +455,7 @@ export default function EventsPage() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <button
               onClick={handleDownload}
-              className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              className="download-btn group bg-white text-[#fe5a5e] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
             >
               <span>🍎</span>
               <span>Download on App Store</span>
@@ -463,7 +463,7 @@ export default function EventsPage() {
 
             <button
               onClick={handleDownload}
-              className="download-btn group bg-white text-[#fe585f] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              className="download-btn group bg-white text-[#fe5a5e] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
             >
               <span>🤖</span>
               <span>Get it on Google Play</span>

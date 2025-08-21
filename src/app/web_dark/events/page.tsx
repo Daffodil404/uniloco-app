@@ -157,7 +157,7 @@ export default function EventsPage() {
             <div className="space-y-2">
               <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight">
                 <span className={`${isLoaded ? 'slide-in-left' : 'opacity-0'} inline text-white`}>Featured&nbsp;</span>
-                <span className={`${isLoaded ? 'slide-in-left-delay' : 'opacity-0'} inline text-[#fe585f]`}>Events</span>
+                <span className={`${isLoaded ? 'slide-in-left-delay' : 'opacity-0'} inline text-[#fe5a5e]`}>Events</span>
               </h1>
             </div>
 
@@ -176,13 +176,13 @@ export default function EventsPage() {
             <div className={`flex flex-col sm:flex-row gap-4 justify-center ${isLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
               <button
                 onClick={() => document.getElementById('main-event')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-6 lg:px-8 py-3 lg:py-4 bg-[#fe585f] text-white font-semibold text-base lg:text-lg rounded-full shadow-lg hover:bg-[#e14b52] transition-colors"
+                className="px-6 lg:px-8 py-3 lg:py-4 bg-[#fe5a5e] text-white font-semibold text-base lg:text-lg rounded-full shadow-lg hover:bg-[#e14b52] transition-colors"
               >
                 <span className="flex items-center space-x-2">🍄<span>Join Adventure</span></span>
               </button>
               <button
                 onClick={() => document.getElementById('upcoming')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2"                >
+                className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2"                >
                 <span className="flex items-center space-x-2">📅<span>View All Events</span></span>
               </button>
             </div>
@@ -192,7 +192,7 @@ export default function EventsPage() {
       {/* Event Categories Section (Vertical Carousel) */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-12">Event Categories</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe5a5e] mb-12">Event Categories</h2>
 
           <div
             className="relative max-w-5xl lg:max-w-6xl mx-auto h-[34rem] overflow-hidden rounded-2xl border border-gray-200"
@@ -235,7 +235,7 @@ export default function EventsPage() {
                       <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed mb-8 max-w-3xl">{card.description}</p>
                       <div className="flex gap-3">
                         <button
-                          className="px-6 py-3 bg-[#fe585f] text-white rounded-lg hover:bg-[#e14b52] transition-colors"
+                          className="px-6 py-3 bg-[#fe5a5e] text-white rounded-lg hover:bg-[#e14b52] transition-colors"
                           onClick={() => router.push(card.target)}
                           type="button"
                         >
@@ -276,7 +276,7 @@ export default function EventsPage() {
                 <button
                   key={i}
                   onClick={() => setCategoryIndex(i)}
-                  className={`w-2 h-6 rounded-full transition-colors ${i === categoryIndex ? 'bg-[#fe585f]' : 'bg-gray-300 hover:bg-gray-400'}`}
+                  className={`w-2 h-6 rounded-full transition-colors ${i === categoryIndex ? 'bg-[#fe5a5e]' : 'bg-gray-300 hover:bg-gray-400'}`}
                   aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
@@ -303,19 +303,19 @@ export default function EventsPage() {
 
             {/* Right: Content */}
             <div className="flex flex-col justify-center reveal">
-              <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-4">🍄 Luxembourg Forest Mushroom Hunt 2025</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">🍄 Luxembourg Forest Mushroom Hunt 2025</h2>
               <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
                 Hidden in the mysterious forests of Luxembourg, various rare mushrooms await discovery by explorers.
                 This special blockchain travel event will lead participants deep into the forest depths, recording
                 every mushroom discovery point through our 3D check-in system.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <button className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
+                <button className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
                   🚀 Join Adventure
                 </button>
                 <button
                   onClick={() => setShowEventDetailModal(true)}
-                  className="bg-[#fe585f] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2"                >
+                  className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2"                >
                   📋 View Details
                 </button>
               </div>
@@ -339,29 +339,29 @@ export default function EventsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                   <div className="text-2xl mb-2">📍</div>
-                  <h4 className="font-semibold text-[#fe585f] mb-1">Location</h4>
+                  <h4 className="font-semibold text-[#fe5a5e] mb-1">Location</h4>
                   <p className="text-sm text-gray-700">Luxembourg National Forest Parks<br />Mullerthal Trail & Grünewald Forest</p>
                 </div>
                 <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                   <div className="text-2xl mb-2">📅</div>
-                  <h4 className="font-semibold text-[#fe585f] mb-1">Duration</h4>
+                  <h4 className="font-semibold text-[#fe5a5e] mb-1">Duration</h4>
                   <p className="text-sm text-gray-700">September 15-17, 2025<br />3-day 2-night journey</p>
                 </div>
                 <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                   <div className="text-2xl mb-2">🎯</div>
-                  <h4 className="font-semibold text-[#fe585f] mb-1">Goal</h4>
+                  <h4 className="font-semibold text-[#fe5a5e] mb-1">Goal</h4>
                   <p className="text-sm text-gray-700">Discover 15 mushroom species<br />Including rare Chanterelle and Porcini</p>
                 </div>
                 <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                   <div className="text-2xl mb-2">🏆</div>
-                  <h4 className="font-semibold text-[#fe585f] mb-1">Rewards</h4>
+                  <h4 className="font-semibold text-[#fe5a5e] mb-1">Rewards</h4>
                   <p className="text-sm text-gray-700">Rare NFT + 1000 UNC<br />Exclusive &quot;Mushroom Hunter&quot; title</p>
                 </div>
               </div>
 
               <div className="flex items-center justify-end gap-3">
                 <button onClick={() => setShowEventDetailModal(false)} className="px-5 py-2 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100">Close</button>
-                <button className="px-5 py-2 bg-[#fe585f] text-white rounded-lg hover:bg-[#e14b52]">Apply Now</button>
+                <button className="px-5 py-2 bg-[#fe5a5e] text-white rounded-lg hover:bg-[#e14b52]">Apply Now</button>
               </div>
             </div>
           </div>
@@ -371,8 +371,8 @@ export default function EventsPage() {
       {/* Event Statistics Section */}
       <section className="py-20 bg-white relative">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div id="event-stats" className="bg-gray-50 rounded-3xl p-8 lg:p-10 border-2 border-[#fe585f]/20 reveal">
-            <h3 className="text-2xl font-bold text-[#fe585f] mb-10 text-center">Event Statistics</h3>
+          <div id="event-stats" className="bg-gray-50 rounded-3xl p-8 lg:p-10 border-2 border-[#fe5a5e]/20 reveal">
+            <h3 className="text-2xl font-bold text-[#fe5a5e] mb-10 text-center">Event Statistics</h3>
 
             {/* Donut + Stat Cards */}
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 items-center">
@@ -381,7 +381,7 @@ export default function EventsPage() {
                 <div className="relative w-52 h-52">
                   <div
                     className="absolute inset-0 rounded-full"
-                    style={{ backgroundImage: `conic-gradient(#fe585f 0% ${progress}%, #e5e7eb ${progress}% 100%)` }}
+                    style={{ backgroundImage: `conic-gradient(#fe5a5e 0% ${progress}%, #e5e7eb ${progress}% 100%)` }}
                   />
                   <div className="absolute inset-4 bg-white rounded-full flex items-center justify-center">
                     <span className="text-5xl font-extrabold text-gray-800">{progress}%</span>
@@ -392,26 +392,26 @@ export default function EventsPage() {
 
               {/* Stat Cards */}
               <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#fe585f] transition-colors">
+                <div className="p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#fe5a5e] transition-colors">
                   <div className="flex items-center gap-3 mb-3 text-gray-600">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
                     <span className="font-medium">Participants</span>
                   </div>
-                  <p className="text-4xl font-bold text-[#fe585f] leading-none">{participantsCount}</p>
+                  <p className="text-4xl font-bold text-[#fe5a5e] leading-none">{participantsCount}</p>
                 </div>
-                <div className="p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#fe585f] transition-colors">
+                <div className="p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#fe5a5e] transition-colors">
                   <div className="flex items-center gap-3 mb-3 text-gray-600">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
                     <span className="font-medium">Countries</span>
                   </div>
-                  <p className="text-4xl font-bold text-[#fe585f] leading-none">{countriesCount}</p>
+                  <p className="text-4xl font-bold text-[#fe5a5e] leading-none">{countriesCount}</p>
                 </div>
-                <div className="p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#fe585f] transition-colors">
+                <div className="p-6 bg-white rounded-2xl border border-gray-200 hover:border-[#fe5a5e] transition-colors">
                   <div className="flex items-center gap-3 mb-3 text-gray-600">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
                     <span className="font-medium">Days</span>
                   </div>
-                  <p className="text-4xl font-bold text-[#fe585f] leading-none">{daysCount}</p>
+                  <p className="text-4xl font-bold text-[#fe5a5e] leading-none">{daysCount}</p>
                 </div>
               </div>
             </div>
@@ -424,7 +424,7 @@ export default function EventsPage() {
                 <div className="absolute right-24 bottom-6 w-24 h-24 rounded-full bg-gray-100" />
               </div>
               <div className="relative">
-                <h4 className="text-lg font-bold text-[#fe585f] mb-4">Recent Participants</h4>
+                <h4 className="text-lg font-bold text-[#fe5a5e] mb-4">Recent Participants</h4>
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-base text-gray-700">👤</div>
                   <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-base">🇩🇪</div>

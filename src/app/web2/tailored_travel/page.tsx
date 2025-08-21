@@ -187,7 +187,7 @@ export default function TailoredTravelPage() {
             <Web2Header />
 
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white py-20 relative overflow-hidden">
+            <section className="bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] text-white py-20 relative overflow-hidden">
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full animate-bounce animate-float"></div>
@@ -235,7 +235,7 @@ export default function TailoredTravelPage() {
                                 <input
                                     type="text"
                                     placeholder="Search experiences..."
-                                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#fe585f] focus:border-transparent"
+                                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#fe5a5e] focus:border-transparent"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
@@ -263,7 +263,7 @@ export default function TailoredTravelPage() {
                             {/* Reset Button */}
                             <Button 
                                 variant="outline" 
-                                className="h-12 border-[#fe585f] text-[#fe585f] hover:bg-[#fe585f] hover:text-white"
+                                className="h-12 border-[#fe5a5e] text-[#fe5a5e] hover:bg-[#fe5a5e] hover:text-white"
                                 onClick={() => {
                                     setActiveFilter('all');
                                     setSearchQuery('');
@@ -312,7 +312,7 @@ export default function TailoredTravelPage() {
                                         <Heart
                                             className={`h-5 w-5 transition-all duration-300 ${
                                                 likedScripts.has(script.id)
-                                                    ? 'text-[#fe585f] fill-current'
+                                                    ? 'text-[#fe5a5e] fill-current'
                                                     : 'text-white'
                                             }`}
                                         />
@@ -329,7 +329,7 @@ export default function TailoredTravelPage() {
 
                                 {/* Script Content */}
                                 <div className="p-8">
-                                    <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-[#fe585f] transition-colors">
+                                    <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-[#fe5a5e] transition-colors">
                                         {script.title}
                                     </h3>
                                     
@@ -374,11 +374,11 @@ export default function TailoredTravelPage() {
 
                                     {/* Price and Book Button */}
                                     <div className="flex items-center justify-between pt-6 border-t border-gray-200">
-                                        <div className="text-3xl font-bold text-[#fe585f]">
+                                        <div className="text-3xl font-bold text-[#fe5a5e]">
                                             {script.currency}{script.price}
                                             <span className="text-sm font-normal text-gray-500 ml-2">per guest</span>
                                         </div>
-                                        <Button className="bg-[#fe585f] hover:bg-[#e04a50] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 group-hover:scale-105">
+                                        <Button className="bg-[#fe5a5e] hover:bg-[#e04a50] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 group-hover:scale-105">
                                             View Details
                                             <ChevronRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                                         </Button>
@@ -400,7 +400,7 @@ export default function TailoredTravelPage() {
                         </p>
                         <Button 
                             variant="outline"
-                            className="border-[#fe585f] text-[#fe585f] hover:bg-[#fe585f] hover:text-white"
+                            className="border-[#fe5a5e] text-[#fe5a5e] hover:bg-[#fe5a5e] hover:text-white"
                             onClick={() => {
                                 setActiveFilter('all');
                                 setSearchQuery('');

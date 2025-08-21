@@ -95,7 +95,7 @@ export default function UncEconomicPage() {
 
                     {/* Subtle geometric elements */}
                     <div className="absolute top-20 right-20 w-32 h-32 border border-white/20 rounded-full"></div>
-                    <div className="absolute bottom-20 left-20 w-24 h-24 border border-[#fe585f]/30 rounded-full"></div>
+                    <div className="absolute bottom-20 left-20 w-24 h-24 border border-[#fe5a5e]/30 rounded-full"></div>
                 </div>
 
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,7 +104,7 @@ export default function UncEconomicPage() {
                         <div className="space-y-3 lg:space-y-6">
                             <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight">
                                 <span className={`inline ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-white`}>UNC&nbsp;</span>
-                                <span className={`inline ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} text-[#fe585f]`}>Economic</span>
+                                <span className={`inline ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} text-[#fe5a5e]`}>Economic</span>
                             </h1>
                         </div>
 
@@ -127,7 +127,7 @@ export default function UncEconomicPage() {
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 reveal">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
                             📈 Token Conversion Process
                         </h2>
                         <p className="text-xl text-gray-600">
@@ -137,17 +137,17 @@ export default function UncEconomicPage() {
 
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 reveal">
                         {/* Input Currency */}
-                        <div className="bg-gradient-to-br from-[#fe585f] to-[#d94a51] text-white rounded-2xl p-8 text-center min-w-[280px] shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                        <div className="bg-gradient-to-br from-[#fe5a5e] to-[#d94a51] text-white rounded-2xl p-8 text-center min-w-[280px] shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                             <h3 className="text-2xl font-bold mb-3">Airline Points / Fiat</h3>
                             <p className="text-lg opacity-90">Input Currency</p>
                         </div>
 
                         {/* Arrow */}
-                        <div className="text-4xl text-[#fe585f] animate-pulse">→</div>
+                        <div className="text-4xl text-[#fe5a5e] animate-pulse">→</div>
 
                         {/* USDC Bridge */}
-                        <div className="bg-gradient-to-br from-[#fe585f] to-[#d94a51] text-white rounded-2xl p-8 text-center min-w-[280px] shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative">
-                            <div className="absolute -top-3 -right-3 bg-white text-[#fe585f] px-3 py-1 rounded-full text-sm font-semibold">
+                        <div className="bg-gradient-to-br from-[#fe5a5e] to-[#d94a51] text-white rounded-2xl p-8 text-center min-w-[280px] shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative">
+                            <div className="absolute -top-3 -right-3 bg-white text-[#fe5a5e] px-3 py-1 rounded-full text-sm font-semibold">
                                 Invisible
                             </div>
                             <h3 className="text-2xl font-bold mb-3">USDC Bridge</h3>
@@ -156,10 +156,10 @@ export default function UncEconomicPage() {
                         </div>
 
                         {/* Arrow */}
-                        <div className="text-4xl text-[#fe585f] animate-pulse">→</div>
+                        <div className="text-4xl text-[#fe5a5e] animate-pulse">→</div>
 
                         {/* UNC Token */}
-                        <div className="bg-gradient-to-br from-[#fe585f] to-[#d94a51] text-white rounded-2xl p-8 text-center min-w-[280px] shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                        <div className="bg-gradient-to-br from-[#fe5a5e] to-[#d94a51] text-white rounded-2xl p-8 text-center min-w-[280px] shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                             <h3 className="text-2xl font-bold mb-3">UNC Token</h3>
                             <p className="text-lg opacity-90">Governance Token</p>
                         </div>
@@ -171,7 +171,7 @@ export default function UncEconomicPage() {
             <section className="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 reveal">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
                             🔄 User Ecosystem Cycle
                         </h2>
                         <p className="text-xl text-gray-600">
@@ -182,80 +182,80 @@ export default function UncEconomicPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
                         {/* Step 1: User Payment */}
                         <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 relative">
-                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe585f] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe5a5e] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
                                 1
                             </div>
-                            <h3 className="text-xl font-bold text-[#fe585f] mb-4 mt-4">User Payment</h3>
+                            <h3 className="text-xl font-bold text-[#fe5a5e] mb-4 mt-4">User Payment</h3>
                             <p className="text-gray-600 mb-4">
                                 Users pay UNC tokens for platform services, travel tasks, and exclusive activities
                             </p>
-                            <div className="text-[#fe585f] font-semibold">→ Platform Services</div>
+                            <div className="text-[#fe5a5e] font-semibold">→ Platform Services</div>
                         </div>
 
                         {/* Step 2: Expert Income */}
                         <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 relative">
-                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe585f] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe5a5e] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
                                 2
                             </div>
-                            <h3 className="text-xl font-bold text-[#fe585f] mb-4 mt-4">Expert Income</h3>
+                            <h3 className="text-xl font-bold text-[#fe5a5e] mb-4 mt-4">Expert Income</h3>
                             <p className="text-gray-600 mb-4">
                                 Content creators earn UNC through platform activities and user engagement
                             </p>
-                            <div className="text-[#fe585f] font-semibold">→ UNC Rewards</div>
+                            <div className="text-[#fe5a5e] font-semibold">→ UNC Rewards</div>
                         </div>
 
                         {/* Step 3: User Interaction */}
                         <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 relative">
-                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe585f] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe5a5e] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
                                 3
                             </div>
-                            <h3 className="text-xl font-bold text-[#fe585f] mb-4 mt-4">User Interaction</h3>
+                            <h3 className="text-xl font-bold text-[#fe5a5e] mb-4 mt-4">User Interaction</h3>
                             <p className="text-gray-600 mb-4">
                                 Users earn UNC through likes, comments, shares, and content creation
                             </p>
-                            <div className="text-[#fe585f] font-semibold">→ Social Rewards</div>
+                            <div className="text-[#fe5a5e] font-semibold">→ Social Rewards</div>
                         </div>
 
                         {/* Step 4: Merchant Staking */}
                         <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 relative">
-                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe585f] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe5a5e] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
                                 4
                             </div>
-                            <h3 className="text-xl font-bold text-[#fe585f] mb-4 mt-4">Merchant Staking</h3>
+                            <h3 className="text-xl font-bold text-[#fe5a5e] mb-4 mt-4">Merchant Staking</h3>
                             <p className="text-gray-600 mb-4">
                                 Merchants stake fiat amount to join platform and receive proportional UNC allocation
                             </p>
-                            <div className="text-[#fe585f] font-semibold">→ Platform Access</div>
+                            <div className="text-[#fe5a5e] font-semibold">→ Platform Access</div>
                         </div>
 
                         {/* Step 5: Payment Processing */}
                         <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 relative">
-                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe585f] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe5a5e] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
                                 5
                             </div>
-                            <h3 className="text-xl font-bold text-[#fe585f] mb-4 mt-4">Payment Processing</h3>
+                            <h3 className="text-xl font-bold text-[#fe5a5e] mb-4 mt-4">Payment Processing</h3>
                             <p className="text-gray-600 mb-4">
                                 Merchants & experts receive USDC payments via Coinpay / Ethereum sidechain
                             </p>
-                            <div className="text-[#fe585f] font-semibold">→ USDC Settlement</div>
+                            <div className="text-[#fe5a5e] font-semibold">→ USDC Settlement</div>
                         </div>
 
                         {/* Step 6: Platform Revenue */}
                         <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 relative">
-                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe585f] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                            <div className="absolute -top-4 left-8 bg-gradient-to-r from-[#fe5a5e] to-[#d94a51] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
                                 6
                             </div>
-                            <h3 className="text-xl font-bold text-[#fe585f] mb-4 mt-4">Platform Revenue</h3>
+                            <h3 className="text-xl font-bold text-[#fe5a5e] mb-4 mt-4">Platform Revenue</h3>
                             <p className="text-gray-600 mb-4">
                                 Platform earns commission to cover transaction costs and ecosystem maintenance
                             </p>
-                            <div className="text-[#fe585f] font-semibold">→ Sustainable Growth</div>
+                            <div className="text-[#fe5a5e] font-semibold">→ Sustainable Growth</div>
                         </div>
                     </div>
 
                     {/* Platform Fee Box */}
                     <div className="mt-12 reveal">
-                        <div className="bg-gradient-to-r from-[#fe585f] to-[#d94a51] text-white rounded-2xl p-8 text-center max-w-2xl mx-auto shadow-xl">
+                        <div className="bg-gradient-to-r from-[#fe5a5e] to-[#d94a51] text-white rounded-2xl p-8 text-center max-w-2xl mx-auto shadow-xl">
                             <h3 className="text-2xl font-bold mb-2">💰 Platform Fee: 3% - 5%</h3>
                             <p className="text-lg opacity-90">
                                 Covers transaction costs, platform maintenance, and ecosystem development
@@ -269,7 +269,7 @@ export default function UncEconomicPage() {
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 reveal">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
                             🚀 UNC Token Benefits
                         </h2>
                         <p className="text-xl text-gray-600">
@@ -278,7 +278,7 @@ export default function UncEconomicPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
-                        <div className="bg-gradient-to-br from-[#fe585f] to-[#d94a51] text-white rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                        <div className="bg-gradient-to-br from-[#fe5a5e] to-[#d94a51] text-white rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                             <div className="text-4xl mb-4">🎯</div>
                             <h3 className="text-xl font-bold mb-4">Governance Rights</h3>
                             <p className="opacity-90">
@@ -286,7 +286,7 @@ export default function UncEconomicPage() {
                             </p>
                         </div>
 
-                        <div className="bg-gradient-to-br from-[#fe585f] to-[#d94a51] text-white rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                        <div className="bg-gradient-to-br from-[#fe5a5e] to-[#d94a51] text-white rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                             <div className="text-4xl mb-4">💎</div>
                             <h3 className="text-xl font-bold mb-4">Staking Rewards</h3>
                             <p className="opacity-90">
@@ -294,7 +294,7 @@ export default function UncEconomicPage() {
                             </p>
                         </div>
 
-                        <div className="bg-gradient-to-br from-[#fe585f] to-[#d94a51] text-white rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                        <div className="bg-gradient-to-br from-[#fe5a5e] to-[#d94a51] text-white rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                             <div className="text-4xl mb-4">🌟</div>
                             <h3 className="text-xl font-bold mb-4">Premium Access</h3>
                             <p className="opacity-90">
@@ -309,14 +309,14 @@ export default function UncEconomicPage() {
             <section className="py-16 bg-white">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe585f] mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
                             Ready to Start Your Journey?
                         </h2>
                         <p className="text-xl text-gray-600 mb-8">
                             Download Uniloco and begin your travel-to-earn adventure today
                         </p>
                     </div>
-                    <DownloadSection textColor='#fe585f' />
+                    <DownloadSection textColor='#fe5a5e' />
                 </div>
             </section>
 

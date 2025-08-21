@@ -162,9 +162,9 @@ export default function Header({
   const pathname = usePathname();
   const isWebDark = pathname?.startsWith('/web_dark') ?? false;
   // Softer coral for /web_dark: semi-transparent gradient to reduce clash with dark hero
-  const navBg = isWebDark ? 'bg-gradient-to-b from-[#fe585f]/85 to-[#d94a51]/85' : 'bg-[#1E3A8A]';
+  const navBg = isWebDark ? 'bg-gradient-to-b from-[#fe5a5e]/85 to-[#d94a51]/85' : 'bg-[#1E3A8A]';
   const navBorder = isWebDark ? 'border-[#d94a51]' : 'border-[#1E40AF]';
-  const logoBg = isWebDark ? 'bg-white/15' : 'bg-[#fe585f]';
+  const logoBg = isWebDark ? 'bg-white/15' : 'bg-[#fe5a5e]';
 
   // 根据路径定制导航项：/web_dark 使用自定义顺序
   const effectiveNavItems = isWebDark ? ['home', 'how-to', 'events', 'partnership', 'web3 hub'] : navItems;
@@ -220,7 +220,7 @@ export default function Header({
                       <button
                         key={index}
                         onClick={() => handleDropdownItemClick(dropdownItem.action)}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-[#fe585f] hover:text-white transition-colors duration-200"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-[#fe5a5e] hover:text-white transition-colors duration-200"
                       >
                         {dropdownItem.label}
                       </button>
@@ -232,7 +232,7 @@ export default function Header({
             {showApplyButton && (
               <button
                 onClick={handleApplyClick}
-                className="bg-white text-[#fe585f] px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
+                className="bg-white text-[#fe5a5e] px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
               >
                 {applyButtonText}
               </button>

@@ -168,7 +168,7 @@ export default function ExclusiveServicePage() {
             <Web2Header />
             
             {/* Hero Section */}
-            <div className="bg-gradient-to-br from-[#fe585f] to-[#ff7a80] text-white py-20">
+            <div className="bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] text-white py-20">
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">
                         Exclusive Services
@@ -193,7 +193,7 @@ export default function ExclusiveServicePage() {
                                 placeholder="Search services..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#fe585f] focus:border-transparent"
+                                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#fe5a5e] focus:border-transparent"
                             />
                         </div>
                         
@@ -217,7 +217,7 @@ export default function ExclusiveServicePage() {
                         {/* Reset Button */}
                         <Button 
                             variant="outline" 
-                            className="h-12 border-[#fe585f] text-[#fe585f] hover:bg-[#fe585f] hover:text-white"
+                            className="h-12 border-[#fe5a5e] text-[#fe5a5e] hover:bg-[#fe5a5e] hover:text-white"
                             onClick={() => {
                                 setSearchQuery('');
                                 setSelectedCategory('all');
@@ -233,7 +233,7 @@ export default function ExclusiveServicePage() {
                     <button
                         className={`px-4 py-2 rounded-full text-sm font-medium ${
                             selectedCategory === 'all' 
-                                ? 'bg-[#fe585f] text-white' 
+                                ? 'bg-[#fe5a5e] text-white' 
                                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                         onClick={() => setSelectedCategory('all')}
@@ -245,7 +245,7 @@ export default function ExclusiveServicePage() {
                             key={category.id}
                             className={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 ${
                                 selectedCategory === category.id 
-                                    ? 'bg-[#fe585f] text-white' 
+                                    ? 'bg-[#fe5a5e] text-white' 
                                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                             }`}
                             onClick={() => setSelectedCategory(category.id)}
@@ -290,7 +290,7 @@ export default function ExclusiveServicePage() {
                                     
                                     {/* Popular Badge */}
                                     {service.isPopular && (
-                                        <div className="absolute top-3 right-3 bg-[#fe585f] text-white text-xs px-2 py-1 rounded-full font-medium">
+                                        <div className="absolute top-3 right-3 bg-[#fe5a5e] text-white text-xs px-2 py-1 rounded-full font-medium">
                                             Popular
                                         </div>
                                     )}
@@ -304,7 +304,7 @@ export default function ExclusiveServicePage() {
                                 
                                 {/* Content Section */}
                                 <div className="p-5">
-                                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#fe585f] transition-colors">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#fe5a5e] transition-colors">
                                         {service.title}
                                     </h3>
                                     
@@ -317,7 +317,7 @@ export default function ExclusiveServicePage() {
                                     
                                     <div className="flex justify-between items-center">
                                         <div>
-                                            <div className="text-2xl font-bold text-[#fe585f]">
+                                            <div className="text-2xl font-bold text-[#fe5a5e]">
                                                 ¥{service.price}
                                             </div>
                                             <div className="text-sm text-gray-500">
@@ -325,7 +325,7 @@ export default function ExclusiveServicePage() {
                                             </div>
                                         </div>
                                         
-                                        <Button className="bg-[#fe585f] hover:bg-[#e04a50] text-white px-6 py-2 rounded-lg font-medium">
+                                        <Button className="bg-[#fe5a5e] hover:bg-[#e04a50] text-white px-6 py-2 rounded-lg font-medium">
                                             Book Now
                                         </Button>
                                     </div>
@@ -346,7 +346,7 @@ export default function ExclusiveServicePage() {
                         </p>
                         <Button 
                             variant="outline"
-                            className="border-[#fe585f] text-[#fe585f] hover:bg-[#fe585f] hover:text-white"
+                            className="border-[#fe5a5e] text-[#fe5a5e] hover:bg-[#fe5a5e] hover:text-white"
                             onClick={() => {
                                 setSearchQuery('');
                                 setSelectedCategory('all');
