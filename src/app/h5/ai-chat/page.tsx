@@ -62,7 +62,9 @@ function AIChatContent() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const [autoAdvanceTimer, setAutoAdvanceTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const currentQuestion = questions[currentIndex];
   const progress = ((currentIndex + 1) / questions.length) * 100;
@@ -91,22 +93,29 @@ function AIChatContent() {
 
   // 清除自动跳转定时器
   const clearAutoAdvanceTimer = useCallback(() => {
-    if (autoAdvanceTimer) {
-      clearTimeout(autoAdvanceTimer);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
       setAutoAdvanceTimer(null);
     }
-  }, [autoAdvanceTimer]);
+  }, []); // 移除 autoAdvanceTimer 依赖
 
   // 通用自动跳转函数
-  const autoAdvance = (delay: number = 1500) => {
+  const autoAdvance = (delay: number = 800) => {
     clearAutoAdvanceTimer();
     
     const timer = setTimeout(() => {
-      if (currentIndex < questions.length - 1) {
+      const nextIndex = currentIndex + 1;
+      
+      
+      if (nextIndex < questions.length) {
         setSlideDirection('left');
         setTimeout(() => {
-          setCurrentIndex(prev => prev + 1);
+          setCurrentIndex(prevIndex => {
+            return nextIndex;
+          });
           setSlideDirection(null);
+          setIsProcessing(false); // 重置处理状态
         }, 300);
       } else {
         // 所有问题已回答，开始生成
@@ -114,8 +123,13 @@ function AIChatContent() {
       }
     }, delay);
     
+    timerRef.current = timer;
     setAutoAdvanceTimer(timer);
   };
+
+  // 监听 currentIndex 变化
+  useEffect(() => {
+  }, [currentIndex]);
 
   // 组件卸载时清理定时器
   useEffect(() => {
@@ -125,34 +139,59 @@ function AIChatContent() {
   }, [clearAutoAdvanceTimer]);
 
   const handleOptionSelect = (option: string) => {
-    setAnswers(prev => ({
-      ...prev,
+    
+    // 防止重复点击
+    if (isProcessing) return;
+    
+    setIsProcessing(true);
+    
+    // 立即更新答案
+    const newAnswers = {
+      ...answers,
       [currentQuestion.key]: option
-    }));
+    };
+    setAnswers(newAnswers);
 
-    // 添加选择动画和自动跳转
-    autoAdvance();
+    // 延迟自动跳转，确保状态更新完成
+    setTimeout(() => {
+      autoAdvance(800); // 减少等待时间到800ms
+    }, 100);
   };
 
   const handleCitySelect = (city: { id: string; name: string; country: string }) => {
+    if (isProcessing) return;
+    
+    setIsProcessing(true);
     setSelectedCity(city);
-    setAnswers(prev => ({
-      ...prev,
+    const newAnswers = {
+      ...answers,
       destination: city.name
-    }));
+    };
+    setAnswers(newAnswers);
 
-    // 城市选择后延迟跳转
-    autoAdvance(2000); // 给用户更多时间查看选择结果
+    // 城市选择后延迟跳转，减少等待时间
+    setTimeout(() => {
+      autoAdvance(1000); // 减少到1秒
+    }, 100);
   };
 
   const handleDurationSelect = (duration: { min: number; max: number; label: string }) => {
-    setAnswers(prev => ({
-      ...prev,
+    
+    if (isProcessing) {
+      return;
+    }
+    
+    setIsProcessing(true);
+    const newAnswers = {
+      ...answers,
       duration: duration.label
-    }));
+    };
+    setAnswers(newAnswers);
 
-    // 滑块选择后延迟跳转，给用户时间调整
-    autoAdvance(1500); // 减少延迟时间，让跳转更快
+    // 滑块选择后延迟跳转，减少等待时间
+    setTimeout(() => {
+      autoAdvance(800); // 减少到800ms
+    }, 100);
   };
 
   const handlePrevious = () => {
@@ -170,8 +209,7 @@ function AIChatContent() {
   const generatePlan = () => {
     setIsGenerating(true);
     // 这里可以添加生成逻辑
-    setTimeout(() => {
-      setIsGenerating(false);
+    setTimeout(() => {      setIsGenerating(false);
       // 跳转到结果页面，并传递用户选择
       const params = new URLSearchParams();
       params.set('destination', answers.destination || 'Rome');
@@ -184,11 +222,6 @@ function AIChatContent() {
       // 跳转到home 页面进行演示
       window.location.href = `/h5/home?${params.toString()}`;
     }, 3000);
-  };
-
-  const destinationOptions = {
-    label: 'Where would you like to travel?',
-    options: ['Luxembourg', 'Brussels', 'Amsterdam', 'Strasbourg', 'Trier', 'Metz', 'Nancy', 'Frankfurt'],
   };
 
   return (
@@ -270,19 +303,25 @@ function AIChatContent() {
                     <button
                       key={option}
                       onClick={() => handleOptionSelect(option)}
+                      disabled={answers[currentQuestion.key] === option}
                       className={`
-                        relative p-6 rounded-2xl text-left transition-all duration-200
+                        relative p-6 rounded-2xl text-left transition-all duration-300
                         ${answers[currentQuestion.key] === option
-                          ? 'bg-gradient-to-r from-[#fe5a5e]/10 to-[#ff7a80]/10 border-2 border-[#fe5a5e] text-slate-800 shadow-lg'
-                          : 'bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100'
+                          ? 'bg-gradient-to-r from-[#fe5a5e]/10 to-[#ff7a80]/10 border-2 border-[#fe5a5e] text-slate-800 shadow-lg scale-105'
+                          : 'bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 hover:scale-102'
                         }
+                        ${answers[currentQuestion.key] === option ? 'cursor-default' : 'cursor-pointer'}
                       `}
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       <span className="text-base font-medium">{option}</span>
                       {answers[currentQuestion.key] === option && (
-                        <div className="absolute top-3 right-3 w-5 h-5 bg-[#fe5a5e] rounded-full flex items-center justify-center shadow-lg">
-                          <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+                        <div className="absolute top-3 right-3 w-5 h-5 bg-[#fe5a5e] rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                          {isProcessing ? (
+                            <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          ) : (
+                            <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+                          )}
                         </div>
                       )}
                     </button>
