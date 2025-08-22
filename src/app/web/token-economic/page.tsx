@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Header from '@/components/ui/Header';
 import DownloadSection from '@/components/features/DownloadSection';
+import GDPRSection from '@/components/features/GDPRSection';
 
 export default function UncEconomicPage() {
     const router = useRouter();
@@ -128,7 +129,7 @@ export default function UncEconomicPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 reveal">
                         <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
-                            📈 Token Conversion Process
+                            Token Conversion Process
                         </h2>
                         <p className="text-xl text-gray-600">
                             Seamless conversion from traditional currencies to UNC governance tokens
@@ -172,7 +173,7 @@ export default function UncEconomicPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 reveal">
                         <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
-                            🔄 User Ecosystem Cycle
+                            User Ecosystem Cycle
                         </h2>
                         <p className="text-xl text-gray-600">
                             Complete cycle of token flow and platform interactions
@@ -256,7 +257,7 @@ export default function UncEconomicPage() {
                     {/* Platform Fee Box */}
                     <div className="mt-12 reveal">
                         <div className="bg-gradient-to-r from-[#fe5a5e] to-[#d94a51] text-white rounded-2xl p-8 text-center max-w-2xl mx-auto shadow-xl">
-                            <h3 className="text-2xl font-bold mb-2">💰 Platform Fee: 3% - 5%</h3>
+                            <h3 className="text-2xl font-bold mb-2">Platform Fee: 3% - 5%</h3>
                             <p className="text-lg opacity-90">
                                 Covers transaction costs, platform maintenance, and ecosystem development
                             </p>
@@ -270,7 +271,7 @@ export default function UncEconomicPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 reveal">
                         <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
-                            🚀 UNC Token Benefits
+                             UNC Token Benefits
                         </h2>
                         <p className="text-xl text-gray-600">
                             Why UNC tokens are the backbone of our ecosystem
@@ -306,19 +307,20 @@ export default function UncEconomicPage() {
             </section>
 
             {/* Download Section - Moved outside Hero */}
-            <section className="py-16 bg-white">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
-                            Ready to Start Your Journey?
-                        </h2>
-                        <p className="text-xl text-gray-600 mb-8">
-                            Download Uniloco and begin your travel-to-earn adventure today
-                        </p>
-                    </div>
-                    <DownloadSection textColor='#fe5a5e' />
+            <section className="py-8 bg-white">
+                <div className="text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
+                        Ready to Start Your Journey?
+                    </h2>
+                    <p className="text-xl text-gray-600 mb-8">
+                        Download Uniloco and begin your travel-to-earn adventure today
+                    </p>
                 </div>
+                <DownloadSection textColor='#fe5a5e' />
             </section>
+
+            {/* GDPR Section */}
+            <GDPRSection />
 
             {/* CSS Styles */}
             <style jsx>{`

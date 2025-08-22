@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import InteractiveMap from "@/components/features/InteractiveMap";
 import type { MapPoint } from "@/types/travel";
 
@@ -69,6 +69,8 @@ export default function QuestCityLanding() {
     const [selectedCity, setSelectedCity] = useState<string>("London");
     const [searchIdx, setSearchIdx] = useState(0);
     const [searchQuery, setSearchQuery] = useState<string>("");
+    const [isPlaying, setIsPlaying] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const [mapPoints, setMapPoints] = useState<MapPoint[]>([
         {
             id: "1",
@@ -106,6 +108,23 @@ export default function QuestCityLanding() {
         return () => clearInterval(id);
     }, []);
 
+    // 监听视频播放状态
+    useEffect(() => {
+        const video = videoRef.current;
+        if (video) {
+            const handlePlay = () => setIsPlaying(true);
+            const handlePause = () => setIsPlaying(false);
+            
+            video.addEventListener('play', handlePlay);
+            video.addEventListener('pause', handlePause);
+            
+            return () => {
+                video.removeEventListener('play', handlePlay);
+                video.removeEventListener('pause', handlePause);
+            };
+        }
+    }, []);
+
     const quest = useMemo(() => QUESTS[selectedCity], [selectedCity]);
 
     const showDemo = () => {
@@ -124,6 +143,18 @@ export default function QuestCityLanding() {
         if (searchQuery.trim()) {
             console.log('Searching for:', searchQuery);
             // 这里可以添加搜索逻辑
+        }
+    };
+
+    const toggleVideoPlay = () => {
+        if (videoRef.current) {
+            if (isPlaying) {
+                videoRef.current.pause();
+                setIsPlaying(false);
+            } else {
+                videoRef.current.play();
+                setIsPlaying(true);
+            }
         }
     };
 
@@ -265,6 +296,120 @@ export default function QuestCityLanding() {
                 </div>
             </div>
 
+            {/* 3D Social Network Section */}
+            <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        {/* Left: Video */}
+                        <div className="order-2 lg:order-1">
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+                                <video
+                                    ref={videoRef}
+                                    className="w-full h-auto brightness-125 contrast-110"
+                                    muted
+                                    loop
+                                    playsInline
+                                    controls
+                                    style={{
+                                        aspectRatio: '16/9',
+                                        objectFit: 'cover'
+                                    }}
+                                >
+                                    <source src="/video/network_unc_token.webm" type="video/webm" />
+                                    <source src="/video/network_unc_token.webm" type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                                
+                                {/* Custom Video Controls Overlay */}
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                    <div className="bg-black/50 rounded-full p-4 pointer-events-auto">
+                                        <button
+                                            onClick={toggleVideoPlay}
+                                            className="text-white hover:text-gray-300 transition-colors"
+                                        >
+                                            {isPlaying ? (
+                                                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                                                </svg>
+                                            ) : (
+                                                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M8 5v14l11-7z"/>
+                                                </svg>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                {/* Video overlay for better text contrast */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
+                            </div>
+                        </div>
+
+                        {/* Right: Content */}
+                        <div className="order-1 lg:order-2 space-y-8">
+                            <div className="space-y-6">
+                                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                                    3D Social Network
+                                </h2>
+                                
+                                <div className="space-y-6">
+                                    <div className="flex items-start space-x-4">
+                                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                            1
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                                Check your interest
+                                            </h3>
+                                            <p className="text-gray-600 leading-relaxed">
+                                                Discover activities and communities that match your passions and interests
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start space-x-4">
+                                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                            2
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                                Search the related people
+                                            </h3>
+                                            <p className="text-gray-600 leading-relaxed">
+                                                Find like-minded individuals and communities in your area or around the world
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start space-x-4">
+                                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                            3
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                                Connect with them
+                                            </h3>
+                                            <p className="text-gray-600 leading-relaxed">
+                                                Join conversations, participate in activities, and build meaningful connections
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="pt-6">
+                                    <button className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                                        Start Connecting
+                                        <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <style jsx>{`
         * {
           margin: 0;
@@ -328,8 +473,8 @@ export default function QuestCityLanding() {
         }
         .content-grid {
           display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
-          gap: 80px;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
           max-width: 1400px;
           width: 100%;
           align-items: center;
@@ -426,12 +571,13 @@ export default function QuestCityLanding() {
           position: relative;
           height: 100%;
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: center;
+          padding-top: 0;
         }
         .europe-map {
-          width: 450px;
-          height: 500px;
+          width: 550px;
+          height: 100%;
           background: rgba(255, 255, 255, 0.15);
           border-radius: 24px;
           backdrop-filter: blur(20px);
@@ -442,10 +588,10 @@ export default function QuestCityLanding() {
         .map-background { width: 100%; height: 100%; background: linear-gradient(45deg, #fe5a5e, #ff7a80); position: relative; }
         .map-container { 
           position: absolute; 
-          top: 100px; /* 增加顶部间距，与搜索框分开 */
+          top: 100px; /* 与搜索框分开 */
           left: 25px; 
           right: 25px; 
-          bottom: 100px; /* 增加底部间距 */
+          bottom: 25px; /* 减少底部间距，让地图更大 */
           border-radius: 16px; 
           overflow: hidden; 
         }
@@ -502,7 +648,7 @@ export default function QuestCityLanding() {
           .content-grid { grid-template-columns: 1fr; gap: 50px; text-align: center; }
           .main-title { font-size: 42px; }
           .features-grid { grid-template-columns: 1fr; }
-          .europe-map { width: 350px; height: 400px; margin: 0 auto; }
+          .europe-map { width: 450px; height: 500px; margin: 0 auto; }
           .cta-section { justify-content: center; }
           .header-content { padding: 0 30px; }
           .header-nav { gap: 20px; }
