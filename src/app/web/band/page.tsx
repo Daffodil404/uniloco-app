@@ -121,7 +121,7 @@ export default function TravelBandNFTsPage() {
       <Header
         activeSection={activeSection}
         onNavigation={handleNavigation}
-        navItems={['home', 'how-to', 'web3 hub', 'events', 'partnership']}
+        navItems={['home', 'how-to', 'events', 'partnership', 'web3 hub']}
       />
 
       {/* Hero removed per request */}

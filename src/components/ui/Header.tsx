@@ -58,7 +58,7 @@ export default function Header({
   const handleNavClick = (item: string) => {
     // 根据当前路径决定路由前缀
     const currentPath = pathname ?? '';
-    const isDark = currentPath.startsWith('/web');
+    const isDark = currentPath.startsWith('/web') || currentPath === '/';
     const basePath = isDark ? '/web' : '/web_pre';
     
     if (item === 'home') {
@@ -87,7 +87,7 @@ export default function Header({
 
     if (item === 'how-to') {
       if (isDark) {
-        // /web: 直接跳转到 play 页面
+        // /web 或根页面: 直接跳转到 play 页面
         router.push(`${basePath}/play`);
         return;
       } else {
@@ -97,6 +97,7 @@ export default function Header({
       }
     }
 
+    // 如果没有匹配到特定路由，使用默认行为
     if (onNavigation) {
       onNavigation(item);
     } else if (scrollToSection) {
@@ -112,11 +113,11 @@ export default function Header({
   const getDropdownItems = (item: string): DropdownItem[] => {
     // 根据当前路径决定路由前缀
     const currentPath = pathname ?? '';
-    const isDark = currentPath.startsWith('/web');
+    const isDark = currentPath.startsWith('/web') || currentPath === '/';
     const basePath = isDark ? '/web' : '/web_pre';
 
     if (item === 'how-to') {
-      // /web 不再需要下拉菜单，直接返回空数组
+      // /web 或根页面不再需要下拉菜单，直接返回空数组
       if (isDark) {
         return [];
       }
@@ -160,15 +161,15 @@ export default function Header({
     }
   };
 
-  // 动态切换主题：/web 使用深色，其它使用现有主题（保持不变）
+  // 动态切换主题：/web 或根页面使用深色，其它使用现有主题（保持不变）
   const pathname = usePathname();
-  const isWebDark = (pathname?.startsWith('/web') ?? false) || forceWebDark;
+  const isWebDark = (pathname?.startsWith('/web') ?? false) || (pathname === '/') || forceWebDark;
   // Softer coral for /web: semi-transparent gradient to reduce clash with dark hero
   const navBg = isWebDark ? 'bg-gradient-to-b from-[#fe5a5e]/85 to-[#d94a51]/85' : 'bg-[#1E3A8A]';
   const navBorder = isWebDark ? 'border-[#d94a51]' : 'border-[#1E40AF]';
   const logoBg = isWebDark ? 'bg-white/15' : 'bg-[#fe5a5e]';
 
-  // 根据路径定制导航项：/web 使用自定义顺序
+  // 根据路径定制导航项：/web 或根页面使用自定义顺序
   const effectiveNavItems = isWebDark ? ['home', 'how-to', 'events', 'partnership', 'web3 hub'] : navItems;
 
   return (

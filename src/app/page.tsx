@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Header from '@/components/ui/Header';
 import DownloadSection from '@/components/features/DownloadSection';
+import VideoPlayer from '@/components/features/VideoPlayer';
 
 export default function IntroPage() {
     const router = useRouter();
@@ -11,10 +12,6 @@ export default function IntroPage() {
     const [isAnimating, setIsAnimating] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isLoading, setIsLoading] = useState(true);
-    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-    const [videoLoaded, setVideoLoaded] = useState(false);
-    const [videoError, setVideoError] = useState(false);
-    const [videoLoadingTimeout, setVideoLoadingTimeout] = useState<NodeJS.Timeout | null>(null);
     const [bandImagesLoaded, setBandImagesLoaded] = useState<boolean[]>([false, false, false, false]);
     const [likedPosts, setLikedPosts] = useState<boolean[]>([false, false, false]);
     const [heroLoaded, setHeroLoaded] = useState(false);
@@ -33,8 +30,8 @@ export default function IntroPage() {
             // 延迟启动Hero动画
             setTimeout(() => {
                 setHeroLoaded(true);
-            }, 500);
-        }, 2000);
+            }, 300);
+        }, 1500);
 
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
@@ -48,48 +45,7 @@ export default function IntroPage() {
         return () => clearInterval(interval);
     }, []);
 
-    // 视频加载超时处理
-    useEffect(() => {
-        if (!videoLoaded && !videoError) {
-            const timeout = setTimeout(() => {
-                console.log('Video loading timeout - forcing error state');
-                setVideoError(true);
-                setVideoLoaded(false);
-            }, 30000); // 30秒超时，给视频更多时间加载
 
-            setVideoLoadingTimeout(timeout);
-
-            return () => {
-                if (timeout) clearTimeout(timeout);
-            };
-        }
-    }, [videoLoaded, videoError]);
-
-    // 强制视频加载检测
-    useEffect(() => {
-        const checkVideoLoad = () => {
-            const video = document.querySelector('video') as HTMLVideoElement;
-            if (video) {
-                console.log('Video element found, ready state:', video.readyState);
-                if (video.readyState >= 2) { // HAVE_CURRENT_DATA
-                    console.log('Video ready state:', video.readyState);
-                    setVideoLoaded(true);
-                    setVideoError(false);
-                } else {
-                    // 如果视频还没准备好，继续检查
-                    setTimeout(checkVideoLoad, 1000);
-                }
-            } else {
-                // 如果视频元素还没找到，继续检查
-                setTimeout(checkVideoLoad, 500);
-            }
-        };
-
-        // 延迟检查视频状态
-        const timer = setTimeout(checkVideoLoad, 1000);
-
-        return () => clearTimeout(timer);
-    }, []);
 
     const handleNavigation = (section: string) => {
         setIsAnimating(true);
@@ -120,81 +76,7 @@ export default function IntroPage() {
         }
     };
 
-    const handleVideoPlay = () => {
-        setIsVideoPlaying(true);
-        // 模拟触觉反馈
-        if ('vibrate' in navigator) {
-            navigator.vibrate(100);
-        }
-    };
 
-    const handleVideoPause = () => {
-        setIsVideoPlaying(false);
-    };
-
-    const handleVideoLoad = () => {
-        console.log('Video loaded successfully');
-        setVideoLoaded(true);
-        setVideoError(false);
-
-        // 清除加载超时
-        if (videoLoadingTimeout) {
-            clearTimeout(videoLoadingTimeout);
-            setVideoLoadingTimeout(null);
-        }
-    };
-
-    const handleVideoCanPlay = () => {
-        console.log('Video can play');
-        setVideoLoaded(true);
-        setVideoError(false);
-    };
-
-    const handlePlayButtonClick = () => {
-        const video = document.querySelector('video') as HTMLVideoElement;
-        if (video) {
-            console.log('Play button clicked, attempting to play video');
-
-            // 添加触觉反馈
-            if ('vibrate' in navigator) {
-                navigator.vibrate(100);
-            }
-
-            video.play().then(() => {
-                console.log('Video started playing');
-                setIsVideoPlaying(true);
-            }).catch((error) => {
-                console.error('Failed to play video:', error);
-                // 如果自动播放失败，显示友好的提示
-                const playButton = document.querySelector('.play-button') as HTMLElement;
-                if (playButton) {
-                    playButton.style.animation = 'shake 0.5s ease-in-out';
-                    setTimeout(() => {
-                        playButton.style.animation = '';
-                    }, 500);
-                }
-
-                // 显示提示信息
-                const message = document.createElement('div');
-                message.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#fe5a5e] text-white px-4 py-2 rounded-lg z-50';
-                message.textContent = 'Click the play button in video controls to start playback';
-                document.body.appendChild(message);
-
-                setTimeout(() => {
-                    document.body.removeChild(message);
-                }, 3000);
-            });
-        }
-    };
-
-    const handleVideoDoubleClick = () => {
-        const video = document.querySelector('video') as HTMLVideoElement;
-        if (video && video.requestFullscreen) {
-            video.requestFullscreen().catch((error) => {
-                console.log('Fullscreen request failed:', error);
-            });
-        }
-    };
 
     const handleBandImageLoad = (index: number) => {
         setBandImagesLoaded(prev => {
@@ -246,34 +128,7 @@ export default function IntroPage() {
         }
     };
 
-    const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-        console.error('Video error:', e);
-        setVideoError(true);
-        setVideoLoaded(false);
 
-        // 清除加载超时
-        if (videoLoadingTimeout) {
-            clearTimeout(videoLoadingTimeout);
-            setVideoLoadingTimeout(null);
-        }
-    };
-
-    const handleVideoRetry = () => {
-        console.log('Retrying video load...');
-        setVideoError(false);
-        setVideoLoaded(false);
-        // 重新加载视频
-        const video = document.querySelector('video') as HTMLVideoElement;
-        if (video) {
-            video.load();
-            // 强制触发加载事件
-            setTimeout(() => {
-                if (!videoLoaded && !videoError) {
-                    console.log('Video still not loaded after retry');
-                }
-            }, 5000);
-        }
-    };
 
     return (
         <div className="min-h-screen bg-[#fff] overflow-x-hidden relative">
@@ -322,26 +177,28 @@ export default function IntroPage() {
                     </div>
 
                     <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center space-y-6 lg:space-y-8">
+                        <div className="text-center space-y-5 lg:space-y-7">
                             {/* Main Slogan */}
-                            <div className="space-y-3 lg:space-y-6">
-                                <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight">
+                            <div className="space-y-2 lg:space-y-4">
+                                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                                     <span className={`inline ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-white`}>Own Your&nbsp;</span>
                                     <span className={`inline ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} text-[#fe5a5e]`}>Journey</span>
                                 </h1>
                             </div>
 
                             {/* Subtitle */}
-                            <h2 className={`text-xl md:text-2xl lg:text-3xl text-white font-medium ${heroLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
+                            <h2 className={`text-lg md:text-xl lg:text-2xl text-white font-medium ${heroLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
                                 Your Ultimate Travel App
                             </h2>
 
                             {/* Description */}
-                            <p className={`text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
+                            <p className={`text-sm md:text-base lg:text-lg text-white/80 leading-relaxed max-w-2xl mx-auto ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
                                 Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
                             </p>
 
-                            <DownloadSection buttonOnly={true} textColor='#ffffff'/>
+                            <div className="mt-4">
+                                <DownloadSection buttonOnly={true} textColor='#ffffff'/>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -460,99 +317,12 @@ export default function IntroPage() {
                             Discover the revolutionary travel-to-earn ecosystem in action
                         </p>
 
-                        <div className="relative group">
-                            <div
-                                className="w-full h-[32rem] lg:h-[40rem] rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 overflow-hidden bg-transparent cursor-pointer"
-                                onClick={handlePlayButtonClick}
-                            >
-                                {/* 简化的视频加载状态 - 只在最初显示 */}
-                                {!videoLoaded && !videoError && (
-                                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B] z-10">
-                                        <div className="text-center text-white">
-                                            <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                                            <p className="text-lg font-semibold">Loading Video...</p>
-                                            <p className="text-sm opacity-80 mt-2">Please wait...</p>
-                                            <button
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    setVideoLoaded(true);
-                                                }}
-                                                className="mt-4 px-4 py-2 bg-white text-[#fe5a5e] rounded-lg text-sm font-semibold hover:bg-gray-100 transition-all duration-300"
-                                            >
-                                                Skip Loading
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* 视频错误状态 */}
-                                {videoError && (
-                                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B] z-10">
-                                        <div className="text-center text-white">
-                                            <div className="text-6xl mb-4">⚠️</div>
-                                            <p className="text-lg font-semibold mb-2">Video Unavailable</p>
-                                            <p className="text-sm opacity-80 mb-4">Please try again later</p>
-                                            <button
-                                                onClick={handleVideoRetry}
-                                                className="px-6 py-2 bg-white text-[#fe5a5e] rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300"
-                                            >
-                                                🔄 Retry
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* 视频播放器 */}
-                                <video
-                                    className="w-full h-full object-cover rounded-2xl"
-                                    controls
-                                    preload="auto"
-                                    playsInline
-                                    onPlay={handleVideoPlay}
-                                    onPause={handleVideoPause}
-                                    onEnded={handleVideoPause}
-                                    onLoadedData={handleVideoLoad}
-                                    onCanPlay={handleVideoCanPlay}
-                                    onError={handleVideoError}
-                                    onLoadStart={() => console.log('Video load started')}
-                                    onDoubleClick={handleVideoDoubleClick}
-                                >
-                                    <source src="/video/uniloco.mov" type="video/quicktime" />
-                                    <source src="/video/uniloco.mov" type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
-
-
-
-                                {!isVideoPlaying && videoLoaded && !videoError && (
-                                    <div
-                                        className="absolute inset-0 flex items-center justify-center bg-black/5 group-hover:bg-black/10 transition-all duration-300 cursor-pointer z-20"
-                                        onClick={handlePlayButtonClick}
-                                    >
-                                        <div className="play-button w-24 h-24 bg-white/95 rounded-full flex items-center justify-center text-4xl group-hover:scale-110 transition-transform duration-300 shadow-lg hover:bg-white">
-                                            ▶️
-                                        </div>
-                                        <div className="absolute bottom-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-                                            Click to Play
-                                        </div>
-                                    </div>
-                                )}
-
-
-
-                                {isVideoPlaying && videoLoaded && !videoError && (
-                                    <div className="absolute top-4 right-4 bg-[#2563EB] text-white px-3 py-1 rounded-full text-sm font-semibold z-20">
-                                        ▶️ Playing
-                                    </div>
-                                )}
-
-                                {videoLoaded && !videoError && (
-                                    <div className="absolute bottom-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-xs z-20">
-                                        Double-click for fullscreen
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                        <VideoPlayer
+                            src="/video/uniloco.mov"
+                            fallbackSrc="/video/uniloco.mov"
+                            aspectRatio="h-[32rem] lg:h-[40rem]"
+                            brightness={1.5}
+                        />
                     </div>
                 </section>
             )}
@@ -808,19 +578,19 @@ export default function IntroPage() {
         }
         
         .slide-in-left-delay-4 {
-          animation: slideInLeft 1s ease-out 0.8s forwards;
+          animation: slideInLeft 0.8s ease-out 0.6s forwards;
           opacity: 0;
           transform: translateX(-100px);
         }
         
         .slide-in-left-delay-5 {
-          animation: slideInLeft 1s ease-out 1s forwards;
+          animation: slideInLeft 0.8s ease-out 0.8s forwards;
           opacity: 0;
           transform: translateX(-100px);
         }
         
         .slide-in-left-delay-6 {
-          animation: slideInLeft 1s ease-out 1.2s forwards;
+          animation: slideInLeft 0.8s ease-out 1s forwards;
           opacity: 0;
           transform: translateX(-100px);
         }
