@@ -92,7 +92,7 @@ export default function PartnershipPage() {
       <Header
         activeSection={activeSection}
         onNavigation={handleNavigation}
-        navItems={['home', 'how-to', 'web3 hub', 'partnership']}
+        navItems={['home', 'how-to', 'events', 'partnership', 'web3 hub']}
       />
 
       {/* Hero Section with video background (intro style) */}

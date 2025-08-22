@@ -131,7 +131,7 @@ export default function EventsPage() {
       <Header
         activeSection={activeSection}
         onNavigation={handleNavigation}
-        navItems={['home', 'how-to', 'web3 hub', 'partnership']}
+        navItems={['home', 'how-to', 'events', 'partnership', 'web3 hub']}
       />
 
       {/* Hero Section */}

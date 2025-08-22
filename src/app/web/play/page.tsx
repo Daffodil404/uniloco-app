@@ -95,7 +95,7 @@ export default function HowToPlayPage() {
             <Header
                 activeSection={activeSection}
                 onNavigation={handleNavigation}
-                navItems={['home', 'how-to', 'web3 hub', 'partnership']}
+                navItems={['home', 'how-to', 'events', 'partnership', 'web3 hub']}
             />
 
             {/* Hero Section */}
@@ -106,23 +106,23 @@ export default function HowToPlayPage() {
                 </div>
 
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col lg:flex-row items-center gap-12">
+                    <div className="flex flex-col lg:flex-row items-center gap-16">
                         {/* Left Side - Steps Content */}
-                        <div className="flex-1 text-left space-y-8">
+                        <div className="flex-1 lg:flex-[0.4] text-left space-y-8">
                             <div className="space-y-2">
                                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                                     <span className="block text-[#fe5a5e]">How It Works</span>
-                            </h1>
+                                </h1>
                                 <p className="text-xl text-gray-600 max-w-2xl">
                                     Get your personalized travel itinerary in just 4 simple steps
                                 </p>
                             </div>
 
-                            <div className="space-y-8">
+                            <div className="space-y-6">
                                 {steps.map((step, index) => (
                                     <div 
                                         key={step.number}
-                                        className={`flex items-start gap-6 ${
+                                        className={`flex items-center gap-6 ${
                                             isLoaded ? 'animate-fade-in' : 'opacity-0'
                                         }`}
                                         style={{
@@ -134,25 +134,20 @@ export default function HowToPlayPage() {
                                             {step.number}
                                         </div>
                                         
-                                        {/* Step Content */}
-                                        <div className="flex-1 space-y-3">
-                                            <h3 className="text-3xl font-bold text-gray-800">
-                                                {step.title}
-                                            </h3>
-                                            <p className="text-base text-gray-600 leading-relaxed">
-                                                {step.description}
-                                            </p>
-                                        </div>
+                                        {/* Step Title Only */}
+                                        <h3 className="text-2xl font-bold text-gray-800">
+                                            {step.title}
+                                        </h3>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         {/* Right Side - Video */}
-                        <div className="flex-1">
+                        <div className="flex-1 lg:flex-[0.6]">
                             <div className="relative group">
                                 <div
-                                    className="w-full h-[32rem] lg:h-[40rem] rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 overflow-hidden bg-transparent cursor-pointer"
+                                    className="w-full aspect-video rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 overflow-hidden bg-transparent cursor-pointer"
                                     onClick={handlePlayButtonClick}
                                 >
                                     {/* Video Loading State */}
@@ -200,8 +195,8 @@ export default function HowToPlayPage() {
                                         onLoadedData={handleVideoLoad}
                                         onError={handleVideoError}
                                     >
-                                        <source src="/video/travel_hero_video.webm" type="video/webm" />
-                                        <source src="/video/uniloco.mov" type="video/quicktime" />
+                                        <source src="/video/play.mp4" type="video/webm" />
+                                        <source src="/video/play.mp4" type="video/quicktime" />
                                         Your browser does not support the video tag.
                                     </video>
 
