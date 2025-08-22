@@ -328,8 +328,8 @@ export default function QuestCityLanding() {
         }
         .content-grid {
           display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
-          gap: 80px;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
           max-width: 1400px;
           width: 100%;
           align-items: center;
@@ -426,12 +426,13 @@ export default function QuestCityLanding() {
           position: relative;
           height: 100%;
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: center;
+          padding-top: 0;
         }
         .europe-map {
-          width: 450px;
-          height: 500px;
+          width: 550px;
+          height: 100%;
           background: rgba(255, 255, 255, 0.15);
           border-radius: 24px;
           backdrop-filter: blur(20px);
@@ -442,10 +443,10 @@ export default function QuestCityLanding() {
         .map-background { width: 100%; height: 100%; background: linear-gradient(45deg, #fe5a5e, #ff7a80); position: relative; }
         .map-container { 
           position: absolute; 
-          top: 100px; /* 增加顶部间距，与搜索框分开 */
+          top: 100px; /* 与搜索框分开 */
           left: 25px; 
           right: 25px; 
-          bottom: 100px; /* 增加底部间距 */
+          bottom: 25px; /* 减少底部间距，让地图更大 */
           border-radius: 16px; 
           overflow: hidden; 
         }
@@ -502,7 +503,7 @@ export default function QuestCityLanding() {
           .content-grid { grid-template-columns: 1fr; gap: 50px; text-align: center; }
           .main-title { font-size: 42px; }
           .features-grid { grid-template-columns: 1fr; }
-          .europe-map { width: 350px; height: 400px; margin: 0 auto; }
+          .europe-map { width: 450px; height: 500px; margin: 0 auto; }
           .cta-section { justify-content: center; }
           .header-content { padding: 0 30px; }
           .header-nav { gap: 20px; }
