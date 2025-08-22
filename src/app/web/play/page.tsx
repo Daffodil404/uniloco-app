@@ -3,13 +3,11 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Header from '@/components/ui/Header';
+import VideoPlayer from '@/components/features/VideoPlayer';
 
 export default function HowToPlayPage() {
     const [activeSection, setActiveSection] = useState('how-to');
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-    const [videoLoaded, setVideoLoaded] = useState(false);
-    const [videoError, setVideoError] = useState(false);
 
     useEffect(() => {
         setTimeout(() => setIsLoaded(true), 100);
@@ -17,49 +15,6 @@ export default function HowToPlayPage() {
 
     const handleNavigation = (section: string) => {
         setActiveSection(section);
-    };
-
-    const handleVideoPlay = () => {
-        setIsVideoPlaying(true);
-        // 模拟触觉反馈
-        if ('vibrate' in navigator) {
-            navigator.vibrate(100);
-        }
-    };
-
-    const handleVideoPause = () => {
-        setIsVideoPlaying(false);
-    };
-
-    const handleVideoLoad = () => {
-        console.log('Video loaded successfully');
-        setVideoLoaded(true);
-        setVideoError(false);
-    };
-
-    const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-        console.error('Video error:', e);
-        setVideoError(true);
-        setVideoLoaded(false);
-    };
-
-    const handlePlayButtonClick = () => {
-        const video = document.querySelector('video') as HTMLVideoElement;
-        if (video) {
-            console.log('Play button clicked, attempting to play video');
-
-            // 添加触觉反馈
-            if ('vibrate' in navigator) {
-                navigator.vibrate(100);
-            }
-
-            video.play().then(() => {
-                console.log('Video started playing');
-                setIsVideoPlaying(true);
-            }).catch((error) => {
-                console.error('Failed to play video:', error);
-            });
-        }
     };
 
     const steps = [
@@ -145,91 +100,11 @@ export default function HowToPlayPage() {
 
                         {/* Right Side - Video */}
                         <div className="flex-1 lg:flex-[0.6]">
-                            <div className="relative group">
-                                <div
-                                    className="w-full aspect-video rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 overflow-hidden bg-transparent cursor-pointer"
-                                    onClick={handlePlayButtonClick}
-                                >
-                                    {/* Video Loading State */}
-                                    {!videoLoaded && !videoError && (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B] z-10">
-                                            <div className="text-center text-white">
-                                                <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                                                <p className="text-lg font-semibold">Loading Video...</p>
-                                                <p className="text-sm opacity-80 mt-2">Please wait...</p>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Video Error State */}
-                                    {videoError && (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B] z-10">
-                                            <div className="text-center text-white">
-                                                <div className="text-6xl mb-4">⚠️</div>
-                                                <p className="text-lg font-semibold mb-2">Video Unavailable</p>
-                                                <p className="text-sm opacity-80 mb-4">Please try again later</p>
-                                                <button
-                                                    onClick={() => {
-                                                        setVideoError(false);
-                                                        setVideoLoaded(false);
-                                                        const video = document.querySelector('video') as HTMLVideoElement;
-                                                        if (video) video.load();
-                                                    }}
-                                                    className="px-6 py-2 bg-white text-[#fe5a5e] rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300"
-                                                >
-                                                    🔄 Retry
-                                                </button>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Video Player */}
-                                    <video
-                                        className="w-full h-full object-cover rounded-2xl"
-                                        controls
-                                        preload="auto"
-                                        playsInline
-                                        onPlay={handleVideoPlay}
-                                        onPause={handleVideoPause}
-                                        onEnded={handleVideoPause}
-                                        onLoadedData={handleVideoLoad}
-                                        onError={handleVideoError}
-                                    >
-                                        <source src="/video/play.mp4" type="video/webm" />
-                                        <source src="/video/play.mp4" type="video/quicktime" />
-                                        Your browser does not support the video tag.
-                                    </video>
-
-                                    {/* Play Button Overlay */}
-                                    {!isVideoPlaying && videoLoaded && !videoError && (
-                                        <div
-                                            className="absolute inset-0 flex items-center justify-center bg-black/5 group-hover:bg-black/10 transition-all duration-300 cursor-pointer z-20"
-                                            onClick={handlePlayButtonClick}
-                                        >
-                                            <div className="play-button w-24 h-24 bg-white/95 rounded-full flex items-center justify-center text-4xl group-hover:scale-110 transition-transform duration-300 shadow-lg hover:bg-white">
-                                                ▶️
-                                            </div>
-                                            <div className="absolute bottom-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-                                                Click to Play
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Playing Indicator */}
-                                    {isVideoPlaying && videoLoaded && !videoError && (
-                                        <div className="absolute top-4 right-4 bg-[#fe5a5e] text-white px-3 py-1 rounded-full text-sm font-semibold z-20">
-                                            ▶️ Playing
-                                        </div>
-                                    )}
-
-                                    {/* Fullscreen Hint */}
-                                    {videoLoaded && !videoError && (
-                                        <div className="absolute bottom-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-xs z-20">
-                                            Double-click for fullscreen
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
+                            <VideoPlayer
+                                src="/video/play.mp4"
+                                fallbackSrc="/video/play.mp4"
+                                brightness={1.5}
+                            />
                         </div>
                     </div>
                 </div>
@@ -249,59 +124,6 @@ export default function HowToPlayPage() {
                     to { 
                         opacity: 1; 
                         transform: translateY(0); 
-                    }
-                }
-                
-                .shadow-3xl {
-                    box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
-                }
-                
-                /* Video Player Optimization */
-                video {
-                    border-radius: 1rem;
-                    background: transparent;
-                }
-                
-                video::-webkit-media-controls {
-                    background-color: rgba(0, 0, 0, 0.3);
-                    border-radius: 0 0 1rem 1rem;
-                }
-                
-                video::-webkit-media-controls-panel {
-                    background-color: rgba(0, 0, 0, 0.3);
-                }
-                
-                video::-webkit-media-controls-play-button {
-                    background-color: rgba(254, 88, 95, 0.9);
-                    border-radius: 50%;
-                    color: white;
-                }
-                
-                video::-webkit-media-controls-timeline {
-                    background-color: rgba(255, 255, 255, 0.4);
-                    border-radius: 2px;
-                }
-                
-                video::-webkit-media-controls-current-time-display,
-                video::-webkit-media-controls-time-remaining-display {
-                    color: white;
-                    font-weight: bold;
-                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-                }
-                
-                video::-webkit-media-controls-enclosure {
-                    background: transparent;
-                }
-                
-                video::-moz-media-controls {
-                    background-color: rgba(0, 0, 0, 0.3);
-                }
-                
-                @media (max-width: 768px) {
-                    video {
-                        width: 100%;
-                        height: auto;
-                        max-height: 300px;
                     }
                 }
             `}</style>
