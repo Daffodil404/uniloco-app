@@ -492,6 +492,8 @@ export default function IntroPage() {
                 </section>
             )}
 
+
+
             <div className={`${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                 <DownloadSection />
             </div>

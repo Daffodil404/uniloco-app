@@ -135,6 +135,94 @@ export default function HowToPlayPage() {
                 </div>
             </section>
 
+            {/* 3D Social Network Section */}
+            <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        {/* Left: Video */}
+                        <div className="order-2 lg:order-1">
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                                <video
+                                    className="w-full h-auto"
+                                    controls
+                                    preload="auto"
+                                    playsInline
+                                    muted
+                                    loop
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        filter: 'brightness(1.5) contrast(1.02) saturate(1.05)',
+                                        colorScheme: 'light',
+                                        objectFit: 'contain'
+                                    }}
+                                >
+                                    <source src="/video/web3_social.mov" type="video/webm" />
+                                    <source src="/video/web3_social.mov" type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                                {/* Video overlay for better text contrast */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                            </div>
+                        </div>
+
+                        {/* Right: Content */}
+                        <div className="order-1 lg:order-2 space-y-8">
+                            <div className="space-y-6">
+                                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                                    3D Social Network
+                                </h2>
+
+                                <div className="space-y-6">
+                                    <div className="flex items-start space-x-4">
+                                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                            1
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                                Check your interest
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start space-x-4">
+                                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                            2
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                                Search the related people
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start space-x-4">
+                                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                            3
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                                Connect with them
+                                            </h3>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="pt-6">
+                                    <button className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                                        Start Connecting
+                                        <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* CSS Styles */}
             <style jsx>{`
                 .animate-fade-in {
