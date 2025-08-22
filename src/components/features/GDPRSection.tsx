@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Popover from '@radix-ui/react-popover';
+import CookieConsent from './CookieConsent';
 
 interface GDPRSectionProps {
   className?: string;
@@ -10,21 +11,18 @@ interface GDPRSectionProps {
 
 export default function GDPRSection({ className = '' }: GDPRSectionProps) {
   const [activeModal, setActiveModal] = useState<'privacy' | 'tos' | null>(null);
-  const [cookieConsent, setCookieConsent] = useState<'accepted' | 'declined' | null>(null);
   const [cookiePopoverOpen, setCookiePopoverOpen] = useState(false);
 
   const handleCookieAccept = () => {
-    setCookieConsent('accepted');
-    setCookiePopoverOpen(false);
-    // 这里可以添加保存cookie设置的逻辑
     console.log('Cookies accepted');
   };
 
   const handleCookieDecline = () => {
-    setCookieConsent('declined');
-    setCookiePopoverOpen(false);
-    // 这里可以添加拒绝cookie的逻辑
     console.log('Cookies declined');
+  };
+
+  const handleViewPrivacyPolicy = () => {
+    setActiveModal('privacy');
   };
 
   return (
@@ -50,52 +48,14 @@ export default function GDPRSection({ className = '' }: GDPRSectionProps) {
                 Cookie Policy
               </button>
             </Popover.Trigger>
-            <Popover.Content className="z-50 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4">
-              <div className="space-y-4">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-lg font-bold text-gray-900">Cookie Consent</h3>
-                  <Popover.Close asChild>
-                    <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  </Popover.Close>
-                </div>
-                
-                <p className="text-sm text-gray-600 leading-relaxed text-left">
-                  We use cookies to enhance your experience and analyze site usage. By continuing, you consent to our use of cookies in accordance with our{' '}
-                  <button
-                    onClick={() => {
-                      setCookiePopoverOpen(false);
-                      setActiveModal('privacy');
-                    }}
-                    className="text-blue-600 hover:text-blue-800 underline font-medium"
-                  >
-                    Privacy Policy
-                  </button>
-                  .
-                </p>
-                <div className="flex gap-3">
-                  <Popover.Close asChild>
-                    <button
-                      onClick={handleCookieDecline}
-                      className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
-                    >
-                      Decline
-                    </button>
-                  </Popover.Close>
-                  <Popover.Close asChild>
-                    <button
-                      onClick={handleCookieAccept}
-                      className="flex-1 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
-                    >
-                      Accept All
-                    </button>
-                  </Popover.Close>
-                </div>
-              </div>
-            </Popover.Content>
+            <CookieConsent
+              mode="popover"
+              isOpen={cookiePopoverOpen}
+              onOpenChange={setCookiePopoverOpen}
+              onAccept={handleCookieAccept}
+              onDecline={handleCookieDecline}
+              onViewPrivacyPolicy={handleViewPrivacyPolicy}
+            />
           </Popover.Root>
         </div>
       </div>
