@@ -115,7 +115,7 @@ export default function PartnershipPage() {
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
           <h1 className="font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight text-white mb-6">
-            Join the Travel-to-Earn Revolution 🌍
+            Join the Travel-to-Earn Revolution 
           </h1>
           <p className="mx-auto max-w-[600px] text-lg text-white/80 leading-relaxed mb-10">
             Transform your local expertise into sustainable income.
@@ -211,7 +211,7 @@ export default function PartnershipPage() {
             {/* Content Creators Card */}
             <div className="rounded-2xl border border-[#fe5a5e]/30 p-8 shadow-sm hover:shadow-md transition-all">
               <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">📱 Affiliate Program</h3>
+                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">Affiliate Program</h3>
                 <p className="text-sm text-gray-500">Influencers & Digital Creators</p>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6">
@@ -244,7 +244,7 @@ export default function PartnershipPage() {
             {/* Local Merchants Card */}
             <div className="rounded-2xl border border-[#fe5a5e]/30 p-8 shadow-sm hover:shadow-md transition-all">
               <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">🏪 Merchant Collobration</h3>
+                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">Merchant Collobration</h3>
                 <p className="text-sm text-gray-500">Restaurants, Hotels & Experiences</p>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6">

@@ -129,7 +129,7 @@ export default function UncEconomicPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 reveal">
                         <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
-                            📈 Token Conversion Process
+                            Token Conversion Process
                         </h2>
                         <p className="text-xl text-gray-600">
                             Seamless conversion from traditional currencies to UNC governance tokens
@@ -173,7 +173,7 @@ export default function UncEconomicPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 reveal">
                         <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
-                            🔄 User Ecosystem Cycle
+                            User Ecosystem Cycle
                         </h2>
                         <p className="text-xl text-gray-600">
                             Complete cycle of token flow and platform interactions
@@ -257,7 +257,7 @@ export default function UncEconomicPage() {
                     {/* Platform Fee Box */}
                     <div className="mt-12 reveal">
                         <div className="bg-gradient-to-r from-[#fe5a5e] to-[#d94a51] text-white rounded-2xl p-8 text-center max-w-2xl mx-auto shadow-xl">
-                            <h3 className="text-2xl font-bold mb-2">💰 Platform Fee: 3% - 5%</h3>
+                            <h3 className="text-2xl font-bold mb-2">Platform Fee: 3% - 5%</h3>
                             <p className="text-lg opacity-90">
                                 Covers transaction costs, platform maintenance, and ecosystem development
                             </p>
@@ -271,7 +271,7 @@ export default function UncEconomicPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 reveal">
                         <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
-                            🚀 UNC Token Benefits
+                             UNC Token Benefits
                         </h2>
                         <p className="text-xl text-gray-600">
                             Why UNC tokens are the backbone of our ecosystem

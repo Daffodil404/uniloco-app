@@ -22,7 +22,7 @@ export default function LocationInfoModal({ isOpen, onClose, selectedPoint, onCh
   };
 
   return (
-    <div className="fixed inset-0 z-[9997] pointer-events-auto flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[99998] pointer-events-auto flex items-center justify-center p-4">
       {/* 对话气泡 */}
       <div className="relative bg-white shadow-lg rounded-2xl p-4 border border-slate-200 max-w-[320px] w-full">
         {/* 气泡尾巴 */}

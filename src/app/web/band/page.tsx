@@ -357,6 +357,9 @@ export default function TravelBandNFTsPage() {
       {/* Download Section */}
       <DownloadSection />
 
+      {/* GDPR Section */}
+      <GDPRSection />
+
       {/* Custom CSS for animations */}
       <style jsx>{`
         .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
