@@ -96,7 +96,7 @@ export default function PartnershipPage() {
       />
 
       {/* Hero Section with video background (intro style) */}
-      <section id="home" className="pt-16 relative overflow-hidden">
+      <section id="home" className="pt-16 min-h-screen flex items-center relative overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 overflow-hidden">
           <video
@@ -112,21 +112,21 @@ export default function PartnershipPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-[#1a0f0f]/70 to-black/75"></div>
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-28 lg:py-36 text-center reveal">
-          <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl tracking-tight text-white mb-6">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+          <h1 className="font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight text-white mb-6">
             Join the Travel-to-Earn Revolution 🌍
           </h1>
-          <p className="mx-auto max-w-[700px] text-xl text-white/80 leading-relaxed mb-10">
+          <p className="mx-auto max-w-[600px] text-lg text-white/80 leading-relaxed mb-10">
             Transform your local expertise into sustainable income.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 reveal">
-            <button onClick={() => scrollToSection('cta')} className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
+            <button onClick={() => scrollToSection('cta')} className="bg-[#fe5a5e] text-white px-5 py-2.5 rounded-full text-sm md:text-base font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Apply Now
             </button>
-            <button onClick={() => scrollToSection('types')} className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
+            <button onClick={() => scrollToSection('types')} className="bg-[#fe5a5e] text-white px-5 py-2.5 rounded-full text-sm md:text-base font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Learn More
             </button>
-            <button onClick={() => scrollToSection('contact')} className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
+            <button onClick={() => scrollToSection('contact')} className="bg-[#fe5a5e] text-white px-5 py-2.5 rounded-full text-sm md:text-base font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2">
               Contact Us
             </button>
           </div>

@@ -20,8 +20,8 @@ export default function UncEconomicPage() {
             // 延迟启动Hero动画
             setTimeout(() => {
                 setHeroLoaded(true);
-            }, 500);
-        }, 2000);
+            }, 300);
+        }, 1500);
     }, []);
 
     // Intersection Observer for reveal animations
@@ -99,22 +99,22 @@ export default function UncEconomicPage() {
                 </div>
 
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center space-y-6 lg:space-y-8">
+                    <div className="text-center space-y-5 lg:space-y-7">
                         {/* Main Slogan */}
-                        <div className="space-y-3 lg:space-y-6">
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight">
+                        <div className="space-y-2 lg:space-y-4">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                                 <span className={`inline ${heroLoaded ? 'slide-in-left' : 'opacity-100'} text-white`}>UNC&nbsp;</span>
                                 <span className={`inline ${heroLoaded ? 'slide-in-left-delay' : 'opacity-100'} text-[#fe5a5e]`}>Economic</span>
                             </h1>
                         </div>
 
                         {/* Subtitle */}
-                        <h2 className={`text-xl md:text-2xl lg:text-3xl text-white font-medium ${heroLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
+                        <h2 className={`text-lg md:text-xl lg:text-2xl text-white font-medium ${heroLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
                             Complete Ecosystem & Transaction Process
                         </h2>
 
                         {/* Description */}
-                        <p className={`text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
+                        <p className={`text-sm md:text-base lg:text-lg text-white/80 leading-relaxed max-w-2xl mx-auto ${heroLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
                             Discover the revolutionary token conversion process and user ecosystem cycle that powers the Uniloco travel-to-earn platform.
                         </p>
                     </div>

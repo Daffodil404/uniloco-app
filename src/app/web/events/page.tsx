@@ -44,7 +44,7 @@ export default function EventsPage() {
 
   useEffect(() => {
     // Trigger initial load animation
-    setTimeout(() => setIsLoaded(true), 100);
+    setTimeout(() => setIsLoaded(true), 50);
   }, []);
 
   // Reveal-on-scroll + statistics counting animation
@@ -152,22 +152,22 @@ export default function EventsPage() {
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6 lg:space-y-8">
+          <div className="text-center space-y-5 lg:space-y-7">
             {/* Main Slogan */}
             <div className="space-y-2">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                 <span className={`${isLoaded ? 'slide-in-left' : 'opacity-0'} inline text-white`}>Featured&nbsp;</span>
                 <span className={`${isLoaded ? 'slide-in-left-delay' : 'opacity-0'} inline text-[#fe5a5e]`}>Events</span>
               </h1>
             </div>
 
             {/* Subtitle */}
-            <h2 className={`text-xl md:text-2xl lg:text-3xl text-white font-medium ${isLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
+            <h2 className={`text-lg md:text-xl lg:text-2xl text-white font-medium ${isLoaded ? 'slide-in-left-delay-4' : 'opacity-0'}`}>
               Join Epic Travel Adventures & Earn Rewards
             </h2>
 
             {/* Description */}
-            <p className={`text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto ${isLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
+            <p className={`text-sm md:text-base lg:text-lg text-white/80 leading-relaxed max-w-2xl mx-auto ${isLoaded ? 'slide-in-left-delay-5' : 'opacity-0'}`}>
               Discover unique blockchain travel events, participate in digital treasure hunts,
               and earn exclusive NFTs and UNC tokens while exploring the world.
             </p>
@@ -176,13 +176,13 @@ export default function EventsPage() {
             <div className={`flex flex-col sm:flex-row gap-4 justify-center ${isLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
               <button
                 onClick={() => document.getElementById('main-event')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-6 lg:px-8 py-3 lg:py-4 bg-[#fe5a5e] text-white font-semibold text-base lg:text-lg rounded-full shadow-lg hover:bg-[#e14b52] transition-colors"
+                className="px-5 lg:px-6 py-2.5 lg:py-3 bg-[#fe5a5e] text-white font-semibold text-sm lg:text-base rounded-full shadow-lg hover:bg-[#e14b52] transition-colors"
               >
                 <span className="flex items-center space-x-2">🍄<span>Join Adventure</span></span>
               </button>
               <button
                 onClick={() => document.getElementById('upcoming')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-[#fe5a5e] text-white px-6 py-3 rounded-full text-base md:text-lg font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2"                >
+                className="bg-[#fe5a5e] text-white px-5 py-2.5 rounded-full text-sm lg:text-base font-bold hover:bg-[#e14b52] transition-colors flex items-center gap-2"                >
                 <span className="flex items-center space-x-2">📅<span>View All Events</span></span>
               </button>
             </div>
