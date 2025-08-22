@@ -34,16 +34,16 @@ export default function Calendar({
 
     const getStatusColor = (status: string, isSelected: boolean, isHovered: boolean) => {
         if (isSelected) {
-            return 'bg-[#fe585f] border-[#fe585f] text-white shadow-lg scale-105';
+            return 'bg-[#fe5a5e] border-[#fe5a5e] text-white shadow-lg scale-105';
         }
         
         if (isHovered && status !== 'full') {
-            return 'border-[#fe585f] bg-[#fe585f]/5 shadow-md scale-105';
+            return 'border-[#fe5a5e] bg-[#fe5a5e]/5 shadow-md scale-105';
         }
 
         switch (status) {
             case 'available':
-                return 'border-gray-300 bg-white hover:border-[#fe585f] hover:bg-[#fe585f]/5 hover:shadow-md';
+                return 'border-gray-300 bg-white hover:border-[#fe5a5e] hover:bg-[#fe5a5e]/5 hover:shadow-md';
             case 'limited':
                 return 'border-orange-300 bg-gradient-to-br from-orange-50 to-orange-100 hover:border-orange-400 hover:bg-orange-200';
             case 'full':
@@ -92,7 +92,7 @@ export default function Calendar({
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-[#fe585f] to-[#ff7a80] rounded-xl flex items-center justify-center">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#fe5a5e] to-[#ff7a80] rounded-xl flex items-center justify-center">
                         <CalendarIcon className="h-5 w-5 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900">{title}</h3>
@@ -158,7 +158,7 @@ export default function Calendar({
                                     {day.label}
                                 </div>
                                 {day.status === 'available' && day.price && (
-                                    <div className="text-xs font-bold text-[#fe585f] bg-white/80 rounded-full px-2 py-1">
+                                    <div className="text-xs font-bold text-[#fe5a5e] bg-white/80 rounded-full px-2 py-1">
                                         ¥{day.price}
                                     </div>
                                 )}
@@ -169,7 +169,7 @@ export default function Calendar({
                             
                             {/* Selection indicator */}
                             {isSelected && (
-                                <div className="absolute inset-0 border-2 border-[#fe585f] rounded-xl animate-pulse"></div>
+                                <div className="absolute inset-0 border-2 border-[#fe5a5e] rounded-xl animate-pulse"></div>
                             )}
                         </div>
                     );
@@ -205,7 +205,7 @@ export default function Calendar({
                 <Button
                     variant="outline"
                     size="sm"
-                    className="border-[#fe585f] text-[#fe585f] hover:bg-[#fe585f] hover:text-white"
+                    className="border-[#fe5a5e] text-[#fe5a5e] hover:bg-[#fe5a5e] hover:text-white"
                 >
                     View Next Month
                 </Button>

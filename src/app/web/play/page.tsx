@@ -3,20 +3,14 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Header from '@/components/ui/Header';
+import VideoPlayer from '@/components/features/VideoPlayer';
 
 export default function HowToPlayPage() {
     const [activeSection, setActiveSection] = useState('how-to');
     const [isLoaded, setIsLoaded] = useState(false);
-    const [bandImagesLoaded, setBandImagesLoaded] = useState<boolean[]>([false, false, false, false]);
-    const handleBandImageLoad = (index: number) => {
-        setBandImagesLoaded(prev => {
-            const newState = [...prev];
-            newState[index] = true;
-            return newState;
-        });
-    };
+
     useEffect(() => {
-        setTimeout(() => setIsLoaded(true), 100);
+        setTimeout(() => setIsLoaded(true), 50);
     }, []);
 
     const handleNavigation = (section: string) => {
@@ -26,31 +20,27 @@ export default function HowToPlayPage() {
     const steps = [
         {
             number: 1,
-            icon: '🔐',
-            title: 'Choose Registration',
-            description:
-                'Sign up with Google account or phone number. Double verification for enhanced security and user protection.',
+            icon: '🎯',
+            title: 'Share your preferences',
+            description: 'Tell us about your travel style, interests, and what you want to experience on your journey.',
         },
         {
             number: 2,
-            icon: '💼',
-            title: 'Select Wallet Type',
-            description:
-                'Connect existing Web3 wallet (MetaMask, WalletConnect) or create seamless custodial wallet for easier onboarding.',
+            icon: '🤖',
+            title: 'AI generates your itinerary',
+            description: 'Our intelligent AI creates a personalized travel plan based on your preferences and local insights.',
         },
         {
             number: 3,
-            icon: '🔑',
-            title: 'Secure Your Keys',
-            description:
-                'For custodial wallets: platform holds one private key, you keep one private key. Double security protection system.',
+            icon: '❤️',
+            title: 'Add your favorite activities',
+            description: 'Browse through the AI suggestions and add the activities that excite you most to your itinerary.',
         },
         {
             number: 4,
-            icon: '🎮',
-            title: 'Start Gaming',
-            description:
-                'Complete profile setup, choose your starter Travel Band, and begin your travel-to-earn journey with Uniloco ecosystem.',
+            icon: '✅',
+            title: 'Review details and finalize your trip',
+            description: 'Review your complete itinerary, make any final adjustments, and confirm your perfect travel plan.',
         },
     ];
 
@@ -60,144 +50,201 @@ export default function HowToPlayPage() {
             <Header
                 activeSection={activeSection}
                 onNavigation={handleNavigation}
-                navItems={['home', 'how-to', 'web3 hub', 'partnership']}
+                navItems={['home', 'how-to', 'events', 'partnership', 'web3 hub']}
             />
 
             {/* Hero Section */}
             <section className="pt-16 min-h-screen flex items-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-white">
-                    <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe585f]/10 rounded-full animate-bounce"></div>
-                    <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe585f]/15 rounded-full animate-pulse"></div>
+                    <div className="absolute top-20 left-20 w-32 h-32 bg-[#fe5a5e]/10 rounded-full animate-bounce"></div>
+                    <div className="absolute top-40 right-32 w-24 h-24 bg-[#fe5a5e]/15 rounded-full animate-pulse"></div>
                 </div>
 
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col lg:flex-row items-center gap-6">
-                        <div className="flex-1 text-left space-y-3">
-                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-tight">
-                                <span className="block text-[#fe585f]">How To Play</span>
-                                <span className="block bg-gradient-to-r from-[#fe585f] to-[#ff7a80] bg-clip-text text-transparent">
-                                    Start Your Journey
-                                </span>
-                            </h1>
-                            <p className="text-lg text-gray-600 max-w-lg">
-                                Follow these simple steps to start your travel-to-earn adventure
-                                with Uniloco.
-                            </p>
+                    <div className="flex flex-col lg:flex-row items-center gap-16">
+                        {/* Left Side - Steps Content */}
+                        <div className="flex-1 lg:flex-[0.4] text-left space-y-8">
+                            <div className={`space-y-2 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.1s' }}>
+                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                                    <span className="block text-[#fe5a5e]">How It Works</span>
+                                </h1>
+                                <p className="text-xl text-gray-600 max-w-2xl">
+                                    Get your personalized travel itinerary in just 4 simple steps
+                                </p>
+                            </div>
+
+                            <div className={`space-y-6 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
+                                {steps.map((step, index) => (
+                                    <div
+                                        key={step.number}
+                                        className={`flex items-center gap-6 ${isLoaded ? 'animate-fade-in' : 'opacity-0'
+                                            }`}
+                                        style={{
+                                            animationDelay: `${0.5 + index * 0.15}s`
+                                        }}
+                                    >
+                                        {/* Step Number */}
+                                        <div className={`flex-shrink-0 w-12 h-12 bg-[#fe5a5e] text-white rounded-full flex items-center justify-center text-lg font-bold shadow-lg ${isLoaded ? 'animate-scale-in' : 'opacity-0'
+                                            }`}
+                                            style={{
+                                                animationDelay: `${0.6 + index * 0.15}s`
+                                            }}>
+                                            {step.number}
+                                        </div>
+
+                                        {/* Step Title Only */}
+                                        <h3 className="text-2xl font-bold text-gray-800">
+                                            {step.title}
+                                        </h3>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Right Side - Video */}
+                        <div className={`flex-1 lg:flex-[0.6] ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
+                            <div className="relative group rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 bg-transparent" >
+                                <video
+                                    className="rounded-2xl"
+                                    controls
+                                    preload="auto"
+                                    playsInline
+                                    muted
+                                    loop
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        filter: 'brightness(1.5) contrast(1.02) saturate(1.05)',
+                                        colorScheme: 'light',
+                                        objectFit: 'contain'
+                                    }}
+                                >
+                                    <source src="/video/play.mp4" type="video/mp4" />
+                                    <source src="/video/play.mp4" type="video/quicktime" />
+                                    Your browser does not support the video tag.
+                                </video>
+
+                                {/* Fullscreen Hint */}
+                                <div className="absolute bottom-2 right-2 bg-black/50 text-white px-2 py-1 rounded text-xs z-20">
+                                    Double-click for fullscreen
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-
-            {/* Travel Band */}
-            <section className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-4xl md:text-5xl font-bold text-center text-[#fe585f] mb-4">
-                        Travel Band NFTs
-                    </h2>
-                    <p className="text-xl text-gray-600 text-center mb-16">
-                        Using UNC/ANT, level up your Travel Band and unlock greater rewards
-                    </p>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {[
-                            {
-                                image: '/static/band1.jpg',
-                                name: 'Basic Band',
-                                price: 'Free to Get',
-                                boost: '+10%',
-                                action: 'Free Mint',
-                            },
-                            {
-                                image: '/static/band2.jpg',
-                                name: 'Rare Band',
-                                price: '100 UNC',
-                                boost: '+25%',
-                                action: 'Mint Now',
-                                gradient: 'from-blue-400 to-blue-600'
-                            },
-                            {
-                                image: '/static/band3.jpg',
-                                name: 'Epic Band',
-                                price: '500 UNC',
-                                boost: '+50%',
-                                action: 'Mint Now',
-                                gradient: 'from-orange-400 to-orange-600'
-                            },
-                            {
-                                image: '/static/band4.jpg',
-                                name: 'Legendary Band',
-                                price: 'Rare Drop',
-                                boost: '+100%',
-                                action: 'Coming Soon',
-                                gradient: 'from-red-500 to-red-700'
-                            }
-                        ].map((band, index) => (
-                            <div
-                                key={index}
-                                className="group bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#fe585f] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center"
-                            >
-                                <div
-                                    className="band-image-container mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto relative"
-                                >
-                                    {/* 加载状态指示器 */}
-                                    {!bandImagesLoaded[index] && (
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        </div>
-                                    )}
-                                    <Image
-                                        src={band.image}
-                                        alt={band.name}
-                                        fill
-                                        className="object-contain p-3"
-                                        priority={index < 2}
-                                        sizes="(max-width: 768px) 96px, 128px"
-                                        onLoad={() => handleBandImageLoad(index)}
-                                        onError={() => console.error(`Failed to load image: ${band.image}`)}
-                                    />
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-800 mb-2">{band.name}</h3>
-                                <p className="text-[#fe585f] font-semibold mb-2">{band.price}</p>
-                                <p className="text-gray-600 mb-6">Base UNC Boost {band.boost}</p>
-                                <button className={`w-full py-3 rounded-full font-bold transition-all duration-300 ${band.action === 'Coming Soon'
-                                    ? 'bg-gray-400 text-white cursor-not-allowed'
-                                    : 'bg-[#fe585f] text-white hover:bg-[#ff7a80] hover:scale-105'
-                                    }`}>
-                                    {band.action}
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-
-                </div>
-            </section>
-
-            {/* Travel Stories */}
-            <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-                <div className="container mx-auto px-4 md:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-10">
-                    <div className="flex-1 order-2 lg:order-1 space-y-4">
-                        <h2 className="text-4xl font-bold text-[#fe585f]">Travel Stories</h2>
-                        <p className="text-gray-600 text-lg">
-                            Capture your journey and share with the Uniloco community. Post
-                            photos, videos, and stories to inspire other travelers and earn
-                            extra rewards.
-                        </p>
-                        <ul className="list-disc pl-5 text-gray-600 space-y-2">
-                            <li>Document each adventure in your own style</li>
-                            <li>Share with friends and followers</li>
-                            <li>Earn bonuses for high-engagement posts</li>
-                        </ul>
-                    </div>
-                    <div className="flex-1 order-1 lg:order-2">
-                        <img
-                            src="/images/travel-stories.png"
-                            alt="Travel Stories"
-                            className="rounded-2xl shadow-lg"
-                        />
-                    </div>
-                </div>
-            </section>
+            {/* CSS Styles */}
+            <style jsx>{`
+                .animate-fade-in {
+                    animation: fadeIn 0.8s ease-out forwards;
+                }
+                
+                @keyframes fadeIn {
+                    from { 
+                        opacity: 0; 
+                        transform: translateY(30px); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translateY(0); 
+                    }
+                }
+                
+                /* 为不同元素添加不同的动画效果 */
+                .animate-fade-in[style*="animationDelay: 0.1s"] {
+                    animation: slideInLeft 0.8s ease-out 0.1s forwards;
+                }
+                
+                .animate-fade-in[style*="animationDelay: 0.2s"] {
+                    animation: slideInRight 0.8s ease-out 0.2s forwards;
+                }
+                
+                .animate-fade-in[style*="animationDelay: 0.3s"] {
+                    animation: fadeInUp 0.8s ease-out 0.3s forwards;
+                }
+                
+                @keyframes slideInLeft {
+                    from { 
+                        opacity: 0; 
+                        transform: translateX(-50px); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translateX(0); 
+                    }
+                }
+                
+                @keyframes slideInRight {
+                    from { 
+                        opacity: 0; 
+                        transform: translateX(50px); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translateX(0); 
+                    }
+                }
+                
+                @keyframes fadeInUp {
+                    from { 
+                        opacity: 0; 
+                        transform: translateY(40px); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translateY(0); 
+                    }
+                }
+                
+                .animate-scale-in {
+                    animation: scaleIn 0.6s ease-out forwards;
+                }
+                
+                @keyframes scaleIn {
+                    from { 
+                        opacity: 0; 
+                        transform: scale(0.5); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: scale(1); 
+                    }
+                }
+                
+                /* 视频样式 */
+                video {
+                    background: transparent;
+                }
+                
+                /* 视频控件样式 */
+                video::-webkit-media-controls {
+                    background-color: rgba(0, 0, 0, 0.3);
+                    border-radius: 0 0 1rem 1rem;
+                }
+                
+                video::-webkit-media-controls-panel {
+                    background-color: rgba(0, 0, 0, 0.3);
+                }
+                
+                video::-webkit-media-controls-play-button {
+                    background-color: rgba(254, 88, 95, 0.9);
+                    border-radius: 50%;
+                    color: white;
+                }
+                
+                video::-webkit-media-controls-timeline {
+                    background-color: rgba(255, 255, 255, 0.4);
+                    border-radius: 2px;
+                }
+                
+                video::-webkit-media-controls-current-time-display,
+                video::-webkit-media-controls-time-remaining-display {
+                    color: white;
+                    font-weight: bold;
+                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+                }
+            `}</style>
         </div>
     );
 }

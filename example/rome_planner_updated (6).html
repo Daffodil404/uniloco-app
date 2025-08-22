@@ -1,0 +1,2936 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>罗马3天旅行体验规划平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        #container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        /* 左侧聊天面板 */
+        #chatSidebar {
+            width: 420px;
+            height: 100vh;
+            background: rgba(20, 25, 45, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #chatHeader {
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .profile-details {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        /* 行程编码区域 */
+        .itinerary-section {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .itinerary-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4ecdc4;
+        }
+        
+        .itinerary-code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            margin-bottom: 10px;
+        }
+        
+        .itinerary-items {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .itinerary-item {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 5px;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .remove-item {
+            background: rgba(255, 71, 87, 0.7);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            cursor: pointer;
+        }
+        
+        #chatMessages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            scroll-behavior: smooth;
+        }
+        
+        #chatInputArea {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 右侧控制面板 */
+        #controlSidebar {
+            width: 380px;
+            height: 100vh;
+            background: rgba(20, 25, 45, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            overflow-y: auto;
+        }
+        
+        /* 中间地图区域 */
+        #mapArea {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-info {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            background: rgba(20, 25, 45, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            z-index: 150;
+            min-width: 200px;
+        }
+        
+        .map-info h4 {
+            color: #4ecdc4;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .map-info p {
+            font-size: 12px;
+            margin-bottom: 4px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        #map3D {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.8s ease;
+            background: radial-gradient(circle at center, #2c3e50 0%, #1a252f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #map2D {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a3d2e 50%, #0f2419 100%);
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            overflow: hidden;
+        }
+        
+        /* 3天路线显示 */
+        .day-route {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .day-route.active {
+            opacity: 1;
+        }
+        
+        .route-line {
+            position: absolute;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+            border-radius: 2px;
+            animation: routeFlow 3s infinite;
+            z-index: 70;
+        }
+        
+        @keyframes routeFlow {
+            0% { box-shadow: 0 0 5px rgba(0, 255, 136, 0.3); }
+            50% { box-shadow: 0 0 15px rgba(0, 255, 136, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(0, 255, 136, 0.3); }
+        }
+        
+        .day-marker {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            z-index: 85;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .day1-marker { background: #ff6b6b; }
+        .day2-marker { background: #4ecdc4; }
+        .day3-marker { background: #45b7d1; }
+        
+        .day-marker:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+        
+        /* 地图控制面板 */
+        .map-day-controls {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            background: rgba(20, 25, 45, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            z-index: 150;
+        }
+        
+        .day-control-btn {
+            display: block;
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .day-control-btn:last-child {
+            margin-bottom: 0;
+        }
+        
+        .day-control-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: #667eea;
+        }
+        
+        .day-control-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .map-placeholder {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 18px;
+        }
+        
+        /* 消息样式 */
+        .message {
+            margin: 15px 0;
+            padding: 15px 20px;
+            border-radius: 20px;
+            max-width: 90%;
+            animation: messageSlide 0.4s ease-out;
+            line-height: 1.6;
+        }
+        
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .ai-message {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin-right: auto;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .user-message {
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            margin-left: auto;
+            text-align: right;
+            box-shadow: 0 8px 25px rgba(67, 206, 162, 0.3);
+        }
+        
+        /* Ask Uniloco 特殊消息样式 */
+        .uniloco-message {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            margin-right: auto;
+            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.3);
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .uniloco-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .uniloco-logo {
+            width: 24px;
+            height: 24px;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        /* 控制面板样式 */
+        .control-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #4ecdc4;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .category-btn {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 15px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .category-btn:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .category-btn.selected {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        #chatInput {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            outline: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        #chatInput::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        #chatInput:focus {
+            border: 1px solid #667eea;
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* 地图标记 */
+        .user-location-2d {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #ff4757;
+            border: 3px solid white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 71, 87, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+        }
+        
+        .activity-marker-2d {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            z-index: 80;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            opacity: 0.7;
+        }
+        
+        .activity-marker-2d:hover {
+            transform: scale(1.3);
+            z-index: 90;
+            box-shadow: 0 6px 20px rgba(255,255,255,0.4);
+        }
+        
+        .activity-marker-2d.highlighted {
+            opacity: 1;
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+            z-index: 85;
+        }
+        
+        .activity-marker-2d.in-itinerary {
+            border-color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+            opacity: 1;
+        }
+        
+        /* 搜索结果 - 分类型显示 */
+        .result-category {
+            margin-bottom: 20px;
+        }
+        
+        .result-category-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4ecdc4;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .result-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .result-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .result-card.script-experience {
+            border-left: 4px solid #9b59b6;
+        }
+        
+        .result-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .result-emoji {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        
+        .result-title {
+            font-weight: bold;
+            font-size: 14px;
+            flex: 1;
+        }
+        
+        .result-details {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        
+        .result-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(67, 206, 162, 0.4);
+        }
+        
+        .action-btn.website-btn {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+        
+        .action-btn.add-btn {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: black;
+            font-weight: bold;
+        }
+        
+        .action-btn.ask-uniloco {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .result-tags {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .result-tag {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+        
+        /* 地图切换按钮 */
+        .map-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(20, 25, 45, 0.95);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 200;
+        }
+        
+        .map-toggle:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* 时间选择样式 */
+        .time-selection-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .day-selector, .time-slot-selector {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .day-selector:focus, .time-slot-selector:focus {
+            border: 1px solid #667eea;
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .day-selector option, .time-slot-selector option {
+            background: #1a1a2e;
+            color: white;
+        }
+        
+        .confirm-time-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            border: none;
+            color: black;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .confirm-time-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+        }
+        
+        .confirm-time-btn:disabled {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            cursor: not-allowed;
+        }
+        
+        .itinerary-timeline {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-day {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .timeline-day:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .day-header {
+            font-weight: bold;
+            color: #4ecdc4;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .time-slot {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+        
+        .time-slot .time {
+            color: #feca57;
+            font-weight: bold;
+            min-width: 70px;
+        }
+        
+        .time-slot .activity {
+            color: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- 左侧聊天面板 -->
+        <div id="chatSidebar">
+            <div id="chatHeader">
+                <h2>🤖 Uniloco旅行规划师</h2>
+                <div class="user-profile">
+                    <div class="profile-avatar">🧳</div>
+                    <div class="profile-info">
+                        <div class="profile-name">独行旅人</div>
+                        <div class="profile-details">📍 Rome | 🗓️ 1-3Day | 🍜 Street Food | 👤 Single | 🎭 Cultural</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 行程编码区域 -->
+            <div class="itinerary-section">
+                <div class="itinerary-title">🗓️ 我的行程安排</div>
+                <div class="itinerary-code" id="itineraryCode">IT-ROME-2025-001</div>
+                <div class="itinerary-items" id="itineraryItems">
+                    <div style="text-align: center; color: rgba(255,255,255,0.5); font-size: 12px; padding: 20px;">
+                        暂无安排项目<br>
+                        <small>选择服务并点击"加入行程"</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="chatMessages">
+                <div class="message ai-message">
+                    🎯 欢迎来到罗马！我是你的专属AI旅行规划师。
+                    <br><br>
+                    我看到你是独自旅行1-3天，喜欢街头美食和文化体验。作为单人旅行者应该更喜欢高质量的个人体验。
+                    <br><br>
+                    右侧有四种体验类型供你选择，告诉我你想尝试什么吧！
+                    <br><br>
+                    💡 <em>选择体验后可直接加入你的行程安排</em>
+                </div>
+            </div>
+            
+            <div id="chatInputArea">
+                <input type="text" id="chatInput" placeholder="告诉我你想要什么体验...">
+            </div>
+        </div>
+        
+        <!-- 中间地图区域 -->
+        <div id="mapArea">
+            <button class="map-toggle" id="mapToggleBtn">🌍 切换2D地图</button>
+            
+            <!-- 地图信息面板 -->
+            <div class="map-info">
+                <h4>📍 罗马历史中心区</h4>
+                <p>🗺️ 总面积: 约3.2公里²</p>
+                <p>⏱️ 步行穿越: 45-60分钟</p>
+                <p>🚇 地铁覆盖: A线、B线</p>
+                <p>📌 已标记: <span id="markerCount">9</span> 个推荐地点</p>
+            </div>
+            
+            <div id="map3D">
+                <div class="map-placeholder">
+                    🌍 3D罗马城市视图<br>
+                    <small>浮动的光点代表各种体验服务</small>
+                </div>
+            </div>
+            
+            <div id="map2D">
+                <div class="user-location-2d" title="你的位置 - 罗马市中心"></div>
+                
+                <!-- 第1天路线 -->
+                <div class="day-route active" id="day1Route">
+                    <!-- 斗兽场到古罗马遗址 -->
+                    <div class="route-line" style="left: 70%; top: 50%; width: 15%; transform: rotate(45deg);"></div>
+                    <!-- 古罗马遗址到万神殿 -->
+                    <div class="route-line" style="left: 55%; top: 40%; width: 20%; transform: rotate(-30deg);"></div>
+                    <!-- 万神殿到SPA -->
+                    <div class="route-line" style="left: 45%; top: 35%; width: 12%; transform: rotate(-45deg);"></div>
+                    
+                    <div class="day-marker day1-marker" style="left: 70%; top: 50%;" title="斗兽场">🏛️</div>
+                    <div class="day-marker day1-marker" style="left: 80%; top: 45%;" title="古罗马遗址">🏺</div>
+                    <div class="day-marker day1-marker" style="left: 55%; top: 40%;" title="万神殿餐厅">🍽️</div>
+                    <div class="day-marker day1-marker" style="left: 55%; top: 42%;" title="万神殿">⛪</div>
+                    <div class="day-marker day1-marker" style="left: 45%; top: 35%;" title="SPA中心">💆‍♀️</div>
+                </div>
+                
+                <!-- 第2天路线 -->
+                <div class="day-route" id="day2Route">
+                    <!-- Trastevere区域连线 -->
+                    <div class="route-line" style="left: 30%; top: 55%; width: 18%; transform: rotate(20deg);"></div>
+                    <!-- 到古罗马广场 -->
+                    <div class="route-line" style="left: 45%; top: 50%; width: 15%; transform: rotate(-20deg);"></div>
+                    <!-- 到台伯河 -->
+                    <div class="route-line" style="left: 35%; top: 60%; width: 20%; transform: rotate(70deg);"></div>
+                    
+                    <div class="day-marker day2-marker" style="left: 30%; top: 55%;" title="烹饪课程">🍝</div>
+                    <div class="day-marker day2-marker" style="left: 25%; top: 60%;" title="Trastevere午餐">🍕</div>
+                    <div class="day-marker day2-marker" style="left: 50%; top: 45%;" title="凯撒调查">🔍</div>
+                    <div class="day-marker day2-marker" style="left: 40%; top: 65%;" title="台伯河">🌅</div>
+                    <div class="day-marker day2-marker" style="left: 60%; top: 25%;" title="私厨晚餐">👨‍🍳</div>
+                </div>
+                
+                <!-- 第3天路线 -->
+                <div class="day-route" id="day3Route">
+                    <!-- 梵蒂冈区域 -->
+                    <div class="route-line" style="left: 15%; top: 25%; width: 12%; transform: rotate(90deg);"></div>
+                    <!-- 到密室区域 -->
+                    <div class="route-line" style="left: 25%; top: 30%; width: 35%; transform: rotate(45deg);"></div>
+                    <!-- 到许愿池和西班牙阶 -->
+                    <div class="route-line" style="left: 60%; top: 35%; width: 15%; transform: rotate(30deg);"></div>
+                    
+                    <div class="day-marker day3-marker" style="left: 15%; top: 25%;" title="梵蒂冈博物馆">🎨</div>
+                    <div class="day-marker day3-marker" style="left: 15%; top: 30%;" title="圣彼得大教堂">⛪</div>
+                    <div class="day-marker day3-marker" style="left: 75%; top: 60%;" title="密室逃脱">🗝️</div>
+                    <div class="day-marker day3-marker" style="left: 65%; top: 35%;" title="许愿池">⛲</div>
+                    <div class="day-marker day3-marker" style="left: 70%; top: 30%;" title="西班牙阶">📸</div>
+                </div>
+            </div>
+            
+            <!-- 地图天数控制 -->
+            <div class="map-day-controls" id="mapDayControls" style="display: none;">
+                <button class="day-control-btn active" onclick="showDayRoute(1)">第1天路线</button>
+                <button class="day-control-btn" onclick="showDayRoute(2)">第2天路线</button>
+                <button class="day-control-btn" onclick="showDayRoute(3)">第3天路线</button>
+                <button class="day-control-btn" onclick="showDayRoute(0)">显示全部</button>
+            </div>
+        </div>
+        
+        <!-- 右侧控制面板 -->
+        <div id="controlSidebar">
+            <div class="control-section">
+                <div class="section-title">🎯 体验类型选择</div>
+                <div class="category-grid">
+                    <button class="category-btn" data-category="activity">
+                        🎪 活动体验<br><small>运动、户外、文化</small>
+                    </button>
+                    <button class="category-btn" data-category="script">
+                        🎭 剧本体验<br><small>密室、角色扮演</small>
+                    </button>
+                    <button class="category-btn" data-category="service">
+                        💼 服务体验<br><small>SPA、私厨、摄影</small>
+                    </button>
+                    <button class="category-btn" data-category="itinerary">
+                        🗺️ AI行程<br><small>完整规划方案</small>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="control-section" id="timeSelection" style="display: none;">
+                <div class="section-title">📅 选择体验天数</div>
+                <div class="time-selection-grid">
+                    <select id="daySelector" class="day-selector">
+                        <option value="1">第1天</option>
+                        <option value="2">第2天</option>
+                        <option value="3">第3天</option>
+                    </select>
+                    <select id="timeSlotSelector" class="time-slot-selector">
+                        <option value="">请选择时间段</option>
+                        <option value="morning">🌅 上午 (9:00-12:00)</option>
+                        <option value="afternoon">☀️ 下午 (14:00-17:00)</option>
+                        <option value="evening">🌆 傍晚 (18:00-21:00)</option>
+                    </select>
+                </div>
+                <button id="confirmTimeBtn" class="confirm-time-btn" style="display: none;">确认天数安排</button>
+            </div>
+            
+            <div class="control-section" id="searchResults" style="display: none;">
+                <div class="section-title">🔍 搜索结果</div>
+                <div id="resultsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        var currentMapView = '3D';
+        var selectedCategory = null;
+        var isTyping = false;
+        var currentStep = 'category';
+        var itineraryItems = [];
+        var selectedDay = null;
+        var selectedTimeSlot = null;
+        var pendingExperience = null;
+        var currentDayView = 1;
+        var aiItineraryGenerated = false;
+        var suggestedItinerary = null;
+        
+        // 完整数据 - 包含不同类型的服务
+        var allData = {
+            // 服务体验
+            service: [
+                {
+                    id: 'spa1',
+                    name: '罗马古典SPA中心',
+                    type: 'service',
+                    emoji: '💆‍♀️',
+                    description: '正宗罗马式温泉浴，私密包间，古典音乐伴奏',
+                    location: 'Via dei Cappuccini, 9',
+                    price: 120,
+                    duration: '90分钟',
+                    rating: 4.9,
+                    tags: ['私密', '放松', '古典'],
+                    x: 45, y: 35,
+                    color: '#ff7675',
+                    unilocoInfo: {
+                        highlights: ['古罗马风格装潢', '私人按摩师', '草药精油', '热石疗法'],
+                        bestTime: '下午2-4点人流较少',
+                        tips: '提前预约可享受9折优惠',
+                        nearby: ['万神殿(步行5分钟)', '纳沃纳广场(步行8分钟)']
+                    }
+                },
+                {
+                    id: 'chef1',
+                    name: '马里奥私厨工作室',
+                    type: 'service',
+                    emoji: '👨‍🍳',
+                    description: '学习制作正宗意大利面，一对一教学',
+                    location: 'Via del Corso, 123',
+                    price: 85,
+                    duration: '120分钟',
+                    rating: 4.8,
+                    tags: ['一对一', '教学', '美食'],
+                    x: 60, y: 25,
+                    color: '#fdcb6e',
+                    unilocoInfo: {
+                        highlights: ['米其林主厨亲授', '意式家庭秘方', '可带走食谱', '小班授课'],
+                        bestTime: '上午10-12点体验最佳',
+                        tips: '穿着围裙和舒适鞋子',
+                        nearby: ['西班牙阶(步行3分钟)', '特莱维喷泉(步行7分钟)']
+                    }
+                }
+            ],
+            
+            // 剧本体验
+            script: [
+                {
+                    id: 'escape1',
+                    name: '古罗马密室逃脱',
+                    type: 'script',
+                    emoji: '🗝️',
+                    description: '角斗士主题沉浸式密室，还原古罗马竞技场',
+                    location: 'Via del Teatro, 12',
+                    price: 45,
+                    duration: '90分钟',
+                    rating: 4.4,
+                    tags: ['角斗士', '历史', '解谜'],
+                    x: 75, y: 60,
+                    color: '#6c5ce7',
+                    website: 'https://rome-escape.com',
+                    unilocoInfo: {
+                        highlights: ['沉浸式角斗士体验', '专业演员互动', '多重结局设计', '团队合作挑战'],
+                        bestTime: '傍晚时段氛围最佳',
+                        tips: '建议2-4人组队，穿着舒适运动装',
+                        nearby: ['斗兽场(步行10分钟)', '古罗马遗址(步行12分钟)']
+                    }
+                },
+                {
+                    id: 'mystery1',
+                    name: '凯撒谋杀案调查',
+                    type: 'script',
+                    emoji: '🔍',
+                    description: '扮演古罗马侦探，调查凯撒遇刺真相',
+                    location: 'Forum Romanum',
+                    price: 55,
+                    duration: '120分钟',
+                    rating: 4.6,
+                    tags: ['角色扮演', '推理', '历史'],
+                    x: 50, y: 45,
+                    color: '#a29bfe',
+                    website: 'https://rome-escape.com',
+                    unilocoInfo: {
+                        highlights: ['实地古罗马遗址探索', '历史学家导游', '多条调查线索', '互动推理环节'],
+                        bestTime: '上午9-11点光线最佳',
+                        tips: '建议了解一些古罗马历史背景',
+                        nearby: ['古罗马广场(现场)', '帕拉蒂尼山(步行5分钟)']
+                    }
+                }
+            ],
+            
+            // 活动体验
+            activity: [
+                {
+                    id: 'cooking1',
+                    name: '意大利烹饪课',
+                    type: 'activity',
+                    emoji: '🍝',
+                    description: '学习制作传统罗马菜肴，包含市场采购体验',
+                    location: 'Trastevere区',
+                    price: 75,
+                    duration: '180分钟',
+                    rating: 4.8,
+                    tags: ['文化', '美食', '体验'],
+                    x: 30, y: 55,
+                    color: '#ffeaa7',
+                    unilocoInfo: {
+                        highlights: ['当地市场采购', '传统家庭食谱', '品尝自制美食', '结识当地人'],
+                        bestTime: '上午9点开始，含午餐',
+                        tips: '空腹参加，会有丰盛午餐',
+                        nearby: ['圣玛丽教堂(步行2分钟)', '台伯河(步行8分钟)']
+                    }
+                },
+                {
+                    id: 'opera1',
+                    name: '罗马歌剧院经典演出',
+                    type: 'activity',
+                    emoji: '🎭',
+                    description: '在历史悠久的罗马歌剧院欣赏意大利经典歌剧或芭蕾舞剧',
+                    location: 'Teatro dell\'Opera di Roma',
+                    price: 85,
+                    duration: '150分钟',
+                    rating: 4.9,
+                    tags: ['歌剧', '舞剧', '文化', '艺术'],
+                    x: 65, y: 35,
+                    color: '#a29bfe',
+                    phone: '+39 06 481 601',
+                    details: '意大利顶级歌剧院，威尔第、普契尼经典剧目，世界级歌唱家演出',
+                    website: 'https://operaroma.it',
+                    unilocoInfo: {
+                        highlights: ['19世纪历史剧院', '世界级歌唱家', '意大利经典剧目', '华丽服装道具'],
+                        bestTime: '晚上8点演出，提前30分钟入场',
+                        tips: '建议正装出席，可租用歌剧望远镜',
+                        nearby: ['共和国广场(步行5分钟)', '戴克里先浴场(步行8分钟)']
+                    }
+                },
+                {
+                    id: 'ballet1',
+                    name: '意大利国家芭蕾舞团演出',
+                    type: 'activity',
+                    emoji: '🩰',
+                    description: '观赏意大利国家芭蕾舞团的经典与现代芭蕾舞剧',
+                    location: 'Teatro Costanzi',
+                    price: 65,
+                    duration: '120分钟',
+                    rating: 4.7,
+                    tags: ['芭蕾', '舞蹈', '艺术', '表演'],
+                    x: 70, y: 40,
+                    color: '#fd79a8',
+                    phone: '+39 06 481 601',
+                    details: '《天鹅湖》《胡桃夹子》等经典剧目，顶级舞者精彩演绎',
+                    website: 'https://operaroma.it/balletto',
+                    unilocoInfo: {
+                        highlights: ['国际知名舞团', '经典芭蕾剧目', '现代编舞作品', '精美舞台设计'],
+                        bestTime: '周末演出场次较多，建议提前预订',
+                        tips: '剧院内有中文节目单，演出中途有休息',
+                        nearby: ['特米尼车站(步行10分钟)', '圣母大教堂(步行12分钟)']
+                    }
+                }
+            ],
+            
+            // 餐饮推荐
+            dining: [
+                {
+                    id: 'restaurant1',
+                    name: 'Da Armando al Pantheon',
+                    type: 'dining',
+                    emoji: '🍽️',
+                    description: '百年家族餐厅，传统罗马菜，万神殿旁',
+                    location: 'Via degli Orfani, 114',
+                    price: 45,
+                    duration: '90分钟',
+                    rating: 4.7,
+                    tags: ['传统', '家族', '历史'],
+                    x: 55, y: 40,
+                    color: '#ff6b9d',
+                    unilocoInfo: {
+                        highlights: ['1961年开业至今', '传统罗马菜肴', '本地人聚集地', '万神殿最佳观景'],
+                        bestTime: '午餐12:30-14:00，晚餐19:30-21:30',
+                        tips: '强烈建议预约，尝试Cacio e Pepe',
+                        nearby: ['万神殿(步行1分钟)', '纳沃纳广场(步行5分钟)']
+                    }
+                }
+            ],
+            
+            // 景点门票
+            attractions: [
+                {
+                    id: 'colosseum1',
+                    name: '斗兽场快速通道票',
+                    type: 'attraction',
+                    emoji: '🏛️',
+                    description: '免排队门票，含语音导览，地下层参观',
+                    location: 'Piazza del Colosseo',
+                    price: 35,
+                    duration: '120分钟',
+                    rating: 4.9,
+                    tags: ['免排队', '导览', '历史'],
+                    x: 70, y: 50,
+                    color: '#74b9ff',
+                    booking: 'https://coopculture.it',
+                    unilocoInfo: {
+                        highlights: ['跳过长队直接入场', '地下层和竞技场层', '多语言音频导览', '古罗马遗址联票'],
+                        bestTime: '早上8:30开门时人最少',
+                        tips: '建议购买包含古罗马遗址的联票',
+                        nearby: ['古罗马遗址(步行3分钟)', '君士坦丁凯旋门(步行2分钟)']
+                    }
+                }
+            ]
+        };
+        
+        // 初始化
+        function init() {
+            console.log('开始初始化...');
+            createMap();
+            bindEvents();
+            showWelcome();
+        }
+        
+        // 创建地图标记
+        function createMap() {
+            var map = document.getElementById('map2D');
+            var markerCount = 0;
+            
+            // 遍历所有类型的数据
+            for (var category in allData) {
+                var items = allData[category];
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    var marker = document.createElement('div');
+                    marker.className = 'activity-marker-2d';
+                    marker.style.backgroundColor = item.color;
+                    marker.style.left = item.x + '%';
+                    marker.style.top = item.y + '%';
+                    marker.innerHTML = item.emoji;
+                    marker.title = item.name;
+                    marker.setAttribute('data-id', item.id);
+                    marker.setAttribute('data-category', category);
+                    map.appendChild(marker);
+                    markerCount++;
+                }
+            }
+            
+            // 更新标记数量
+            document.getElementById('markerCount').textContent = markerCount;
+        }
+        
+        // 绑定事件
+        function bindEvents() {
+            // 类别按钮
+            var btns = document.querySelectorAll('.category-btn');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].onclick = function() {
+                    selectCategory(this.getAttribute('data-category'));
+                };
+            }
+            
+            // 地图切换按钮
+            document.getElementById('mapToggleBtn').onclick = function() {
+                toggleMap();
+            };
+            
+            // 聊天输入框
+            var chatInput = document.getElementById('chatInput');
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // 时间选择相关事件
+            document.getElementById('daySelector').addEventListener('change', updateTimeSelection);
+            document.getElementById('timeSlotSelector').addEventListener('change', updateTimeSelection);
+            document.getElementById('confirmTimeBtn').addEventListener('click', confirmTimeSelection);
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('activity-marker-2d')) {
+                    var itemId = e.target.getAttribute('data-id');
+                    var category = e.target.getAttribute('data-category');
+                    showItemDetails(itemId, category);
+                }
+            });
+        }
+        
+        // Ask Uniloco 功能
+        function askUniloco(itemId) {
+            // 查找物品
+            var item = findItemById(itemId);
+            if (!item || !item.unilocoInfo) {
+                addUnilocoMessage('抱歉，暂时没有关于这个项目的详细信息。');
+                return;
+            }
+            
+            var info = item.unilocoInfo;
+            var response = `
+                <div class="uniloco-header">
+                    <div class="uniloco-logo">U</div>
+                    Uniloco 专业点评 - ${item.name}
+                </div>
+                
+                <strong>🌟 亮点特色：</strong><br>
+                ${info.highlights.map(h => '• ' + h).join('<br>')}<br><br>
+                
+                <strong>⏰ 最佳时间：</strong><br>
+                ${info.bestTime}<br><br>
+                
+                <strong>💡 专业建议：</strong><br>
+                ${info.tips}<br><br>
+                
+                <strong>📍 周边景点：</strong><br>
+                ${info.nearby.map(n => '• ' + n).join('<br>')}<br><br>
+                
+                <small style="opacity: 0.8;">💎 Uniloco认证 - 基于本地专家和真实用户体验</small>
+            `;
+            
+            addUnilocoMessage(response);
+        }
+        
+        // 添加 Uniloco 消息
+        function addUnilocoMessage(message) {
+            var messagesContainer = document.getElementById('chatMessages');
+            var messageDiv = document.createElement('div');
+            messageDiv.className = 'message uniloco-message';
+            messageDiv.innerHTML = message;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        // 选择类别
+        function selectCategory(category) {
+            selectedCategory = category;
+            
+            // 更新按钮状态
+            var btns = document.querySelectorAll('.category-btn');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove('selected');
+            }
+            document.querySelector('[data-category="' + category + '"]').classList.add('selected');
+            
+            // 处理不同类型的选择
+            if (category === 'itinerary') {
+                generateAIItinerary();
+            } else {
+                // 显示时间选择面板
+                showTimeSelection(category);
+            }
+            
+            // 高亮地图上对应的标记
+            highlightMapMarkers(category);
+            
+            // 添加AI消息
+            addAIMessage(getCategoryResponse(category));
+        }
+        
+        // 显示时间选择
+        function showTimeSelection(category) {
+            var timeSection = document.getElementById('timeSelection');
+            var resultsSection = document.getElementById('searchResults');
+            
+            timeSection.style.display = 'block';
+            resultsSection.style.display = 'none';
+            
+            // 重置选择
+            document.getElementById('daySelector').value = '1';
+            document.getElementById('timeSlotSelector').value = '';
+            document.getElementById('confirmTimeBtn').style.display = 'none';
+            
+            selectedDay = null;
+            selectedTimeSlot = null;
+        }
+        
+        // 获取类别回应
+        function getCategoryResponse(category) {
+            var responses = {
+                'activity': '🎪 活动体验！很好的选择。罗马有丰富的文化活动，请选择想要参加活动的具体天数？',
+                'script': '🎭 剧本体验！太棒了，沉浸式的历史体验会很精彩。请选择想要体验剧本的天数？',
+                'service': '💼 服务体验！享受高品质的个人服务会让旅行更特别。请选择想要享受服务的天数？',
+                'itinerary': '🗺️ 让我为你制定一个完整的3天罗马行程！我会根据你的I人特质，安排一些深度而不拥挤的体验...'
+            };
+            return responses[category];
+        }
+        
+        // 显示类别结果
+        function showCategoryResults(category) {
+            var resultsSection = document.getElementById('searchResults');
+            var container = document.getElementById('resultsContainer');
+            
+            resultsSection.style.display = 'block';
+            container.innerHTML = '';
+            
+            if (allData[category]) {
+                var categoryData = allData[category];
+                for (var i = 0; i < categoryData.length; i++) {
+                    var item = categoryData[i];
+                    container.appendChild(createResultCard(item));
+                }
+            }
+        }
+        
+        // 创建结果卡片
+        function createResultCard(item) {
+            var card = document.createElement('div');
+            card.className = 'result-card';
+            if (item.type === 'script') {
+                card.classList.add('script-experience');
+            }
+            
+            var tagsHtml = '';
+            if (item.tags) {
+                for (var i = 0; i < item.tags.length; i++) {
+                    tagsHtml += '<span class="result-tag">' + item.tags[i] + '</span>';
+                }
+            }
+            
+            var actionsHtml = '';
+            if (item.website) {
+                actionsHtml += '<button class="action-btn website-btn" onclick="window.open(\'' + item.website + '\', \'_blank\')">官网</button>';
+            }
+            if (item.booking) {
+                actionsHtml += '<button class="action-btn website-btn" onclick="window.open(\'' + item.booking + '\', \'_blank\')">预订</button>';
+            }
+            
+            // 添加 Ask Uniloco 按钮
+            if (item.unilocoInfo) {
+                actionsHtml += '<button class="action-btn ask-uniloco" onclick="askUniloco(\'' + item.id + '\')">Ask Uniloco</button>';
+            }
+            
+            // 添加 Detail 按钮
+            actionsHtml += '<button class="action-btn" onclick="showDetailPage(\'' + item.id + '\')" style="background: linear-gradient(135deg, #f39c12, #e67e22);">Detail</button>';
+            
+            actionsHtml += '<button class="action-btn add-btn" onclick="selectExperienceTime(\'' + item.id + '\')">选择时间</button>';
+            
+            card.innerHTML = `
+                <div class="result-header">
+                    <span class="result-emoji">${item.emoji}</span>
+                    <span class="result-title">${item.name}</span>
+                </div>
+                <div class="result-details">
+                    ${item.description}<br>
+                    📍 ${item.location} | 💰 €${item.price} | ⏰ ${item.duration} | ⭐ ${item.rating}
+                </div>
+                <div class="result-tags">${tagsHtml}</div>
+                <div class="result-actions">${actionsHtml}</div>
+            `;
+            
+            return card;
+        }
+        
+        // 生成AI行程
+        function generateAIItinerary() {
+            var resultsSection = document.getElementById('searchResults');
+            var container = document.getElementById('resultsContainer');
+            
+            resultsSection.style.display = 'block';
+            container.innerHTML = '';
+            
+            // 显示地图控制面板
+            document.getElementById('mapDayControls').style.display = 'block';
+            
+            // 创建AI行程建议
+            suggestedItinerary = [
+                {
+                    day: 1,
+                    title: '第一天 - 古典罗马',
+                    startLocation: 'Colosseo地铁站',
+                    endLocation: 'Via dei Cappuccini SPA中心',
+                    totalDuration: '约8小时',
+                    walkingDistance: '2.5公里',
+                    activities: [
+                        { 
+                            time: '09:00-11:15', 
+                            activity: '斗兽场快速通道参观', 
+                            emoji: '🏛️', 
+                            id: 'colosseum1', 
+                            selected: true, 
+                            location: 'Piazza del Colosseo, 1', 
+                            duration: '2小时15分钟',
+                            phone: '+39 06 3996 7700',
+                            details: '免排队门票，含中文语音导览，地下层和竞技场层参观',
+                            price: '€35',
+                            website: 'https://coopculture.it'
+                        },
+                        { 
+                            time: '11:30-12:45', 
+                            activity: '古罗马遗址漫步', 
+                            emoji: '🚶‍♂️', 
+                            id: 'forum_walk', 
+                            selected: true, 
+                            location: 'Via della Salaria Vecchia, 5/6', 
+                            duration: '1小时15分钟',
+                            phone: '+39 06 3996 7700',
+                            details: '帝国广场核心区域，凯撒神庙、维斯塔神庙等重要遗址',
+                            price: '包含在斗兽场联票中',
+                            website: 'https://coopculture.it'
+                        },
+                        { 
+                            time: '13:00-14:30', 
+                            activity: 'Da Armando al Pantheon 午餐', 
+                            emoji: '🍽️', 
+                            id: 'restaurant1', 
+                            selected: true, 
+                            location: 'Via degli Orfani, 114', 
+                            duration: '1小时30分钟',
+                            phone: '+39 06 6880 3034',
+                            details: '1961年开业家族餐厅，传统罗马菜，万神殿最佳观景位置',
+                            price: '€45-60',
+                            website: 'https://armandoalpantheon.it'
+                        },
+                        { 
+                            time: '15:00-15:45', 
+                            activity: '万神殿深度参观', 
+                            emoji: '⛪', 
+                            id: 'pantheon', 
+                            selected: true, 
+                            location: 'Piazza della Rotonda', 
+                            duration: '45分钟',
+                            phone: '+39 06 6830 0230',
+                            details: '保存最完好的古罗马建筑，完美穹顶设计，拉斐尔墓',
+                            price: '免费',
+                            website: 'https://pantheonroma.com'
+                        },
+                        { 
+                            time: '17:00-18:30', 
+                            activity: '罗马古典SPA放松', 
+                            emoji: '💆‍♀️', 
+                            id: 'spa1', 
+                            selected: true, 
+                            location: 'Via dei Cappuccini, 9', 
+                            duration: '1小时30分钟',
+                            phone: '+39 06 4201 5555',
+                            details: '古罗马风格温泉浴，私人按摩师，草药精油护理',
+                            price: '€120',
+                            website: 'https://hotelderussiespа.com'
+                        }
+                    ]
+                },
+                {
+                    day: 2,
+                    title: '第二天 - 文化体验',
+                    startLocation: 'Trastevere区市场',
+                    endLocation: 'Via del Corso私厨工作室',
+                    totalDuration: '约9.5小时',
+                    walkingDistance: '3.8公里',
+                    activities: [
+                        { 
+                            time: '10:00-13:00', 
+                            activity: '意大利烹饪课程', 
+                            emoji: '🍝', 
+                            id: 'cooking1', 
+                            selected: true, 
+                            location: 'Trastevere区传统市场', 
+                            duration: '3小时(含市场采购)',
+                            phone: '+39 06 5833 3971',
+                            details: '当地市场采购新鲜食材，学习传统家庭食谱，制作手工意大利面',
+                            price: '€75',
+                            website: 'https://cookingclassesrome.com'
+                        },
+                        { 
+                            time: '13:00-14:00', 
+                            activity: 'Trastevere区午餐', 
+                            emoji: '🍕', 
+                            id: 'trastevere_lunch', 
+                            selected: true, 
+                            location: 'Via di San Francesco a Ripa', 
+                            duration: '1小时',
+                            phone: '+39 06 5812 5435',
+                            details: '正宗街头小食：Supplì炸饭团、Pizza al Taglio、当地小酒馆',
+                            price: '€15-25',
+                            website: 'https://trasteverestreetfood.it'
+                        },
+                        { 
+                            time: '15:30-17:30', 
+                            activity: '凯撒谋杀案调查剧本', 
+                            emoji: '🔍', 
+                            id: 'mystery1', 
+                            selected: true, 
+                            location: 'Forum Romanum入口', 
+                            duration: '2小时',
+                            phone: '+39 06 6992 4151',
+                            details: '沉浸式历史剧本，专业演员指导，实地古罗马遗址探索',
+                            price: '€55',
+                            website: 'https://rome-mysteries.com'
+                        },
+                        { 
+                            time: '18:00-18:45', 
+                            activity: '台伯河畔散步', 
+                            emoji: '🌅', 
+                            id: 'river_walk', 
+                            selected: false, 
+                            location: 'Ponte Sant\'Angelo桥', 
+                            duration: '45分钟',
+                            phone: '无需预约',
+                            details: '浪漫日落时分，圣天使桥到人民广场河岸步道',
+                            price: '免费',
+                            website: 'https://roma.it/lungotevere'
+                        },
+                        { 
+                            time: '19:30-21:30', 
+                            activity: '私厨晚餐体验', 
+                            emoji: '👨‍🍳', 
+                            id: 'chef1', 
+                            selected: true, 
+                            location: 'Via del Corso, 123', 
+                            duration: '2小时',
+                            phone: '+39 06 6919 0572',
+                            details: '米其林主厨马里奥私人工作室，一对一意式料理教学',
+                            price: '€85',
+                            website: 'https://chefmario-rome.com'
+                        }
+                    ]
+                },
+                {
+                    day: 3,
+                    title: '第三天 - 深度探索',
+                    startLocation: 'Ottaviano地铁站',
+                    endLocation: 'Spagna地铁站',
+                    totalDuration: '约9小时',
+                    walkingDistance: '4.2公里',
+                    activities: [
+                        { 
+                            time: '09:30-12:00', 
+                            activity: '梵蒂冈博物馆', 
+                            emoji: '🎨', 
+                            id: 'vatican_museum', 
+                            selected: true, 
+                            location: 'Viale Vaticano, 00165', 
+                            duration: '2小时30分钟',
+                            phone: '+39 06 6988 4676',
+                            details: '西斯廷教堂米开朗基罗壁画，拉斐尔画室，古希腊雕塑收藏',
+                            price: '€17(免排队票€27)',
+                            website: 'https://vatican.va'
+                        },
+                        { 
+                            time: '12:00-13:30', 
+                            activity: '圣彼得大教堂', 
+                            emoji: '⛪', 
+                            id: 'st_peter', 
+                            selected: true, 
+                            location: 'Piazza San Pietro', 
+                            duration: '1小时30分钟',
+                            phone: '+39 06 6988 3731',
+                            details: '米开朗基罗《圣母怜子》，贝尼尼华丽装饰，可选登顶圆顶',
+                            price: '免费(登顶€10)',
+                            website: 'https://vatican.va'
+                        },
+                        { 
+                            time: '14:30-16:00', 
+                            activity: '古罗马密室逃脱', 
+                            emoji: '🗝️', 
+                            id: 'escape1', 
+                            selected: true, 
+                            location: 'Via del Teatro, 12', 
+                            duration: '1小时30分钟',
+                            phone: '+39 06 4542 8899',
+                            details: '角斗士主题沉浸式密室，专业演员互动，多重结局设计',
+                            price: '€45',
+                            website: 'https://rome-escape.com'
+                        },
+                        { 
+                            time: '17:00-17:30', 
+                            activity: '特莱维喷泉许愿', 
+                            emoji: '⛲', 
+                            id: 'trevi', 
+                            selected: true, 
+                            location: 'Piazza di Trevi', 
+                            duration: '30分钟',
+                            phone: '无需预约',
+                            details: '世界最著名许愿池，巴洛克艺术杰作，投币许愿传统',
+                            price: '免费',
+                            website: 'https://roma.it/fontana-trevi'
+                        },
+                        { 
+                            time: '18:30-19:00', 
+                            activity: '西班牙阶告别', 
+                            emoji: '📸', 
+                            id: 'spanish_steps', 
+                            selected: false, 
+                            location: 'Piazza di Spagna', 
+                            duration: '30分钟',
+                            phone: '无需预约',
+                            details: '著名电影取景地，春季杜鹃花盛开，高端购物区域',
+                            price: '免费',
+                            website: 'https://roma.it/scalinata-trinita'
+                        }
+                    ]
+                }
+            ];
+            
+            // 显示行程预览和确认界面
+            var previewDiv = document.createElement('div');
+            previewDiv.className = 'ai-itinerary-preview';
+            previewDiv.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h3 style="color: #4ecdc4; margin-bottom: 10px;">🤖 Uniloco推荐行程</h3>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.7);">
+                        为你定制的3天罗马深度体验，可以调整和确认
+                    </p>
+                </div>
+                <div id="itineraryPreview"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="action-btn" onclick="confirmAIItinerary()" style="background: linear-gradient(135deg, #00ff88, #00cc6a); color: black; margin-right: 10px;">
+                        ✅ 确认使用此行程
+                    </button>
+                    <button class="action-btn" onclick="customizeItinerary()" style="background: linear-gradient(135deg, #667eea, #764ba2); margin-right: 10px;">
+                        ✏️ 我要调整
+                    </button>
+                    <button class="action-btn" onclick="showItineraryAdjustment()" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52);">
+                        🔄 行程调整
+                    </button>
+                </div>
+            `;
+            
+            container.appendChild(previewDiv);
+            
+            // 渲染行程预览
+            renderItineraryPreview();
+            
+            aiItineraryGenerated = true;
+        }
+        
+        // 渲染行程预览
+        function renderItineraryPreview() {
+            var previewContainer = document.getElementById('itineraryPreview');
+            if (!previewContainer) return;
+            
+            previewContainer.innerHTML = '';
+            
+            for (var i = 0; i < suggestedItinerary.length; i++) {
+                var dayData = suggestedItinerary[i];
+                var dayDiv = document.createElement('div');
+                dayDiv.className = 'itinerary-timeline';
+                
+                var dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-size: 14px; font-weight: bold;">${dayData.title}</span>
+                        <button class="day-control-btn" onclick="showDayRoute(${dayData.day})" style="font-size: 10px; padding: 4px 8px;">
+                            查看地图
+                        </button>
+                    </div>
+                    ${dayData.startLocation ? `
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.8); margin-bottom: 4px;">
+                            🚇 起点: ${dayData.startLocation} → 终点: ${dayData.endLocation}
+                        </div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.7); margin-bottom: 8px;">
+                            ⏱️ 总时长: ${dayData.totalDuration} | 🚶‍♂️ 步行距离: ${dayData.walkingDistance}
+                        </div>
+                    ` : ''}
+                `;
+                dayDiv.appendChild(dayHeader);
+                
+                for (var j = 0; j < dayData.activities.length; j++) {
+                    var activity = dayData.activities[j];
+                    var activityDiv = document.createElement('div');
+                    activityDiv.className = 'time-slot';
+                    activityDiv.style.opacity = activity.selected ? '1' : '0.5';
+                    activityDiv.innerHTML = `
+                        <div class="time" style="color: #feca57; font-weight: bold; min-width: 90px; font-size: 11px;">
+                            ${activity.time}
+                        </div>
+                        <div class="activity" style="color: rgba(255, 255, 255, 0.9); flex: 1;">
+                            <div style="margin-bottom: 4px; font-weight: bold;">
+                                ${activity.emoji} ${activity.activity}
+                                <button onclick="showActivityDetails('${activity.id}')" 
+                                        style="margin-left: 8px; background: #667eea; 
+                                               border: none; color: white; 
+                                               padding: 2px 6px; border-radius: 4px; font-size: 9px; cursor: pointer;">
+                                    详情
+                                </button>
+                                <button onclick="toggleActivity(${dayData.day}, ${j})" 
+                                        style="margin-left: 5px; background: ${activity.selected ? '#ff4757' : '#00ff88'}; 
+                                               border: none; color: ${activity.selected ? 'white' : 'black'}; 
+                                               padding: 2px 6px; border-radius: 4px; font-size: 10px; cursor: pointer;">
+                                    ${activity.selected ? '移除' : '添加'}
+                                </button>
+                            </div>
+                            ${activity.location ? `<div style="font-size: 9px; color: rgba(255,255,255,0.6); margin-bottom: 2px;">📍 ${activity.location}</div>` : ''}
+                            ${activity.duration ? `<div style="font-size: 9px; color: rgba(255,255,255,0.6);">⏱️ ${activity.duration}</div>` : ''}
+                        </div>
+                    `;
+                    dayDiv.appendChild(activityDiv);
+                }
+                
+                previewContainer.appendChild(dayDiv);
+            }
+        }
+        
+        // 显示详情页面
+        function showDetailPage(itemId) {
+            var item = findItemById(itemId);
+            if (!item) {
+                addAIMessage('抱歉，没有找到该项目的详细信息。');
+                return;
+            }
+            
+            // 目前只是在聊天中显示，之后可以改为跳转到外部网页
+            var message = `
+                <strong>📋 详情页面 - ${item.name}</strong><br><br>
+                
+                <strong>📝 详细描述：</strong><br>
+                ${item.description}<br><br>
+                
+                <strong>📍 位置：</strong> ${item.location}<br>
+                <strong>💰 价格：</strong> €${item.price}<br>
+                <strong>⏰ 时长：</strong> ${item.duration}<br>
+                <strong>⭐ 评分：</strong> ${item.rating}/5.0<br><br>
+                
+                ${item.tags ? '<strong>🏷️ 标签：</strong> ' + item.tags.join(', ') + '<br><br>' : ''}
+                
+                <small style="opacity: 0.8;">💡 这里未来会跳转到详细的预订页面</small>
+            `;
+            
+            addAIMessage(message);
+        }
+        
+        // 显示活动详情
+        function showActivityDetails(activityId) {
+            var activityDetails = {
+                'colosseum1': {
+                    name: '斗兽场快速通道参观',
+                    description: '跳过长队直接入场，探索这座古罗马最壮观的建筑。包含地下层参观，了解角斗士的生活。',
+                    highlights: ['免排队入场', '含语音导览', '地下层参观', '竞技场层体验'],
+                    duration: '约2小时',
+                    tips: '建议早上参观，光线最佳且人流较少'
+                },
+                'forum_walk': {
+                    name: '古罗马遗址漫步',
+                    description: '在古罗马帝国的心脏地带漫步，欣赏凯撒大帝、奥古斯都等历史人物曾经活动的地方。',
+                    highlights: ['帝国广场遗址', '凯撒神庙', '维斯塔神庙', '提图斯凯旋门'],
+                    duration: '约1.5小时',
+                    tips: '与斗兽场联票更优惠，建议穿舒适步行鞋'
+                },
+                'restaurant1': {
+                    name: 'Da Armando al Pantheon 午餐',
+                    description: '这家1961年开业的家族餐厅是万神殿旁的隐藏宝石，提供最正宗的罗马传统菜肴。',
+                    highlights: ['家族秘制食谱', '本地人聚集地', '万神殿最佳观景', '传统罗马菜'],
+                    duration: '约1.5小时',
+                    tips: '必尝Cacio e Pepe和Carbonara，建议提前预订'
+                },
+                'pantheon': {
+                    name: '万神殿深度参观',
+                    description: '参观这座保存最完好的古罗马建筑，欣赏其完美的圆顶设计和神秘的天窗。',
+                    highlights: ['免费入场', '完美穹顶', '拉斐尔墓', '建筑奇迹'],
+                    duration: '约45分钟',
+                    tips: '正午时分阳光从天窗直射下来，景象最为壮观'
+                },
+                'spa1': {
+                    name: '罗马古典SPA放松',
+                    description: '在古罗马风格的豪华SPA中心享受传统温泉浴和专业按摩，洗去一天的疲劳。',
+                    highlights: ['古罗马风格装潢', '温泉浴体验', '芳疗按摩', '私密环境'],
+                    duration: '约90分钟',
+                    tips: '下午时段较为安静，体验感更佳'
+                },
+                'cooking1': {
+                    name: '意大利烹饪课程',
+                    description: '在Trastevere区的本地市场采购新鲜食材，然后学习制作正宗的意大利面和罗马菜。',
+                    highlights: ['市场采购体验', '传统家庭食谱', '亲手制作', '品尝成果'],
+                    duration: '约3小时',
+                    tips: '包含丰盛午餐，建议空腹参加'
+                },
+                'trastevere_lunch': {
+                    name: 'Trastevere区午餐',
+                    description: '在罗马最具波西米亚风情的Trastevere区享用地道的街头美食和当地小食。',
+                    highlights: ['当地街头美食', '波西米亚氛围', '石板路漫步', '本地小店'],
+                    duration: '约1小时',
+                    tips: 'Supplì（炸饭团）和Pizza al Taglio是必尝美食'
+                },
+                'mystery1': {
+                    name: '凯撒谋杀案调查剧本',
+                    description: '化身古罗马侦探，在真实的古罗马遗址中调查凯撒大帝遇刺案，通过互动推理揭开历史谜团。',
+                    highlights: ['实地遗址探索', '角色扮演', '历史互动', '推理解谜'],
+                    duration: '约2小时',
+                    tips: '了解一些古罗马历史会让体验更有趣'
+                },
+                'river_walk': {
+                    name: '台伯河畔散步',
+                    description: '沿着流经罗马的母亲河漫步，欣赏两岸的历史建筑和浪漫的夕阳景色。',
+                    highlights: ['河畔风光', '历史桥梁', '夕阳美景', '浪漫氛围'],
+                    duration: '约45分钟',
+                    tips: '黄昏时分最美，适合拍照留念'
+                },
+                'chef1': {
+                    name: '私厨晚餐体验',
+                    description: '在专业主厨的私人工作室享用定制晚餐，学习意大利烹饪技巧并品尝精致料理。',
+                    highlights: ['私人定制', '主厨教学', '精致料理', '一对一服务'],
+                    duration: '约2小时',
+                    tips: '可以学到回家后也能复制的简单技巧'
+                },
+                'vatican_museum': {
+                    name: '梵蒂冈博物馆',
+                    description: '探索世界上最重要的艺术收藏之一，包括西斯廷教堂的米开朗基罗壁画。',
+                    highlights: ['西斯廷教堂', '拉斐尔画室', '古希腊雕塑', '宗教艺术'],
+                    duration: '约2.5小时',
+                    tips: '建议购买免排队门票，周三上午人流最少'
+                },
+                'st_peter': {
+                    name: '圣彼得大教堂',
+                    description: '参观天主教世界的中心，欣赏米开朗基罗的《圣母怜子》和贝尼尼的华丽装饰。',
+                    highlights: ['米开朗基罗作品', '登顶圆顶', '圣彼得墓', '宗教圣地'],
+                    duration: '约1.5小时',
+                    tips: '登顶需要额外购票，俯瞰罗马全景值得一试'
+                },
+                'escape1': {
+                    name: '古罗马密室逃脱',
+                    description: '在角斗士主题的沉浸式密室中解谜，体验古罗马竞技场的紧张刺激氛围。',
+                    highlights: ['角斗士主题', '沉浸式体验', '团队合作', '多重结局'],
+                    duration: '约90分钟',
+                    tips: '建议2-4人组队，穿着舒适的运动装'
+                },
+                'trevi': {
+                    name: '特莱维喷泉许愿',
+                    description: '在世界最著名的许愿池投下硬币，传说这样就能再次回到罗马。',
+                    highlights: ['巴洛克杰作', '许愿传统', '夜景照明', '浪漫氛围'],
+                    duration: '约30分钟',
+                    tips: '傍晚时分灯光效果最佳，记得准备硬币许愿'
+                },
+                'spanish_steps': {
+                    name: '西班牙阶告别',
+                    description: '在这个著名的电影取景地结束罗马之旅，坐在阶上回味三天的美好时光。',
+                    highlights: ['电影取景地', '人文景观', '购物区域', '告别仪式'],
+                    duration: '约30分钟',
+                    tips: '春季时阶上会开满杜鹃花，是拍照的最佳季节'
+                }
+            };
+            
+            var detail = activityDetails[activityId];
+            if (detail) {
+                var message = `
+                    <strong>📍 ${detail.name}</strong><br><br>
+                    ${detail.description}<br><br>
+                    <strong>🌟 体验亮点：</strong><br>
+                    ${detail.highlights.map(h => '• ' + h).join('<br>')}<br><br>
+                    <strong>⏰ 建议时长：</strong> ${detail.duration}<br><br>
+                    <strong>💡 贴心提示：</strong> ${detail.tips}
+                `;
+                addAIMessage(message);
+            } else {
+                addAIMessage('抱歉，暂时没有这个活动的详细信息。');
+            }
+        }
+        
+        // 切换活动选择状态
+        function toggleActivity(day, activityIndex) {
+            for (var i = 0; i < suggestedItinerary.length; i++) {
+                if (suggestedItinerary[i].day === day) {
+                    var activity = suggestedItinerary[i].activities[activityIndex];
+                    activity.selected = !activity.selected;
+                    break;
+                }
+            }
+            renderItineraryPreview();
+        }
+        
+        // 确认AI行程
+        function confirmAIItinerary() {
+            // 清空当前行程
+            itineraryItems = [];
+            
+            // 添加选中的活动到行程
+            for (var i = 0; i < suggestedItinerary.length; i++) {
+                var dayData = suggestedItinerary[i];
+                for (var j = 0; j < dayData.activities.length; j++) {
+                    var activity = dayData.activities[j];
+                    if (activity.selected) {
+                        // 查找对应的数据项
+                        var item = findItemById(activity.id);
+                        if (item) {
+                            var itemWithTime = Object.assign({}, item);
+                            itemWithTime.scheduledDay = dayData.day;
+                            itemWithTime.scheduledTime = activity.time;
+                            itineraryItems.push(itemWithTime);
+                        } else {
+                            // 创建虚拟项目（如散步等）
+                            var virtualItem = {
+                                id: activity.id,
+                                name: activity.activity,
+                                emoji: activity.emoji,
+                                price: 0,
+                                type: 'activity',
+                                scheduledDay: dayData.day,
+                                scheduledTime: activity.time
+                            };
+                            itineraryItems.push(virtualItem);
+                        }
+                    }
+                }
+            }
+            
+            updateItineraryDisplay();
+            addAIMessage('完美！已确认你的3天罗马行程。总费用：€' + calculateTotalCost() + '。你可以在左侧查看详细安排，地图上也显示了每天的路线！');
+        }
+        
+        // 自定义行程
+        function customizeItinerary() {
+            addAIMessage('好的！你可以通过以下方式调整行程：<br><br>1️⃣ 点击活动旁的"移除"/"添加"按钮<br>2️⃣ 从体验类型中选择其他项目<br>3️⃣ 调整完成后点击"确认使用此行程"<br><br>有什么特别想要调整的吗？');
+        }
+        
+        // 显示行程调整界面
+        function showItineraryAdjustment() {
+            addAIMessage('🤔 看起来你想调整一下行程！让我来帮你分析一下。<br><br>你觉得哪一天的安排需要调整呢？');
+            
+            // 显示天数选择按钮
+            setTimeout(function() {
+                var adjustmentButtons = `
+                    <div style="margin: 15px 0; text-align: center;">
+                        <button class="action-btn" onclick="adjustDay(1)" style="margin: 5px; background: linear-gradient(135deg, #ff6b6b, #ee5a52);">
+                            第1天调整
+                        </button>
+                        <button class="action-btn" onclick="adjustDay(2)" style="margin: 5px; background: linear-gradient(135deg, #4ecdc4, #44a08d);">
+                            第2天调整
+                        </button>
+                        <button class="action-btn" onclick="adjustDay(3)" style="margin: 5px; background: linear-gradient(135deg, #45b7d1, #3498db);">
+                            第3天调整
+                        </button>
+                    </div>
+                `;
+                
+                var messagesContainer = document.getElementById('chatMessages');
+                var messageDiv = document.createElement('div');
+                messageDiv.className = 'message ai-message';
+                messageDiv.innerHTML = adjustmentButtons;
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 500);
+        }
+        
+        // 调整特定天数的行程
+        function adjustDay(day) {
+            var dayTitles = {
+                1: '第一天 - 古典罗马',
+                2: '第二天 - 文化体验', 
+                3: '第三天 - 深度探索'
+            };
+            
+            addAIMessage(`你选择调整${dayTitles[day]}的行程。让我看看这一天的安排...<br><br>🤔 是不是觉得这个行程太累了？时间安排太紧凑？`);
+            
+            setTimeout(function() {
+                var responseButtons = `
+                    <div style="margin: 15px 0; text-align: center;">
+                        <button class="action-btn" onclick="respondToTiredness(${day}, 'yes')" style="margin: 5px; background: linear-gradient(135deg, #ff9ff3, #f368e0);">
+                            是的，太累了
+                        </button>
+                        <button class="action-btn" onclick="respondToTiredness(${day}, 'no')" style="margin: 5px; background: linear-gradient(135deg, #74b9ff, #0984e3);">
+                            不会，还好
+                        </button>
+                        <button class="action-btn" onclick="respondToTiredness(${day}, 'change')" style="margin: 5px; background: linear-gradient(135deg, #fdcb6e, #e17055);">
+                            想换其他体验
+                        </button>
+                    </div>
+                `;
+                
+                var messagesContainer = document.getElementById('chatMessages');
+                var messageDiv = document.createElement('div');
+                messageDiv.className = 'message ai-message';
+                messageDiv.innerHTML = responseButtons;
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+        }
+        
+        // 回应疲劳程度
+        function respondToTiredness(day, response) {
+            if (response === 'yes') {
+                addAIMessage('😊 哈哈哈，我就知道！别担心，我给你安排一个不那么累的行程。让我重新为你规划...');
+                setTimeout(function() {
+                    showRelaxedOptions(day);
+                }, 1000);
+            } else if (response === 'no') {
+                addAIMessage('💪 看起来你体力很好！那我们可以在现有基础上添加一些更有趣的体验。你想要什么类型的？');
+                setTimeout(function() {
+                    showEnhancementOptions(day);
+                }, 1000);
+            } else if (response === 'change') {
+                addAIMessage('🎯 明白了！让我们重新选择这一天的体验类型。你更喜欢哪种风格的一天？');
+                setTimeout(function() {
+                    showStyleOptions(day);
+                }, 1000);
+            }
+        }
+        
+        // 显示轻松选项
+        function showRelaxedOptions(day) {
+            var message = `
+                🌿 好的，让我为你安排一个更轻松的第${day}天！<br><br>
+                我想了解一下你的偏好：<br><br>
+                📍 你想在罗马的哪个区域开始游览？<br>
+                🎯 你希望活动半径控制在多少范围内？
+            `;
+            
+            addAIMessage(message);
+            
+            setTimeout(function() {
+                var locationButtons = `
+                    <div style="margin: 15px 0;">
+                        <div style="margin-bottom: 10px; font-weight: bold; color: #4ecdc4;">选择起始区域：</div>
+                        <button class="action-btn" onclick="selectStartLocation(${day}, 'centro')" style="margin: 3px; font-size: 11px; background: linear-gradient(135deg, #a29bfe, #6c5ce7);">
+                            历史中心区
+                        </button>
+                        <button class="action-btn" onclick="selectStartLocation(${day}, 'trastevere')" style="margin: 3px; font-size: 11px; background: linear-gradient(135deg, #fd79a8, #e84393);">
+                            Trastevere区
+                        </button>
+                        <button class="action-btn" onclick="selectStartLocation(${day}, 'vatican')" style="margin: 3px; font-size: 11px; background: linear-gradient(135deg, #fdcb6e, #e17055);">
+                            梵蒂冈区域
+                        </button>
+                        <button class="action-btn" onclick="selectStartLocation(${day}, 'villa')" style="margin: 3px; font-size: 11px; background: linear-gradient(135deg, #00b894, #00a085);">
+                            公园别墅区
+                        </button>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <div style="margin-bottom: 10px; font-weight: bold; color: #4ecdc4;">活动半径：</div>
+                        <button class="action-btn" onclick="selectRadius(${day}, '1km')" style="margin: 3px; font-size: 11px; background: linear-gradient(135deg, #55a3ff, #3742fa);">
+                            1公里内
+                        </button>
+                        <button class="action-btn" onclick="selectRadius(${day}, '2km')" style="margin: 3px; font-size: 11px; background: linear-gradient(135deg, #26de81, #20bf6b);">
+                            2公里内
+                        </button>
+                        <button class="action-btn" onclick="selectRadius(${day}, '3km')" style="margin: 3px; font-size: 11px; background: linear-gradient(135deg, #fed330, #f7b731);">
+                            3公里内
+                        </button>
+                    </div>
+                `;
+                
+                var messagesContainer = document.getElementById('chatMessages');
+                var messageDiv = document.createElement('div');
+                messageDiv.className = 'message ai-message';
+                messageDiv.innerHTML = locationButtons;
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+        }
+        
+        // 选择起始位置
+        function selectStartLocation(day, location) {
+            var locationNames = {
+                'centro': '历史中心区',
+                'trastevere': 'Trastevere区',
+                'vatican': '梵蒂冈区域',
+                'villa': '公园别墅区'
+            };
+            
+            addAIMessage(`👍 很好的选择！你选择了${locationNames[location]}作为起点。现在请选择你希望的活动半径范围。`);
+            
+            // 存储选择的位置
+            window.selectedLocation = location;
+            window.selectedDay = day;
+        }
+        
+        // 选择活动半径
+        function selectRadius(day, radius) {
+            var location = window.selectedLocation;
+            var locationNames = {
+                'centro': '历史中心区',
+                'trastevere': 'Trastevere区',
+                'vatican': '梵蒂冈区域',
+                'villa': '公园别墅区'
+            };
+            
+            // 存储选择的半径
+            window.selectedRadius = radius;
+            
+            addAIMessage(`✨ 完美！基于你选择的${locationNames[location]}和${radius}的活动范围，让我为你推荐最合适的轻松行程...<br><br>🎯 根据你的选择，我建议：`);
+            
+            setTimeout(function() {
+                generateRelaxedItinerary(day, location, radius);
+            }, 1500);
+        }
+        
+        // 生成轻松行程
+        function generateRelaxedItinerary(day, location, radius) {
+            var recommendations = getLocationRecommendations(location, radius);
+            
+            var message = `
+                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <h4 style="color: #4ecdc4; margin-bottom: 10px;">🌟 为你定制的轻松第${day}天</h4>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <strong>📍 起始位置：</strong> ${recommendations.startPoint}<br>
+                        <strong>🎯 活动范围：</strong> ${radius}<br>
+                        <strong>⏱️ 总时长：</strong> ${recommendations.totalTime}<br>
+                        <strong>🚶‍♂️ 步行距离：</strong> ${recommendations.walkingDistance}
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: #feca57;">推荐路线：</strong><br>
+                        ${recommendations.route.map(item => `• ${item}`).join('<br>')}
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="action-btn" onclick="confirmRelaxedItinerary(${day})" style="background: linear-gradient(135deg, #00ff88, #00cc6a); color: black; margin-right: 10px;">
+                            ✅ 就用这个轻松行程
+                        </button>
+                        <button class="action-btn" onclick="showItineraryAdjustment()" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                            🔄 重新选择
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            addAIMessage(message);
+        }
+        
+        // 获取位置推荐
+        function getLocationRecommendations(location, radius) {
+            var recommendations = {
+                'centro': {
+                    '1km': {
+                        startPoint: '万神殿附近',
+                        totalTime: '5-6小时',
+                        walkingDistance: '1.2公里',
+                        route: [
+                            '09:30 万神殿参观 (30分钟)',
+                            '10:15 纳沃纳广场咖啡 (45分钟)',
+                            '11:30 附近小巷漫步 (30分钟)',
+                            '12:30 传统餐厅午餐 (90分钟)',
+                            '14:30 圣路易教堂 (30分钟)',
+                            '15:30 当地工艺品店 (60分钟)'
+                        ]
+                    },
+                    '2km': {
+                        startPoint: '万神殿到特莱维喷泉区域',
+                        totalTime: '6-7小时',
+                        walkingDistance: '2.1公里',
+                        route: [
+                            '09:00 万神殿参观 (45分钟)',
+                            '10:15 步行至许愿池 (25分钟)',
+                            '11:00 特莱维喷泉许愿 (30分钟)',
+                            '12:00 附近精品店购物 (60分钟)',
+                            '13:30 屋顶餐厅午餐 (90分钟)',
+                            '15:30 西班牙阶休息 (45分钟)'
+                        ]
+                    },
+                    '3km': {
+                        startPoint: '历史中心区全览',
+                        totalTime: '7-8小时',
+                        walkingDistance: '2.8公里',
+                        route: [
+                            '09:00 万神殿区域 (60分钟)',
+                            '10:30 纳沃纳广场 (45分钟)',
+                            '11:45 卡拉瓦乔教堂 (30分钟)',
+                            '13:00 精致午餐 (90分钟)',
+                            '15:00 特莱维喷泉 (30分钟)',
+                            '16:00 西班牙阶购物 (60分钟)'
+                        ]
+                    }
+                },
+                'trastevere': {
+                    '1km': {
+                        startPoint: '圣玛丽教堂广场',
+                        totalTime: '5-6小时',
+                        walkingDistance: '1.1公里',
+                        route: [
+                            '10:00 圣玛丽教堂参观 (30分钟)',
+                            '10:45 当地市场逛逛 (45分钟)',
+                            '12:00 街头小食品尝 (60分钟)',
+                            '13:30 河边咖啡厅 (90分钟)',
+                            '15:30 手工艺品店 (45分钟)',
+                            '16:30 日落河景 (30分钟)'
+                        ]
+                    },
+                    '2km': {
+                        startPoint: 'Trastevere到台伯河',
+                        totalTime: '6-7小时',
+                        walkingDistance: '1.9公里',
+                        route: [
+                            '09:30 Trastevere老城漫步 (60分钟)',
+                            '11:00 当地烘焙坊 (30分钟)',
+                            '12:00 传统午餐 (90分钟)',
+                            '14:00 台伯河步道 (45分钟)',
+                            '15:15 河对岸市场 (60分钟)',
+                            '16:45 回程咖啡 (30分钟)'
+                        ]
+                    },
+                    '3km': {
+                        startPoint: 'Trastevere深度探索',
+                        totalTime: '7-8小时',
+                        walkingDistance: '2.6公里',
+                        route: [
+                            '09:00 圣玛丽教堂 (45分钟)',
+                            '10:15 Villa Farnesina (60分钟)',
+                            '11:45 当地美食之旅 (90分钟)',
+                            '13:45 午休时光 (60分钟)',
+                            '15:15 植物园漫步 (60分钟)',
+                            '16:45 河边日落 (45分钟)'
+                        ]
+                    }
+                },
+                'vatican': {
+                    '1km': {
+                        startPoint: '圣彼得广场',
+                        totalTime: '4-5小时',
+                        walkingDistance: '0.8公里',
+                        route: [
+                            '09:30 圣彼得大教堂 (90分钟)',
+                            '11:30 梵蒂冈花园 (60分钟)',
+                            '13:00 附近精致午餐 (90分钟)',
+                            '15:00 梵蒂冈邮局 (20分钟)',
+                            '15:30 纪念品购物 (45分钟)',
+                            '16:30 圣天使城堡远眺 (30分钟)'
+                        ]
+                    },
+                    '2km': {
+                        startPoint: '梵蒂冈到圣天使城堡',
+                        totalTime: '6-7小时',
+                        walkingDistance: '1.7公里',
+                        route: [
+                            '09:00 梵蒂冈博物馆精选 (120分钟)',
+                            '11:30 圣彼得大教堂 (60分钟)',
+                            '13:00 梵蒂冈午餐 (90分钟)',
+                            '15:00 步行至圣天使城堡 (45分钟)',
+                            '16:00 城堡参观 (60分钟)',
+                            '17:30 河边散步 (30分钟)'
+                        ]
+                    },
+                    '3km': {
+                        startPoint: '梵蒂冈文化之旅',
+                        totalTime: '7-8小时',
+                        walkingDistance: '2.4公里',
+                        route: [
+                            '09:00 梵蒂冈博物馆 (150分钟)',
+                            '12:00 圣彼得大教堂 (75分钟)',
+                            '13:30 精致午餐 (90分钟)',
+                            '15:30 圣天使城堡 (75分钟)',
+                            '17:15 人民广场 (45分钟)',
+                            '18:15 日落咖啡 (30分钟)'
+                        ]
+                    }
+                },
+                'villa': {
+                    '1km': {
+                        startPoint: 'Villa Borghese公园',
+                        totalTime: '4-5小时',
+                        walkingDistance: '1.0公里',
+                        route: [
+                            '10:00 博尔格赛美术馆 (90分钟)',
+                            '12:00 公园湖心亭 (30分钟)',
+                            '13:00 公园野餐 (60分钟)',
+                            '14:30 租单车游园 (60分钟)',
+                            '15:45 动物园（可选）(45分钟)',
+                            '16:45 观景台休息 (30分钟)'
+                        ]
+                    },
+                    '2km': {
+                        startPoint: 'Villa Borghese到人民广场',
+                        totalTime: '6-7小时',
+                        walkingDistance: '1.8公里',
+                        route: [
+                            '09:30 博尔格赛美术馆 (120分钟)',
+                            '12:00 公园漫步 (45分钟)',
+                            '13:15 公园餐厅午餐 (90分钟)',
+                            '15:15 步行至人民广场 (30分钟)',
+                            '16:00 双子教堂参观 (30分钟)',
+                            '17:00 Via del Corso购物 (60分钟)'
+                        ]
+                    },
+                    '3km': {
+                        startPoint: '绿色罗马一日游',
+                        totalTime: '7-8小时',
+                        walkingDistance: '2.5公里',
+                        route: [
+                            '09:00 Villa Borghese (120分钟)',
+                            '11:30 Pincio观景台 (30分钟)',
+                            '12:30 人民广场午餐 (90分钟)',
+                            '14:30 西班牙阶 (45分钟)',
+                            '15:45 Villa Medici (60分钟)',
+                            '17:15 日落观景 (45分钟)'
+                        ]
+                    }
+                }
+            };
+            
+            return recommendations[location][radius];
+        }
+        
+        // 确认轻松行程
+        function confirmRelaxedItinerary(day) {
+            addAIMessage(`🎉 太好了！已为你确认这个轻松的第${day}天行程。相比原来的安排，这个版本：<br><br>✅ 减少了50%的步行距离<br>✅ 增加了更多休息时间<br>✅ 专注于一个区域的深度体验<br>✅ 避免了匆忙赶路<br><br>你可以随时在左侧查看更新后的行程安排！`);
+            
+            // 更新建议行程中的对应天数
+            var location = window.selectedLocation;
+            var radius = window.selectedRadius || '2km';
+            var recommendations = getLocationRecommendations(location, radius);
+            
+            // 更新 suggestedItinerary 中对应天数的数据
+            for (var i = 0; i < suggestedItinerary.length; i++) {
+                if (suggestedItinerary[i].day === day) {
+                    // 更新基本信息
+                    suggestedItinerary[i].title = `第${day}天 - 轻松${getLocationName(location)}游`;
+                    suggestedItinerary[i].startLocation = recommendations.startPoint;
+                    suggestedItinerary[i].endLocation = '同区域结束';
+                    suggestedItinerary[i].totalDuration = recommendations.totalTime;
+                    suggestedItinerary[i].walkingDistance = recommendations.walkingDistance;
+                    
+                    // 更新活动列表
+                    suggestedItinerary[i].activities = [];
+                    for (var j = 0; j < recommendations.route.length; j++) {
+                        var routeItem = recommendations.route[j];
+                        var timeMatch = routeItem.match(/(\d{2}:\d{2})/);
+                        var time = timeMatch ? timeMatch[1] : `${9 + j}:00`;
+                        var activityName = routeItem.replace(/^\d{2}:\d{2}\s/, '');
+                        
+                        suggestedItinerary[i].activities.push({
+                            time: time + '-' + getEndTime(time, 60),
+                            activity: activityName,
+                            emoji: getActivityEmoji(activityName),
+                            id: 'relaxed_' + day + '_' + j,
+                            selected: true,
+                            location: getLocationName(location) + '区域',
+                            duration: getActivityDuration(activityName)
+                        });
+                    }
+                    break;
+                }
+            }
+            
+            // 重新渲染AI推荐行程界面
+            renderItineraryPreview();
+            
+            // 显示更新提示
+            setTimeout(function() {
+                addAIMessage('✨ AI推荐行程已更新！右侧面板现在显示你的新轻松行程安排。');
+            }, 1000);
+        }
+        
+        // 获取位置名称
+        function getLocationName(location) {
+            var names = {
+                'centro': '历史中心',
+                'trastevere': 'Trastevere',
+                'vatican': '梵蒂冈',
+                'villa': '公园别墅'
+            };
+            return names[location] || '罗马';
+        }
+        
+        // 获取活动表情符号
+        function getActivityEmoji(activity) {
+            if (activity.includes('教堂') || activity.includes('大教堂')) return '⛪';
+            if (activity.includes('广场')) return '🏛️';
+            if (activity.includes('咖啡') || activity.includes('餐厅') || activity.includes('午餐')) return '☕';
+            if (activity.includes('购物') || activity.includes('商店')) return '🛍️';
+            if (activity.includes('公园') || activity.includes('花园')) return '🌳';
+            if (activity.includes('博物馆') || activity.includes('美术馆')) return '🎨';
+            if (activity.includes('市场')) return '🏪';
+            if (activity.includes('河') || activity.includes('桥')) return '🌊';
+            if (activity.includes('日落') || activity.includes('观景')) return '🌅';
+            return '📍';
+        }
+        
+        // 获取活动时长
+        function getActivityDuration(activity) {
+            if (activity.includes('午餐') || activity.includes('餐厅')) return '90分钟';
+            if (activity.includes('咖啡')) return '45分钟';
+            if (activity.includes('购物')) return '60分钟';
+            if (activity.includes('参观') || activity.includes('教堂')) return '45分钟';
+            if (activity.includes('漫步') || activity.includes('散步')) return '30分钟';
+            if (activity.includes('博物馆')) return '90分钟';
+            return '60分钟';
+        }
+        
+        // 计算结束时间
+        function getEndTime(startTime, durationMinutes) {
+            var parts = startTime.split(':');
+            var hours = parseInt(parts[0]);
+            var minutes = parseInt(parts[1]);
+            
+            minutes += durationMinutes;
+            while (minutes >= 60) {
+                hours += 1;
+                minutes -= 60;
+            }
+            
+            return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
+        }
+        
+        // 显示增强选项
+        function showEnhancementOptions(day) {
+            addAIMessage(`💪 既然你体力充沛，让我为第${day}天添加一些更有挑战性和趣味性的体验！你更喜欢哪种类型的增强？`);
+            
+            setTimeout(function() {
+                var enhancementButtons = `
+                    <div style="margin: 15px 0; text-align: center;">
+                        <button class="action-btn" onclick="addEnhancement(${day}, 'adventure')" style="margin: 5px; background: linear-gradient(135deg, #ff6b6b, #ee5a52);">
+                            🏃‍♂️ 冒险运动
+                        </button>
+                        <button class="action-btn" onclick="addEnhancement(${day}, 'culture')" style="margin: 5px; background: linear-gradient(135deg, #4ecdc4, #44a08d);">
+                            🎨 深度文化
+                        </button>
+                        <button class="action-btn" onclick="addEnhancement(${day}, 'secret')" style="margin: 5px; background: linear-gradient(135deg, #45b7d1, #3498db);">
+                            🔍 秘密景点
+                        </button>
+                        <button class="action-btn" onclick="addEnhancement(${day}, 'nightlife')" style="margin: 5px; background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                            🌃 夜生活体验
+                        </button>
+                    </div>
+                `;
+                
+                var messagesContainer = document.getElementById('chatMessages');
+                var messageDiv = document.createElement('div');
+                messageDiv.className = 'message ai-message';
+                messageDiv.innerHTML = enhancementButtons;
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 500);
+        }
+        
+        // 添加增强体验
+        function addEnhancement(day, type) {
+            var enhancements = {
+                'adventure': '🏃‍♂️ 太棒了！我会为你添加：攀登圣彼得大教堂穹顶、台伯河皮划艇体验、或者罗马地下墓穴探险！',
+                'culture': '🎨 绝佳选择！我会安排：私人博物馆夜游、传统工艺工坊体验、或者与当地艺术家的深度对话！',
+                'secret': '🔍 很有趣！我来分享一些罗马人才知道的秘密：隐藏花园、地下酒吧、还有只有内行人知道的观景点！',
+                'nightlife': '🌃 让我为你安排：屋顶酒吧品酒、传统音乐表演、或者深夜美食探索之旅！'
+            };
+            
+            addAIMessage(enhancements[type] + '<br><br>这些体验会让你的第' + day + '天更加充实和难忘！');
+        }
+        
+        // 显示风格选项
+        function showStyleOptions(day) {
+            addAIMessage(`🎯 让我们重新设计第${day}天！你希望这一天是什么风格的？`);
+            
+            setTimeout(function() {
+                var styleButtons = `
+                    <div style="margin: 15px 0; text-align: center;">
+                        <button class="action-btn" onclick="changeStyle(${day}, 'foodie')" style="margin: 5px; background: linear-gradient(135deg, #fd79a8, #e84393);">
+                            🍜 美食探索日
+                        </button>
+                        <button class="action-btn" onclick="changeStyle(${day}, 'artistic')" style="margin: 5px; background: linear-gradient(135deg, #a29bfe, #6c5ce7);">
+                            🎨 艺术文化日
+                        </button>
+                        <button class="action-btn" onclick="changeStyle(${day}, 'relaxed')" style="margin: 5px; background: linear-gradient(135deg, #00b894, #00a085);">
+                            🌿 悠闲放松日
+                        </button>
+                        <button class="action-btn" onclick="changeStyle(${day}, 'shopping')" style="margin: 5px; background: linear-gradient(135deg, #fdcb6e, #e17055);">
+                            🛍️ 购物体验日
+                        </button>
+                    </div>
+                `;
+                
+                var messagesContainer = document.getElementById('chatMessages');
+                var messageDiv = document.createElement('div');
+                messageDiv.className = 'message ai-message';
+                messageDiv.innerHTML = styleButtons;
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 500);
+        }
+        
+        // 改变风格
+        function changeStyle(day, style) {
+            var styles = {
+                'foodie': '🍜 美食探索日：从当地市场开始，学习制作传统罗马菜，品尝街头小食，参观奶酪工坊，最后在米其林餐厅享用晚餐！',
+                'artistic': '🎨 艺术文化日：参观私人画廊，与当地艺术家交流，学习马赛克制作，探访文艺复兴工作室，欣赏街头艺术！',
+                'relaxed': '🌿 悠闲放松日：公园漫步，咖啡厅阅读，SPA按摩，河边日光浴，慢节奏感受罗马的生活气息！',
+                'shopping': '🛍️ 购物体验日：精品店淘宝，当地设计师工作室，传统手工艺品，vintage古着店，还有意大利时尚品牌！'
+            };
+            
+            addAIMessage(styles[style] + '<br><br>这样的第' + day + '天听起来怎么样？');
+        }
+        
+        // 查找物品
+        function findItemById(id) {
+            for (var category in allData) {
+                for (var i = 0; i < allData[category].length; i++) {
+                    if (allData[category][i].id === id) {
+                        return allData[category][i];
+                    }
+                }
+            }
+            return null;
+        }
+        
+        // 高亮地图标记
+        function highlightMapMarkers(category) {
+            var markers = document.querySelectorAll('.activity-marker-2d');
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].classList.remove('highlighted');
+                if (markers[i].getAttribute('data-category') === category) {
+                    markers[i].classList.add('highlighted');
+                }
+            }
+        }
+        
+        // 显示天数路线
+        function showDayRoute(day) {
+            var routes = document.querySelectorAll('.day-route');
+            var buttons = document.querySelectorAll('.day-control-btn');
+            
+            // 重置按钮状态
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            
+            if (day === 0) {
+                // 显示全部
+                routes.forEach(function(route) {
+                    route.classList.add('active');
+                });
+                buttons[3].classList.add('active');
+            } else {
+                // 显示特定天数
+                routes.forEach(function(route, index) {
+                    if (index + 1 === day) {
+                        route.classList.add('active');
+                    } else {
+                        route.classList.remove('active');
+                    }
+                });
+                buttons[day - 1].classList.add('active');
+            }
+            
+            currentDayView = day;
+        }
+        
+        function updateTimeSelection() {
+            var daySelect = document.getElementById('daySelector');
+            var timeSlotSelect = document.getElementById('timeSlotSelector');
+            var confirmBtn = document.getElementById('confirmTimeBtn');
+            
+            selectedDay = daySelect.value;
+            selectedTimeSlot = timeSlotSelect.value;
+            
+            if (selectedDay && selectedTimeSlot) {
+                confirmBtn.style.display = 'block';
+                confirmBtn.disabled = false;
+            } else {
+                confirmBtn.style.display = 'none';
+            }
+        }
+        
+        // 确认时间选择
+        function confirmTimeSelection() {
+            if (!selectedDay || !selectedTimeSlot) return;
+            
+            var timeSlotNames = {
+                'morning': '上午 (9:00-12:00)',
+                'afternoon': '下午 (14:00-17:00)', 
+                'evening': '傍晚 (18:00-21:00)'
+            };
+            
+            var message = '✅ 第' + selectedDay + '天到第3天安排很好！现在我们来聊聊具体时间。你希望：<br><br>' +
+                         '🌅 上午 (9:00-12:00)<br>' +
+                         '☀️ 下午 (14:00-17:00)<br>' +
+                         '🌆 傍晚 (18:00-21:00)<br><br>' +
+                         '你更倾向哪个时段？';
+            
+            addAIMessage(message);
+            
+            // 显示搜索结果
+            showCategoryResults(selectedCategory);
+            
+            // 隐藏时间选择面板
+            document.getElementById('timeSelection').style.display = 'none';
+        }
+        
+        function toggleMap() {
+            var map3D = document.getElementById('map3D');
+            var map2D = document.getElementById('map2D');
+            var toggleBtn = document.getElementById('mapToggleBtn');
+            
+            if (currentMapView === '3D') {
+                map3D.style.opacity = '0';
+                map2D.style.opacity = '1';
+                toggleBtn.textContent = '🌍 切换3D地图';
+                currentMapView = '2D';
+            } else {
+                map3D.style.opacity = '1';
+                map2D.style.opacity = '0';
+                toggleBtn.textContent = '🌍 切换2D地图';
+                currentMapView = '3D';
+            }
+        }
+        
+        // 发送消息
+        function sendMessage() {
+            var input = document.getElementById('chatInput');
+            var message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // 添加用户消息
+            addUserMessage(message);
+            input.value = '';
+            
+            // 模拟AI回复
+            setTimeout(function() {
+                var aiResponse = generateAIResponse(message);
+                addAIMessage(aiResponse);
+            }, 1000);
+        }
+        
+        // 添加用户消息
+        function addUserMessage(message) {
+            var messagesContainer = document.getElementById('chatMessages');
+            var messageDiv = document.createElement('div');
+            messageDiv.className = 'message user-message';
+            messageDiv.textContent = message;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        // 添加AI消息
+        function addAIMessage(message) {
+            var messagesContainer = document.getElementById('chatMessages');
+            var messageDiv = document.createElement('div');
+            messageDiv.className = 'message ai-message';
+            messageDiv.innerHTML = message;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        // 生成AI回复
+        function generateAIResponse(userMessage) {
+            var message = userMessage.toLowerCase();
+            
+            // 处理时间选择相关的回复
+            if (pendingExperience && (message.includes('上午') || message.includes('下午') || message.includes('傍晚'))) {
+                var timeSlot = 'morning';
+                var timeText = '上午';
+                
+                if (message.includes('下午')) {
+                    timeSlot = 'afternoon';
+                    timeText = '下午';
+                } else if (message.includes('傍晚')) {
+                    timeSlot = 'evening';
+                    timeText = '傍晚';
+                }
+                
+                var experienceName = pendingExperience.name;
+                addToItineraryWithTime(pendingExperience.id, timeSlot, selectedDay || 1);
+                pendingExperience = null;
+                return '完美！已为你安排在' + timeText + '体验"' + experienceName + '"。还想添加其他体验吗？';
+            }
+            
+            if (message.includes('spa') || message.includes('按摩') || message.includes('放松')) {
+                selectCategory('service');
+                return '🛀 我理解你想要放松！罗马的SPA体验非常棒，特别推荐古典罗马式温泉浴。请先选择想要体验的时间。';
+            } else if (message.includes('美食') || message.includes('餐厅') || message.includes('吃')) {
+                return '🍝 罗马的美食文化太丰富了！除了传统餐厅，我特别推荐私厨体验和烹饪课程，这样你可以学会制作正宗的意大利面。想试试哪种？';
+            } else if (message.includes('密室') || message.includes('游戏') || message.includes('剧本')) {
+                selectCategory('script');
+                return '🎭 太有趣了！罗马有一些独特的历史主题剧本体验，可以让你穿越回古罗马时代。请选择想要体验的时间。';
+            } else if (message.includes('行程') || message.includes('规划') || message.includes('安排')) {
+                selectCategory('itinerary');
+                return '📋 让我为你制定一个完美的3天行程！我会结合历史文化、美食体验和放松时光，确保每一天都充实而不匆忙。';
+            } else {
+                return '🤔 听起来很有趣！你可以从右侧选择体验类型，或者告诉我更具体的需求，比如：想要放松、美食体验、文化活动等。我会为你推荐最合适的选择！';
+            }
+        }
+        
+        // 选择体验时间
+        function selectExperienceTime(itemId) {
+            // 查找物品
+            var item = null;
+            for (var category in allData) {
+                for (var i = 0; i < allData[category].length; i++) {
+                    if (allData[category][i].id === itemId) {
+                        item = allData[category][i];
+                        break;
+                    }
+                }
+                if (item) break;
+            }
+            
+            if (!item) return;
+            
+            pendingExperience = item;
+            
+            // 显示时间选择对话
+            var timeOptions = [
+                '🌅 上午 (9:00-12:00)',
+                '☀️ 下午 (14:00-17:00)', 
+                '🌆 傍晚 (18:00-21:00)'
+            ];
+            
+            var message = '⏰ 请选择 "' + item.name + '" 的时间：<br><br>' +
+                         timeOptions.join('<br>') + '<br><br>' +
+                         '你更倾向哪个时段？';
+            
+            addAIMessage(message);
+        }
+        
+        // 加入行程（带时间信息）
+        function addToItineraryWithTime(itemId, timeSlot, day) {
+            // 查找物品
+            var item = null;
+            for (var category in allData) {
+                for (var i = 0; i < allData[category].length; i++) {
+                    if (allData[category][i].id === itemId) {
+                        item = allData[category][i];
+                        break;
+                    }
+                }
+                if (item) break;
+            }
+            
+            if (!item) return;
+            
+            // 检查是否已添加
+            for (var i = 0; i < itineraryItems.length; i++) {
+                if (itineraryItems[i].id === itemId) {
+                    addAIMessage('📋 这个项目已经在你的行程中了！');
+                    return;
+                }
+            }
+            
+            // 添加时间信息
+            var itemWithTime = Object.assign({}, item);
+            itemWithTime.scheduledDay = day || selectedDay || 1;
+            itemWithTime.scheduledTimeSlot = timeSlot || selectedTimeSlot || 'morning';
+            
+            var timeSlotNames = {
+                'morning': '上午',
+                'afternoon': '下午',
+                'evening': '傍晚'
+            };
+            
+            // 添加到行程
+            itineraryItems.push(itemWithTime);
+            updateItineraryDisplay();
+            
+            // 高亮地图标记
+            var marker = document.querySelector('[data-id="' + itemId + '"]');
+            if (marker) {
+                marker.classList.add('in-itinerary');
+            }
+            
+            var timeText = timeSlotNames[itemWithTime.scheduledTimeSlot] || '未指定时间';
+            addAIMessage('✅ 已将"' + item.name + '"安排在第' + itemWithTime.scheduledDay + '天' + timeText + '！总计费用：€' + calculateTotalCost());
+        }
+        
+        function addToItinerary(itemId) {
+            // 查找物品
+            var item = null;
+            for (var category in allData) {
+                for (var i = 0; i < allData[category].length; i++) {
+                    if (allData[category][i].id === itemId) {
+                        item = allData[category][i];
+                        break;
+                    }
+                }
+                if (item) break;
+            }
+            
+            if (!item) return;
+            
+            // 检查是否已添加
+            for (var i = 0; i < itineraryItems.length; i++) {
+                if (itineraryItems[i].id === itemId) {
+                    addAIMessage('📋 这个项目已经在你的行程中了！');
+                    return;
+                }
+            }
+            
+            // 添加到行程
+            itineraryItems.push(item);
+            updateItineraryDisplay();
+            
+            // 高亮地图标记
+            var marker = document.querySelector('[data-id="' + itemId + '"]');
+            if (marker) {
+                marker.classList.add('in-itinerary');
+            }
+            
+            addAIMessage('✅ 已将"' + item.name + '"加入你的行程！总计费用：€' + calculateTotalCost());
+        }
+        
+        // 更新行程显示
+        function updateItineraryDisplay() {
+            var container = document.getElementById('itineraryItems');
+            
+            if (itineraryItems.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: rgba(255,255,255,0.5); font-size: 12px; padding: 20px;">
+                        暂无安排项目<br>
+                        <small>选择服务并点击"选择时间"</small>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 按天分组显示
+            var groupedByDay = {};
+            for (var i = 0; i < itineraryItems.length; i++) {
+                var item = itineraryItems[i];
+                var day = item.scheduledDay || 1;
+                if (!groupedByDay[day]) {
+                    groupedByDay[day] = [];
+                }
+                groupedByDay[day].push(item);
+            }
+            
+            container.innerHTML = '';
+            
+            // 按天显示
+            for (var day = 1; day <= 3; day++) {
+                if (groupedByDay[day] && groupedByDay[day].length > 0) {
+                    var dayHeader = document.createElement('div');
+                    dayHeader.style.cssText = 'color: #4ecdc4; font-weight: bold; margin: 10px 0 5px 0; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;';
+                    dayHeader.innerHTML = `第${day}天 <button onclick="showDayRoute(${day})" style="float: right; background: rgba(255,255,255,0.1); border: none; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; cursor: pointer;">查看地图</button>`;
+                    container.appendChild(dayHeader);
+                    
+                    // 按时间排序
+                    groupedByDay[day].sort(function(a, b) {
+                        var timeA = a.scheduledTime || '00:00';
+                        var timeB = b.scheduledTime || '00:00';
+                        return timeA.localeCompare(timeB);
+                    });
+                    
+                    for (var j = 0; j < groupedByDay[day].length; j++) {
+                        var item = groupedByDay[day][j];
+                        var itemDiv = document.createElement('div');
+                        itemDiv.className = 'itinerary-item';
+                        
+                        var timeText = item.scheduledTime || '';
+                        var timeSlotNames = {
+                            'morning': '上午',
+                            'afternoon': '下午',
+                            'evening': '傍晚'
+                        };
+                        
+                        if (item.scheduledTimeSlot && !timeText) {
+                            timeText = timeSlotNames[item.scheduledTimeSlot];
+                        }
+                        
+                        itemDiv.innerHTML = `
+                            <span style="font-size: 10px;">
+                                ${timeText ? timeText + ' - ' : ''}${item.emoji} ${item.name} - €${item.price}
+                            </span>
+                            <button class="remove-item" onclick="removeFromItinerary('${item.id}')">移除</button>
+                        `;
+                        container.appendChild(itemDiv);
+                    }
+                }
+            }
+        }
+        
+        // 从行程中移除
+        function removeFromItinerary(itemId) {
+            itineraryItems = itineraryItems.filter(function(item) {
+                return item.id !== itemId;
+            });
+            
+            updateItineraryDisplay();
+            
+            // 移除地图标记高亮
+            var marker = document.querySelector('[data-id="' + itemId + '"]');
+            if (marker) {
+                marker.classList.remove('in-itinerary');
+            }
+            
+            addAIMessage('🗑 已从行程中移除该项目。当前总费用：€' + calculateTotalCost());
+        }
+        
+        // 计算总费用
+        function calculateTotalCost() {
+            var total = 0;
+            for (var i = 0; i < itineraryItems.length; i++) {
+                total += itineraryItems[i].price;
+            }
+            return total;
+        }
+        
+        // 显示项目详情
+        function showItemDetails(itemId, category) {
+            var item = null;
+            for (var i = 0; i < allData[category].length; i++) {
+                if (allData[category][i].id === itemId) {
+                    item = allData[category][i];
+                    break;
+                }
+            }
+            
+            if (item) {
+                var details = `
+                    📍 <strong>${item.name}</strong><br>
+                    ${item.description}<br><br>
+                    💰 价格: €${item.price} | ⏰ 时长: ${item.duration}<br>
+                    ⭐ 评分: ${item.rating}/5.0<br>
+                    📌 位置: ${item.location}
+                `;
+                
+                if (item.tags) {
+                    details += '<br>🏷️ 标签: ' + item.tags.join(', ');
+                }
+                
+                addAIMessage(details);
+            }
+        }
+        
+        // 显示欢迎消息
+        function showWelcome() {
+            // 欢迎消息已在HTML中定义
+        }
+        
+        // 添加全局函数到window对象，确保HTML中的onclick可以访问
+        window.selectCategory = selectCategory;
+        window.showDayRoute = showDayRoute;
+        window.toggleActivity = toggleActivity;
+        window.confirmAIItinerary = confirmAIItinerary;
+        window.customizeItinerary = customizeItinerary;
+        window.showItineraryAdjustment = showItineraryAdjustment;
+        window.adjustDay = adjustDay;
+        window.respondToTiredness = respondToTiredness;
+        window.selectStartLocation = selectStartLocation;
+        window.selectRadius = selectRadius;
+        window.confirmRelaxedItinerary = confirmRelaxedItinerary;
+        window.addEnhancement = addEnhancement;
+        window.changeStyle = changeStyle;
+        window.selectExperienceTime = selectExperienceTime;
+        window.addToItinerary = addToItinerary;
+        window.removeFromItinerary = removeFromItinerary;
+        window.askUniloco = askUniloco;
+        window.showActivityDetails = showActivityDetails;
+        window.showDetailPage = showDetailPage;
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', function() {
+            init();
+        });
+    </script>
+</body>
+</html>

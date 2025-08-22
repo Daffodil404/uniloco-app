@@ -69,7 +69,7 @@ export default function UpcomingAdventuresMarquee({
           {loop.map((item, i) => (
             <div
               key={`${item.title}-${i}`}
-              className="w-[22rem] flex-shrink-0 bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-[#fe585f] transition-colors rounded-2xl p-6 shadow-sm"
+              className="w-[22rem] flex-shrink-0 bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-[#fe5a5e] transition-colors rounded-2xl p-6 shadow-sm"
             >
               <div
                 className={`w-16 h-16 bg-gradient-to-br ${item.gradient} rounded-full flex items-center justify-center text-2xl text-white mb-4`}
@@ -81,7 +81,7 @@ export default function UpcomingAdventuresMarquee({
               <p className="text-gray-700 text-sm leading-relaxed mb-4">
                 {item.description}
               </p>
-              <button className="px-4 py-2 rounded-full bg-[#fe585f] text-white text-sm font-semibold hover:bg-[#e14b52] transition-colors">
+              <button className="px-4 py-2 rounded-full bg-[#fe5a5e] text-white text-sm font-semibold hover:bg-[#e14b52] transition-colors">
                 Get Notified
               </button>
             </div>

@@ -7,7 +7,7 @@
 /* 新的浅色主题颜色方案 */
 :root {
   /* 主色调：珊瑚红 */
-  --color-primary: #fe585f;
+  --color-primary: #fe5a5e;
   --color-primary-light: #ff7a80;
   --color-primary-dark: #e04449;
   
@@ -101,6 +101,31 @@ div {
   -ms-user-select: text;
   user-select: text;
 }
+
+/* 自定义滚动条样式 */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #fe5a5e #f1f5f9;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #fe5a5e;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #e04449;
+}
+
 
 /* 自定义动画 */
 @keyframes fadeIn {
@@ -766,7 +791,7 @@ button:active {
 
 /* 渐变背景动画 */
 .partnership-gradient-bg {
-  background: linear-gradient(-45deg, #fe585f, #ff7a82, #ff9e4a, #fe585f);
+  background: linear-gradient(-45deg, #fe5a5e, #ff7a82, #ff9e4a, #fe5a5e);
   background-size: 400% 400%;
   animation: gradient-shift 15s ease infinite;
 }

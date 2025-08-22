@@ -146,7 +146,7 @@ export default function StoryCreatePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] p-4">
+      <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] p-4">
         <div className="flex items-center justify-between">
           <button
             onClick={currentStep === 'menu' ? handleBackToHome : handleBackToMenu}
@@ -174,7 +174,7 @@ export default function StoryCreatePage() {
               </div>
               <button
                 onClick={startStoryCreation}
-                className="w-full bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl py-3 font-medium hover:shadow-lg transition-all"
+                className="w-full bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white rounded-xl py-3 font-medium hover:shadow-lg transition-all"
               >
                 🚀 Start Creating Story
               </button>
@@ -212,7 +212,7 @@ export default function StoryCreatePage() {
                     value={storyData.title}
                     onChange={(e) => handleStoryDataChange('title', e.target.value)}
                     placeholder="Give your story a name..."
-                    className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fe585f]"
+                    className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fe5a5e]"
                   />
                 </div>
 
@@ -223,7 +223,7 @@ export default function StoryCreatePage() {
                     onChange={(e) => handleStoryDataChange('description', e.target.value)}
                     placeholder="Describe your story theme and features..."
                     rows={3}
-                    className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fe585f] resize-none"
+                    className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fe5a5e] resize-none"
                   />
                 </div>
 
@@ -232,7 +232,7 @@ export default function StoryCreatePage() {
                   <select
                     value={storyData.type}
                     onChange={(e) => handleStoryDataChange('type', e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#fe585f]"
+                    className="w-full px-4 py-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#fe5a5e]"
                   >
                     {storyTypes.map(type => (
                       <option key={type.value} value={type.value}>
@@ -277,7 +277,7 @@ export default function StoryCreatePage() {
                             handleStoryDataChange('locations', newLocations);
                           }}
                           placeholder="Location name..."
-                          className="flex-1 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
+                          className="flex-1 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe5a5e]"
                         />
                         <select
                           value={location.type}
@@ -288,7 +288,7 @@ export default function StoryCreatePage() {
                             newLocations[index].emoji = locationTypes.find(t => t.value === e.target.value)?.emoji || '📍';
                             handleStoryDataChange('locations', newLocations);
                           }}
-                          className="px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
+                          className="px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#fe5a5e]"
                         >
                           {locationTypes.map(type => (
                             <option key={type.value} value={type.value}>
@@ -306,7 +306,7 @@ export default function StoryCreatePage() {
                         }}
                         placeholder="Describe this location..."
                         rows={2}
-                        className="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f] resize-none"
+                        className="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe5a5e] resize-none"
                       />
                     </div>
                   ))
@@ -347,7 +347,7 @@ export default function StoryCreatePage() {
                             handleStoryDataChange('surprises', newSurprises);
                           }}
                           placeholder="Surprise name..."
-                          className="flex-1 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
+                          className="flex-1 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe5a5e]"
                         />
                         <select
                           value={surprise.type}
@@ -358,7 +358,7 @@ export default function StoryCreatePage() {
                             newSurprises[index].emoji = surpriseTypes.find(t => t.value === e.target.value)?.emoji || '🎭';
                             handleStoryDataChange('surprises', newSurprises);
                           }}
-                          className="px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
+                          className="px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#fe5a5e]"
                         >
                           {surpriseTypes.map(type => (
                             <option key={type.value} value={type.value}>
@@ -376,7 +376,7 @@ export default function StoryCreatePage() {
                         }}
                         placeholder="Describe this surprise..."
                         rows={2}
-                        className="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f] resize-none"
+                        className="w-full px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe5a5e] resize-none"
                       />
                     </div>
                   ))
@@ -417,7 +417,7 @@ export default function StoryCreatePage() {
                             handleStoryDataChange('collaborators', newCollaborators);
                           }}
                           placeholder="Friend's name..."
-                          className="flex-1 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
+                          className="flex-1 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#fe5a5e]"
                         />
                         <select
                           value={collaborator.role}
@@ -427,7 +427,7 @@ export default function StoryCreatePage() {
                             newCollaborators[index].role = e.target.value as any;
                             handleStoryDataChange('collaborators', newCollaborators);
                           }}
-                          className="px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#fe585f]"
+                          className="px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#fe5a5e]"
                         >
                           <option value="viewer">👁️ Viewer</option>
                           <option value="editor">✏️ Editor</option>
@@ -443,7 +443,7 @@ export default function StoryCreatePage() {
             {/* Publish Button */}
             <button
               onClick={publishStory}
-              className="w-full bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white rounded-xl py-4 font-bold text-lg hover:shadow-lg transition-all"
+              className="w-full bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white rounded-xl py-4 font-bold text-lg hover:shadow-lg transition-all"
             >
               🚀 Publish Story
             </button>

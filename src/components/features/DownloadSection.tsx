@@ -16,10 +16,10 @@ interface DownloadSectionProps {
 export default function DownloadSection({
   title = 'DOWNLOAD NOW',
   subtitle = 'Start your travel-to-earn adventure today',
-  gradientFrom = '#fe585f',
+  gradientFrom = '#fe5a5e',
   gradientTo = '#d94a51',
   className = '',
-  textColor = '#fe585f',
+  textColor = '#fe5a5e',
   buttonOnly = false
 }: DownloadSectionProps) {
   const accentColor = gradientFrom;
@@ -31,7 +31,7 @@ export default function DownloadSection({
 
   return (
     <section className={`${buttonOnly ? 'py-8' : 'py-16'} ${className}`}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full"> 
         {buttonOnly ? (
           // 只显示按钮的版本
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -67,14 +67,13 @@ export default function DownloadSection({
             </a>
           </div>
         ) : (
-          // 完整版本，包含标题和边框
+          // 完整版本，使用渐变背景
           <div
-            className="rounded-2xl border-2 bg-transparent p-8 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_14px_34px_rgba(0,0,0,0.09)]"
-            style={{ borderColor: accentColor }}
+            className="w-full bg-gradient-to-br from-[#fe5a5e]/10 via-[#fe5a5e]/5 to-transparent p-8 md:p-10 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl"
           >
             <div className="text-center">
               <h2 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: textColor }}>{title}</h2>
-              <p className="text-lg md:text-xl mb-8" style={{ color: textColor }}>{subtitle}</p>
+              <p className="text-lg md:text-xl mb-8 text-gray-600">{subtitle}</p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

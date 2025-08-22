@@ -6,6 +6,8 @@ import { Star, Clock, Users, MapPin, Check, X, ChevronRight } from 'lucide-react
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Web2Header from '@/components/ui/Web2Header';
+import Image from 'next/image';
+import NormalMap from '@/components/ui/normalMap';
 
 function ScriptDetailContent() {
     const router = useRouter();
@@ -222,13 +224,16 @@ function ScriptDetailContent() {
                     <div className="lg:col-span-2">
                         <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                             {/* Hero Image */}
-                            <div 
-                                className="h-96 relative flex items-center justify-center text-6xl"
-                                style={{ background: script.bgImage }}
-                            >
+                            <div className="relative h-64 md:h-80 lg:h-96">
+                                <Image
+                                    src="/static/online_resource/york.png"
+                                    alt="York"
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                    sizes="(min-width: 1024px) 66vw, 100vw"
+                                />
                                 <div className="absolute inset-0 bg-black/20"></div>
-                                <div className="relative z-10">{script.icon}</div>
-                                
                                 {/* Difficulty Badge */}
                                 <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
                                     <span className="text-sm font-semibold text-gray-700">{script.difficulty}</span>
@@ -237,7 +242,7 @@ function ScriptDetailContent() {
 
                             {/* Content */}
                             <div className="p-8">
-                                <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white px-3 py-1 rounded-full text-xs font-medium inline-block mb-4">
+                                <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white px-3 py-1 rounded-full text-xs font-medium inline-block mb-4">
                                     🎭 Uniloco Tailored Journey
                                 </div>
                                 
@@ -281,7 +286,7 @@ function ScriptDetailContent() {
                         {/* Story Background */}
                         <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mt-8">
                             <h3 className="text-2xl font-bold text-gray-900 mb-6">🔍 Story Background</h3>
-                            <div className="bg-gray-50 p-6 rounded-xl border-l-4 border-[#fe585f]">
+                            <div className="bg-gray-50 p-6 rounded-xl border-l-4 border-[#fe5a5e]">
                                 <p className="text-gray-700 leading-relaxed">{storyBackground.content}</p>
                             </div>
                         </div>
@@ -296,8 +301,8 @@ function ScriptDetailContent() {
                                 <p className="text-gray-600 leading-relaxed text-center">
                                     Each member has unique skills and perspectives, but no specific role assignment is required. Team cooperation is key - some are good at observing details, some are knowledgeable about history, some are skilled at logical reasoning, and some have intuitive insights. Your different strengths will naturally come into play during exploration.
                                 </p>
-                                <div className="mt-6 p-4 bg-white rounded-lg border-l-4 border-[#fe585f]">
-                                    <strong className="text-[#fe585f]">💡 Game Tip: </strong>
+                                <div className="mt-6 p-4 bg-white rounded-lg border-l-4 border-[#fe5a5e]">
+                                    <strong className="text-[#fe5a5e]">💡 Game Tip: </strong>
                                     <span className="text-gray-600">Keep an open mind, trust your intuition, and team communication is the key to solving puzzles!</span>
                                 </div>
                             </div>
@@ -329,7 +334,7 @@ function ScriptDetailContent() {
                                         value={selectedDate}
                                         onChange={(e) => setSelectedDate(e.target.value)}
                                         min="2024-08-16"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fe585f] focus:border-transparent text-gray-900"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fe5a5e] focus:border-transparent text-gray-900"
                                     />
                                 </div>
 
@@ -405,7 +410,7 @@ function ScriptDetailContent() {
 
                             <Button 
                                 onClick={handleBooking}
-                                className="w-full bg-[#fe585f] hover:bg-[#e04a50] text-white py-4 text-lg font-semibold mb-4 rounded-xl"
+                                className="w-full bg-[#fe5a5e] hover:bg-[#e04a50] text-white py-4 text-lg font-semibold mb-4 rounded-xl"
                             >
                                 Book Experience Now
                             </Button>
@@ -442,7 +447,7 @@ function ScriptDetailContent() {
                                 
                                 {/* Day Header */}
                                 <div className="flex items-center mb-4">
-                                    <div className="w-12 h-12 bg-[#fe585f] rounded-full flex items-center justify-center text-white font-semibold text-sm relative z-10">
+                                    <div className="w-12 h-12 bg-[#fe5a5e] rounded-full flex items-center justify-center text-white font-semibold text-sm relative z-10">
                                         {dayIndex + 1}
                                     </div>
                                     <div className="ml-4">
@@ -527,7 +532,7 @@ function ScriptDetailContent() {
                             <summary className="cursor-pointer list-none">
                                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
                                     <div className="flex items-center space-x-3">
-                                        <div className="w-8 h-8 bg-[#fe585f] rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                                        <div className="w-8 h-8 bg-[#fe5a5e] rounded-full flex items-center justify-center text-white text-sm font-semibold">
                                             📅
                                         </div>
                                         <div>
@@ -562,7 +567,7 @@ function ScriptDetailContent() {
                                     ))}
                                 </div>
                                 <div className="mt-4 text-center">
-                                    <Button variant="outline" className="border-[#fe585f] text-[#fe585f] hover:bg-[#fe585f] hover:text-white">
+                                    <Button variant="outline" className="border-[#fe5a5e] text-[#fe5a5e] hover:bg-[#fe5a5e] hover:text-white">
                                         Book Next Week Session
                                     </Button>
                                 </div>
@@ -633,47 +638,47 @@ function ScriptDetailContent() {
                 <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">🗺️ Game Location & Route</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-                        <div className="p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe585f]">
-                            <h4 className="text-lg font-semibold text-[#fe585f] mb-4">📍 Meeting Point</h4>
+                        <div className="p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe5a5e]">
+                            <h4 className="text-lg font-semibold text-[#fe5a5e] mb-4">📍 Meeting Point</h4>
                             <p><strong>Address:</strong> Roman Column, Minster Yard, York</p>
                             <p><strong>Meeting Time:</strong> 15 minutes before start</p>
                             <p><strong>Transport:</strong> 10 minutes walk from York Station</p>
                             <ul className="mt-4 space-y-2">
                                 <li className="flex items-center space-x-2">
-                                    <span className="text-[#fe585f]">🚗</span>
+                                    <span className="text-[#fe5a5e]">🚗</span>
                                     <span>Free shuttle service (city center hotels)</span>
                                 </li>
                                 <li className="flex items-center space-x-2">
-                                    <span className="text-[#fe585f]">🎫</span>
+                                    <span className="text-[#fe5a5e]">🎫</span>
                                     <span>All attraction tickets included</span>
                                 </li>
                                 <li className="flex items-center space-x-2">
-                                    <span className="text-[#fe585f]">📱</span>
+                                    <span className="text-[#fe5a5e]">📱</span>
                                     <span>Dedicated game app provided</span>
                                 </li>
                             </ul>
                         </div>
                         
-                        <div className="p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe585f]">
-                            <h4 className="text-lg font-semibold text-[#fe585f] mb-4">🏰 Main Scenes</h4>
+                        <div className="p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe5a5e]">
+                            <h4 className="text-lg font-semibold text-[#fe5a5e] mb-4">🏰 Main Scenes</h4>
                             <p><strong>Core Area:</strong> York Historic District</p>
                             <p><strong>Game Radius:</strong> Walking distance</p>
                             <p><strong>Ground Type:</strong> Ancient cobblestone (comfortable shoes needed)</p>
                             <ul className="mt-4 space-y-2">
                                 <li className="flex items-center space-x-2">
-                                    <span className="text-[#fe585f]">⛪</span>
+                                    <span className="text-[#fe5a5e]">⛪</span>
                                     <span>York Minster</span>
                                 </li>
                                 <li className="flex items-center space-x-2">
-                                    <span className="text-[#fe585f]">🏘️</span>
+                                    <span className="text-[#fe5a5e]">🏘️</span>
                                     <span>The Shambles</span>
                                 </li>
                                 <li className="flex items-center space-x-2">
-                                    <span className="text-[#fe585f]">🏰</span>
+                                    <span className="text-[#fe5a5e]">🏰</span>
                                     <span>York Castle Museum</span>
                                 </li>
                                 <li className="flex items-center space-x-2">
-                                    <span className="text-[#fe585f]">👻</span>
+                                    <span className="text-[#fe5a5e]">👻</span>
                                     <span>Mysterious Underground Chamber</span>
                                 </li>
                             </ul>
@@ -681,16 +686,12 @@ function ScriptDetailContent() {
                     </div>
 
                     {/* Interactive Map */}
-                    <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl relative overflow-hidden flex items-center justify-center text-white">
-                        <div className="text-center relative z-10">
-                            <p className="text-xl mb-2 font-medium">🗺️ York Old Town Game Map</p>
-                            <p className="text-sm opacity-80">Click to view detailed game route and hidden locations</p>
-                        </div>
-                        {/* Location Pins */}
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-[#fe585f] rounded-full border-4 border-white shadow-lg animate-pulse"></div>
-                        <div className="absolute top-1/3 left-1/3 w-6 h-6 bg-yellow-400 rounded-full border-2 border-white"></div>
-                        <div className="absolute top-2/3 right-1/3 w-6 h-6 bg-yellow-400 rounded-full border-2 border-white"></div>
-                        <div className="absolute bottom-1/3 left-2/3 w-6 h-6 bg-yellow-400 rounded-full border-2 border-white"></div>
+                    <div className="rounded-xl overflow-hidden">
+                        <NormalMap
+                            center={{ lat: 53.959965, lng: -1.087298 }}
+                            zoom={13}
+                            heightClassName="h-80"
+                        />
                     </div>
                 </section>
 
@@ -699,12 +700,12 @@ function ScriptDetailContent() {
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">🎮 Game Flow</h3>
                     <div className="space-y-6">
                         {gameFlow.map((step, index) => (
-                            <div key={index} className="flex gap-4 p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe585f] hover:bg-gray-100 transition-colors">
-                                <div className="w-12 h-12 bg-[#fe585f] text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">
+                            <div key={index} className="flex gap-4 p-6 bg-gray-50 rounded-xl border-l-4 border-[#fe5a5e] hover:bg-gray-100 transition-colors">
+                                <div className="w-12 h-12 bg-[#fe5a5e] text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">
                                     {step.step}
                                 </div>
                                 <div className="flex-1">
-                                    <div className="text-[#fe585f] font-medium text-sm mb-2">{step.time}</div>
+                                    <div className="text-[#fe5a5e] font-medium text-sm mb-2">{step.time}</div>
                                     <h4 className="font-semibold text-lg mb-2 text-gray-900">{step.title}</h4>
                                     <p className="text-gray-600 text-sm mb-2"><strong>Location:</strong> {step.location}</p>
                                     <p className="text-gray-600 leading-relaxed">{step.description.replace(/'/g, '&apos;')}</p>
@@ -734,7 +735,7 @@ function ScriptDetailContent() {
                     </div>
                     
                     <div className="mt-6 p-6 bg-gray-50 rounded-xl text-center">
-                        <h4 className="text-lg font-semibold text-[#fe585f] mb-4">🎭 NPC Professional Guarantee</h4>
+                        <h4 className="text-lg font-semibold text-[#fe5a5e] mb-4">🎭 NPC Professional Guarantee</h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <strong>Professional Actor Background</strong>
@@ -793,7 +794,7 @@ function ScriptDetailContent() {
                     
                     <div className="flex items-center space-x-8 mb-8">
                         <div className="text-center">
-                            <div className="text-4xl font-bold text-[#fe585f]">{script.rating}</div>
+                            <div className="text-4xl font-bold text-[#fe5a5e]">{script.rating}</div>
                             <div className="flex text-yellow-400 mb-2">
                                 {[...Array(5)].map((_, i) => (
                                     <Star key={i} className={`h-5 w-5 ${i < Math.floor(script.rating) ? 'fill-current' : ''}`} />
@@ -809,19 +810,19 @@ function ScriptDetailContent() {
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div>
                                     <strong>Immersion</strong>
-                                    <div className="text-[#fe585f]">4.95/5.0</div>
+                                    <div className="text-[#fe5a5e]">4.95/5.0</div>
                                 </div>
                                 <div>
                                     <strong>Script Quality</strong>
-                                    <div className="text-[#fe585f]">4.92/5.0</div>
+                                    <div className="text-[#fe5a5e]">4.92/5.0</div>
                                 </div>
                                 <div>
                                     <strong>NPC Acting</strong>
-                                    <div className="text-[#fe585f]">4.88/5.0</div>
+                                    <div className="text-[#fe5a5e]">4.88/5.0</div>
                                 </div>
                                 <div>
                                     <strong>Historical Authenticity</strong>
-                                    <div className="text-[#fe585f]">4.94/5.0</div>
+                                    <div className="text-[#fe5a5e]">4.94/5.0</div>
                                 </div>
                             </div>
                         </div>
@@ -881,7 +882,7 @@ function ScriptDetailContent() {
                     </div>
 
                     <div className="bg-white rounded-xl p-6">
-                        <h4 className="text-xl font-bold text-[#fe585f] mb-4 text-center">🌟 Difference from Regular Script Games</h4>
+                        <h4 className="text-xl font-bold text-[#fe5a5e] mb-4 text-center">🌟 Difference from Regular Script Games</h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div>
                                 <strong>VS Indoor Script Games:</strong>

@@ -106,7 +106,7 @@ export default function EquipmentPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#FF9E4A]/20">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#fe585f] to-[#ff7a80] p-4 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] p-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button onClick={handleBackToProfile} className="text-white/80 hover:text-white">
             ←
@@ -142,7 +142,7 @@ export default function EquipmentPage() {
                         setIsFilterOpen(false);
                       }}
                       className={`block w-full text-left px-3 py-2 rounded-lg ${selectedFilter === f
-                        ? 'bg-[#fe585f] text-white'
+                        ? 'bg-[#fe5a5e] text-white'
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                         }`}
                     >
@@ -163,7 +163,7 @@ export default function EquipmentPage() {
                         setIsFilterOpen(false);
                       }}
                       className={`block w-full text-left px-3 py-2 rounded-lg ${selectedType === t
-                        ? 'bg-[#fe585f] text-white'
+                        ? 'bg-[#fe5a5e] text-white'
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                         }`}
                     >
@@ -241,8 +241,8 @@ export default function EquipmentPage() {
                 <button
                   onClick={() => (item.isOwned ? handleEquip(item) : handlePurchase(item))}
                   className={`mt-3 w-full py-2 rounded-xl text-xs font-medium ${item.isOwned
-                    ? 'bg-gradient-to-r from-[#fe585f] to-[#ff7a80] text-white'
-                    : 'bg-gradient-to-r from-[#fe585f] to-[#FFB366] text-white'
+                    ? 'bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white'
+                    : 'bg-gradient-to-r from-[#fe5a5e] to-[#FFB366] text-white'
                     }`}
                 >
                   {item.isOwned ? 'Equip' : `${item.price || 0} UNC`}
