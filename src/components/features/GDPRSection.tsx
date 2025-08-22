@@ -2,25 +2,27 @@
 
 import { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import * as Popover from '@radix-ui/react-popover';
 
 interface GDPRSectionProps {
   className?: string;
 }
 
 export default function GDPRSection({ className = '' }: GDPRSectionProps) {
-  const [activeModal, setActiveModal] = useState<'privacy' | 'tos' | 'cookie' | null>(null);
+  const [activeModal, setActiveModal] = useState<'privacy' | 'tos' | null>(null);
   const [cookieConsent, setCookieConsent] = useState<'accepted' | 'declined' | null>(null);
+  const [cookiePopoverOpen, setCookiePopoverOpen] = useState(false);
 
   const handleCookieAccept = () => {
     setCookieConsent('accepted');
-    setActiveModal(null);
+    setCookiePopoverOpen(false);
     // 这里可以添加保存cookie设置的逻辑
     console.log('Cookies accepted');
   };
 
   const handleCookieDecline = () => {
     setCookieConsent('declined');
-    setActiveModal(null);
+    setCookiePopoverOpen(false);
     // 这里可以添加拒绝cookie的逻辑
     console.log('Cookies declined');
   };
@@ -42,12 +44,59 @@ export default function GDPRSection({ className = '' }: GDPRSectionProps) {
           >
             Terms of Service
           </button>
-          <button
-            onClick={() => setActiveModal('cookie')}
-            className="text-gray-500 hover:text-gray-700 transition-colors underline"
-          >
-            Cookie Policy
-          </button>
+          <Popover.Root open={cookiePopoverOpen} onOpenChange={setCookiePopoverOpen}>
+            <Popover.Trigger asChild>
+              <button className="text-gray-500 hover:text-gray-700 transition-colors underline">
+                Cookie Policy
+              </button>
+            </Popover.Trigger>
+            <Popover.Content className="z-50 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4">
+              <div className="space-y-4">
+                <div className="flex justify-between items-start">
+                  <h3 className="text-lg font-bold text-gray-900">Cookie Consent</h3>
+                  <Popover.Close asChild>
+                    <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </Popover.Close>
+                </div>
+                
+                <p className="text-sm text-gray-600 leading-relaxed text-left">
+                  We use cookies to enhance your experience and analyze site usage. By continuing, you consent to our use of cookies in accordance with our{' '}
+                  <button
+                    onClick={() => {
+                      setCookiePopoverOpen(false);
+                      setActiveModal('privacy');
+                    }}
+                    className="text-blue-600 hover:text-blue-800 underline font-medium"
+                  >
+                    Privacy Policy
+                  </button>
+                  .
+                </p>
+                <div className="flex gap-3">
+                  <Popover.Close asChild>
+                    <button
+                      onClick={handleCookieDecline}
+                      className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
+                    >
+                      Decline
+                    </button>
+                  </Popover.Close>
+                  <Popover.Close asChild>
+                    <button
+                      onClick={handleCookieAccept}
+                      className="flex-1 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
+                    >
+                      Accept All
+                    </button>
+                  </Popover.Close>
+                </div>
+              </div>
+            </Popover.Content>
+          </Popover.Root>
         </div>
       </div>
 
@@ -211,13 +260,13 @@ export default function GDPRSection({ className = '' }: GDPRSectionProps) {
                     2. Use License
                   </h3>
                   <p className="mb-2">
-                    Permission is granted to temporarily download one copy of the materials (information or software) on Uniloco's website for personal, non-commercial transitory viewing only.
+                    Permission is granted to temporarily download one copy of the materials (information or software) on Uniloco&apos;s website for personal, non-commercial transitory viewing only.
                   </p>
                   <p className="mb-2">This is the grant of a license, not a transfer of title, and under this license you may not:</p>
                   <ul className="list-disc pl-5 space-y-1">
                     <li>modify or copy the materials</li>
                     <li>use the materials for any commercial purpose or for any public display</li>
-                    <li>attempt to reverse engineer any software contained on Uniloco's website</li>
+                    <li>attempt to reverse engineer any software contained on Uniloco&apos;s website</li>
                     <li>remove any copyright or other proprietary notations from the materials</li>
                   </ul>
                 </section>
@@ -249,7 +298,7 @@ export default function GDPRSection({ className = '' }: GDPRSectionProps) {
                     5. Limitation of Liability
                   </h3>
                   <p className="mb-2">
-                    In no event shall Uniloco or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Uniloco's website.
+                    In no event shall Uniloco or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Uniloco&apos;s website.
                   </p>
                 </section>
 
@@ -288,152 +337,7 @@ export default function GDPRSection({ className = '' }: GDPRSectionProps) {
         </Dialog.Portal>
       </Dialog.Root>
 
-      {/* Cookie Policy Modal */}
-      <Dialog.Root open={activeModal === 'cookie'} onOpenChange={() => setActiveModal(null)}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black bg-opacity-30" />
-          <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
-              <div className="p-6 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
-                <Dialog.Title className="text-2xl font-bold text-gray-900">
-                  Cookie Policy
-                </Dialog.Title>
-                <button
-                  onClick={() => setActiveModal(null)}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            
-              <div className="p-6 space-y-6 text-sm text-gray-700 overflow-y-auto flex-1">
-                <section>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    What Are Cookies?
-                  </h3>
-                  <p className="mb-2">
-                    Cookies are small text files that are placed on your device when you visit our website. They help us provide you with a better experience by remembering your preferences and analyzing how you use our site.
-                  </p>
-                </section>
 
-                <section>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Types of Cookies We Use
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">Essential Cookies</h4>
-                      <p className="text-sm text-gray-600 mb-2">These cookies are necessary for the website to function properly. They enable basic functions like page navigation and access to secure areas of the website.</p>
-                      <p className="text-xs text-gray-500">Examples: Session management, security, load balancing</p>
-                    </div>
-                    
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">Analytics Cookies</h4>
-                      <p className="text-sm text-gray-600 mb-2">These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.</p>
-                      <p className="text-xs text-gray-500">Examples: Google Analytics, user behavior tracking</p>
-                    </div>
-                    
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">Marketing Cookies</h4>
-                      <p className="text-sm text-gray-600 mb-2">These cookies are used to track visitors across websites to display relevant and engaging advertisements.</p>
-                      <p className="text-xs text-gray-500">Examples: Social media pixels, advertising networks</p>
-                    </div>
-                  </div>
-                </section>
-
-                <section>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Cookie Settings
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                      <div>
-                        <p className="font-medium">Essential Cookies</p>
-                        <p className="text-xs text-gray-500">Required for app functionality</p>
-                      </div>
-                      <div className="text-green-600 font-medium">Always Active</div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                      <div>
-                        <p className="font-medium">Analytics Cookies</p>
-                        <p className="text-xs text-gray-500">Help us improve our services</p>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" className="sr-only peer" defaultChecked />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                      </label>
-                    </div>
-                    
-                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                      <div>
-                        <p className="font-medium">Marketing Cookies</p>
-                        <p className="text-xs text-gray-500">Personalized advertisements</p>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" className="sr-only peer" />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                      </label>
-                    </div>
-                  </div>
-                </section>
-
-                <section>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Managing Your Cookie Preferences
-                  </h3>
-                  <p className="mb-2">
-                    You can control and manage cookies in various ways:
-                  </p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>Browser settings: Most browsers allow you to refuse cookies or delete them</li>
-                    <li>Third-party opt-out: Use tools provided by advertising networks</li>
-                    <li>Our settings: Use the controls above to manage your preferences</li>
-                  </ul>
-                </section>
-
-                <section>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Updates to This Policy
-                  </h3>
-                  <p className="mb-2">
-                    We may update this Cookie Policy from time to time. We will notify you of any changes by posting the new Cookie Policy on this page and updating the "Last updated" date.
-                  </p>
-                </section>
-
-                {/* 更新日期 */}
-                <section className="pt-4 border-t border-gray-200">
-                  <p className="text-xs text-gray-500">
-                    Last updated: {new Date().toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}
-                  </p>
-                </section>
-              </div>
-
-              {/* 底部按钮 */}
-              <div className="p-6 border-t border-gray-200 flex justify-end space-x-3 flex-shrink-0">
-                <button
-                  onClick={handleCookieDecline}
-                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors"
-                >
-                  Decline
-                </button>
-                <button
-                  onClick={handleCookieAccept}
-                  className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
-                >
-                  Accept All
-                </button>
-              </div>
-            </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
     </>
   );
 }
