@@ -228,7 +228,7 @@ export default function IntroPage() {
                                         {
                                             title: 'Create Travel Stories',
                                             description: 'Create your exclusive travel stories, design 3D check-in routes, and earn rewards when others follow your paths.',
-                                            image: '/static/online_resource/travel_story.png'
+                                            image: '/static/online_resource/create_story.png'
                                         },
                                         {
                                             title: 'Social Travel',
