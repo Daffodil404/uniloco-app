@@ -5,6 +5,7 @@ import Header from '@/components/ui/Header';
 import Image from 'next/image';
 import { ConfigProvider, Steps } from 'antd';
 import DownloadSection from '@/components/features/DownloadSection';
+import GDPRSection from '@/components/features/GDPRSection';
 
 export default function PartnershipPage() {
   const [activeSection, setActiveSection] = useState('home');
@@ -408,6 +409,9 @@ export default function PartnershipPage() {
 
 
       <DownloadSection />
+
+      {/* GDPR Section */}
+      <GDPRSection />
       {/* Custom CSS for animations */}
       <style jsx>{`
         @keyframes fade-in {
