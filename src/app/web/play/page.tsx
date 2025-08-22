@@ -10,7 +10,7 @@ export default function HowToPlayPage() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => setIsLoaded(true), 100);
+        setTimeout(() => setIsLoaded(true), 50);
     }, []);
 
     const handleNavigation = (section: string) => {
@@ -64,7 +64,7 @@ export default function HowToPlayPage() {
                     <div className="flex flex-col lg:flex-row items-center gap-16">
                         {/* Left Side - Steps Content */}
                         <div className="flex-1 lg:flex-[0.4] text-left space-y-8">
-                            <div className="space-y-2">
+                            <div className={`space-y-2 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.1s' }}>
                                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                                     <span className="block text-[#fe5a5e]">How It Works</span>
                                 </h1>
@@ -73,22 +73,25 @@ export default function HowToPlayPage() {
                                 </p>
                             </div>
 
-                            <div className="space-y-6">
+                            <div className={`space-y-6 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
                                 {steps.map((step, index) => (
-                                    <div 
+                                    <div
                                         key={step.number}
-                                        className={`flex items-center gap-6 ${
-                                            isLoaded ? 'animate-fade-in' : 'opacity-0'
-                                        }`}
+                                        className={`flex items-center gap-6 ${isLoaded ? 'animate-fade-in' : 'opacity-0'
+                                            }`}
                                         style={{
-                                            animationDelay: `${index * 0.2}s`
+                                            animationDelay: `${0.5 + index * 0.15}s`
                                         }}
                                     >
                                         {/* Step Number */}
-                                        <div className="flex-shrink-0 w-16 h-16 bg-[#fe5a5e] text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+                                        <div className={`flex-shrink-0 w-12 h-12 bg-[#fe5a5e] text-white rounded-full flex items-center justify-center text-lg font-bold shadow-lg ${isLoaded ? 'animate-scale-in' : 'opacity-0'
+                                            }`}
+                                            style={{
+                                                animationDelay: `${0.6 + index * 0.15}s`
+                                            }}>
                                             {step.number}
                                         </div>
-                                        
+
                                         {/* Step Title Only */}
                                         <h3 className="text-2xl font-bold text-gray-800">
                                             {step.title}
@@ -99,12 +102,33 @@ export default function HowToPlayPage() {
                         </div>
 
                         {/* Right Side - Video */}
-                        <div className="flex-1 lg:flex-[0.6]">
-                            <VideoPlayer
-                                src="/video/play.mp4"
-                                fallbackSrc="/video/play.mp4"
-                                brightness={1.5}
-                            />
+                        <div className={`flex-1 lg:flex-[0.6] ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
+                            <div className="relative group rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-300 bg-transparent" >
+                                <video
+                                    className="rounded-2xl"
+                                    controls
+                                    preload="auto"
+                                    playsInline
+                                    muted
+                                    loop
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        filter: 'brightness(1.5) contrast(1.02) saturate(1.05)',
+                                        colorScheme: 'light',
+                                        objectFit: 'contain'
+                                    }}
+                                >
+                                    <source src="/video/play.mp4" type="video/mp4" />
+                                    <source src="/video/play.mp4" type="video/quicktime" />
+                                    Your browser does not support the video tag.
+                                </video>
+
+                                {/* Fullscreen Hint */}
+                                <div className="absolute bottom-2 right-2 bg-black/50 text-white px-2 py-1 rounded text-xs z-20">
+                                    Double-click for fullscreen
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -125,6 +149,100 @@ export default function HowToPlayPage() {
                         opacity: 1; 
                         transform: translateY(0); 
                     }
+                }
+                
+                /* 为不同元素添加不同的动画效果 */
+                .animate-fade-in[style*="animationDelay: 0.1s"] {
+                    animation: slideInLeft 0.8s ease-out 0.1s forwards;
+                }
+                
+                .animate-fade-in[style*="animationDelay: 0.2s"] {
+                    animation: slideInRight 0.8s ease-out 0.2s forwards;
+                }
+                
+                .animate-fade-in[style*="animationDelay: 0.3s"] {
+                    animation: fadeInUp 0.8s ease-out 0.3s forwards;
+                }
+                
+                @keyframes slideInLeft {
+                    from { 
+                        opacity: 0; 
+                        transform: translateX(-50px); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translateX(0); 
+                    }
+                }
+                
+                @keyframes slideInRight {
+                    from { 
+                        opacity: 0; 
+                        transform: translateX(50px); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translateX(0); 
+                    }
+                }
+                
+                @keyframes fadeInUp {
+                    from { 
+                        opacity: 0; 
+                        transform: translateY(40px); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translateY(0); 
+                    }
+                }
+                
+                .animate-scale-in {
+                    animation: scaleIn 0.6s ease-out forwards;
+                }
+                
+                @keyframes scaleIn {
+                    from { 
+                        opacity: 0; 
+                        transform: scale(0.5); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: scale(1); 
+                    }
+                }
+                
+                /* 视频样式 */
+                video {
+                    background: transparent;
+                }
+                
+                /* 视频控件样式 */
+                video::-webkit-media-controls {
+                    background-color: rgba(0, 0, 0, 0.3);
+                    border-radius: 0 0 1rem 1rem;
+                }
+                
+                video::-webkit-media-controls-panel {
+                    background-color: rgba(0, 0, 0, 0.3);
+                }
+                
+                video::-webkit-media-controls-play-button {
+                    background-color: rgba(254, 88, 95, 0.9);
+                    border-radius: 50%;
+                    color: white;
+                }
+                
+                video::-webkit-media-controls-timeline {
+                    background-color: rgba(255, 255, 255, 0.4);
+                    border-radius: 2px;
+                }
+                
+                video::-webkit-media-controls-current-time-display,
+                video::-webkit-media-controls-time-remaining-display {
+                    color: white;
+                    font-weight: bold;
+                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
                 }
             `}</style>
         </div>
