@@ -196,7 +196,7 @@ export default function IntroPage() {
                                 Building the world&apos;s first decentralized travel ecosystem, powered by AI-driven personalization to craft unique adventures and unlock multiple earning streams.
                             </p>
 
-                            <div className="mt-4">
+                            <div className={`mt-4 ${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                                 <DownloadSection buttonOnly={true} textColor='#ffffff'/>
                             </div>
                         </div>
@@ -490,7 +490,9 @@ export default function IntroPage() {
                 </section>
             )}
 
-            <DownloadSection />
+            <div className={`${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
+                <DownloadSection />
+            </div>
 
             {/* CSS Styles */}
             <style jsx>{`
