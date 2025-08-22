@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Header from '@/components/ui/Header';
 import VideoPlayer from '@/components/features/VideoPlayer';
+import GDPRSection from '@/components/features/GDPRSection';
 
 export default function HowToPlayPage() {
     const [activeSection, setActiveSection] = useState('how-to');
@@ -245,6 +246,9 @@ export default function HowToPlayPage() {
                     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
                 }
             `}</style>
+
+            {/* GDPR Section */}
+            <GDPRSection />
         </div>
     );
 }

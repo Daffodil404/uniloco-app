@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Header from '@/components/ui/Header';
 import { image } from 'framer-motion/client';
 import DownloadSection from '@/components/features/DownloadSection';
+import GDPRSection from '@/components/features/GDPRSection';
 
 export default function TravelBandNFTsPage() {
   const router = useRouter();

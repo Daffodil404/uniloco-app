@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Header from '@/components/ui/Header';
 import DownloadSection from '@/components/features/DownloadSection';
+import GDPRSection from '@/components/features/GDPRSection';
 
 export default function UncEconomicPage() {
     const router = useRouter();
@@ -306,19 +307,20 @@ export default function UncEconomicPage() {
             </section>
 
             {/* Download Section - Moved outside Hero */}
-            <section className="py-16 bg-white">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center">
-                        <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
-                            Ready to Start Your Journey?
-                        </h2>
-                        <p className="text-xl text-gray-600 mb-8">
-                            Download Uniloco and begin your travel-to-earn adventure today
-                        </p>
-                    </div>
-                    <DownloadSection textColor='#fe5a5e' />
+            <section className="py-8 bg-white">
+                <div className="text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold text-[#fe5a5e] mb-4">
+                        Ready to Start Your Journey?
+                    </h2>
+                    <p className="text-xl text-gray-600 mb-8">
+                        Download Uniloco and begin your travel-to-earn adventure today
+                    </p>
                 </div>
+                <DownloadSection textColor='#fe5a5e' />
             </section>
+
+            {/* GDPR Section */}
+            <GDPRSection />
 
             {/* CSS Styles */}
             <style jsx>{`
