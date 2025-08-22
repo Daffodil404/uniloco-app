@@ -8,212 +8,432 @@ interface GDPRSectionProps {
 }
 
 export default function GDPRSection({ className = '' }: GDPRSectionProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState<'privacy' | 'tos' | 'cookie' | null>(null);
+  const [cookieConsent, setCookieConsent] = useState<'accepted' | 'declined' | null>(null);
+
+  const handleCookieAccept = () => {
+    setCookieConsent('accepted');
+    setActiveModal(null);
+    // 这里可以添加保存cookie设置的逻辑
+    console.log('Cookies accepted');
+  };
+
+  const handleCookieDecline = () => {
+    setCookieConsent('declined');
+    setActiveModal(null);
+    // 这里可以添加拒绝cookie的逻辑
+    console.log('Cookies declined');
+  };
 
   return (
     <>
       {/* 底部GDPR链接 */}
-      <div className={`text-center py-4 border-t border-gray-200 ${className}`}>
-        <button
-          onClick={() => setIsOpen(true)}
-          className="text-sm text-gray-500 hover:text-gray-700 transition-colors underline"
-        >
-          Privacy Policy & Cookie Settings
-        </button>
+      <div className={`text-center py-4 border-t w-full border-gray-200 ${className}`}>
+            <div className="flex w-[50%] mx-auto justify-around text-sm">
+          <button
+            onClick={() => setActiveModal('privacy')}
+            className="text-gray-500 hover:text-gray-700 transition-colors underline"
+          >
+            Privacy Policy
+          </button>
+          <button
+            onClick={() => setActiveModal('tos')}
+            className="text-gray-500 hover:text-gray-700 transition-colors underline"
+          >
+            Terms of Service
+          </button>
+          <button
+            onClick={() => setActiveModal('cookie')}
+            className="text-gray-500 hover:text-gray-700 transition-colors underline"
+          >
+            Cookie Policy
+          </button>
+        </div>
       </div>
 
-      {/* GDPR Modal */}
-      <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      {/* Privacy Policy Modal */}
+      <Dialog.Root open={activeModal === 'privacy'} onOpenChange={() => setActiveModal(null)}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black bg-opacity-50" />
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-black bg-opacity-30" />
           <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200">
+            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
+              <div className="p-6 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
                 <Dialog.Title className="text-2xl font-bold text-gray-900">
-                  Privacy Policy & Cookie Settings
+                  Privacy Policy
                 </Dialog.Title>
+                <button
+                  onClick={() => setActiveModal(null)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
             
-            <div className="p-6 space-y-6 text-sm text-gray-700">
-              {/* 数据收集 */}
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  1. Data Collection
-                </h3>
-                <p className="mb-2">
-                  We collect the following types of personal data:
-                </p>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>Account information (name, email, profile data)</li>
-                  <li>Travel preferences and itinerary data</li>
-                  <li>Location data (with your consent)</li>
-                  <li>Usage analytics and app interactions</li>
-                  <li>Device information and technical logs</li>
-                </ul>
-              </section>
+              <div className="p-6 space-y-6 text-sm text-gray-700 overflow-y-auto flex-1">
+                {/* 数据收集 */}
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    1. Data Collection
+                  </h3>
+                  <p className="mb-2">
+                    We collect the following types of personal data:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Account information (name, email, profile data)</li>
+                    <li>Travel preferences and itinerary data</li>
+                    <li>Location data (with your consent)</li>
+                    <li>Usage analytics and app interactions</li>
+                    <li>Device information and technical logs</li>
+                  </ul>
+                </section>
 
-              {/* 数据用途 */}
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  2. How We Use Your Data
-                </h3>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>Provide personalized travel recommendations</li>
-                  <li>Generate AI-powered itineraries</li>
-                  <li>Improve app functionality and user experience</li>
-                  <li>Send relevant notifications and updates</li>
-                  <li>Ensure app security and prevent fraud</li>
-                </ul>
-              </section>
+                {/* 数据用途 */}
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    2. How We Use Your Data
+                  </h3>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Provide personalized travel recommendations</li>
+                    <li>Generate AI-powered itineraries</li>
+                    <li>Improve app functionality and user experience</li>
+                    <li>Send relevant notifications and updates</li>
+                    <li>Ensure app security and prevent fraud</li>
+                  </ul>
+                </section>
 
-              {/* 法律基础 */}
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  3. Legal Basis for Processing
-                </h3>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li><strong>Consent:</strong> For marketing communications and optional features</li>
-                  <li><strong>Contract:</strong> To provide our travel planning services</li>
-                  <li><strong>Legitimate Interest:</strong> To improve our services and ensure security</li>
-                  <li><strong>Legal Obligation:</strong> To comply with applicable laws</li>
-                </ul>
-              </section>
+                {/* 法律基础 */}
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    3. Legal Basis for Processing
+                  </h3>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li><strong>Consent:</strong> For marketing communications and optional features</li>
+                    <li><strong>Contract:</strong> To provide our travel planning services</li>
+                    <li><strong>Legitimate Interest:</strong> To improve our services and ensure security</li>
+                    <li><strong>Legal Obligation:</strong> To comply with applicable laws</li>
+                  </ul>
+                </section>
 
-              {/* 数据共享 */}
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  4. Data Sharing
-                </h3>
-                <p className="mb-2">
-                  We may share your data with:
-                </p>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>Travel service providers (hotels, restaurants, activities)</li>
-                  <li>Payment processors for secure transactions</li>
-                  <li>Analytics providers (with anonymized data)</li>
-                  <li>Legal authorities when required by law</li>
-                </ul>
-              </section>
+                {/* 用户权利 */}
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    4. Your Rights (GDPR Article 15-22)
+                  </h3>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li><strong>Access:</strong> Request a copy of your personal data</li>
+                    <li><strong>Rectification:</strong> Correct inaccurate data</li>
+                    <li><strong>Erasure:</strong> Request deletion of your data</li>
+                    <li><strong>Portability:</strong> Receive your data in a structured format</li>
+                    <li><strong>Restriction:</strong> Limit how we process your data</li>
+                    <li><strong>Objection:</strong> Object to certain processing activities</li>
+                    <li><strong>Withdraw Consent:</strong> Revoke previously given consent</li>
+                  </ul>
+                </section>
 
-              {/* 数据保留 */}
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  5. Data Retention
-                </h3>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>Account data: Until account deletion</li>
-                  <li>Travel itineraries: 3 years</li>
-                  <li>Analytics data: 2 years</li>
-                  <li>Logs: 1 year</li>
-                </ul>
-              </section>
+                {/* 联系方式 */}
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    5. Contact Information
+                  </h3>
+                  <p className="mb-2">
+                    For privacy-related inquiries or to exercise your rights:
+                  </p>
+                  <ul className="space-y-1">
+                    <li><strong>Email:</strong> privacy@uniloco.com</li>
+                    <li><strong>Data Protection Officer:</strong> dpo@uniloco.com</li>
+                    <li><strong>Address:</strong> [Your Company Address]</li>
+                  </ul>
+                  <p className="mt-3 text-xs text-gray-500">
+                    You also have the right to lodge a complaint with your local data protection authority.
+                  </p>
+                </section>
 
-              {/* 用户权利 */}
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  6. Your Rights (GDPR Article 15-22)
-                </h3>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li><strong>Access:</strong> Request a copy of your personal data</li>
-                  <li><strong>Rectification:</strong> Correct inaccurate data</li>
-                  <li><strong>Erasure:</strong> Request deletion of your data</li>
-                  <li><strong>Portability:</strong> Receive your data in a structured format</li>
-                  <li><strong>Restriction:</strong> Limit how we process your data</li>
-                  <li><strong>Objection:</strong> Object to certain processing activities</li>
-                  <li><strong>Withdraw Consent:</strong> Revoke previously given consent</li>
-                </ul>
-              </section>
+                {/* 更新日期 */}
+                <section className="pt-4 border-t border-gray-200">
+                  <p className="text-xs text-gray-500">
+                    Last updated: {new Date().toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </p>
+                </section>
+              </div>
 
-              {/* Cookie设置 */}
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  7. Cookie Settings
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                    <div>
-                      <p className="font-medium">Essential Cookies</p>
-                      <p className="text-xs text-gray-500">Required for app functionality</p>
-                    </div>
-                    <div className="text-green-600 font-medium">Always Active</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                    <div>
-                      <p className="font-medium">Analytics Cookies</p>
-                      <p className="text-xs text-gray-500">Help us improve our services</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" defaultChecked />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                    <div>
-                      <p className="font-medium">Marketing Cookies</p>
-                      <p className="text-xs text-gray-500">Personalized advertisements</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-                </div>
-              </section>
-
-              {/* 联系方式 */}
-              <section>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  8. Contact Information
-                </h3>
-                <p className="mb-2">
-                  For privacy-related inquiries or to exercise your rights:
-                </p>
-                <ul className="space-y-1">
-                  <li><strong>Email:</strong> privacy@uniloco.com</li>
-                  <li><strong>Data Protection Officer:</strong> dpo@uniloco.com</li>
-                  <li><strong>Address:</strong> [Your Company Address]</li>
-                </ul>
-                <p className="mt-3 text-xs text-gray-500">
-                  You also have the right to lodge a complaint with your local data protection authority.
-                </p>
-              </section>
-
-              {/* 更新日期 */}
-              <section className="pt-4 border-t border-gray-200">
-                <p className="text-xs text-gray-500">
-                  Last updated: {new Date().toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
-                </p>
-              </section>
+              {/* 底部按钮 */}
+              <div className="p-6 border-t border-gray-200 flex justify-end flex-shrink-0">
+                <button
+                  onClick={() => setActiveModal(null)}
+                  className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
             </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
 
-            {/* 底部按钮 */}
-            <div className="p-6 border-t border-gray-200 flex justify-end space-x-3">
-              <button
-                onClick={() => setIsOpen(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
-              >
-                Close
-              </button>
-              <button
-                onClick={() => {
-                  // 这里可以添加保存cookie设置的逻辑
-                  setIsOpen(false);
-                }}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-              >
-                Save Settings
-              </button>
+      {/* Terms of Service Modal */}
+      <Dialog.Root open={activeModal === 'tos'} onOpenChange={() => setActiveModal(null)}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-black bg-opacity-30" />
+          <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
+              <div className="p-6 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
+                <Dialog.Title className="text-2xl font-bold text-gray-900">
+                  Terms of Service
+                </Dialog.Title>
+                <button
+                  onClick={() => setActiveModal(null)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            
+              <div className="p-6 space-y-6 text-sm text-gray-700 overflow-y-auto flex-1">
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    1. Acceptance of Terms
+                  </h3>
+                  <p className="mb-2">
+                    By accessing and using Uniloco, you accept and agree to be bound by the terms and provision of this agreement.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    2. Use License
+                  </h3>
+                  <p className="mb-2">
+                    Permission is granted to temporarily download one copy of the materials (information or software) on Uniloco's website for personal, non-commercial transitory viewing only.
+                  </p>
+                  <p className="mb-2">This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>modify or copy the materials</li>
+                    <li>use the materials for any commercial purpose or for any public display</li>
+                    <li>attempt to reverse engineer any software contained on Uniloco's website</li>
+                    <li>remove any copyright or other proprietary notations from the materials</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    3. User Responsibilities
+                  </h3>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Provide accurate and complete information</li>
+                    <li>Maintain the security of your account</li>
+                    <li>Comply with all applicable laws and regulations</li>
+                    <li>Respect the rights of other users</li>
+                    <li>Not use the service for any illegal or unauthorized purpose</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    4. Service Availability
+                  </h3>
+                  <p className="mb-2">
+                    We strive to maintain high availability of our services, but we do not guarantee uninterrupted access. We reserve the right to modify, suspend, or discontinue any part of our service at any time.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    5. Limitation of Liability
+                  </h3>
+                  <p className="mb-2">
+                    In no event shall Uniloco or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Uniloco's website.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    6. Governing Law
+                  </h3>
+                  <p className="mb-2">
+                    These terms and conditions are governed by and construed in accordance with the laws of [Your Jurisdiction] and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
+                  </p>
+                </section>
+
+                {/* 更新日期 */}
+                <section className="pt-4 border-t border-gray-200">
+                  <p className="text-xs text-gray-500">
+                    Last updated: {new Date().toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </p>
+                </section>
+              </div>
+
+              {/* 底部按钮 */}
+              <div className="p-6 border-t border-gray-200 flex justify-end">
+                <button
+                  onClick={() => setActiveModal(null)}
+                  className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
             </div>
-          </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+
+      {/* Cookie Policy Modal */}
+      <Dialog.Root open={activeModal === 'cookie'} onOpenChange={() => setActiveModal(null)}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-black bg-opacity-30" />
+          <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
+              <div className="p-6 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
+                <Dialog.Title className="text-2xl font-bold text-gray-900">
+                  Cookie Policy
+                </Dialog.Title>
+                <button
+                  onClick={() => setActiveModal(null)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            
+              <div className="p-6 space-y-6 text-sm text-gray-700 overflow-y-auto flex-1">
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    What Are Cookies?
+                  </h3>
+                  <p className="mb-2">
+                    Cookies are small text files that are placed on your device when you visit our website. They help us provide you with a better experience by remembering your preferences and analyzing how you use our site.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    Types of Cookies We Use
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <h4 className="font-semibold text-gray-900 mb-2">Essential Cookies</h4>
+                      <p className="text-sm text-gray-600 mb-2">These cookies are necessary for the website to function properly. They enable basic functions like page navigation and access to secure areas of the website.</p>
+                      <p className="text-xs text-gray-500">Examples: Session management, security, load balancing</p>
+                    </div>
+                    
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <h4 className="font-semibold text-gray-900 mb-2">Analytics Cookies</h4>
+                      <p className="text-sm text-gray-600 mb-2">These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.</p>
+                      <p className="text-xs text-gray-500">Examples: Google Analytics, user behavior tracking</p>
+                    </div>
+                    
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <h4 className="font-semibold text-gray-900 mb-2">Marketing Cookies</h4>
+                      <p className="text-sm text-gray-600 mb-2">These cookies are used to track visitors across websites to display relevant and engaging advertisements.</p>
+                      <p className="text-xs text-gray-500">Examples: Social media pixels, advertising networks</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    Cookie Settings
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <div>
+                        <p className="font-medium">Essential Cookies</p>
+                        <p className="text-xs text-gray-500">Required for app functionality</p>
+                      </div>
+                      <div className="text-green-600 font-medium">Always Active</div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <div>
+                        <p className="font-medium">Analytics Cookies</p>
+                        <p className="text-xs text-gray-500">Help us improve our services</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" defaultChecked />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <div>
+                        <p className="font-medium">Marketing Cookies</p>
+                        <p className="text-xs text-gray-500">Personalized advertisements</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    Managing Your Cookie Preferences
+                  </h3>
+                  <p className="mb-2">
+                    You can control and manage cookies in various ways:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Browser settings: Most browsers allow you to refuse cookies or delete them</li>
+                    <li>Third-party opt-out: Use tools provided by advertising networks</li>
+                    <li>Our settings: Use the controls above to manage your preferences</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    Updates to This Policy
+                  </h3>
+                  <p className="mb-2">
+                    We may update this Cookie Policy from time to time. We will notify you of any changes by posting the new Cookie Policy on this page and updating the "Last updated" date.
+                  </p>
+                </section>
+
+                {/* 更新日期 */}
+                <section className="pt-4 border-t border-gray-200">
+                  <p className="text-xs text-gray-500">
+                    Last updated: {new Date().toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </p>
+                </section>
+              </div>
+
+              {/* 底部按钮 */}
+              <div className="p-6 border-t border-gray-200 flex justify-end space-x-3 flex-shrink-0">
+                <button
+                  onClick={handleCookieDecline}
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors"
+                >
+                  Decline
+                </button>
+                <button
+                  onClick={handleCookieAccept}
+                  className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+                >
+                  Accept All
+                </button>
+              </div>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </>
   );
 }
