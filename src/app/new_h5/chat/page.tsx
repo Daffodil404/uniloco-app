@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Send, Image, Mic, MicOff, ChevronLeft, MoreVertical } from 'lucide-react';
 import { useAudio } from '@/hooks/useAudio';
@@ -14,7 +14,7 @@ interface Message {
   duration?: number; // for voice messages
 }
 
-export default function ChatPage() {
+function ChatPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const conversationId = searchParams.get('id');
@@ -379,5 +379,13 @@ export default function ChatPage() {
         className="hidden"
       />
     </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#F9F7F5] flex items-center justify-center text-[#9B9B9B]">加载中...</div>}>
+      <ChatPageInner />
+    </Suspense>
   );
 }
