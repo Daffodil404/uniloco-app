@@ -115,7 +115,7 @@ export default function HowToPlayPage() {
                                     style={{
                                         width: '100%',
                                         height: '100%',
-                                        filter: 'brightness(1.5) contrast(1.02) saturate(1.05)',
+                                        filter: 'brightness(2) contrast(1.02) saturate(1.05)',
                                         colorScheme: 'light',
                                         objectFit: 'contain'
                                     }}
@@ -152,7 +152,7 @@ export default function HowToPlayPage() {
                                     style={{
                                         width: '100%',
                                         height: '100%',
-                                        filter: 'brightness(1.5) contrast(1.02) saturate(1.05)',
+                                        filter: 'brightness(2) contrast(1.02) saturate(1.05)',
                                         colorScheme: 'light',
                                         objectFit: 'contain'
                                     }}
