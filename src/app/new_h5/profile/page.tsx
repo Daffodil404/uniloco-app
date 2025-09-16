@@ -29,7 +29,7 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<'profile' | 'journeys' | 'equipment'>('profile');
 
   const handleBackToHome = () => {
-    router.push('/h5/home');
+    router.push('/new_h5/index');
   };
 
   const handleNavigateToEquipment = () => {
@@ -52,69 +52,7 @@ export default function ProfilePage() {
     totalPoints: isLoggedIn ? 1560 : 0
   };
 
-  const unlockedJourneys: UnlockedJourney[] = [
-    {
-      id: '1',
-      title: 'Tokyo Adventure',
-      destination: 'Tokyo, Japan',
-      completedAt: '2024-03-15',
-      checkIns: 12,
-      totalPoints: 15
-    },
-    {
-      id: '2',
-      title: 'Paris Discovery',
-      destination: 'Paris, France',
-      completedAt: '2024-02-28',
-      checkIns: 8,
-      totalPoints: 12
-    },
-    {
-      id: '3',
-      title: 'Kyoto Heritage',
-      destination: 'Kyoto, Japan',
-      completedAt: '2024-01-20',
-      checkIns: 6,
-      totalPoints: 10
-    }
-  ];
 
-  const equipment: Equipment[] = [
-    {
-      id: '1',
-      name: 'Explorer Backpack',
-      type: 'tool',
-      rarity: 'common',
-      image: '/static/locate.png',
-      isOwned: true
-    },
-    {
-      id: '2',
-      name: 'Golden Compass',
-      type: 'tool',
-      rarity: 'rare',
-      image: '/static/locate.png',
-      isOwned: true
-    },
-    {
-      id: '3',
-      name: 'Adventure Hat',
-      type: 'avatar',
-      rarity: 'epic',
-      image: '/static/locate.png',
-      isOwned: false,
-      price: 500
-    },
-    {
-      id: '4',
-      name: 'Legendary Wings',
-      type: 'badge',
-      rarity: 'legendary',
-      image: '/static/locate.png',
-      isOwned: false,
-      price: 2000
-    }
-  ];
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
@@ -202,96 +140,6 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-
-        {/* Navigation Tabs */}
-        <div className="flex gap-2 mb-4">
-          <button
-            onClick={() => setActiveTab('journeys')}
-            className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-              activeTab === 'journeys'
-                ? 'bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white'
-                : 'bg-slate-100 text-slate-600'
-            }`}
-          >
-            Unlocked Journeys
-          </button>
-          <button
-            onClick={handleNavigateToEquipment}
-            className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-              activeTab === 'equipment'
-                ? 'bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white'
-                : 'bg-slate-100 text-slate-600'
-            }`}
-          >
-            Equipment
-          </button>
-        </div>
-
-        {/* Unlocked Journeys */}
-        {activeTab === 'journeys' && (
-          <div className="space-y-3">
-            {unlockedJourneys.map((journey) => (
-              <div key={journey.id} className="bg-white shadow-sm rounded-2xl p-4 border border-slate-200">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-slate-800 font-semibold">{journey.title}</h3>
-                  <span className="text-amber-500 text-sm">★ {journey.totalPoints}</span>
-                </div>
-                <p className="text-slate-500 text-sm mb-3">{journey.destination}</p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-sm">
-                    <span className="text-slate-500">Check-ins: {journey.checkIns}</span>
-                    <span className="text-slate-500">Completed: {journey.completedAt}</span>
-                  </div>
-                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Equipment Preview */}
-        {activeTab === 'equipment' && (
-          <div className="space-y-3">
-            <div className="bg-white shadow-sm rounded-2xl p-4 border border-slate-200">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-slate-800 font-semibold">My Equipment</h3>
-                <span className="text-slate-500 text-sm">{equipment.filter(e => e.isOwned).length}/{equipment.length}</span>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                {equipment.slice(0, 4).map((item) => (
-                  <div key={item.id} className={`bg-slate-50 rounded-xl p-3 border ${
-                    item.isOwned ? 'border-emerald-500' : 'border-slate-200'
-                  }`}>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-8 h-8 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                        </svg>
-                      </div>
-                      <span className={`text-xs font-medium ${getRarityColor(item.rarity)}`}>
-                        {item.rarity.toUpperCase()}
-                      </span>
-                    </div>
-                    <p className="text-slate-800 text-sm font-medium">{item.name}</p>
-                    {!item.isOwned && item.price && (
-                      <p className="text-[#fe5a5e] text-xs mt-1">{item.price} UNC</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <button
-                onClick={handleNavigateToEquipment}
-                className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-[#fe5a5e] to-[#ff7a80] text-white rounded-xl text-sm font-medium"
-              >
-                View All Equipment
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

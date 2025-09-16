@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState, useEffect, useRef } from "react";
 import InteractiveMap from "@/components/features/InteractiveMap";
 import type { MapPoint } from "@/types/travel";
+import { useRouter } from "next/navigation";
 
 // 罗马中心坐标 (Roma, Italy)
 const ROME_CENTER: [number, number] = [41.9028, 12.4964];
@@ -49,8 +50,11 @@ const ROME_POINTS: readonly MapPoint[] = [
 ] as const;
 
 export default function Page() {
+  const router = useRouter();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  const [showTreasure, setShowTreasure] = useState(false);
+  const [showDanmaku, setShowDanmaku] = useState(false);
 
   const mapPoints = useMemo(() => ROME_POINTS.slice(), []);
 
@@ -74,6 +78,23 @@ export default function Page() {
     setCurrentItemIndex((prev) => Math.min(4, prev + 1)); // 最多5个项目，索引0-4
   };
 
+  // 宝箱点击处理
+  const handleTreasureClick = () => {
+    setShowTreasure(!showTreasure);
+    // TODO: 在地图上高亮新的点
+  };
+
+  // 个人中心点击处理
+  const handleProfileClick = () => {
+    router.push('/new_h5/profile');
+  };
+
+  // 弹幕点击处理
+  const handleDanmakuClick = () => {
+    setShowDanmaku(!showDanmaku);
+    // TODO: 显示弹幕功能
+  };
+
   // 选中菜单后自动滚动到卡片区域
   const cardSectionRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -90,7 +111,7 @@ export default function Page() {
       {/* 地图和菜单在同一水平面，使用 flex 布局 */}
       <div className="flex flex-col h-screen">
         {/* 地图区域：占据剩余空间 */}
-        <div className="flex-1 p-4">
+        <div className="flex-1 p-4 relative">
           <div className="h-full rounded-2xl overflow-hidden shadow-md">
             <InteractiveMap
               mapPoints={mapPoints}
@@ -99,6 +120,45 @@ export default function Page() {
               zoom={14}
             />
           </div>
+
+          {/* 悬浮控件 */}
+          {/* 1. 左侧宝箱 */}
+          <button
+            onClick={handleTreasureClick}
+            className={`absolute left-6 top-6 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all active:scale-95 z-50 ${
+              showTreasure 
+                ? 'bg-[#FF9E4A] text-white' 
+                : 'bg-white/90 backdrop-blur-sm text-[#333333]'
+            }`}
+          >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+            </svg>
+          </button>
+
+          {/* 2. 右上角个人中心 */}
+          <button
+            onClick={handleProfileClick}
+            className="absolute right-6 top-6 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center text-[#333333] transition-all active:scale-95 z-50"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </button>
+
+          {/* 3. 右下角弹幕 */}
+          <button
+            onClick={handleDanmakuClick}
+            className={`absolute right-6 bottom-6 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all active:scale-95 z-50 ${
+              showDanmaku 
+                ? 'bg-[#4A90E2] text-white' 
+                : 'bg-white/90 backdrop-blur-sm text-[#333333]'
+            }`}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+            </svg>
+          </button>
         </div>
 
         {/* 菜单区域：固定高度，与地图同 z-index */}
