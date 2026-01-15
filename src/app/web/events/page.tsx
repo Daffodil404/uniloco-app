@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Header from '@/components/ui/Header';
 import UpcomingAdventuresMarquee from '@/components/features/UpcomingAdventuresMarquee';
 import DownloadSection from '@/components/features/DownloadSection';
+import GDPRSection from '@/components/features/GDPRSection';
 
 export default function EventsPage() {
   const router = useRouter();
@@ -455,6 +456,9 @@ export default function EventsPage() {
       </section>
 
       <DownloadSection />
+
+      {/* GDPR Section */}
+      <GDPRSection />
 
       {/* Custom CSS for animations */}
       <style jsx>{`

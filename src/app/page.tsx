@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Header from '@/components/ui/Header';
 import DownloadSection from '@/components/features/DownloadSection';
 import VideoPlayer from '@/components/features/VideoPlayer';
+import GDPRSection from '@/components/features/GDPRSection';
+import CookieConsent from '@/components/features/CookieConsent';
 
 export default function IntroPage() {
     const router = useRouter();
@@ -490,9 +492,17 @@ export default function IntroPage() {
                 </section>
             )}
 
+
+
             <div className={`${heroLoaded ? 'slide-in-left-delay-6' : 'opacity-0'}`}>
                 <DownloadSection />
             </div>
+
+            {/* GDPR Section */}
+            <GDPRSection />
+
+            {/* Cookie Consent - Fixed mode for first-time visitors */}
+            <CookieConsent mode="fixed" />
 
             {/* CSS Styles */}
             <style jsx>{`

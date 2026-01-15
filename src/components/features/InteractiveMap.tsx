@@ -116,7 +116,7 @@ export default function InteractiveMap({
                 border-radius: 16px;
                 border: 3px solid #ffffff;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-                z-index: 1000 !important;
+                z-index: 99997 !important;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
               }
               .leaflet-popup-tip {
@@ -124,7 +124,7 @@ export default function InteractiveMap({
                 border: 2px solid #ffffff;
               }
               .leaflet-popup {
-                z-index: 1000 !important;
+                z-index: 99997 !important;
               }
               .leaflet-popup-content {
                 margin: 12px 16px;

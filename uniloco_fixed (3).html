@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uniloco App - 修复版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .phone-frame {
+            width: 320px;
+            height: 600px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+        }
+        
+        .screen.active {
+            display: flex;
+        }
+        
+        /* 主屏幕地图 */
+        .map-main-screen {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: linear-gradient(180deg, #87ceeb 0%, #98d8e8 30%, #a8e6cf 70%, #90ee90 100%);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(139,69,19,0.4) 8px, transparent 10px),
+                radial-gradient(circle at 75% 35%, rgba(139,69,19,0.3) 6px, transparent 8px),
+                radial-gradient(circle at 40% 60%, rgba(139,69,19,0.3) 5px, transparent 7px);
+            background-size: 100px 100px, 120px 120px, 90px 90px;
+        }
+        
+        /* 右上角设置按钮 */
+        .settings-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+        
+        .settings-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* 左上角天气卡片 */
+        .location-weather-card {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 12px 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            min-width: 120px;
+        }
+        
+        .location-name {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+        
+        .weather-info {
+            display: block;
+            font-size: 11px;
+            color: #7f8c8d;
+        }
+        
+        /* 左侧Orbiting交友按钮 */
+        .orbiting-button {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            width: 65px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 100;
+        }
+        
+        .orbiting-button:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+        
+        .orbiting-button.selected {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.8);
+        }
+        
+        .orbiting-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .orbiting-text {
+            font-size: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* 用户头像 */
+        .user-avatars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .user-avatars.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .user-avatar {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: avatar-flash 2s ease-in-out infinite;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.2);
+        }
+        
+        @keyframes avatar-flash {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        /* Travel Stories 卡片区域 */
+        .travel-stories-container {
+            position: absolute;
+            bottom: 150px;
+            left: 0;
+            right: 0;
+            height: 200px;
+            padding: 0 15px;
+            z-index: 90;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .travel-stories-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
+        .stories-header {
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            padding-left: 5px;
+        }
+        
+        .stories-slider {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 5px 0 20px 0;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            cursor: grab;
+        }
+        
+        .stories-slider:active {
+            cursor: grabbing;
+        }
+        
+        .stories-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .story-card {
+            min-width: 200px;
+            width: 200px;
+            height: 140px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 18px;
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            z-index: -1;
+            border-radius: 18px;
+        }
+        
+        .story-card.rome::before {
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+        }
+        
+        .story-card.barcelona::before {
+            background: linear-gradient(135deg, #2196f3, #673ab7);
+        }
+        
+        .story-card.paris::before {
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+        }
+        
+        .story-card.amsterdam::before {
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+        }
+        
+        .story-card.tokyo::before {
+            background: linear-gradient(135deg, #ff5722, #e91e63);
+        }
+        
+        .story-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .story-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        
+        .story-subtitle {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        
+        .story-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #95a5a6;
+            margin-top: auto;
+        }
+        
+        .story-rating, .story-participants {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* 底部活动栏 */
+        .activity-bar {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex !important;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 101;
+            min-width: 280px;
+        }
+        
+        .activity-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 6px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            min-width: 40px;
+        }
+        
+        .activity-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .activity-item.selected {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .activity-item .emoji {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+        
+        .activity-item .label {
+            font-size: 9px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        /* 左下角Stories按钮 */
+        .treasure-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 15px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            z-index: 100;
+            animation: treasure-bounce 3s ease-in-out infinite;
+        }
+        
+        .treasure-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .treasure-btn.active {
+            transform: scale(1.15);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.7);
+            animation: none;
+        }
+        
+        @keyframes treasure-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        /* 右下角AI助手 */
+        .ai-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 15px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 100;
+        }
+        
+        .ai-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .ai-btn.expanded {
+            transform: scale(1.3);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+        }
+        
+        /* 地图标记 */
+        .map-marker {
+            position: absolute;
+            cursor: pointer;
+            z-index: 50;
+        }
+        
+        .marker-pin {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .marker-pin:hover {
+            transform: scale(1.2);
+        }
+        
+        /* 底部导航 */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        /* 卡片叠加层 */
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 200;
+            max-height: 70%;
+            overflow-y: auto;
+        }
+        
+        .card-overlay.show {
+            transform: translateY(0);
+        }
+        
+        .card-overlay .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .overlay-content {
+            padding: 50px 20px 20px;
+        }
+        
+        /* 其他页面样式 */
+        .header {
+            height: 60px;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: white;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .page-content {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .card-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .rating {
+            color: #ffa726;
+            margin: 5px 0;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #5a67d8;
+        }
+        
+        /* 开关样式 */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- 主屏幕 -->
+        <div class="screen active" id="main-screen">
+            <div class="map-main-screen">
+                <!-- 右上角设置 -->
+                <div class="settings-btn" onclick="showScreen('settings-screen')">⚙️</div>
+                
+                <!-- 左上角天气 -->
+                <div class="location-weather-card">
+                    <span class="location-name">📍 罗马市中心</span>
+                    <span class="weather-info">☀️ 23°C 晴朗</span>
+                </div>
+                
+                <!-- 左侧交友按钮 -->
+                <div class="orbiting-button" onclick="toggleOrbiting()">
+                    <div class="orbiting-icon">👥</div>
+                    <div class="orbiting-text">Orbit<br>交友</div>
+                </div>
+                
+                <!-- 用户头像区域 -->
+                <div class="user-avatars" id="user-avatars">
+                    <div class="user-avatar" style="top: 20%; left: 30%;" onclick="showUserProfile('Marco')">👤</div>
+                    <div class="user-avatar" style="top: 40%; right: 25%;" onclick="showUserProfile('Lisa')">👩</div>
+                    <div class="user-avatar" style="bottom: 30%; left: 40%;" onclick="showUserProfile('Paolo')">👨</div>
+                    <div class="user-avatar" style="top: 60%; right: 40%;" onclick="showUserProfile('Anna')">🧑</div>
+                </div>
+                
+                <!-- Travel Stories 卡片区域 -->
+                <div class="travel-stories-container" id="travel-stories-container">
+                    <div class="stories-header">📚 Travel Stories</div>
+                    <div class="stories-slider" id="stories-slider">
+                        <div class="story-card rome" onclick="showStoryDetail('rome')">
+                            <div class="story-icon">🏛️</div>
+                            <div class="story-title">罗马永恒之城</div>
+                            <div class="story-subtitle">探索古罗马帝国的辉煌遗迹，体验历史的厚重</div>
+                            <div class="story-stats">
+                                <div class="story-rating">
+                                    <span>⭐</span>
+                                    <span>4.8</span>
+                                </div>
+                                <div class="story-participants">
+                                    <span>👥</span>
+                                    <span>1.2k</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="story-card barcelona" onclick="showStoryDetail('barcelona')">
+                            <div class="story-icon">🏗️</div>
+                            <div class="story-title">巴塞罗那艺术之旅</div>
+                            <div class="story-subtitle">高迪建筑的奇幻世界，现代艺术的殿堂</div>
+                            <div class="story-stats">
+                                <div class="story-rating">
+                                    <span>⭐</span>
+                                    <span>4.7</span>
+                                </div>
+                                <div class="story-participants">
+                                    <span>👥</span>
+                                    <span>892</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="story-card paris" onclick="showStoryDetail('paris')">
+                            <div class="story-icon">🗼</div>
+                            <div class="story-title">巴黎浪漫之约</div>
+                            <div class="story-subtitle">塞纳河畔的诗意生活，时尚之都的魅力</div>
+                            <div class="story-stats">
+                                <div class="story-rating">
+                                    <span>⭐</span>
+                                    <span>4.9</span>
+                                </div>
+                                <div class="story-participants">
+                                    <span>👥</span>
+                                    <span>2.1k</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="story-card amsterdam" onclick="showStoryDetail('amsterdam')">
+                            <div class="story-icon">🚲</div>
+                            <div class="story-title">阿姆斯特丹运河之美</div>
+                            <div class="story-subtitle">骑行穿越历史与现代，运河文化的魅力</div>
+                            <div class="story-stats">
+                                <div class="story-rating">
+                                    <span>⭐</span>
+                                    <span>4.6</span>
+                                </div>
+                                <div class="story-participants">
+                                    <span>👥</span>
+                                    <span>651</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="story-card tokyo" onclick="showStoryDetail('tokyo')">
+                            <div class="story-icon">🏯</div>
+                            <div class="story-title">东京现代与传统</div>
+                            <div class="story-subtitle">樱花季节的文化探索，古今交融的魅力</div>
+                            <div class="story-stats">
+                                <div class="story-rating">
+                                    <span>⭐</span>
+                                    <span>4.5</span>
+                                </div>
+                                <div class="story-participants">
+                                    <span>👥</span>
+                                    <span>543</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 底部活动栏 -->
+                <div class="activity-bar">
+                    <div class="activity-item" onclick="selectActivity('delicacy', this)">
+                        <div class="emoji">🍽️</div>
+                        <div class="label">美食</div>
+                    </div>
+                    <div class="activity-item" onclick="selectActivity('attraction', this)">
+                        <div class="emoji">🏛️</div>
+                        <div class="label">景点</div>
+                    </div>
+                    <div class="activity-item" onclick="selectActivity('service', this)">
+                        <div class="emoji">🛎️</div>
+                        <div class="label">服务</div>
+                    </div>
+                    <div class="activity-item" onclick="selectActivity('scripted', this)">
+                        <div class="emoji">🎭</div>
+                        <div class="label">脚本</div>
+                    </div>
+                    <div class="activity-item" onclick="selectActivity('activities', this)">
+                        <div class="emoji">🎪</div>
+                        <div class="label">活动</div>
+                    </div>
+                </div>
+                
+                <!-- 地图标记 -->
+                <div class="map-marker" style="top: 25%; left: 30%;">
+                    <div class="marker-pin">🏛️</div>
+                </div>
+                <div class="map-marker" style="top: 40%; left: 60%;">
+                    <div class="marker-pin">🍽️</div>
+                </div>
+                
+                <!-- 左下角Stories按钮 -->
+                <div class="treasure-btn" onclick="toggleTravelStories()">📚</div>
+                
+                <!-- 右下角AI助手 -->
+                <div class="ai-btn" onclick="toggleAI()">🤖</div>
+                
+                <!-- 底部导航 -->
+                <div class="bottom-nav" onclick="showScreen('itinerary-screen')">➕ 行程规划</div>
+                
+                <!-- 卡片叠加层 -->
+                <div class="card-overlay" id="card-overlay">
+                    <button class="close-btn" onclick="hideCardOverlay()">×</button>
+                    <div class="overlay-content" id="overlay-content"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 设置页面 -->
+        <div class="screen" id="settings-screen">
+            <div class="header">
+                <button class="back-btn" onclick="showScreen('main-screen')">←</button>
+                <span>⚙️ 设置</span>
+            </div>
+            <div class="page-content">
+                <div class="card">
+                    <div class="card-title">账户设置</div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin: 15px 0;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: #667eea; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">👤</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 16px;">旅行探索者</div>
+                            <div style="color: #666; font-size: 14px;">explorer@uniloco.com</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">通知设置</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0;">
+                        <span>推送通知</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">语言设置</div>
+                    <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <option>中文 (简体)</option>
+                        <option>English</option>
+                        <option>Italiano</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Travel Stories -->
+        <div class="screen" id="treasure-screen">
+            <div class="header">
+                <button class="back-btn" onclick="showScreen('main-screen')">←</button>
+                <span>📦 Travel Stories</span>
+            </div>
+            <div class="page-content">
+                <div class="card">
+                    <div class="card-title">罗马假日3日游</div>
+                    <p>探索永恒之城的经典路线</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">巴塞罗那文艺之旅</div>
+                    <p>高迪建筑的奇幻世界</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <div class="screen" id="itinerary-screen">
+            <div class="header">
+                <button class="back-btn" onclick="showScreen('main-screen')">←</button>
+                <span>📅 行程规划</span>
+            </div>
+            <div class="page-content">
+                <div style="text-align: center; background: linear-gradient(135deg, #ff6b6b, #ffa500); color: white; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                    <h2>浪漫罗马之旅</h2>
+                    <p>9月1日 - 9月4日 · 4天3夜</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">今日行程</div>
+                    <p>🏛️ 斗兽场参观 | 14:00-16:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentActivity = null;
+        let orbitingActive = false;
+        let aiExpanded = false;
+        let storiesVisible = false;
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            resetMainStates();
+        }
+
+        function resetMainStates() {
+            document.querySelectorAll('.activity-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector('.orbiting-button').classList.remove('selected');
+            document.querySelector('.ai-btn').classList.remove('expanded');
+            document.querySelector('.treasure-btn').classList.remove('active');
+            document.getElementById('user-avatars').classList.remove('active');
+            document.getElementById('travel-stories-container').classList.remove('active');
+            
+            currentActivity = null;
+            orbitingActive = false;
+            aiExpanded = false;
+            storiesVisible = false;
+            hideCardOverlay();
+        }
+
+        function selectActivity(type, element) {
+            console.log('选择活动:', type);
+            
+            document.querySelectorAll('.activity-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector('.orbiting-button').classList.remove('selected');
+            document.querySelector('.ai-btn').classList.remove('expanded');
+            document.querySelector('.treasure-btn').classList.remove('active');
+            document.getElementById('user-avatars').classList.remove('active');
+            document.getElementById('travel-stories-container').classList.remove('active');
+            orbitingActive = false;
+            aiExpanded = false;
+            storiesVisible = false;
+            
+            element.classList.add('selected');
+            currentActivity = type;
+            showActivityContent(type);
+        }
+
+        function showActivityContent(type) {
+            const contents = {
+                'delicacy': {
+                    title: '美食推荐',
+                    html: `
+                        <div class="card">
+                            <div class="card-image" style="background: linear-gradient(45deg, #ff9800, #f57c00);"></div>
+                            <div class="card-title">Marco's Italian Kitchen</div>
+                            <div class="rating">⭐⭐⭐⭐⭐ 4.7/5</div>
+                            <p>正宗意大利菜 | 开放时间: 11:00-23:00</p>
+                        </div>
+                    `
+                },
+                'attraction': {
+                    title: '热门景点',
+                    html: `
+                        <div class="card">
+                            <div class="card-image" style="background: linear-gradient(45deg, #2196f3, #1976d2);"></div>
+                            <div class="card-title">罗马斗兽场</div>
+                            <div class="rating">⭐⭐⭐⭐⭐ 4.8/5</div>
+                            <p>古罗马遗迹 | 开放时间: 08:30-19:15</p>
+                        </div>
+                    `
+                },
+                'service': {
+                    title: '专业服务',
+                    html: `
+                        <div class="card">
+                            <div class="card-image" style="background: linear-gradient(45deg, #ff5722, #d84315);"></div>
+                            <div class="card-title">私人导游服务</div>
+                            <div class="rating">⭐⭐⭐⭐ 4.6/5</div>
+                            <p>专业导游带领深度游 | €120/团队</p>
+                        </div>
+                    `
+                },
+                'scripted': {
+                    title: '沉浸体验',
+                    html: `
+                        <div class="card">
+                            <div class="card-image" style="background: linear-gradient(45deg, #795548, #5d4037);"></div>
+                            <div class="card-title">罗马角斗士体验</div>
+                            <div class="rating">⭐⭐⭐⭐ 4.5/5</div>
+                            <p>沉浸式古罗马角斗士训练体验</p>
+                        </div>
+                    `
+                },
+                'activities': {
+                    title: '精彩活动',
+                    html: `
+                        <div class="card">
+                            <div class="card-image" style="background: linear-gradient(45deg, #e91e63, #c2185b);"></div>
+                            <div class="card-title">意大利料理课程</div>
+                            <div class="rating">⭐⭐⭐⭐⭐ 4.8/5</div>
+                            <p>学习制作正宗意大利面和提拉米苏</p>
+                        </div>
+                    `
+                }
+            };
+            
+            showCardOverlay(contents[type].title, contents[type].html);
+        }
+
+        function toggleOrbiting() {
+            document.querySelectorAll('.activity-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector('.ai-btn').classList.remove('expanded');
+            document.querySelector('.treasure-btn').classList.remove('active');
+            document.getElementById('travel-stories-container').classList.remove('active');
+            currentActivity = null;
+            aiExpanded = false;
+            storiesVisible = false;
+            hideCardOverlay();
+            
+            const btn = document.querySelector('.orbiting-button');
+            const avatars = document.getElementById('user-avatars');
+            
+            if (!orbitingActive) {
+                btn.classList.add('selected');
+                avatars.classList.add('active');
+                orbitingActive = true;
+            } else {
+                btn.classList.remove('selected');
+                avatars.classList.remove('active');
+                orbitingActive = false;
+            }
+        }
+
+        function toggleAI() {
+            document.querySelectorAll('.activity-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector('.orbiting-button').classList.remove('selected');
+            document.querySelector('.treasure-btn').classList.remove('active');
+            document.getElementById('user-avatars').classList.remove('active');
+            document.getElementById('travel-stories-container').classList.remove('active');
+            currentActivity = null;
+            orbitingActive = false;
+            storiesVisible = false;
+            
+            const btn = document.querySelector('.ai-btn');
+            
+            if (!aiExpanded) {
+                btn.classList.add('expanded');
+                aiExpanded = true;
+                showAIContent();
+            } else {
+                btn.classList.remove('expanded');
+                aiExpanded = false;
+                hideCardOverlay();
+            }
+        }
+
+        function toggleTravelStories() {
+            console.log('toggleTravelStories called, current state:', storiesVisible);
+            
+            document.querySelectorAll('.activity-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector('.orbiting-button').classList.remove('selected');
+            document.querySelector('.ai-btn').classList.remove('expanded');
+            document.getElementById('user-avatars').classList.remove('active');
+            currentActivity = null;
+            orbitingActive = false;
+            aiExpanded = false;
+            hideCardOverlay();
+            
+            const btn = document.querySelector('.treasure-btn');
+            const storiesContainer = document.getElementById('travel-stories-container');
+            
+            if (!storiesVisible) {
+                console.log('Showing stories');
+                btn.classList.add('active');
+                storiesContainer.classList.add('active');
+                storiesVisible = true;
+            } else {
+                console.log('Hiding stories');
+                btn.classList.remove('active');
+                storiesContainer.classList.remove('active');
+                storiesVisible = false;
+            }
+        }
+
+        function showStoryDetail(storyType) {
+            console.log('showStoryDetail called with:', storyType);
+            
+            const stories = {
+                'rome': {
+                    title: '🏛️ 罗马永恒之城',
+                    subtitle: '3天2夜深度游',
+                    rating: '4.8',
+                    participants: '1.2k',
+                    html: `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="width: 100%; height: 120px; background: linear-gradient(45deg, #ff6b6b, #ffa500); border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">🏛️</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">第一天：古罗马遗迹</div>
+                            <p>• 罗马斗兽场 (09:00-12:00)</p>
+                            <p>• 古罗马广场 (13:00-16:00)</p>
+                            <p>• 帕拉蒂尼山 (16:30-18:00)</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">第二天：梵蒂冈城</div>
+                            <p>• 圣彼得大教堂 (09:00-12:00)</p>
+                            <p>• 梵蒂冈博物馆 (14:00-17:00)</p>
+                            <p>• 西斯廷教堂 (17:30-18:30)</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">第三天：文艺复兴之美</div>
+                            <p>• 万神殿 (10:00-11:30)</p>
+                            <p>• 特莱维喷泉 (12:00-13:00)</p>
+                            <p>• 西班牙阶梯 (15:00-16:00)</p>
+                        </div>
+                        <button class="btn" onclick="bookStory('rome')">预订这个行程</button>
+                    `
+                },
+                'barcelona': {
+                    title: '🏗️ 巴塞罗那艺术之旅',
+                    subtitle: '4天3夜建筑探索',
+                    rating: '4.7',
+                    participants: '892',
+                    html: `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="width: 100%; height: 120px; background: linear-gradient(45deg, #2196f3, #673ab7); border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">🏗️</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">高迪建筑巡礼</div>
+                            <p>• 圣家堂 - 未完成的杰作</p>
+                            <p>• 巴特罗之家 - 骨头屋的奇幻</p>
+                            <p>• 米拉之家 - 石头梦境</p>
+                            <p>• 古埃尔公园 - 马赛克花园</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">老城区漫步</div>
+                            <p>• 哥特区的中世纪街道</p>
+                            <p>• 兰布拉大道的活力</p>
+                            <p>• 波盖利亚市场的美食</p>
+                        </div>
+                        <button class="btn" onclick="bookStory('barcelona')">开始巴塞罗那之旅</button>
+                    `
+                },
+                'paris': {
+                    title: '🗼 巴黎浪漫之约',
+                    subtitle: '5天4夜文化之旅',
+                    rating: '4.9',
+                    participants: '2.1k',
+                    html: `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="width: 100%; height: 120px; background: linear-gradient(45deg, #e91e63, #9c27b0); border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">🗼</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">经典巴黎</div>
+                            <p>• 埃菲尔铁塔 - 浪漫地标</p>
+                            <p>• 卢浮宫 - 艺术殿堂</p>
+                            <p>• 香榭丽舍大街 - 购物天堂</p>
+                            <p>• 凯旋门 - 历史见证</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">塞纳河游船</div>
+                            <p>• 黄昏时分的浪漫游船</p>
+                            <p>• 沿岸风光无限</p>
+                            <p>• 法式晚餐体验</p>
+                        </div>
+                        <button class="btn" onclick="bookStory('paris')">预订巴黎之旅</button>
+                    `
+                },
+                'amsterdam': {
+                    title: '🚲 阿姆斯特丹运河之美',
+                    subtitle: '3天2夜自由行',
+                    rating: '4.6',
+                    participants: '651',
+                    html: `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="width: 100%; height: 120px; background: linear-gradient(45deg, #4caf50, #8bc34a); border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">🚲</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">运河区探索</div>
+                            <p>• 骑行穿越历史运河</p>
+                            <p>• 参观安妮之家</p>
+                            <p>• 运河游船体验</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">艺术文化</div>
+                            <p>• 梵高博物馆</p>
+                            <p>• 阿姆斯特丹国立博物馆</p>
+                            <p>• 红灯区文化探索</p>
+                        </div>
+                        <button class="btn" onclick="bookStory('amsterdam')">探索阿姆斯特丹</button>
+                    `
+                },
+                'tokyo': {
+                    title: '🏯 东京现代与传统',
+                    subtitle: '5天4夜文化探索',
+                    rating: '4.5',
+                    participants: '543',
+                    html: `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="width: 100%; height: 120px; background: linear-gradient(45deg, #ff5722, #e91e63); border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">🏯</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">传统文化</div>
+                            <p>• 浅草寺参拜体验</p>
+                            <p>• 皇居东御苑漫步</p>
+                            <p>• 茶道文化体验</p>
+                            <p>• 和服租赁拍照</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">现代都市</div>
+                            <p>• 涩谷十字路口</p>
+                            <p>• 东京塔夜景观赏</p>
+                            <p>• 原宿时尚文化</p>
+                            <p>• 新宿购物天堂</p>
+                        </div>
+                        <button class="btn" onclick="bookStory('tokyo')">开始东京之旅</button>
+                    `
+                }
+            };
+            
+            const story = stories[storyType];
+            if (!story) {
+                console.log('Story not found for type:', storyType);
+                return;
+            }
+            
+            const storyContent = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2>${story.title}</h2>
+                    <p style="color: #666; margin: 10px 0;">${story.subtitle}</p>
+                    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
+                        <span style="display: flex; align-items: center; gap: 5px;">⭐ ${story.rating}</span>
+                        <span style="display: flex; align-items: center; gap: 5px;">👥 ${story.participants}人参与</span>
+                    </div>
+                </div>
+                ${story.html}
+            `;
+            
+            showCardOverlay('Travel Story', storyContent);
+        }
+
+        function showAIContent() {
+            const content = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">🤖</div>
+                    <h2>AI助手</h2>
+                </div>
+                <div class="card" style="background: #e3f2fd;">
+                    <p><strong>用户:</strong> 我想要喝很好喝的咖啡</p>
+                </div>
+                <div class="card" style="background: #f3e5f5;">
+                    <p><strong>AI推荐:</strong></p>
+                    <div class="card" style="margin-top: 10px;">
+                        <div class="card-title">Blue Bottle Coffee</div>
+                        <div class="rating">⭐⭐⭐⭐⭐ 4.9/5</div>
+                        <p>精品咖啡连锁店，新鲜烘焙豆</p>
+                        <p style="color: #666; font-size: 12px;">距离: 0.3km | 步行4分钟</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="continueChat()">继续对话</button>
+            `;
+            showCardOverlay('AI助手', content);
+        }
+
+        function showUserProfile(name) {
+            const profiles = {
+                'Marco': { job: '摄影师', age: 28, interests: '历史、艺术' },
+                'Lisa': { job: '设计师', age: 25, interests: '建筑、美食' },
+                'Paolo': { job: '建筑师', age: 32, interests: '古迹、文化' },
+                'Anna': { job: '艺术家', age: 27, interests: '绘画、旅行' }
+            };
+            
+            const profile = profiles[name];
+            const content = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">👤</div>
+                    <h2>${name}</h2>
+                </div>
+                <div class="card">
+                    <p><strong>职业:</strong> ${profile.job}</p>
+                    <p><strong>年龄:</strong> ${profile.age}岁</p>
+                    <p><strong>兴趣:</strong> ${profile.interests}</p>
+                    <p><strong>当前:</strong> 正在探索罗马</p>
+                    <p><strong>距离:</strong> 约200米</p>
+                </div>
+                <button class="btn" onclick="startChat('${name}')">💬 开始聊天</button>
+            `;
+            showCardOverlay(`${name}的资料`, content);
+        }
+
+        function showCardOverlay(title, content) {
+            const overlay = document.getElementById('card-overlay');
+            const overlayContent = document.getElementById('overlay-content');
+            
+            overlayContent.innerHTML = `
+                <h2 style="margin-bottom: 20px;">${title}</h2>
+                ${content}
+            `;
+            
+            overlay.classList.add('show');
+        }
+
+        function hideCardOverlay() {
+            const overlay = document.getElementById('card-overlay');
+            overlay.classList.remove('show');
+        }
+
+        function continueChat() {
+            alert('继续与AI对话...');
+        }
+
+        function startChat(name) {
+            alert(`开始与${name}聊天...`);
+        }
+
+        function bookStory(storyType) {
+            const storyNames = {
+                rome: '罗马永恒之城',
+                barcelona: '巴塞罗那艺术之旅', 
+                paris: '巴黎浪漫之约',
+                amsterdam: '阿姆斯特丹运河之美',
+                tokyo: '东京现代与传统'
+            };
+            alert(`正在预订 "${storyNames[storyType]}" 旅行故事...`);
+        }
+
+        function initializeStoriesSlider() {
+            const slider = document.getElementById('stories-slider');
+            if (!slider) {
+                console.log('Stories slider not found');
+                return;
+            }
+            
+            console.log('Initializing stories slider');
+            
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+
+            let touchStartX = 0;
+            let touchScrollLeft = 0;
+
+            slider.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchScrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                const touchX = e.touches[0].clientX;
+                const walk = (touchStartX - touchX) * 1.5;
+                slider.scrollLeft = touchScrollLeft + walk;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Uniloco App 已加载');
+            initializeStoriesSlider();
+        });
+    </script>
+</body>
+</html>
+                        
